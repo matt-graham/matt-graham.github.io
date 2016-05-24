@@ -89,7 +89,7 @@
                   \overbrace{\boldsymbol{x}^{(i)}}^{\text{2D joint positions}} = 
                   \mathbf{C}(\overbrace{{\boldsymbol{\phi}}}^{\text{cam. params.}})
                   \mathbf{r}^{(i)}(\overbrace{\boldsymbol{\psi}}^{\text{joint angles}},\,
-                  \overbrace{\boldsymbol{\ell}}^{\text{bone lengths}}) + 
+                  \overbrace{\boldsymbol{\ell}}^{\text{bone lengths}}) +
                   \overbrace{\epsilon \boldsymbol{n}^{(i)}}^{\text{obs. noise}}
               $$
               
@@ -215,49 +215,49 @@
           <script type="text/template">
             ## Approximate Bayesian Computation (ABC)
             
-            Inference when cannot evaluate $\mathbb{P}\left[\mathbf{X} = \boldsymbol{x} \,|\,\mathbf{\Theta} = \boldsymbol{\theta}\right]$?
+            Inference when cannot evaluate $\small\mathbb{P}\left[\mathbf{X} = \boldsymbol{x} \,|\,\mathbf{\Theta} = \boldsymbol{\theta}\right]$?
             
             Approximate likelihood
             
-            $$
+            $$\small
+              \mathbb{P}\left[
+                \tilde{\mathbf{X}} = \tilde{\boldsymbol{x}}
+                \,|\,
+                \mathbf{\Theta} = \boldsymbol{\theta}
+              \right] =
+              \int_{\mathcal{X}}
                 \mathbb{P}\left[
-                    \tilde{\mathbf{X}} = \tilde{\boldsymbol{x}}
-                    \,|\,
-                    \mathbf{\Theta} = \boldsymbol{\theta}
-                \right] =
-                \int_{\mathcal{X}}
-                  \mathbb{P}\left[
-                      \tilde{\mathbf{X}} = \tilde{\boldsymbol{x}} \,|\, \mathbf{X} = \boldsymbol{x}
-                  \right]
-                  \mathbb{P}\left[
-                      \mathbf{X} = \boldsymbol{x} \,|\, \mathbf{\Theta} = \boldsymbol{\theta}
-                  \right]
-                \, \mathrm{d}\boldsymbol{x}.
+                  \tilde{\mathbf{X}} = \tilde{\boldsymbol{x}} \,|\, \mathbf{X} = \boldsymbol{x}
+                \right]
+                \mathbb{P}\left[
+                  \mathbf{X} = \boldsymbol{x} \,|\, \mathbf{\Theta} = \boldsymbol{\theta}
+                \right]
+              \, \mathrm{d}\boldsymbol{x}.
             $$
             
             Unbiased estimator
             
-            $$
+            $$\small
+              \mathbb{P}\left[
+                \tilde{\mathbf{X}} = \tilde{\boldsymbol{x}}
+                \,|\,
+                \mathbf{\Theta} = \boldsymbol{\theta}
+              \right]
+              \approx
+              \frac{1}{S} \sum_{s=1}^S \left\lbrace 
                 \mathbb{P}\left[
-                    \tilde{\mathbf{X}} = \tilde{\boldsymbol{x}}
-                    \,|\,
-                    \mathbf{\Theta} = \boldsymbol{\theta}
+                  \tilde{\mathbf{X}} = \tilde{\boldsymbol{x}} \,|\, \mathbf{X} = \boldsymbol{x}^{(s)}
                 \right]
-                \approx
-                \frac{1}{S} \sum_{s=1}^S \left\lbrace 
-                    \mathbb{P}\left[
-                        \tilde{\mathbf{X}} = \tilde{\boldsymbol{x}} \,|\, \mathbf{X} = \boldsymbol{x}^{(s)}
-                    \right]
-                \right\rbrace
+              \right\rbrace
             $$
             
             $$
-                \boldsymbol{x}^{(s)} \sim 
-                  \mathbb{P}\left[
-                      \mathbf{X} = \boldsymbol{x}^{(s)} \,|\, \mathbf{\Theta} = \boldsymbol{\theta}
-                  \right]
-                ~~
-                \forall s \in \left\lbrace1,\dots S\right\rbrace.
+              \boldsymbol{x}^{(s)} \sim 
+              \mathbb{P}\left[
+                 \mathbf{X} = \boldsymbol{x}^{(s)} \,|\, \mathbf{\Theta} = \boldsymbol{\theta}
+              \right]
+              ~~
+              \forall s \in \left\lbrace1,\dots S\right\rbrace.
             $$
             
           </script>
