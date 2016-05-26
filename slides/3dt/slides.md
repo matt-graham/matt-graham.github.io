@@ -353,7 +353,7 @@ http://github.com/matt-graham/hmc
 
 Paper pre-print with more details
 
-http://arxiv.org/
+http://arxiv.org/abs/1605.07826
 
 ---
 
@@ -369,7 +369,7 @@ Image source: Wikipedia <!-- .element: style="font-size: 50%" -->
 ## Approximate Bayesian Computation (ABC)
 
 Inference when cannot evaluate 
-$\mathbb{P}\left[\mathbf{X} = \boldsymbol{x} \,|\,\mathbf{\Theta} = \boldsymbol{\theta}\right]$?
+$\small\mathbb{P}\left[\mathbf{X} = \boldsymbol{x} \,|\,\mathbf{\Theta} = \boldsymbol{\theta}\right]$?
 
 Approximate likelihood
 
@@ -420,18 +420,18 @@ $$
 
 System subject to holonomic constraint $\mathbf{c}(\boldsymbol{u}) = \boldsymbol{0}$
 
-$$
+$$\small
     H(\boldsymbol{u}, \boldsymbol{p}) = 
     -\log\mathbb{P}\left[\boldsymbol{U} = \boldsymbol{u}\right] + \frac{1}{2} \boldsymbol{p}^{\rm T}\mathbf{M}^{-1}\boldsymbol{p} + \mathbf{c}^{\rm T}\boldsymbol{\lambda} 
 $$
 
-$$
+$$\small
     \frac{{\rm d}\boldsymbol{u}}{{\rm d}t} = \mathbf{M}^{-1}\boldsymbol{p}
     \qquad
     \frac{{\rm d}\boldsymbol{u}}{{\rm d}t} = \frac{\partial \log\mathbb{P}\left[\boldsymbol{U} = \boldsymbol{u}\right]}{\partial \boldsymbol{u}} -  \frac{\partial \mathbf{c}}{\partial \boldsymbol{u}}^{\rm T} \boldsymbol{\lambda}
 $$
 
-$$
+$$\small
     \mathbf{c}(\boldsymbol{u}) = \boldsymbol{0}
     \qquad
     \frac{\partial \mathbf{c}}{\partial \boldsymbol{u}} \mathbf{M}^{-1} \boldsymbol{p} = \boldsymbol{0}
