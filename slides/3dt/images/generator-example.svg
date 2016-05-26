@@ -12,8 +12,8 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    height="306.15302pt"
    version="1.1"
-   viewBox="0 0 701.58679 306.15302"
-   width="701.58679pt"
+   viewBox="0 0 705.01264 306.15302"
+   width="705.01263pt"
    id="svg2"
    inkscape:version="0.91 r"
    sodipodi:docname="generator-example.svg">
@@ -42,9 +42,9 @@
      inkscape:window-height="686"
      id="namedview6026"
      showgrid="false"
-     inkscape:zoom="0.60461558"
-     inkscape:cx="618.74969"
-     inkscape:cy="207.26088"
+     inkscape:zoom="4.8938291"
+     inkscape:cx="904.58294"
+     inkscape:cy="37.516993"
      inkscape:window-x="0"
      inkscape:window-y="28"
      inkscape:window-maximized="1"
@@ -53,7 +53,7 @@
      inkscape:guide-bbox="true"
      fit-margin-top="0"
      fit-margin-left="0"
-     fit-margin-right="0"
+     fit-margin-right="1.1"
      fit-margin-bottom="0">
     <inkscape:grid
        type="xygrid"
@@ -93,7 +93,7 @@
   <g
      style="stroke-linecap:butt;stroke-linejoin:round"
      id="patch_1"
-     transform="translate(-96.249931,-69.69212)" />
+     transform="translate(-96.249913,-69.692117)" />
   <defs
      id="defs6021">
     <clipPath
@@ -110,7 +110,7 @@
   </defs>
   <g
      id="g18229"
-     transform="translate(-71.924026,-41.749276)"
+     transform="translate(-71.924013,-41.749277)"
      style="stroke-linecap:butt;stroke-linejoin:round">
     <text
        xml:space="preserve"
@@ -148,24 +148,24 @@
     </g>
   </g>
   <g
-     transform="translate(-96.249931,-53.808123)"
+     transform="translate(-96.249913,-53.808127)"
      id="matplotlib.axis_1"
      style="stroke-linecap:butt;stroke-linejoin:round" />
   <g
-     transform="translate(-96.249931,-53.808123)"
+     transform="translate(-96.249913,-53.808127)"
      id="matplotlib.axis_2"
      style="stroke-linecap:butt;stroke-linejoin:round" />
   <text
      xml:space="preserve"
      style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:24.24459076px;line-height:125%;font-family:'Latin Modern Roman';-inkscape-font-specification:'Latin Modern Roman, Bold';letter-spacing:0px;word-spacing:0px;fill:#4c80e6;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     x="87.293663"
+     x="87.293678"
      y="18.308544"
      id="text14798"
      sodipodi:linespacing="125%"><tspan
        sodipodi:role="line"
        id="tspan14800"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Latin Modern Roman';-inkscape-font-specification:'Latin Modern Roman, Bold';fill:#4c80e6;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round"
-       x="87.293663"
+       x="87.293678"
        y="18.308544"><tspan
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:cmsy10;-inkscape-font-specification:cmsy10;fill:#4c80e6;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:round"
    id="tspan14812">U</tspan> = <tspan
@@ -176,14 +176,14 @@
   <text
      xml:space="preserve"
      style="font-style:normal;font-weight:normal;font-size:11px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     x="137.50386"
+     x="137.50389"
      y="-87.557884"
      id="text14808"
      sodipodi:linespacing="125%"><tspan
        sodipodi:role="line"
        id="tspan14810"
        style="stroke-linecap:butt;stroke-linejoin:round"
-       x="137.50386"
+       x="137.50389"
        y="-87.557884" /></text>
   <text
      sodipodi:linespacing="125%"
@@ -207,7 +207,7 @@
          style="font-weight:normal;font-size:51.99999809%;baseline-shift:super;fill:#ff0000;stroke-linecap:butt;stroke-linejoin:round">N</tspan></tspan></text>
   <g
      style="stroke-linecap:butt;stroke-linejoin:round"
-     transform="translate(440.26181,19.778837)"
+     transform="translate(440.26182,19.778836)"
      id="figure_1-5">
     <g
        style="stroke-linecap:butt;stroke-linejoin:round"
@@ -16341,7 +16341,7 @@
   </g>
   <g
      style="stroke-linecap:butt;stroke-linejoin:round"
-     transform="translate(-91.942956,-47.169287)"
+     transform="translate(-91.942943,-47.169288)"
      id="figure_1-0">
     <g
        style="stroke-linecap:butt;stroke-linejoin:round"
@@ -32524,12 +32524,12 @@
      sodipodi:linespacing="125%"
      id="text8226"
      y="300.85101"
-     x="477.01648"
+     x="473.64346"
      style="font-style:normal;font-weight:normal;font-size:11px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
      xml:space="preserve"><tspan
        y="300.85101"
-       x="477.01648"
+       x="473.64346"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22px;font-family:'Gillius ADF';-inkscape-font-specification:'Gillius ADF';stroke-linecap:butt;stroke-linejoin:round"
        id="tspan8228"
-       sodipodi:role="line">Learnt density over data</tspan></text>
+       sodipodi:role="line">Implicit density over data</tspan></text>
 </svg>
