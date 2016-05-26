@@ -17,6 +17,27 @@ Matt Graham
 
 ---
 
+## Conditional inference
+
+Inference given partial observation of system state
+
+$\underbrace{\boldsymbol{y}\_\textrm{obs}}\_{\textrm{obs. pixels}} =$
+<img src='images/mnist-obs.png' width='10%' 
+style='vertical-align: middle; background: none; border: none; box-shadow: none;' /> 
+$\qquad \Rightarrow  \qquad  \underbrace{\boldsymbol{y}\_{\textrm{rest}}}\_{\textrm{other pixels}} = \textrm{?}$
+
+$\underbrace{\left\lbrace \boldsymbol{x}^{(i)} \right\rbrace}\_{\textrm{2D proj.}} =$
+<img src='images/pose-projection-obs.svg' width='10%' 
+style='vertical-align: middle; background: none; border: none; box-shadow: none;' /> 
+$\qquad \Rightarrow  \qquad \underbrace{\boldsymbol{\phi},\,\boldsymbol{\psi},\,\boldsymbol{\ell}}\_{\textrm{3D pose}} = \textrm{?}$
+
+$\underbrace{\boldsymbol{x}}\_{\textrm{obs. pops.}} =$ 
+<img src='images/lotka-volterra-obs.svg' width='10%' 
+style='vertical-align: middle; background: none; border: none; box-shadow: none;' /> 
+$\qquad \Rightarrow  \qquad \underbrace{\boldsymbol{\theta}}\_{\textrm{model params.}} = \textrm{?}$
+
+---
+
 ## Differentiable generator networks
 
 <img src='images/generator-example.svg' width='75%'
@@ -151,27 +172,6 @@ $$
 Note:
 
 Dynamics unstable for many parameter settings.
-
----
-
-## Conditional inference
-
-Make probabilistic inferences given observations
-
-$\boldsymbol{y}\_\textrm{obs}$
-<img src='images/mnist-obs.png' width='10%' 
-style='vertical-align: middle; background: none; border: none; box-shadow: none;' /> 
-$\qquad \Rightarrow  \qquad  \boldsymbol{y}_{\textrm{rest}} = \textrm{?}$
-
-$\left\lbrace \boldsymbol{x}^{(i)} \right\rbrace =$
-<img src='images/pose-projection-obs.svg' width='10%' 
-style='vertical-align: middle; background: none; border: none; box-shadow: none;' /> 
-$\qquad \Rightarrow  \qquad \boldsymbol{\phi},\,\boldsymbol{\psi},\,\boldsymbol{\ell} = \textrm{?}$
-
-$\boldsymbol{x} =$ 
-<img src='images/lotka-volterra-obs.svg' width='10%' 
-style='vertical-align: middle; background: none; border: none; box-shadow: none;' /> 
-$\qquad \Rightarrow  \qquad \boldsymbol{\theta} = \textrm{?}$
 
 ---
 
@@ -388,6 +388,21 @@ $$\small
       \right]
     \, \mathrm{d}\boldsymbol{x}.
 $$
+
+$$
+   \textrm{e.g. }
+      \mathbb{P}\left[
+          \tilde{\mathbf{X}} = \tilde{\boldsymbol{x}} \,|\, \mathbf{X} = \boldsymbol{x}
+      \right]
+      \propto
+      \mathbb{I}\left[
+        \left\Vert \tilde{\boldsymbol{x}} - \boldsymbol{x}\right\Vert_2 < \epsilon
+      \right]
+$$
+
+---
+
+## Approximate Bayesian Computation (ABC)
 
 Unbiased estimator
 
