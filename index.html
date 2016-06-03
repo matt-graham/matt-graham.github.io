@@ -101,14 +101,14 @@
         <div class="col-md-9">
           <p class="lead">
             I am a PhD student in the <a href="http://www.anc.ed.ac.uk/dtc/">Doctoral Training Centre in Neuroinformatics</a>, 
-            which is part of the <a href="http://www.inf.ed.ac.uk">School of Informatics</a> at 
+            part of the <a href="http://www.inf.ed.ac.uk">School of Informatics</a> at 
             <a href="http://www.ed.ac.uk">University of Edinburgh</a>. My supervisors are <a href="http://homepages.inf.ed.ac.uk/amos">Amos Storkey</a> 
             and <a href="http://homepages.inf.ed.ac.uk/pseries">Peggy Seriès</a>.
           </p>
           <p class="lead">
             I am interested in probabilistic inference and learning from both a machine learning and neuroscience perspective. 
             My current research is on statistical models and methods for learning the structure in high-dimensional datasets 
-            and performing probabilistic inference with them.
+            and performing inference with them.
           </p>
           <p>
             <div class="btn-group" role="group">
@@ -146,105 +146,125 @@
         <div class="page-header">
           <h1>Research</h1>
         </div>
-        <h2> <span class="text-muted">PhD project:</span> 
-          State-space transformations in MCMC methods 
-        </h2>
-        <p>
-          I am considering Markov Chain Monte Carlo (MCMC) methods which are a group of 
-          techniques for generating random samples from complex probabilistic models. 
-          The samples can then be used to evaluate the expectations of the model. For instance 
-          given a set of data we wish to model, we might want to sample the parameters of 
-          the model which explain the data and any prior beliefs well. Alternatively given 
-          a model of how some physical system works, we might want to sample predictions 
-          of how the system might behave in novel situation. In both cases as well as 
-          wanting to be able to generate plausible explanations from a model it is usually 
-          also useful to have some idea our degree of uncertainty in those explanations.
-        </p>
+        
+        <div class="col-xs-12">
+          <div class="row">
+            <h2> <span class="text-muted">PhD project:</span> 
+              State-space transformations in MCMC methods 
+            </h2>
+            <div class="col-md-3">
+                <img src="images/mcmc_visualisation.png" width="256" class="img-thumbnail center-block"/>
+            </div>
+            <div class="col-md-9">     
+                <p>
+                  I am considering Markov Chain Monte Carlo (MCMC) methods which are a group of 
+                  techniques for generating random samples from complex probabilistic models. 
+                  The samples can then be used to evaluate the expectations of the model. For instance 
+                  given a set of data we wish to model, we might want to sample the parameters of 
+                  the model which explain the data and any prior beliefs well. Alternatively given 
+                  a model of how some physical system works, we might want to sample predictions 
+                  of how the system might behave in novel situation. In both cases as well as 
+                  wanting to be able to generate plausible explanations from a model it is usually 
+                  also useful to have some idea our degree of uncertainty in those explanations.
+                </p>
 
-        <p>
-          I am specifically considering methods which apply transformations to the space 
-          which the probabilistic model is defined over. In some cases this allows the 
-          robustness or efficiency of sampling methods to be improved by making it easier 
-          for the sampler to coherently explore the target distribution. In other settings 
-          we can learn a transformation to map from a simple easy to sample from
-          distribution to a more interesting complex distribution which fits some data we 
-          have. Then if wish to sample from the complex distribution we can generate 
-          samples from the simple distribution and transform them to samples from the 
-          complex distribution.
-        </p>
-        <h3> Pre-prints </h3>
-        <ul class="list-unstyled">
-          <li>
-            <h4>
-              Asymptotically exact conditional inference in deep generative models and
-              differentiable simulators
-            </h4>
-            <p>
-              <i>Matthew M. Graham</i> and <a href="http://homepages.inf.ed.ac.uk/amos">Amos Storkey</a>
-            </p>
-            <button class="btn" data-toggle="collapse" data-target="#cond-inf-abs">Abstract</button>
-            <div id="cond-inf-abs" class="collapse">
-              Many generative models can be expressed as a deterministic differentiable
-              function $\mathrm{\mathbf{g}}(\boldsymbol{u})$ of random variables
-              $\boldsymbol{u}$ drawn from some simple base density. This framework includes
-              both deep generative architectures such as Variational Autoencoders and
-              Generative Adversial Nets, and a large class of dynamical system simulators. We
-              present a method for performing efficient MCMC inference in such models under
-              conditioning constraints on the model output. For some models this offers an
-              asymptotically exact inference method where Approximate Bayesian Computation
-              might otherwise be employed. We use the intuition that conditional inference
-              corresponds to integrating the base density across a manifold corresponding to
-              the set of $\boldsymbol{u}$ consistent with the conditioning. This motivates
-              the use of a constrained variant of Hamiltonian Monte Carlo which leverages the
-              smooth geometry of the manifold to coherently move between states satisfying
-              the constraint. We validate the method by performing inference tasks in a
-              diverse set of models: parameter inference in a dynamical predator-prey
-              simulation, joint 3D pose and camera model inference from a 2D projection and
-              image in-painting with a generative model of MNIST digit images.
+                <p>
+                  I am specifically considering methods which apply transformations to the space 
+                  which the probabilistic model is defined over. In some cases this allows the 
+                  robustness or efficiency of sampling methods to be improved by making it easier 
+                  for the sampler to coherently explore the target distribution. In other settings 
+                  we can learn a transformation to map from a simple easy to sample from
+                  distribution to a more interesting complex distribution which fits some data we 
+                  have. Then if wish to sample from the complex distribution we can generate 
+                  samples from the simple distribution and transform them to samples from the 
+                  complex distribution.
+                </p>
             </div>
-            <div class="btn-group" role="group">
-              <a href="http://arxiv.org/pdf/1605.07826.pdf" class="btn btn-default">
-                <i class="fa fa-file-pdf-o"></i> Pre-print on arXiv
-              </a>
-              <a href="https://github.com/matt-graham/hmc" class="btn btn-default">
-                <i class="fa fa-github"></i> Python code       
-              </a>
-              <a href="https://matt-graham.github.io/slides/3dt" class="btn btn-default">
-                <i class="fa fa-television"></i> Slides
-              </a>
-            </div>
-          </li>
-        </ul>
-        <h3> Publications </h3>
-        <ul class="list-unstyled">
-          <li>
-            <h4>Pseudo-Marginal Slice Sampling</h4>
-            <p>
-              <a href="http://homepages.inf.ed.ac.uk/imurray2/">Iain Murray</a> and <i>Matthew M. Graham</i>
-            </p>
-            <p style='font-style: italic;'>
-                Proceedings of the 19th International Conference on Artificial Intelligence and Statistics
-            </p>
-            <button class="btn" data-toggle="collapse" data-target="#pm-slice-abs">Abstract</button>
-            <div id="pm-slice-abs" class="collapse">
-              Markov chain Monte Carlo (MCMC) methods asymptotically sample from complex probability distributions. 
-              The pseudo-marginal MCMC framework only requires an unbiased estimator of the unnormalized probability 
-              distribution function to construct a Markov chain. However, the resulting chains are harder to tune 
-              to a target distribution than conventional MCMC, and the types of updates available are limited. 
-              We describe a general way to clamp and update the random numbers used in a pseudo-marginal method's 
-              unbiased estimator. In this framework we can use slice sampling and other adaptive methods. We obtain 
-              more robust Markov chains, which often mix more quickly.
-            </div> 
-            <div class="btn-group" role="group">
-              <a href="http://jmlr.org/proceedings/papers/v51/murray16.pdf" class="btn btn-default">
-                <i class="fa fa-file-pdf-o"></i> PDF
-              </a> 
-              <a href="https://github.com/matt-graham/auxiliary-pm-mcmc" class="btn btn-default">
-                <i class="fa fa-github"></i> Python code
-              </a>
-            </div>
-          </li>
-        </ul>
+          </div>
+          <div class="row">
+            <h3> Pre-prints </h3>
+            <ul class="list-unstyled">
+              <li>
+                <h4>
+                  Asymptotically exact conditional inference in deep generative models and
+                  differentiable simulators
+                </h4>
+                <p>
+                  <i>Matthew M. Graham</i> and <a href="http://homepages.inf.ed.ac.uk/amos">Amos Storkey</a>
+                </p>
+                <button class="btn" data-toggle="collapse" data-target="#cond-inf-abs">Abstract</button>
+                <div id="cond-inf-abs" class="collapse">
+                  Many generative models can be expressed as a deterministic differentiable
+                  function $\mathrm{\mathbf{g}}(\boldsymbol{u})$ of random variables
+                  $\boldsymbol{u}$ drawn from some simple base density. This framework includes
+                  both deep generative architectures such as Variational Autoencoders and
+                  Generative Adversial Nets, and a large class of dynamical system simulators. We
+                  present a method for performing efficient MCMC inference in such models under
+                  conditioning constraints on the model output. For some models this offers an
+                  asymptotically exact inference method where Approximate Bayesian Computation
+                  might otherwise be employed. We use the intuition that conditional inference
+                  corresponds to integrating the base density across a manifold corresponding to
+                  the set of $\boldsymbol{u}$ consistent with the conditioning. This motivates
+                  the use of a constrained variant of Hamiltonian Monte Carlo which leverages the
+                  smooth geometry of the manifold to coherently move between states satisfying
+                  the constraint. We validate the method by performing inference tasks in a
+                  diverse set of models: parameter inference in a dynamical predator-prey
+                  simulation, joint 3D pose and camera model inference from a 2D projection and
+                  image in-painting with a generative model of MNIST digit images.
+                </div>
+                <div class="btn-group" role="group">
+                  <a href="http://arxiv.org/pdf/1605.07826.pdf" class="btn btn-default">
+                    <i class="fa fa-file-pdf-o"></i> Pre-print on arXiv
+                  </a>
+                  <a href="files/cond_ind_poster.pdf" class="btn btn-default">
+                    <i class="fa fa-file-pdf-o"></i> Poster
+                  </a>
+                  <a href="https://matt-graham.github.io/slides/3dt" class="btn btn-default">
+                    <i class="fa fa-television"></i> Slides
+                  </a>
+                  <a href="https://github.com/matt-graham/hmc" class="btn btn-default">
+                    <i class="fa fa-github"></i> Python code       
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div> <!-- row Pre-prints -->
+          <div class="row">
+            <h3> Publications </h3>
+            <ul class="list-unstyled">
+              <li>
+                <h4>Pseudo-Marginal Slice Sampling</h4>
+                <p>
+                  <a href="http://homepages.inf.ed.ac.uk/imurray2/">Iain Murray</a> and <i>Matthew M. Graham</i>
+                </p>
+                <p style='font-style: italic;'>
+                    Proceedings of the 19th International Conference on Artificial Intelligence and Statistics
+                </p>
+                <button class="btn" data-toggle="collapse" data-target="#pm-slice-abs">Abstract</button>
+                <div id="pm-slice-abs" class="collapse">
+                  Markov chain Monte Carlo (MCMC) methods asymptotically sample from complex probability distributions. 
+                  The pseudo-marginal MCMC framework only requires an unbiased estimator of the unnormalized probability 
+                  distribution function to construct a Markov chain. However, the resulting chains are harder to tune 
+                  to a target distribution than conventional MCMC, and the types of updates available are limited. 
+                  We describe a general way to clamp and update the random numbers used in a pseudo-marginal method's 
+                  unbiased estimator. In this framework we can use slice sampling and other adaptive methods. We obtain 
+                  more robust Markov chains, which often mix more quickly.
+                </div> 
+                <div class="btn-group" role="group">
+                  <a href="http://jmlr.org/proceedings/papers/v51/murray16.pdf" class="btn btn-default">
+                    <i class="fa fa-file-pdf-o"></i> Paper
+                  </a> 
+                  <a href="files/pm_slice_poster.pdf" class="btn btn-default">
+                    <i class="fa fa-file-pdf-o"></i> Poster
+                  </a> 
+                  <a href="https://github.com/matt-graham/auxiliary-pm-mcmc" class="btn btn-default">
+                    <i class="fa fa-github"></i> Python code
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div> <!-- row Publications -->
+        </div> <!-- col PhD project -->
         <h2>Previous projects</h2>
         <div class="col-xs-12">
           <div class="row">
@@ -287,11 +307,11 @@
                 <a href="files/meng_project_presentation.pdf" class="btn btn-default">
                   <i class="fa fa-file-pdf-o"></i> Presentation
                 </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+              </div> <!-- btn-group -->
+            </div> <!-- col -->
+          </div> <!-- row  MEng project -->
+        </div> <!-- col Previous projects -->
+      </div> <!-- row Research -->
 
       <div class="row" id="code">
         <div class="page-header">
