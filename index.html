@@ -194,23 +194,27 @@
                 </p>
                 <button class="btn" data-toggle="collapse" data-target="#cond-inf-abs">Abstract</button>
                 <div id="cond-inf-abs" class="collapse">
-                  Many generative models can be expressed as a deterministic differentiable
-                  function $\mathrm{\mathbf{g}}(\boldsymbol{u})$ of random variables
-                  $\boldsymbol{u}$ drawn from some simple base density. This framework includes
-                  both deep generative architectures such as Variational Autoencoders and
-                  Generative Adversial Nets, and a large class of dynamical system simulators. We
-                  present a method for performing efficient MCMC inference in such models under
-                  conditioning constraints on the model output. For some models this offers an
-                  asymptotically exact inference method where Approximate Bayesian Computation
-                  might otherwise be employed. We use the intuition that conditional inference
-                  corresponds to integrating the base density across a manifold corresponding to
-                  the set of $\boldsymbol{u}$ consistent with the conditioning. This motivates
-                  the use of a constrained variant of Hamiltonian Monte Carlo which leverages the
-                  smooth geometry of the manifold to coherently move between states satisfying
-                  the constraint. We validate the method by performing inference tasks in a
-                  diverse set of models: parameter inference in a dynamical predator-prey
-                  simulation, joint 3D pose and camera model inference from a 2D projection and
-                  image in-painting with a generative model of MNIST digit images.
+                  Many generative models can be expressed as a deterministic 
+                  differentiable function of random inputs drawn from some 
+                  simple probability density. This framework includes both deep 
+                  generative architectures such as Variational Autoencoders and 
+                  a large class of dynamical system simulators. We present a 
+                  method for performing efficient MCMC inference in such models 
+                  when conditioning on observations of the model output. For 
+                  some models this offers an asymptotically exact inference 
+                  method where Approximate Bayesian Computation might otherwise 
+                  be employed. We use the intuition that conditional inference 
+                  corresponds to integrating a density across the manifold 
+                  corresponding to the set of inputs consistent with the 
+                  observed outputs. This motivates the use of a constrained 
+                  variant of Hamiltonian Monte Carlo which leverages the smooth 
+                  geometry of the manifold to coherently move between states 
+                  exactly satisfying the constraint. We validate the method by 
+                  performing inference tasks in a diverse set of models: 
+                  parameter inference in a dynamical predator-prey simulation, 
+                  joint 3D pose and camera model inference from 2D projections 
+                  and image in-painting with a generative model of MNIST digit 
+                  images.
                 </div>
                 <div class="btn-group" role="group">
                   <a href="http://arxiv.org/pdf/1605.07826.pdf" class="btn btn-default">
