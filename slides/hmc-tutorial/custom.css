@@ -1,0 +1,25 @@
+.MathJax_display {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.slides .present li {
+    margin-bottom: 0.5em;
+}
+
+a.anchor-link:link {
+    text-decoration: none;
+    padding: 0px 20px;
+    visibility: hidden;
+}
+
+sup.footnote-num {
+    font-size: 50%;
+    color: #aaa;
+}
+
+div.footnote {
+    margin-top: 0.5em;
+    font-size: 50%;
+    color: #aaa;
+}

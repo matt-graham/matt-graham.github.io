@@ -9,12 +9,13 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-<title>Hamiltonian Monte Carlo</title>
+<title>Hamiltonian Monte Carlo - A brief(ish) introduction</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <!-- General and theme style sheets -->
+<link href="custom.css" rel="stylesheet">
 <link rel="stylesheet" href="css/reveal.css">
 <link rel="stylesheet" href="css/theme/white.css" id="theme">
 
@@ -116,6 +117,9 @@ div.output_prompt {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Hamiltonian-Monte-Carlo">Hamiltonian Monte Carlo<a class="anchor-link" href="#Hamiltonian-Monte-Carlo">&#182;</a></h1><h2 id="A-brief(ish)-introduction">A brief(ish) introduction<a class="anchor-link" href="#A-brief(ish)-introduction">&#182;</a></h2>
+<p style="margin-top: 2em;">
+Matt Graham &lt;<a href="https://matt-graham.github.io">matt-graham.github.io</a>&gt;
+</p>
 </div>
 </div>
 </div></section>
@@ -127,7 +131,7 @@ div.output_prompt {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Motivation">Motivation<a class="anchor-link" href="#Motivation">&#182;</a></h2>
+<h2 id="Preliminaries">Preliminaries<a class="anchor-link" href="#Preliminaries">&#182;</a></h2>
 </div>
 </div>
 </div></section><section>
@@ -137,7 +141,7 @@ div.output_prompt {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Problem-definition">Problem definition<a class="anchor-link" href="#Problem-definition">&#182;</a></h3>
+<h3 id="Task">Task<a class="anchor-link" href="#Task">&#182;</a></h3>
 </div>
 </div>
 </div><div class="fragment" data-fragment-index="3">
@@ -196,7 +200,7 @@ $$
     If support is a bounded subset can sometimes transform to an equivalent unconstrained space using variable transform e.g $\log(u - c)$ if $u > c$.
   </li>
   <li class="fragment">
-    Density function (and energy) is everywhere differentiable with respect to $\boldsymbol{x}$ and the gradients can be tractably computed.
+    Density function is everywhere differentiable with respect to $\boldsymbol{x}$ and the gradients can be tractably computed.
   </li>
 </ul>
 </div>
@@ -293,7 +297,7 @@ $$
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Abstract-description-of-Hamiltonian-Monte-Carlo">Abstract description of Hamiltonian Monte Carlo<a class="anchor-link" href="#Abstract-description-of-Hamiltonian-Monte-Carlo">&#182;</a></h2>
+<h2 id="Abstract-description-of-Hamiltonian-Monte-Carlo">Abstract description of <br /> Hamiltonian Monte Carlo<a class="anchor-link" href="#Abstract-description-of-Hamiltonian-Monte-Carlo">&#182;</a></h2>
 </div>
 </div>
 </div></section><section>
@@ -390,7 +394,7 @@ $$
   \mathbf{S} =
   \left[
     \begin{array}{cc}
-      \mathbf{0} &amp; \mathbf{I} \
+      \mathbf{0} &amp; \mathbf{I} \\
       -\mathbf{I} &amp; \mathbf{0}
     \end{array}
   \right]
@@ -636,7 +640,7 @@ $$<p></p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Standard-(&#8216;Euclidean-manifold&#8217;)-HMC">Standard (&#8216;Euclidean manifold&#8217;) HMC<a class="anchor-link" href="#Standard-(&#8216;Euclidean-manifold&#8217;)-HMC">&#182;</a></h3><p>The standard (and original) implementation of HMC augments the system with variables which are independent of the original state and have a Gaussian conditional / marginal</p>
+<h3 id="Euclidean-Manifold-HMC">Euclidean Manifold HMC <sup style='font-size: 80%; color: #aaa;'>[1]</sup><a class="anchor-link" href="#Standard-HMC">&#182;</a></h3><p>The standard (and original) implementation of HMC augments the system with variables which are independent of the original state and have a Gaussian conditional / marginal</p>
 
 </div>
 </div>
@@ -655,7 +659,11 @@ $$
 </div>
 </div>
 </div>
-    </div></section><section>
+    </div>
+<div style='font-size: 60%; color: #aaa; margin-top: 2em;'>
+    1: Named for consistency versus Riemannian Manifold HMC. Naming scheme borrowed from <a href='https://arxiv.org/abs/1212.4693'>Betancourt (2012)</a>.
+</div>
+</section><section>
 
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -943,68 +951,108 @@ $$
 <em>Reference textbook for details of properties of Hamiltonian dynamics and their numerical simulation.</em></li>
 <li><a href="http://arxiv.org/abs/1206.1901"><strong>MCMC Using Hamiltonian Dynamics</strong>, Neal (2012)</a><br>
 <em>Extensive review of Hamiltonian Monte Carlo and various practical implementation issues.</em></li>
+<li><a href="https://arxiv.org/abs/1212.4693"><strong>A General Metric for Riemannian Manifold Hamiltonian Monte Carlo</strong>, Betancourt (2012)</a><br>
+<em>Good introduction to theory and implementation of more advanced Riemannian Manifold HMC method</em>.</li>
 </ul>
 
 </div>
 </div>
-</div></section>
-    </section>
+</div>
+</section>
+</section>
 </div>
 </div>
-
-<script src="lib/js/head.min.js"></script>
-
-<script src="js/reveal.js"></script>
 
 <script>
 
-// Full list of configuration options available here: https://github.com/hakimel/reveal.js#configuration
-Reveal.initialize({
-controls: true,
-progress: true,
-history: true,
+require(
+    {
+      // it makes sense to wait a little bit when you are loading
+      // reveal from a cdn in a slow connection environment
+      waitSeconds: 15
+    },
+    [
+      "lib/js/head.min.js",
+      "js/reveal.js"
+    ],
 
-theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/none
+    function(head, Reveal){
 
-// Optional libraries used to extend on reveal.js
-dependencies: [
-{ src: "lib/js/classList.js", condition: function() { return !document.body.classList; } },
-{ src: "plugin/notes/notes.js", async: true, condition: function() { return !!document.body.classList; } }
-]
-});
+        // Full list of configuration options available here: https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+
+            // The "normal" size of the presentation, aspect ratio will be preserved
+            // when the presentation is scaled to fit different resolutions. Can be
+            // specified using percentage units.
+            width: "80%",
+            height: "100%",
+
+            // Factor of the display size that should remain empty around the content
+            margin: 0.2,
+
+            // Bounds for smallest/largest possible scale to apply to content
+            minScale: 1.25,
+            maxScale: 3.,
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            theme: Reveal.getQueryHash().theme,
+            transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/none
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: "lib/js/classList.js",
+                  condition: function() { return !document.body.classList; } },
+                { src: "plugin/notes/notes.js",
+                  async: true,
+                  condition: function() { return !!document.body.classList; } }
+            ]
+        });
+
+        var update = function(event){
+          if(MathJax.Hub.getAllJax(Reveal.getCurrentSlide())){
+            MathJax.Hub.Rerender(Reveal.getCurrentSlide());
+          }
+        };
+
+        Reveal.addEventListener('slidechanged', update);
+
+        var update_scroll = function(event){
+          $(".reveal").scrollTop(0);
+        };
+
+        Reveal.addEventListener('slidechanged', update_scroll);
+
+    }
+);
 </script>
 
 <!-- Loading mathjax macro -->
 <!-- Load mathjax -->
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
-    <!-- MathJax configuration -->
-    <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-            processEscapes: true,
-            processEnvironments: true
-        },
-        // Center justify equations in code and markdown cells. Elsewhere
-        // we use CSS to left justify single line equations in code cells.
-        displayAlign: 'center',
-        "HTML-CSS": {
-            styles: {'.MathJax_Display': {"margin": 0}},
-            linebreaks: { automatic: true },
-            preferredFont: "STIX"
-        }
-    });
-    </script>
-    <!-- End of mathjax configuration -->
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+</script>
 
-<script>
-Reveal.addEventListener( 'slidechanged', function( event ) {
-  window.scrollTo(0,0);
-  MathJax.Hub.Rerender(event.currentSlide);
+<!-- MathJax configuration -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true,
+        processEnvironments: true
+    },
+    // Center justify equations in code and markdown cells. Elsewhere
+    // we use CSS to left justify single line equations in code cells.
+    displayAlign: 'center',
+    "HTML-CSS": {
+        styles: {'.MathJax_Display': {"margin": 0}},
+        linebreaks: { automatic: true },
+        preferredFont: "STIX"
+    }
 });
 </script>
+<!-- End of mathjax configuration -->
 
 </body>
 
