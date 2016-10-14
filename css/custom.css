@@ -1,0 +1,24 @@
+body {
+  padding: 60px 5px 40px;
+}
+
+.lead {
+  font-size: 20px;
+}
+.vertical-buffer {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.abstract {
+    display: block;
+    padding: 1em;
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid  #ddd;
+}
+
+.published-in {
+    font-style: italic;
+}

@@ -11,6 +11,9 @@
 
     <title>Matt Graham</title>
 
+    <!-- Site specific CSS -->
+    <link href="./css/custom.css" rel="stylesheet">
+
     <!-- Bootstrap core CSS -->
     <link href="./css/bootstrap.css" rel="stylesheet">
 
@@ -19,18 +22,6 @@
 
     <!-- Bootstrap social css -->
     <link rel="stylesheet" href="./css/bootstrap-social.css">
-    <style>
-      body {
-        padding: 60px 5px 40px;
-      }
-      .lead {
-        font-size: 20px;
-      }
-      .vertical-buffer {
-        margin-top: 10px;
-        margin-bottom: 10px;
-      }
-    </style>
 
     <!-- MathJax -->
     <script type="text/javascript" async
@@ -66,6 +57,7 @@
               <li class="active"><a href="#intro">home</a></li>
               <li><a href="#contact">contact</a></li>
               <li><a href="#research">research</a></li>
+              <li><a href="#teaching">teaching</a></li>
               <li><a href="#code">code</a></li>
               <li><a href="#misc">misc</a></li>
             </ul>
@@ -203,7 +195,7 @@
                   </a>
                 </div>
                 <button class="btn" data-toggle="collapse" data-target="#cond-inf-abs">Abstract</button>
-                <div id="cond-inf-abs" class="collapse">
+                <div id="cond-inf-abs" class="collapse abstract">
                     Many generative models can be expressed as a differentiable function of random inputs drawn from some simple probability density. This framework includes both deep generative architectures such as Variational Autoencoders and a large class of 'likelihood-free' simulator models. We present a method for performing efficient MCMC inference in such models when conditioning on observations of the model output. For some models this offers an asymptotically exact inference method where Approximate Bayesian Computation might otherwise be employed. We use the intuition that inference corresponds to integrating a density across the manifold corresponding to the set of inputs consistent with the observed outputs. This motivates the use of a constrained variant of Hamiltonian Monte Carlo which leverages the smooth geometry of the manifold to coherently move between inputs exactly consistent with observations. We validate the method by performing inference tasks in a diverse set of models.
                 </div>
               </li>
@@ -217,7 +209,7 @@
                 <p>
                   <a href="http://homepages.inf.ed.ac.uk/imurray2/">Iain Murray</a> and <i>Matthew M. Graham</i>
                 </p>
-                <p style='font-style: italic;'>
+                <p class='published-in'>
                     Proceedings of the 19th International Conference on Artificial Intelligence and Statistics
                 </p>
                 <div class="btn-group" role="group">
@@ -232,7 +224,7 @@
                   </a>
                 </div>
                 <button class="btn" data-toggle="collapse" data-target="#pm-slice-abs">Abstract</button>
-                <div id="pm-slice-abs" class="collapse">
+                <div id="pm-slice-abs" class="collapse abstract">
                   Markov chain Monte Carlo (MCMC) methods asymptotically sample from complex probability distributions.
                   The pseudo-marginal MCMC framework only requires an unbiased estimator of the unnormalized probability
                   distribution function to construct a Markov chain. However, the resulting chains are harder to tune
@@ -335,6 +327,19 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="row" id="teaching">
+          <div class="row" id="misc">
+            <div class="page-header">
+              <h1>Teaching</h1>
+            </div>
+            <p>
+              I am currently the teaching assistant for the coursework-based <a href='http://www.inf.ed.ac.uk/teaching/courses/mlp/'>Machine Learning Practical</a>. The Jupyter notebooks and Python framework we are developing for the course lab sessions are being distributed on <a href="https://github.com/CSTR-Edinburgh/mlpractical/tree/mlp2016-7/master">the course Github repository</a>.
+              I am also a tutor for <a href="http://www.inf.ed.ac.uk/teaching/courses/mlpr/2016/">Machine Learning and Pattern Recognition</a>. I have also previously tutored <a href="http://www.inf.ed.ac.uk/teaching/courses/it/">Information Theory</a> and <a href="http://www.inf.ed.ac.uk/teaching/courses/pmr/">Probabilistic Modelling and Reasoning (PMR)</a>. There a couple number of Jupyter notebooks with notes on PMR topics I made when tutoring on <a href="https://github.com/matt-graham/pmr-notebooks">Github here</a>.
+            </p>
+            <p>
+              I did a short tutorial on Hamiltonian Monte Carlo for the <a href="https://wiki.inf.ed.ac.uk/ANC/PIGlets">PIGlets</a> discussion group. The slides are available <a href="slides/hmc-tutorial">here</a> and ans associated Jupyter notebook going through example implementation is available <a href="https://github.com/ANC-PIGlets/gradient-based-mcmc/blob/master/Hamiltonian%20Monte%20Carlo.ipynb">on Github</a>.
       </div>
 
       <div class="row" id="misc">
