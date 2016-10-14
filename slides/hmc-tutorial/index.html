@@ -1,0 +1,1011 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="chrome=1" />
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+<title>Hamiltonian Monte Carlo</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<!-- General and theme style sheets -->
+<link rel="stylesheet" href="reveal.js/css/reveal.css">
+<link rel="stylesheet" href="reveal.js/css/theme/white.css" id="theme">
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+}
+
+</script>
+
+<!--[if lt IE 9]>
+<script src="reveal.js/lib/js/html5shiv.js"></script>
+<![endif]-->
+
+<!-- Get Font-awesome from cdn -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css">
+
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+html {
+  overflow-y: auto;
+}
+.reveal {
+  font-size: 160%;
+}
+.reveal pre {
+  width: inherit;
+  padding: 0.4em;
+  margin: 0px;
+  font-family: monospace, sans-serif;
+  font-size: 80%;
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+}
+.reveal pre code {
+  padding: 0px;
+}
+.reveal section img {
+  border: 0px solid black;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0);
+}
+.reveal i {
+  font-style: normal;
+  font-family: FontAwesome;
+  font-size: 2em;
+}
+.reveal .slides {
+  text-align: left;
+}
+.reveal.fade {
+  opacity: 1;
+}
+.reveal .progress {
+  position: static;
+}
+div.input_area {
+  padding: 0.06em;
+}
+div.code_cell {
+  background-color: transparent;
+}
+div.prompt {
+  width: 11ex;
+  padding: 0.4em;
+  margin: 0px;
+  font-family: monospace, sans-serif;
+  font-size: 80%;
+  text-align: right;
+}
+div.output_area pre {
+  font-family: monospace, sans-serif;
+  font-size: 80%;
+}
+div.output_prompt {
+  /* 5px right shift to account for margin in parent container */
+  margin: 5px 5px 0 0;
+}
+.rendered_html p {
+  text-align: inherit;
+}
+</style>
+
+</head>
+
+<body>
+<div class="reveal">
+<div class="slides">
+<section>
+    <section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Hamiltonian-Monte-Carlo">Hamiltonian Monte Carlo<a class="anchor-link" href="#Hamiltonian-Monte-Carlo">&#182;</a></h1><h2 id="A-brief(ish)-introduction">A brief(ish) introduction<a class="anchor-link" href="#A-brief(ish)-introduction">&#182;</a></h2>
+</div>
+</div>
+</div></section>
+    </section><section>
+    <section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Motivation">Motivation<a class="anchor-link" href="#Motivation">&#182;</a></h2>
+</div>
+</div>
+</div></section><section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Problem-definition">Problem definition<a class="anchor-link" href="#Problem-definition">&#182;</a></h3>
+</div>
+</div>
+</div><div class="fragment" data-fragment-index="3">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Given some probability distribution defined on a real vector space $\mathbb{R}^D$ by the density function</p>
+$$
+  \mathbb{p}\left[\mathbf{x} = \boldsymbol{x}\right] \propto
+  \exp \left\lbrace - \phi(\boldsymbol{x}) \right\rbrace,
+$$
+</div>
+</div>
+</div>
+    </div><div class="fragment" data-fragment-index="4">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>generate a set of samples $\left\lbrace \boldsymbol{x}^{(n)}\right\rbrace_{n=1}^N$ from a Markov chain which has the distribution defined by $\mathbb{p}\left[\mathbf{x} = \boldsymbol{x}\right]$ as its unique invariant measure.</p>
+
+</div>
+</div>
+</div>
+    </div></section><section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The MCMC samples can then be used to compute Monte Carlo approximation to expectations</p>
+$$
+  \mathbb{E}\left[\,f(\mathbf{x})\,\right] \approx \frac{1}{M} \sum_{n=1}^N \left\lbrace f\left( \boldsymbol{x}^{(n)} \right) \right\rbrace.
+$$
+</div>
+</div>
+</div></section><section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Assumptions">Assumptions<a class="anchor-link" href="#Assumptions">&#182;</a></h3><ul>
+  <li class="fragment">
+    Support of distribution is full vector space:
+
+    $$\mathbb{p}\left[\mathbf{x} = \boldsymbol{x}\right] > 0 \quad\forall \boldsymbol{x} \in \mathbb{R}^N.$$
+
+    If support is a bounded subset can sometimes transform to an equivalent unconstrained space using variable transform e.g $\log(u - c)$ if $u > c$.
+  </li>
+  <li class="fragment">
+    Density function (and energy) is everywhere differentiable with respect to $\boldsymbol{x}$ and the gradients can be tractably computed.
+  </li>
+</ul>
+</div>
+</div>
+</div></section><section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Metropolis-Hastings---quick-recap">Metropolis-Hastings - quick recap<a class="anchor-link" href="#Metropolis-Hastings---quick-recap">&#182;</a></h3>
+</div>
+</div>
+</div><div class="fragment" data-fragment-index="8">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Define a proposal density $q\left[\boldsymbol{x}' \,|\, \boldsymbol{x}\right]$ we can tractably sample from, generate a sample from it given the current state and then accept the proposal with probability</p>
+$$
+  a \left[ \boldsymbol{x}' \,|\, \boldsymbol{x} \right] =
+  \min \left\lbrace 1,
+    \frac{q\left[\boldsymbol{x} \,|\, \boldsymbol{x}'\right]
+          \mathbb{p}\left[\mathbf{x} = \boldsymbol{x}'\right]}
+         {q\left[\boldsymbol{x}' \,|\, \boldsymbol{x}\right]
+         \mathbb{p}\left[\mathbf{x} = \boldsymbol{x}\right]} \left|\frac{\partial \boldsymbol{x}'}{\partial \boldsymbol{x}}\right| \right\rbrace.
+$$
+</div>
+</div>
+</div>
+    </div><div class="fragment" data-fragment-index="9">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For derivation and explanation of Jacobian term in acceptance ratio see <a href="http://biomet.oxfordjournals.org/content/82/4/711.short">Green (1995)</a> or <a href="http://arxiv.org/abs/1211.3759">Lan et al. (2012)</a>.</p>
+
+</div>
+</div>
+</div>
+    </div></section><section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If proposal density is symmetric</p>
+\begin{equation}
+  q\left[\boldsymbol{x}' \,|\, \boldsymbol{x}\right] =
+  q\left[\boldsymbol{x} \,|\, \boldsymbol{x}'\right]
+  \quad\forall \boldsymbol{x},\, \boldsymbol{x}' \in \mathbb{R}^N,
+\end{equation}
+</div>
+</div>
+</div><div class="fragment" data-fragment-index="11">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>then the acceptance probability reduces to</p>
+$$
+  a \left[ \boldsymbol{x}' \,|\, \boldsymbol{x} \right] =
+  \min \left\lbrace 1, \exp\left[ \phi(\boldsymbol{x}) - \phi(\boldsymbol{x}') \right] \left|\frac{\partial \boldsymbol{x}'}{\partial \boldsymbol{x}}\right| \right\rbrace.
+$$
+</div>
+</div>
+</div>
+    </div><div class="fragment" data-fragment-index="12">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Key problem is finding proposal density that allows proposes 'large' moves with high probability of acceptance.</p>
+
+</div>
+</div>
+</div>
+    </div></section>
+    </section><section>
+    <section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Abstract-description-of-Hamiltonian-Monte-Carlo">Abstract description of Hamiltonian Monte Carlo<a class="anchor-link" href="#Abstract-description-of-Hamiltonian-Monte-Carlo">&#182;</a></h2>
+</div>
+</div>
+</div></section><section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Augment-state-space">Augment state space<a class="anchor-link" href="#Augment-state-space">&#182;</a></h3><p>Augment state space with a vector 'momentum' variable $\mathbf{p} \in \mathbb{R}^D$ and a signed 'time direction' variable $\mathsf{d} \in \left\lbrace -1,\,+1 \right\rbrace$</p>
+
+</div>
+</div>
+</div><div class="fragment" data-fragment-index="15">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+\begin{align}
+  \mathbb{p}\left[\mathbf{p} = \boldsymbol{p} \,|\,\mathbf{x} = \boldsymbol{x}\right] &\propto \exp\left\lbrace - \tau(\boldsymbol{x}, \boldsymbol{p}) \right\rbrace,
+\\
+  \mathbb{P}\left[\mathsf{d} = d\,|\,\mathbf{x} = \boldsymbol{x},\,\mathbf{p} = \boldsymbol{x}\right] &= \frac{1}{2},
+\end{align}
+</div>
+</div>
+</div>
+    </div><div class="fragment" data-fragment-index="16">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+\begin{equation}
+  \therefore \quad \mathbb{p}\left[\mathbf{x} = \boldsymbol{x},\,\mathbf{p}=\boldsymbol{p},\,\mathsf{d}=d\right] \propto
+  \exp\underbrace{\left\lbrace -\phi(\boldsymbol{x}) - \tau(\boldsymbol{x}, \boldsymbol{p})\right\rbrace}_{-H(\boldsymbol{x}, \boldsymbol{p})}.
+\end{equation}
+</div>
+</div>
+</div>
+    </div></section><section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Hamiltonian-dynamic-in-augmented-state-space">Hamiltonian dynamic in augmented state space<a class="anchor-link" href="#Hamiltonian-dynamic-in-augmented-state-space">&#182;</a></h3><p>If $\mathbf{S}$ is a $2D\times 2D$ constant non-singular skew-symmetric matrix then we can define a Hamiltonian dynamic on the joint system $\boldsymbol{z} = \left[ \boldsymbol{x};\, \boldsymbol{p} \right]$ by</p>
+$$
+  \frac{\mathrm{d}\boldsymbol{z}}{\mathrm{d} t} = d \, \mathbf{S} \frac{\partial H}{\partial\boldsymbol{z}} ~~\Leftrightarrow~~
+  \left[
+    \begin{array}{c}
+      \frac{\mathrm{d}\boldsymbol{x}}{\mathrm{d}t} \\
+      \frac{\mathrm{d}\boldsymbol{p}}{\mathrm{d}t}
+    \end{array}
+  \right]
+  =
+  d \, \mathbf{S}
+  \left[
+    \begin{array}{c}
+      \frac{\partial H}{\partial\boldsymbol{x}} \\
+      \frac{\partial H}{\partial\boldsymbol{p}}
+    \end{array}
+  \right].
+$$
+</div>
+</div>
+</div></section><section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>A flow map $\Psi_{T,d}\left\lbrace \boldsymbol{z}_0 \right\rbrace = \boldsymbol{z}(T)$ is then defined by the solution $\boldsymbol{z}(T)$ to the initial value problem</p>
+$$
+  \frac{\mathrm{d}\boldsymbol{z}}{\mathrm{d}t} =
+  \frac{\partial H}{\partial\boldsymbol{z}}, ~~
+  \boldsymbol{z}(0) = \boldsymbol{z}_0, ~~
+  t \in [0, T].
+$$
+</div>
+</div>
+</div><div class="fragment" data-fragment-index="19">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Typically $
+  \mathbf{S} =
+  \left[
+    \begin{array}{cc}
+      \mathbf{0} &amp; \mathbf{I} \
+      -\mathbf{I} &amp; \mathbf{0}
+    \end{array}
+  \right]
+$ in which case the dynamic is <em>canonical</em>.</p>
+
+</div>
+</div>
+</div>
+    </div></section><section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Properties-of-dynamic">Properties of dynamic<a class="anchor-link" href="#Properties-of-dynamic">&#182;</a></h3><ul>
+<li><p>Exactly conserves the Hamiltonian $H(\boldsymbol{z})$</p>
+<p>$$
+\frac{\mathrm{d}H}{\mathrm{d}t} =
+\frac{\partial H}{\partial\boldsymbol{z}}^{\mathrm{T}} \frac{\mathrm{d}\boldsymbol{z}}{\mathrm{d}t} =
+d \frac{\partial H}{\partial\boldsymbol{z}}^{\mathrm{T}} \mathbf{S} \frac{\partial H}{\partial\boldsymbol{z}} = 0
+$$</p>
+</li>
+</ul>
+
+</div>
+</div>
+</div><div class="fragment" data-fragment-index="21">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><p>Reversible under negation of $\mathsf{d}$</p>
+<p>$$
+\text{If } \boldsymbol{z}' =
+\Psi_{T,+1} \left\lbrace \boldsymbol{z} \right\rbrace
+\text{ then } \boldsymbol{z} =
+\Psi_{T,-1} \left\lbrace \boldsymbol{z}' \right\rbrace.
+$$</p>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    </div></section><section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><p>Preserves volume as flow is divergence-free</p>
+<p>$$
+\left( \frac{\partial }{\partial\boldsymbol{z}} \right)^{\mathrm{T}} \frac{\mathrm{d}\boldsymbol{z}}{\mathrm{d}t} = \mathrm{Tr} \left[ \mathbf{S} \frac{\partial^2 H}{\partial \boldsymbol{z}\,\partial\boldsymbol{z}^{\mathrm{T}}} \right] = 0
+\Rightarrow
+\frac{\partial \Psi_{T,d}}{\partial\boldsymbol{z}} = \mathbf{I}.
+$$</p>
+</li>
+</ul>
+
+</div>
+</div>
+</div></section><section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The dynamic also has the further property of being <em>symplectic map</em> with respect to the <em>structure matrix</em> $\mathbf{S}$</p>
+$$
+    \frac{\partial \Psi_{T,d}}{\partial\boldsymbol{z}}^{\mathrm{T}} \mathbf{S}^{-1}
+    \frac{\partial \Psi_{T,d}}{\partial\boldsymbol{z}} = \mathbf{S}^{-1},
+$$<p>see for example <a href="http://ebooks.cambridge.org/ebook.jsf?bid=CBO9780511614118">Leimkuhler and Reich (2005)</a> for proof and more details.</p>
+
+</div>
+</div>
+</div><div class="fragment" data-fragment-index="24">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Symplecticness implies volume preservation but is a more stringent requirment for $D > 1$.</p>
+
+</div>
+</div>
+</div>
+    </div></section>
+    </section><section>
+    <section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Exact-Hamiltonian-Monte-Carlo">Exact Hamiltonian Monte Carlo<a class="anchor-link" href="#Exact-Hamiltonian-Monte-Carlo">&#182;</a></h3><p>If we therefore define a proposal density</p>
+$$
+  q\left[\boldsymbol{z}', d' \,|\, \boldsymbol{z}, d\right] = \delta \left[ \Psi_{T,d}\left\lbrace \boldsymbol{z} \right\rbrace - \boldsymbol{z}' \right] \delta \left[ d - (-d') \right],
+$$
+</div>
+</div>
+</div><div class="fragment" data-fragment-index="26">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>i.e. propose new state by deterministically running Hamiltonian dynamics forward $T$ units of time then reverse time flow, then our acceptance probability will be unity</p>
+$$
+  \min \left\lbrace 1, \exp\left[ H(\boldsymbol{z}') - H(\boldsymbol{z}) \right] \left|\frac{\partial \boldsymbol{z}'}{\partial\boldsymbol{z}}\right| \right\rbrace = 1.
+$$
+</div>
+</div>
+</div>
+    </div></section><section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can then deterministically flip $\mathsf{d}$ (so on the next proposal we won't go back to our previous point) as</p>
+$$
+  \mathbb{P}\left[\mathsf{d}=\pm1\,|\,\mathbf{x}=\boldsymbol{x},\,\mathbf{p}=\boldsymbol{x}\right] = \frac{1}{2},
+$$<p></p>
+<p>and so this move also leaves the joint density invariant.</p>
+
+</div>
+</div>
+</div><div class="fragment" data-fragment-index="28">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This composition of transitions will <em>not</em> be ergodic however in joint state space as we remain confined to the same constant Hamiltonian manifold.</p>
+
+</div>
+</div>
+</div>
+    </div></section>
+    </section><section>
+    <section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Moving-to-a-concrete-implementation">Moving to a concrete implementation<a class="anchor-link" href="#Moving-to-a-concrete-implementation">&#182;</a></h2>
+</div>
+</div>
+</div></section><section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Simulating-Hamiltonian-dynamics-in-practice">Simulating Hamiltonian dynamics in practice<a class="anchor-link" href="#Simulating-Hamiltonian-dynamics-in-practice">&#182;</a></h3><ul>
+<li>In reality for most systems of interest we cannot compute the flow map $\Psi_{T,d}$ exactly and so have to resort to discretisation and numerical integration.</li>
+</ul>
+
+</div>
+</div>
+</div><div class="fragment" data-fragment-index="31">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Importantly there are numerical integration schemes which define an approximate flow map $\tilde{\Psi}_{T,d}$ which conserve the volume-preservation and reversibility properties of the exact dynamic $\Psi_{T,d}$.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    </div></section><section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>In general Hamiltonian no longer exactly conserved under discretisation so will be some rejections.</li>
+</ul>
+
+</div>
+</div>
+</div><div class="fragment" data-fragment-index="33">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>There is a class of integrators which also preserve the symplectic map property of the exact dynamic.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    </div></section><section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Symplectic integrators have a further useful property:
+    <ul>
+      <li class="fragment">
+        If discretised dynamic is stable they exactly integrate the dynamic of some 'nearby' Hamiltonian.
+      </li>
+     <li class="fragment">
+       This is bounded to be within a fixed distance (depending on $\delta t$ the discretisation time step) of the original Hamiltonian
+     </li>
+     <li class="fragment">
+       Therefore can integrate dynamics over long time periods with high probability of acceptance.
+     </li>
+    </ul></p>
+
+</div>
+</div>
+</div></section><section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Standard-(&#8216;Euclidean-manifold&#8217;)-HMC">Standard (&#8216;Euclidean manifold&#8217;) HMC<a class="anchor-link" href="#Standard-(&#8216;Euclidean-manifold&#8217;)-HMC">&#182;</a></h3><p>The standard (and original) implementation of HMC augments the system with variables which are independent of the original state and have a Gaussian conditional / marginal</p>
+
+</div>
+</div>
+</div><div class="fragment" data-fragment-index="36">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+$$
+  \mathbb{p}\left[\mathbf{p}=\boldsymbol{p}\,|\,\mathbf{x}=\boldsymbol{x}\right] =
+  \mathbb{p}\left[\mathbf{p}=\boldsymbol{p}\right] \propto
+  \exp \underbrace{\left\lbrace - \frac{1}{2}\boldsymbol{p}^{\mathrm{T}}\mathbf{M}^{-1}\boldsymbol{p}\right\rbrace}_{-\tau(\boldsymbol{p})}.
+$$
+</div>
+</div>
+</div>
+    </div></section><section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The derivative $\frac{\partial \tau}{\boldsymbol{p}} = \mathbf{M}^{-1}\boldsymbol{p}$ is now just a linear transform of the $\boldsymbol{p}$ variables which can be considered in analogy to Newtonian mechanics momentum variables with $\mathbf{M}$ a mass matrix</p>
+
+</div>
+</div>
+</div><div class="fragment" data-fragment-index="38">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+$$
+    \mathbf{M} \frac{\mathrm{d}^2\boldsymbol{x}}{\mathrm{d}t^2} = \boldsymbol{f}(\boldsymbol{x}) ~\Leftrightarrow~
+    \frac{\mathrm{d}\boldsymbol{x}}{\mathrm{d}t} = \mathbf{M}^{-1} \boldsymbol{p} ~~~
+    \frac{\mathrm{d}\boldsymbol{p}}{\mathrm{d}t} = \boldsymbol{f}({x}) = -\frac{\partial \phi}{\partial\boldsymbol{x}}.
+$$
+</div>
+</div>
+</div>
+    </div></section><section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In this case as the distribution on $\mathbf{p}$ is symmetric there is no need to add a further binary direction variable $\mathsf{d}$ as reversibility can be achieved by negating the momentum variables</p>
+$$ \tau(\boldsymbol{p}) = \tau(-\boldsymbol{p}) = \frac{1}{2}\boldsymbol{p}^{\mathrm{T}}\mathbf{M}^{-1}\boldsymbol{p}. $$
+</div>
+</div>
+</div><div class="fragment" data-fragment-index="40">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Further as $\mathbb{p}\left[\mathbf{p}=\boldsymbol{p}\,|\,\mathbf{x}=\boldsymbol{x}\right]$ is Gaussian we can easily resample the momentum variables between dynamic proposal updates to alter the energy of the system and ensure ergodicity.</p>
+
+</div>
+</div>
+</div>
+    </div></section><section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Leapfrog-updates">Leapfrog updates<a class="anchor-link" href="#Leapfrog-updates">&#182;</a></h3><p>For <em>separable</em> Hamiltonians (no terms coupling $\boldsymbol{x}$ and $\boldsymbol{p}$) there is a particularly efficient symplectic integration scheme called the leapgfrog (or Störmer-Verlet) method composed of two step types</p>
+
+</div>
+</div>
+</div><div class="fragment" data-fragment-index="42">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+\begin{align}
+  \Phi^{A}_{\delta t}
+  \left[
+    \begin{array}{c}
+      \boldsymbol{x} \\
+      \boldsymbol{p}
+    \end{array}
+  \right]
+  &=
+  \left[
+    \begin{array}{c}
+      \boldsymbol{x} \\
+      \boldsymbol{p} - \delta t\, \frac{\partial \phi}{\partial\boldsymbol{x}}
+    \end{array}
+  \right],
+  \\[2mm]
+  \Phi^{B}_{\delta t}
+  \left[
+    \begin{array}{c}
+      \boldsymbol{x} \\
+      \boldsymbol{p}
+    \end{array}
+  \right]
+  &=
+  \left[
+    \begin{array}{c}
+      \boldsymbol{x} + \delta t\, \mathbf{M}^{-1} \boldsymbol{p} \\
+      \boldsymbol{p} \\
+    \end{array}
+  \right].
+\end{align}
+</div>
+</div>
+</div>
+    </div></section><section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Individually each of these steps is volume preserving</p>
+\begin{align}
+  \left| \frac{\partial \Phi^A_{\delta t}}{\partial\boldsymbol{z}} \right| &=
+  \left|
+    \begin{array}{cc}
+      \mathbf{I} & \mathbf{0} \\
+      \dots & \mathbf{I}
+    \end{array}
+  \right|
+  = 1,
+  \\[2mm]
+  \left| \frac{\partial \Phi^B_{\delta t}}{\partial\boldsymbol{z}} \right| &=
+  \left|
+    \begin{array}{cc}
+      \mathbf{I} & \dots \\
+      \mathbf{0} & \mathbf{I}
+    \end{array}
+  \right|
+  = 1.
+\end{align}
+</div>
+</div>
+</div></section><section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Further any composition of the steps is also volume preserving.</p>
+
+</div>
+</div>
+</div><div class="fragment" data-fragment-index="45">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In particular symmetric compositions of the form</p>
+$$ \Phi^{A}_{\frac{1}{2}\delta t} \circ \Phi^{B}_{\delta t} \circ \Phi^{A}_{\frac{1}{2}\delta t} $$<p>are also time reversible and symplectic.</p>
+
+</div>
+</div>
+</div>
+    </div></section><section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Overall this gives a single step of leapfrog dynamics as</p>
+\begin{align}
+  \boldsymbol{p}^{\left(n + \frac{1}{2}\right)} &= \boldsymbol{p}^{(n)} - \frac{1}{2} \delta t \left. \frac{\partial \phi}{\partial\boldsymbol{x}} \right|_{\,\boldsymbol{x}^{(n)}}\\[2mm]
+  \boldsymbol{x}^{(n+1)} &= \boldsymbol{x}^{(n)} + \delta t \, \mathbf{M}^{-1} \boldsymbol{p}^{\left(n + \frac{1}{2}\right)} \\[2mm]
+  \boldsymbol{p}^{(n)} &= \boldsymbol{p}^{(n+1)} - \frac{1}{2} \delta t \left. \frac{\partial \phi}{\partial\boldsymbol{x}} \right|_{\,\boldsymbol{x}^{(n+1)}}\\
+\end{align}
+</div>
+</div>
+</div></section><section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In practice tend to combine half steps after initial one</p>
+$$
+  \Phi^{A}_{\frac{1}{2}\delta t} \circ \Phi^{B}_{\delta t} \circ
+  \left\lbrace  \Phi^{A}_{\frac{1}{2}\delta t} \circ \Phi^{A}_{\frac{1}{2}\delta t} \right\rbrace \circ
+  \Phi^{B}_{\delta t} \circ
+  \\\dots
+  \left\lbrace  \Phi^{A}_{\frac{1}{2}\delta t} \circ \Phi^{A}_{\frac{1}{2}\delta t} \right\rbrace \circ
+  \Phi^{B}_{\delta t} \circ \Phi^{A}_{\frac{1}{2}\delta t}
+$$
+</div>
+</div>
+</div><div class="fragment" data-fragment-index="48">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+$$ =
+  \Phi^{A}_{\frac{1}{2}\delta t} \circ \Phi^{B}_{\delta t} \circ \Phi^{A}_{\delta t}
+  \circ \Phi^{B}_{\delta t}
+  \dots
+  \Phi^{A}_{\delta t} \circ \Phi^{B}_{\delta t} \circ \Phi^{A}_{\frac{1}{2}\delta t}.
+$$
+</div>
+</div>
+</div>
+    </div></section>
+    </section><section>
+    <section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Resampling-momenta-to-ensure-ergodicity">Resampling momenta to ensure ergodicity<a class="anchor-link" href="#Resampling-momenta-to-ensure-ergodicity">&#182;</a></h3><p>Metropolis-Hastings updates with Hamiltonian dynamics proposals alone will not generally ensure ergodicity - constrained to near constant Hamiltonian surface.</p>
+
+</div>
+</div>
+</div><div class="fragment" data-fragment-index="50">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Overcome by alternating with a different Markov transition operator which leaves joint distribution invariant.</p>
+
+</div>
+</div>
+</div>
+    </div></section><section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In particular we can use any transition which leaves the conditional on the momenta given the positions invariant (c.f. Gibbs sampling). In case of standard HMC, momenta are independent of positions therefore resample independently from Gaussian distribution</p>
+$$
+  \boldsymbol{p} \sim \mathcal{N}\left(\cdot; \boldsymbol{0}, \mathbf{M}\right).
+$$
+</div>
+</div>
+</div><div class="fragment" data-fragment-index="52">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>More general update with partial momentum refreshal from Horowitz (1991) parameterised by $\theta \in \left[0,\,\frac{\pi}{2}\right]$</p>
+$$
+    \boldsymbol{p}' = \cos(\theta)\, \boldsymbol{n} + \sin(\theta)\, \boldsymbol{p}
+    \quad
+    \text{with }
+    \boldsymbol{n} \sim \mathcal{N}\left(\cdot; \boldsymbol{0}, \mathbf{M}\right).
+$$
+</div>
+</div>
+</div>
+    </div></section>
+    </section><section>
+    <section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="References-and-further-reading">References and further reading<a class="anchor-link" href="#References-and-further-reading">&#182;</a></h2><ul>
+<li><a href="http://www.sciencedirect.com/science/article/pii/037026938791197X"><strong>Hybrid Monte Carlo</strong>, Duane et al. (1987)</a><br>
+<em>Paper which introduced HMC (with its original name)</em>.</li>
+<li><a href="http://www.sciencedirect.com/science/article/pii/0370269391908125"><strong>A Generalized Guided Hybrid Monte Carlo Algorithm</strong>, Horowitz (1991)</a><br>
+<em>Original description of partial momentum refreshing</em>.</li>
+</ul>
+
+</div>
+</div>
+</div></section><section>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><a href="http://ebooks.cambridge.org/ebook.jsf?bid=CBO9780511614118"><strong>Simulating Hamiltonian Dynamics</strong>, Leimkuhler and Reich (2005)</a><br>
+<em>Reference textbook for details of properties of Hamiltonian dynamics and their numerical simulation.</em></li>
+<li><a href="http://arxiv.org/abs/1206.1901"><strong>MCMC Using Hamiltonian Dynamics</strong>, Neal (2012)</a><br>
+<em>Extensive review of Hamiltonian Monte Carlo and various practical implementation issues.</em></li>
+</ul>
+
+</div>
+</div>
+</div></section>
+    </section>
+</div>
+</div>
+
+<script src="reveal.js/lib/js/head.min.js"></script>
+
+<script src="reveal.js/js/reveal.js"></script>
+
+<script>
+
+// Full list of configuration options available here: https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+controls: true,
+progress: true,
+history: true,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/none
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+{ src: "reveal.js/lib/js/classList.js", condition: function() { return !document.body.classList; } },
+{ src: "reveal.js/plugin/notes/notes.js", async: true, condition: function() { return !!document.body.classList; } }
+]
+});
+</script>
+
+<!-- Loading mathjax macro -->
+<!-- Load mathjax -->
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true },
+            preferredFont: "STIX"
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration -->
+
+<script>
+Reveal.addEventListener( 'slidechanged', function( event ) {
+  window.scrollTo(0,0);
+  MathJax.Hub.Rerender(event.currentSlide);
+});
+</script>
+
+</body>
+
+</html>
