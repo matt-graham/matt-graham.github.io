@@ -191,10 +191,6 @@
                 <p>
                   <i>Matthew M. Graham</i> and <a href="http://homepages.inf.ed.ac.uk/amos">Amos Storkey</a>
                 </p>
-                <button class="btn" data-toggle="collapse" data-target="#cond-inf-abs">Abstract</button>
-                <div id="cond-inf-abs" class="collapse">
-                    Many generative models can be expressed as a differentiable function of random inputs drawn from some simple probability density. This framework includes both deep generative architectures such as Variational Autoencoders and a large class of 'likelihood-free' simulator models. We present a method for performing efficient MCMC inference in such models when conditioning on observations of the model output. For some models this offers an asymptotically exact inference method where Approximate Bayesian Computation might otherwise be employed. We use the intuition that inference corresponds to integrating a density across the manifold corresponding to the set of inputs consistent with the observed outputs. This motivates the use of a constrained variant of Hamiltonian Monte Carlo which leverages the smooth geometry of the manifold to coherently move between inputs exactly consistent with observations. We validate the method by performing inference tasks in a diverse set of models.
-                </div>
                 <div class="btn-group" role="group">
                   <a href="http://arxiv.org/pdf/1605.07826.pdf" class="btn btn-default">
                     <i class="fa fa-file-pdf-o"></i> Pre-print on arXiv
@@ -205,6 +201,10 @@
                   <a href="https://github.com/matt-graham/hmc" class="btn btn-default">
                     <i class="fa fa-github"></i> Python code
                   </a>
+                </div>
+                <button class="btn" data-toggle="collapse" data-target="#cond-inf-abs">Abstract</button>
+                <div id="cond-inf-abs" class="collapse">
+                    Many generative models can be expressed as a differentiable function of random inputs drawn from some simple probability density. This framework includes both deep generative architectures such as Variational Autoencoders and a large class of 'likelihood-free' simulator models. We present a method for performing efficient MCMC inference in such models when conditioning on observations of the model output. For some models this offers an asymptotically exact inference method where Approximate Bayesian Computation might otherwise be employed. We use the intuition that inference corresponds to integrating a density across the manifold corresponding to the set of inputs consistent with the observed outputs. This motivates the use of a constrained variant of Hamiltonian Monte Carlo which leverages the smooth geometry of the manifold to coherently move between inputs exactly consistent with observations. We validate the method by performing inference tasks in a diverse set of models.
                 </div>
               </li>
             </ul>
@@ -220,16 +220,6 @@
                 <p style='font-style: italic;'>
                     Proceedings of the 19th International Conference on Artificial Intelligence and Statistics
                 </p>
-                <button class="btn" data-toggle="collapse" data-target="#pm-slice-abs">Abstract</button>
-                <div id="pm-slice-abs" class="collapse">
-                  Markov chain Monte Carlo (MCMC) methods asymptotically sample from complex probability distributions.
-                  The pseudo-marginal MCMC framework only requires an unbiased estimator of the unnormalized probability
-                  distribution function to construct a Markov chain. However, the resulting chains are harder to tune
-                  to a target distribution than conventional MCMC, and the types of updates available are limited.
-                  We describe a general way to clamp and update the random numbers used in a pseudo-marginal method's
-                  unbiased estimator. In this framework we can use slice sampling and other adaptive methods. We obtain
-                  more robust Markov chains, which often mix more quickly.
-                </div>
                 <div class="btn-group" role="group">
                   <a href="http://jmlr.org/proceedings/papers/v51/murray16.pdf" class="btn btn-default">
                     <i class="fa fa-file-pdf-o"></i> Paper
@@ -240,6 +230,16 @@
                   <a href="https://github.com/matt-graham/auxiliary-pm-mcmc" class="btn btn-default">
                     <i class="fa fa-github"></i> Python code
                   </a>
+                </div>
+                <button class="btn" data-toggle="collapse" data-target="#pm-slice-abs">Abstract</button>
+                <div id="pm-slice-abs" class="collapse">
+                  Markov chain Monte Carlo (MCMC) methods asymptotically sample from complex probability distributions.
+                  The pseudo-marginal MCMC framework only requires an unbiased estimator of the unnormalized probability
+                  distribution function to construct a Markov chain. However, the resulting chains are harder to tune
+                  to a target distribution than conventional MCMC, and the types of updates available are limited.
+                  We describe a general way to clamp and update the random numbers used in a pseudo-marginal method's
+                  unbiased estimator. In this framework we can use slice sampling and other adaptive methods. We obtain
+                  more robust Markov chains, which often mix more quickly.
                 </div>
               </li>
             </ul>
