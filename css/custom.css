@@ -5,20 +5,37 @@ body {
 .lead {
   font-size: 20px;
 }
+
 .vertical-buffer {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-.abstract {
-    display: block;
-    padding: 1em;
-    margin-top: 0.5em;
-    margin-bottom: 1em;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid  #ddd;
+.publications-list {
+  list-style: none;
+  padding-left: 15px;
+}
+
+.abstract.in, .abstract.collapsing {
+  display: block;
+  padding: 1em;
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid  #ddd;
 }
 
 .published-in {
     font-style: italic;
+}
+
+.section-header {
+  padding-bottom: 9px;
+  margin-bottom: 20px;
+  margin-top: 30px;
+  border-bottom: 1px solid #ddd;
+}
+
+.img-thumbnail {
+  margin-bottom: 1em;
 }
