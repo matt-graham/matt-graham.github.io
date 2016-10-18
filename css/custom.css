@@ -25,6 +25,17 @@ body {
   border-bottom: 1px solid  #ddd;
 }
 
+.publication .btn-abs:before {
+    font-family: 'FontAwesome';
+    content: "\f102";
+    float: left;
+    color: black;
+    margin-right: 5px;
+}
+.publication .btn-abs.collapsed:before {
+    content: "\f103";
+}
+
 .published-in {
     font-style: italic;
 }
@@ -38,4 +49,28 @@ body {
 
 .img-thumbnail {
   margin-bottom: 1em;
+}
+
+.btn-kaggle{
+  color: #20beff;
+  background-color: #646568;
+  border-color: rgba(0,0,0,0.2)
+}
+
+.btn-kaggle:hover, .btn-kaggle:focus, .btn-kaggle:active, .btn-kaggle.active, .open>.dropdown-toggle.btn-kaggle {
+  color:#10aeef;
+  background-color:#545558;
+  border-color: rgba(0,0,0,0.2)
+}
+
+.btn-arxiv{
+  color: #111;
+  background-color: #00ff00;
+  border-color: rgba(0,0,0,0.2)
+}
+
+.btn-arxiv:hover, .btn-arxiv:focus, .btn-arxiv:active, .btn-arxiv.active, .open>.dropdown-toggle.btn-arxiv {
+  color:#dd0000;
+  background-color:#00dd00;
+  border-color: rgba(0,0,0,0.2)
 }
