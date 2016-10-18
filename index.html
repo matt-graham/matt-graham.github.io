@@ -94,9 +94,6 @@
                 <a href="https://plus.google.com/u/0/+MatthewGrahamUK" class="btn btn-social-icon btn-google-plus">
                   <i class="fa fa-google-plus fa-fw"></i>
                 </a>
-                <a href="https://bitbucket.org/mmgraham" class="btn btn-social-icon btn-bitbucket">
-                  <i class="fa fa-bitbucket fa-fw"></i>
-                </a>
                 <a href="https://www.kaggle.com/users/82086/matt-graham" class="btn btn-social-icon btn-kaggle">
                   <i class="fa icon-kaggle-k fa-fw"></i>
                 </a>
@@ -158,26 +155,19 @@
           <h2>
             <span class="text-muted">PhD project:</span>
             Auxilliary variable MCMC methods
+            <small>(Supervisor: <a href="http://homepages.inf.ed.ac.uk/amos">Amos Storkey</a>)</small>
           </h2>
         </div>
         <div class="row">
           <div class="col-md-3">
-            <img src="images/mcmc_visualisation.png" width="256" class="img-thumbnail center-block"/>
+            <img src="images/mcmc_visualisation.png" width="256" class="img-thumbnail center-block vertical-buffer"/>
           </div>
           <div class="col-md-9">
             <p>
-              I am considering Markov Chain Monte Carlo (MCMC) methods which are a group of
-              techniques for generating random samples from complex probabilistic models.
-              The samples can then be used to evaluate the expectations of the model. For instance
-              given a set of data we wish to model, we might want to sample the parameters of
-              the model which explain the data and any prior beliefs well. Alternatively given
-              a model of how some physical system works, we might want to sample predictions
-              of how the system might behave in novel situation. In both cases as well as
-              wanting to be able to generate plausible explanations from a model it is usually
-              also useful to have some idea our degree of uncertainty in those explanations.
+              My project is on developing <em>Markov Chain Monte Carlo</em> (MCMC) methods. These are a group of techniques for generating random samples from probabilistic models. They work by simulating a stochastic dynamical system where the probability distribution over the state of the system converges to the distribution of interest. The samples of the system state can then be used to estimate expectations of the model. For instance given a set of data and a proposed parametric model, we might want to sample parameters of the model which explain the data and any prior beliefs well. Alternatively given a model of how some physical system works, we might want to sample predictions of how the system will behave in novel situations. In both cases as well as wanting to generate plausible explanations from a model it is often also useful to have some idea our degree of uncertainty in those explanations and to be able to weigh up the evidence for competing explanations. Bayesian inference using MCMC provides a principled computational framework for doing this.
             </p>
             <p>
-              I am specifically considering methods which augment the state space with additional auxilliary variables. In some cases this allows the robustness or efficiency of sampling methods to be improved by making it easier for the sampler to coherently explore the target distribution. In other settings redefining the state space of the problem can allow us to perform inference in settings where we do not have an explicit form for the distribution on the variables of interest. I have also lately been working on auxilliary variable methods for helping to improve the exploration of high-dimensional multi-modal distributions.
+              I am specifically considering methods which augment the systen state space with additional auxilliary variables. In some cases this allows the robustness or efficiency of sampling methods to be improved, for example by making it easier for the sampler to coherently explore the target distribution or to continuously bridge between a simple unimodal distribution and a complex multimodal target. In other settings redefining the state space of the problem can allow us to perform inference in settings where we do not have an explicit form for the distribution on the variables of interest.
             </p>
           </div>
         </div>
