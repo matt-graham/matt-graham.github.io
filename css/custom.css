@@ -58,19 +58,36 @@ body {
 }
 
 .btn-kaggle:hover, .btn-kaggle:focus, .btn-kaggle:active, .btn-kaggle.active, .open>.dropdown-toggle.btn-kaggle {
-  color:#10aeef;
-  background-color:#545558;
+  color:#09aeef;
+  background-color:#444548;
   border-color: rgba(0,0,0,0.2)
 }
 
-.btn-arxiv{
-  color: #111;
-  background-color: #00ff00;
+.btn-google-yellow {
+  color: #fff;
+  background-color: #fbbc05;
   border-color: rgba(0,0,0,0.2)
 }
 
-.btn-arxiv:hover, .btn-arxiv:focus, .btn-arxiv:active, .btn-arxiv.active, .open>.dropdown-toggle.btn-arxiv {
-  color:#dd0000;
-  background-color:#00dd00;
-  border-color: rgba(0,0,0,0.2)
+.btn-google-yellow:hover, .btn-google-yellow:focus,.btn-google-yellow:active, .btn-google-yellow.active, .open>.dropdown-toggle.btn-google-yellow {
+  color: #fff;
+  background-color: #d9ab00;
+  border-color: rgba(0,0,0,0.2);
+}
+
+.space-bottom {
+  margin-bottom: 20px;
+}
+
+.github-card .panel-heading {
+  font-size: 120%;
+}
+
+.github-card .panel-heading small{
+  color: #999999;
+}
+
+.pad-sides {
+  padding-left: 15px;
+  padding-right: 15px;
 }

@@ -20,8 +20,8 @@
   <!-- Academicons CSS -->
   <link rel="stylesheet" href="./css/academicons.min.css"/>
 
-  <!-- Custom Glyphter font CSS -->
-  <link rel="stylesheet" href="./css/Glyphter.css"/>
+  <!-- Custom icons font CSS -->
+  <link rel="stylesheet" href="./css/custom-icons.css"/>
 
   <!-- Bootstrap social css -->
   <link rel="stylesheet" href="./css/bootstrap-social.css">
@@ -97,8 +97,8 @@
                 <a href="https://www.kaggle.com/users/82086/matt-graham" class="btn btn-social-icon btn-kaggle">
                   <i class="fa icon-kaggle-k fa-fw"></i>
                 </a>
-                <a href="https://scholar.google.co.uk/citations?user=1QMZI4kAAAAJ&hl=en" class="btn btn-social-icon btn-google-plus">
-                  <i class="ai ai-google-scholar fa-fw"></i>
+                <a href="https://scholar.google.co.uk/citations?user=1QMZI4kAAAAJ&hl=en" class="btn btn-social-icon btn-google-yellow">
+                  <i style="margin-top: 2px;" class="fa icon-google-scholar-g-thicker fa-fw"></i>
                 </a>
               </div>
             </div>
@@ -130,13 +130,13 @@
           <h1>Contact</h1>
         </div>
         <div class="row">
-          <div class="col-md-4" id='contact-email-col'>
+          <div class="col-md-3" id='contact-email-col'>
             <div class="panel panel-default">
               <div class="panel-heading"><i class="fa fa-envelope fa-fw"></i> Email</div>
-              <div class="panel-body"><a href="mailto:m.m.[put-my-surname-here]@ed.ac.uk">m.m.[put-my-surname-here]@ed.ac.uk</a></div>
+              <div class="panel-body"><a href="mailto:m.m.[my-surname-here]@ed.ac.uk">m.m.[my-surname-here]@ed.ac.uk</a></div>
             </div><!--./contact-email-col-->
           </div>
-          <div class="col-md-8" id="contact-address-col">
+          <div class="col-md-9" id="contact-address-col">
             <div class="panel panel-default">
               <div class="panel-heading"><i class="fa fa-building fa-fw"></i> Address</div>
               <div class="panel-body"> Room 5.08, Informatics Forum, University of Edinburgh, 10 Crichton Street, Edinburgh, EH8 9AB </div>
@@ -297,54 +297,34 @@
           <h1>Code</h1>
         </div>
         <div class="row">
-          Most of my code can be found on <a href="https://github.com/matt-graham">my Github profile</a>. Below are a selection of some possibly slightly more generally useful repositories.
-        </div>
-        <div class="row vertical-buffer">
-          <div class="col-sm-6">
-            <div class="github-card"
-              data-github="matt-graham/auxiliary-pm-mcmc"
-              data-width="100%" data-theme="default">
-            </div>
-            <div class="github-card"
-              data-github="matt-graham/hmc"
-              data-width="100%" data-theme="default">
-            </div>
-            <div class="github-card"
-              data-github="matt-graham/differentiable-generator-networks"
-              data-width="100%" data-theme="default">
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="github-card"
-              data-github="matt-graham/boltzmann-machine-tools"
-              data-width="100%" data-theme="default">
-            </div>
-            <div class="github-card"
-              data-github="matt-graham/reversible-rng"
-              data-width="100%" data-theme="default">
-            </div>
-            <div class="github-card"
-              data-github="matt-graham/bvh-tools"
-              data-width="100%" data-theme="default">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <h3>
-            <span class="text-muted">pompy:</span> <strong>p</strong>uff-based <strong>o</strong>dour-plume <strong>m</strong>odel in <strong>py</strong>thon
-          </h3>
-        </div>
-        <div class="row">
-          <div class="col-md-3">
-            <img src="images/pompy_example.png" width="256" class="img-thumbnail center-block"/>
-          </div>
-          <div class="col-md-9">
-            <p>
-              As part of my <a href="#msc-project">MSc by Research project</a> in the <a href="https://github.com/InsectRobotics">Insect Robotics</a> lab of Barbara Webb, I created a Python package for simulating odour plumes. The package, <em>pompy</em>, is a <a href="http://www.numpy.org/">NumPy</a> based implementation of the puff-based odour plume model described in <a href="http://link.springer.com/article/10.1023%2FA%3A1016283702837#page-1">Filament-Based Atmospheric Dispersion Model to Achieve Short Time-Scale Structure of Odor Plumes</a> by Farrell et al. (2002). It allows generation of simulated wind velocity and odour concentration field data for use in modelling olfactory-based navigation of insects (or other animals).
+          <div class="col-xs-12">
+            <p class="space-bottom">
+              Most of my code can be found on <a href="https://github.com/matt-graham">my Github profile</a>. Below are a selection of the possibly  more generally useful repositories.
             </p>
-            <a href="https://github.com/InsectRobotics/pompy" class="btn btn-default">
-              <i class="fa fa-github fa-fw"></i> Github repository
-            </a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="github-card panel panel-default"
+              data-repo="matt-graham/auxiliary-pm-mcmc">
+            </div>
+            <div class="github-card panel panel-default"
+              data-repo="matt-graham/hmc">
+            </div>
+            <div class="github-card panel panel-default"
+              data-repo="matt-graham/differentiable-generator-networks">
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="github-card panel panel-default"
+              data-repo="matt-graham/boltzmann-machine-tools">
+            </div>
+            <div class="github-card panel panel-default"
+              data-repo="matt-graham/reversible-rng">
+            </div>
+            <div class="github-card panel panel-default"
+              data-repo="InsectRobotics/pompy">
+            </div>
           </div>
         </div>
       </div>
@@ -356,11 +336,11 @@
           <h1>Teaching</h1>
         </div>
         <div class="row">
-          <p>
+          <p class="pad-sides">
             I am currently the teaching assistant for the coursework-based <a href='http://www.inf.ed.ac.uk/teaching/courses/mlp/'>Machine Learning Practical</a>. The Jupyter notebooks and Python framework we are developing for the course lab sessions are being distributed on <a href="https://github.com/CSTR-Edinburgh/mlpractical/tree/mlp2016-7/master">the course Github repository</a>.
             I am also a tutor for <a href="http://www.inf.ed.ac.uk/teaching/courses/mlpr/2016/">Machine Learning and Pattern Recognition</a>. I have also previously tutored <a href="http://www.inf.ed.ac.uk/teaching/courses/it/">Information Theory</a> and <a href="http://www.inf.ed.ac.uk/teaching/courses/pmr/">Probabilistic Modelling and Reasoning (PMR)</a>. There a couple of Jupyter notebooks with notes on PMR topics I made when tutoring on Github <a href="https://github.com/matt-graham/pmr-notebooks">here</a>.
           </p>
-          <p>
+          <p class="pad-sides">
             I did a short tutorial on Hamiltonian Monte Carlo for the Institute for Adaptive and Neural Computation <a href="https://wiki.inf.ed.ac.uk/ANC/PIGlets">PIGlets</a> discussion group. The slides are available <a href="slides/hmc-tutorial">here</a> and an associated Jupyter notebook going through an example implementation is available <a href="https://github.com/ANC-PIGlets/gradient-based-mcmc/blob/master/Hamiltonian%20Monte%20Carlo.ipynb">on Github</a>.
           </p>
         </div>
@@ -373,11 +353,13 @@
           <h1><small>Non-work</small> interests</h1>
         </div>
         <div class="row text-center">
-          <img src="images/mountain_dawn.jpg" class="img-thumbnail center-block" />
-          <h6>Dawn sky over the Cairngorm plateau</h6>
+          <div class="pad-sides space-bottom">
+            <img src="images/mountain_dawn.jpg" class="img-thumbnail center-block" />
+            <h6>Dawn sky over the Cairngorm plateau</h6>
+          </div>
         </div>
         <div class="row">
-          <p>
+          <p class="pad-sides">
             In my spare time I'm a keen hillwalker and mountaineer. I walked extensively with the
             <a href="http://www.cuhwc.org.uk">Cambridge University Hillwalking Club</a> while doing
             my undergraduate there. In the summer of 2012 I helped organise and took part in an
@@ -404,7 +386,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
   <script src="js/bootstrap.js"></script>
   <script src="js/plugins.js"></script>
-  <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
+
   <script>
   $('#mainNav').onePageNav({
     currentClass: 'active',
@@ -412,6 +394,19 @@
     scrollSpeed: 1200
   });
   </script>
+
+  <script>
+    $('.github-card').each(function( i, div ) {
+      var request = new XMLHttpRequest();
+      request.onload = function () {
+        var repo = JSON.parse(this.responseText);
+        div.innerHTML = `<div class="panel-heading"><i class="fa fa-github fa-fw"></i> <a href="${repo.html_url}">${repo.name}</a> <small>(${repo.language})</small></div><div class="panel-body">${repo.description}</div>`;
+      };
+      request.open('get', 'https://api.github.com/repos/'.concat( div.dataset.repo), true);
+      request.send();
+    });
+  </script>
+
 
 </body>
 
