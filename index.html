@@ -174,12 +174,33 @@
         <div class="row">
           <h3> Pre-prints </h3>
           <ul class="publications-list">
+<li class="publication">
+              <h4>
+                Continuously tempered Hamiltonian Monte Carlo
+              </h4>
+              <p>
+                <i>Matthew M. Graham</i> and <a href="http://homepages.inf.ed.ac.uk/amos">Amos J. Storkey</a>
+              </p>
+              <div class="btn-group" role="group">
+                <a href="files/cthmc/paper.pdf" class="btn btn-default">
+                  <i class="fa fa-file-pdf-o fa-fw"></i> Paper
+                </a>
+                <a href="files/cthmc/extended-abstract.pdf" class="btn btn-default">
+                  <i class="fa fa-file-pdf-o fa-fw"></i> Extended abstract
+                </a>
+                <button class="btn btn-default btn-abs collapsed" data-toggle="collapse" data-target="#cthmc-abs">
+                  Abstract
+                </button>
+              </div>
+              <div id="cthmc-abs" class="collapse abstract">
+                Hamiltonian Monte Carlo (HMC) is a powerful Markov chain Monte Carlo (MCMC) method for performing approximate inference in complex probabilistic models of continuous variables. In common with many MCMC methods however the standard HMC approach performs poorly in distributions with multiple isolated modes. Based on an approach proposed in the statistical physics literature, we present a method for augmenting the Hamiltonian system with an extra continuous <emph>temperature control</emph> variable which allows the dynamic to bridge between sampling a complex target distribution and a simpler uni-modal base distribution. This augmentation both helps increase mode-hopping in multi-modal targets and allows the normalisation constant of the target distribution to be estimated. The method is simple to implement within existing HMC code, requiring only a standard leapfrog integrator. It produces MCMC samples from the target distribution which can be used to directly estimate expectations without any importance re-weighting.
+              </div>
             <li class="publication">
               <h4>
                 Asymptotically exact inference in likelihood-free models
               </h4>
               <p>
-                <i>Matthew M. Graham</i> and <a href="http://homepages.inf.ed.ac.uk/amos">Amos Storkey</a>
+                <i>Matthew M. Graham</i> and <a href="http://homepages.inf.ed.ac.uk/amos">Amos J. Storkey</a>
               </p>
               <div class="btn-group" role="group">
                 <a href="https://arxiv.org/abs/1605.07826" class="btn btn-default">
