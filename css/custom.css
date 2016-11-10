@@ -16,6 +16,10 @@ body {
   padding-left: 15px;
 }
 
+.publications-list li {
+  padding-bottom: 1em;  
+}
+
 .abstract.in, .abstract.collapsing {
   display: block;
   padding: 1em;
