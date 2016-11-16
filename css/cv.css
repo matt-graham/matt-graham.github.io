@@ -1,9 +1,9 @@
 body {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    line-height: 1.428571429;
-    color: #333333;
-    background-color: #ffffff;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #333333;
+  background-color: #ffffff;
 }
 
 .container {
@@ -21,7 +21,6 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 500;
   line-height: 1.1;
   color: inherit;
@@ -111,17 +110,30 @@ hr {
 }
 
 a {
+  color: #428bca;
   text-decoration: none;
-  color: inherit;
+}
+
+a:hover,
+a:focus {
+  color: #2a6496;
+  text-decoration: underline;
+}
+
+a:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
 }
 
 ul, ol {
-    margin-top: 0;
-    margin-bottom: 10px;
+  margin-top: 0;
+  margin-bottom: 1em;
 }
 
-#header{
+.header {
   text-align: center;
+  margin-bottom: 2em;
 }
 
 ul.contact-details {
@@ -135,17 +147,13 @@ ul.contact-details li {
   display: inline;
 }
 
-ul.contact-detail li:last-child {
+ul.contact-details li:last-child {
   padding-right: 0em;
 }
 
 ul.chron-list {
   list-style: none;
   padding-left: 0;
-}
-
-.inline {
-  display: inline;
 }
 
 .chron-list li {
@@ -185,8 +193,18 @@ ul.category-list {
   width: 82%;
 }
 
+.publication-authors em {
+  font-style: normal;
+  font-weight: bold;
+}
+
+.publication-venue {
+  font-style: italic;
+}
+
 @media all {
 	.page-break	{ display: none; }
+  .footer { display: none; }
 }
 
 @media print {
@@ -196,17 +214,33 @@ ul.category-list {
     color:black;
     margin: 0;
     padding: 0;
-    font-family: "Georgia", "Palatino Linotype", "Book Antiqua", "Times New Roman", Times, serif;
+    font-family: Georgia, 'Palatino Linotype', 'Book Antiqua', 'Times New Roman', Times, serif;
     text-rendering: optimizeLegibility;
+  }
+
+  a {
+    color: inherit;
   }
 
 	.page-break	{
     display: block;
-    page-break-before: always;
+    page-break-after: always;
+  }
+
+  .page-break last {
+    page-break-after: auto;
+  }
+
+  .footer {
+    display: block;
+    position: relative;
+    top: -20px;
+    height: 10px;
+    text-align: center;
   }
 
   h1, h2, h3, h4 {
-    font-family: "Georgia", "Palatino Linotype", "Book Antiqua", "Times New Roman", Times, serif;
+    font-family: 'Cormorant Garamond', serif;
   }
 
   .container {
