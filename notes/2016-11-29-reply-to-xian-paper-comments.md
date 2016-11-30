@@ -1,6 +1,6 @@
-Hi Xian,
+Hi Christian,
 
-Thanks for the comments on the paper.
+Thanks for the comments on the paper!
 
 A few additional replies to augment what Amos wrote:
 
