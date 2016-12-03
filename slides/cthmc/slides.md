@@ -177,14 +177,12 @@ $\to (\vct{x},\,\vct{p}) \in \reals^D \times \reals^D$ </span>
 
   * Long-range moves in high-dimensional $\set{X}$. <!-- .element: class="fragment" data-fragment-index="1" -->
 
-  * Target density must be differentiable. <!-- .element: class="fragment" data-fragment-index="2" -->
+  * $\pd{\phi}{\vct{x}}$: automatic differentiation. <!-- .element: class="fragment" data-fragment-index="2" -->
 
-  * Gradients: reverse-mode automatic differentiation. <!-- .element: class="fragment" data-fragment-index="3" -->
-
-  * Need to tune step-size $\delta t$ and integration time $\tau$. <!-- .element: class="fragment" data-fragment-index="4" -->
+  * Need to tune step-size $\delta t$ and integration time $\tau$. <!-- .element: class="fragment" data-fragment-index="3" -->
 
   * Adaptive: No U-Turns Sampler (NUTS) <small>Hoffman and Gelman, 2014.</small>
-<!-- .element: class="fragment" data-fragment-index="5" -->
+<!-- .element: class="fragment" data-fragment-index="4" -->
 
 <div style='text-align: center; margin: auto;' class="fragment" data-fragment-index="6">
   <div style='display: inline-block;'>
@@ -301,7 +299,7 @@ Flat target marginal $\pi(\beta) = 1$,  $\beta \in [0,\,1]$. <!-- .element: clas
     -\beta\phi(\vct{x}) - 
     \lpa 1 - \beta\rpa \psi(\vct{x}) -
     \frac{1}{2}\vct{p}\tr\mtx{M}^{-1}\vct{p} - 
-    \log \mathcal{Z}(\beta) 
+    \color{red}{\log \mathcal{Z}(\beta)}
   \rsb}\_{H\_c(\vct{x},\,\vct{p},\,\beta)}
 \end{align}<!-- .element: style="font-size:90%;" class="fragment" data-fragment-index="2" -->
 
@@ -315,6 +313,10 @@ Flat target marginal $\pi(\beta) = 1$,  $\beta \in [0,\,1]$. <!-- .element: clas
   -\beta \pd{\phi}{\vct{x}} - (1-\beta) \pd{\psi}{\vct{x}} +
   \lpa\phi(\vct{x}) - \psi(\vct{x}) + \color{red}{\pd{\log \mathcal{Z}}{\beta}}\rpa\vct{p}
 \]<!-- .element:  style="font-size:90%;" class="fragment" data-fragment-index="4" -->
+
+----
+
+<!-- .slide: data-background-image="images/1d-gm-adiabatic-monte-carlo-trajectory.svg" data-background-size="contain" -->
 
 ----
 
@@ -359,12 +361,12 @@ Molecular dynamics simulation with Langevin updates.<!-- .element: class="fragme
 
 ### Our approach
 
-\[
-  \tilde{H}(\vct{x},\,u,\,\vct{p},\,v) =
+\begin{align}
+  \tilde{H}(\vct{x},\,u,\,\vct{p},\,v) =&\,
   \beta(u) \lsb \phi(\vct{x}) + \color{blue}{\log \zeta} \rsb + 
-  \color{red}{\lsb 1 - \beta(u) \rsb \psi(\vct{x})} +
+  \color{red}{\lsb 1 - \beta(u) \rsb \psi(\vct{x})} + \,\\\\ & \,
   \frac{1}{2}\vct{p}\tr\mtx{M}^{-1}\vct{p} + \frac{v^2}{2m}
-\]<!-- .element: style="font-size:90%;" class="fragment" data-fragment-index="1" -->
+\end{align}<!-- .element: class="fragment" data-fragment-index="1" -->
 
 <span class="fragment" data-fragment-index="2">
   $\color{blue}{\log{\zeta} \approx \log Z}$
@@ -379,13 +381,14 @@ Molecular dynamics simulation with Langevin updates.<!-- .element: class="fragme
 
 ### Our approach
 
-\[
+\begin{align}
   \tilde{H}(
     \color{green}{\underbrace{\vct{x},u}\_{\vct{\tilde{x}}}},\,
     \color{purple}{\underbrace{\vct{p},v}\_{\vct{\tilde{p}}}}
-  ) =
-  \color{green}{\overbrace{\\beta(u) \lsb \phi(\vct{x}) + \log\zeta \rsb + \lsb 1 - \beta(u) \rsb \psi(\vct{x})}^{\tilde{\phi}(\vct{\tilde{x}})}} + \color{purple}{\underbrace{\frac{1}{2}\vct{p}\tr\mtx{M}^{-1}\vct{p} + \frac{v^2}{2m}}\_{\frac{1}{2}\vct{\tilde{p}}\tr\mtx{\tilde{M}}^{-1}\vct{\tilde{p}}}}
-\]
+  ) =& \,
+  \color{green}{\overbrace{\\beta(u) \lsb \phi(\vct{x}) + \log\zeta \rsb + \lsb 1 - \beta(u) \rsb \psi(\vct{x})}^{\tilde{\phi}(\vct{\tilde{x}})}} + \,\\\\ &\,
+  \color{purple}{\underbrace{\frac{1}{2}\vct{p}\tr\mtx{M}^{-1}\vct{p} + \frac{v^2}{2m}}\_{\frac{1}{2}\vct{\tilde{p}}\tr\mtx{\tilde{M}}^{-1}\vct{\tilde{p}}}}
+\end{align}
 
 \[
   \td{\vct{\tilde{x}}}{t} = \mtx{\tilde{M}}^{-1}\vct{\tilde{p}},
@@ -398,11 +401,11 @@ Molecular dynamics simulation with Langevin updates.<!-- .element: class="fragme
 ### Bounding the partition function
 
 \[
-  \pi(u) \propto \mathscr{Z}\lsb\beta(u)\rsb = \frac{\mathcal{Z}\lsb \beta(u)\rsb}{\zeta^{\beta(u)}}
+  \pi(u) \propto \color{red}{\mathscr{Z}\lsb\beta(u)\rsb} = \frac{\color{blue}{\mathcal{Z}\lsb \beta(u)\rsb}}{\zeta^{\beta(u)}}
 \] <!-- .element: class="fragment" data-fragment-index="1" -->
 
 \[
-  \mathcal{Z}\lsb \beta(u)\rsb =
+  \color{blue}{\mathcal{Z}\lsb \beta(u)\rsb} =
   \int_{\set{X}} 
     \exp\lbr 
       \beta(u) \phi(\vct{x}) - \lsb 1 - \beta(u) \rsb \psi(\vct{x})
@@ -411,13 +414,13 @@ Molecular dynamics simulation with Langevin updates.<!-- .element: class="fragme
 \] <!-- .element: class="fragment current-visible" data-fragment-index="2" -->
 
 \[
-\beta(u) \lsb \log \frac{Z}{\zeta} - \mathbb{D}_{\rm KL}^{b\Vert t} \rsb \leq
-\log\mathscr{Z}\lsb\beta(u)\rsb \leq
+\beta(u) \lsb \log \frac{Z}{\zeta} - \color{green}{\mathbb{D}_{\rm KL}^{b\Vert t}} \rsb \leq
+\log\color{red}{\mathscr{Z}\lsb\beta(u)\rsb} \leq
 \beta(u) \log \frac{Z}{\zeta}
 \] <!-- .element: class="fragment" data-fragment-index="3" -->
 
 \[
-  \mathbb{D}\_{\rm KL}^{b\Vert t} =
+  \color{green}{\mathbb{D}\_{\rm KL}^{b\Vert t}} =
   \int\_{\set{X}}
     \exp\lsb-\psi(\vct{x})\rsb 
     \log \frac{\exp\lsb-\psi(\vct{x})\rsb }{\frac{1}{Z}\exp\lsb-\phi(\vct{x})\rsb }
@@ -429,25 +432,25 @@ Molecular dynamics simulation with Langevin updates.<!-- .element: class="fragme
 ### Bounding the partition function
 
 \[
-  \pi(u) \propto \mathscr{Z}\lsb\beta(u)\rsb = \frac{\mathcal{Z}\lsb \beta(u)\rsb}{\zeta^{\beta(u)}}
-\] 
+  \pi(u) \propto \color{red}{\mathscr{Z}\lsb\beta(u)\rsb} = \frac{\color{blue}{\mathcal{Z}\lsb \beta(u)\rsb}}{\zeta^{\beta(u)}}
+\]
 
 \[
-  \mathcal{Z}\lsb \beta(u)\rsb =
+  \color{blue}{\mathcal{Z}\lsb \beta(u)\rsb} =
   \int_{\set{X}} 
     \exp\lbr 
       \beta(u) \phi(\vct{x}) - \lsb 1 - \beta(u) \rsb \psi(\vct{x})
     \rbr
   \,\dr{\vct{x}}
-\] <!-- .element: class="fragment current-visible" data-fragment-index="-1" -->
+\]<!-- .element: class="fragment current-visible" data-fragment-index="-1" -->
 
 \[
-\beta(u) \log \frac{Z}{\zeta} - \lsb 1 - \beta(u) \rsb \mathbb{D}\_{\rm KL}^{t\Vert b} \leq
-\log\mathscr{Z}\lsb\beta(u)\rsb
+\beta(u) \log \frac{Z}{\zeta} - \lsb 1 - \beta(u) \rsb \color{purple}{\mathbb{D}\_{\rm KL}^{t\Vert b}} \leq
+\log\color{red}{\mathscr{Z}\lsb\beta(u)\rsb}
 \] 
 
 \[
-  \mathbb{D}\_{\rm KL}^{t\Vert b} =
+  \color{purple}{\mathbb{D}\_{\rm KL}^{t\Vert b}} =
   \int\_{\set{X}}
     \frac{1}{Z}\exp\lsb-\phi(\vct{x})\rsb 
     \log \frac{\frac{1}{Z}\exp\lsb-\phi(\vct{x})\rsb }{\exp\lsb-\psi(\vct{x})\rsb }
@@ -460,7 +463,7 @@ Molecular dynamics simulation with Langevin updates.<!-- .element: class="fragme
 
 ### Choosing a base distribution
 
-Minimise $\mathbb{D}\_{\rm KL}^{b\Vert t}$(and/or $\mathbb{D}\_{\rm KL}^{t\Vert b}$),<!-- .element: class="fragment" data-fragment-index="1" -->
+Minimise $\color{green}{\mathbb{D}\_{\rm KL}^{b\Vert t}}$(and/or $\color{purple}{\mathbb{D}\_{\rm KL}^{t\Vert b}}$),<!-- .element: class="fragment" data-fragment-index="1" -->
 
 subject to $\exp\lsb-\psi(\vct{x})\rsb$ being a simple (unimodal) density.<!-- .element: class="fragment" data-fragment-index="2" -->
 
