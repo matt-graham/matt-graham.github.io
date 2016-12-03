@@ -329,38 +329,16 @@ Flat target marginal $\pi(\beta) = 1$,  $\beta \in [0,\,1]$. <!-- .element: clas
   \beta(u) \phi(\vct{x}) + \omega(u) + \frac{1}{2}\vct{p}\tr\mtx{M}^{-1}\vct{p} + \frac{v^2}{2m}
 \]<!-- .element: class="fragment" data-fragment-index="1" -->
 
-<img src='images/inv-temp-control-func.svg' style='margin: 0; padding: 0;' width='70%' class="fragment" data-fragment-index="2" />
+<img src='images/inv-temp-control-func.svg' style='margin: 0; padding: 0;' width='50%' class="fragment" data-fragment-index="2" />
 
 \[
   \pi\lsb\vct{x} \gvn {-\theta_1} \leq |u| \leq \theta_1\rsb \propto 
   \exp\lsb-\phi(\vct{x})\rsb
-\]<!-- .element: class="fragment" data-fragment-index="3" -->
+\]<!-- .element: class="fragment current-visible" data-fragment-index="3" -->
 
+Molecular dynamics simulation with Langevin updates.<!-- .element: class="fragment" data-fragment-index="4" -->
 
 ----
-
-### Extended Hamiltonian approach to continuous tempering <small>Gobbo and Leimkuhler, 2016</small>
-
-\[
-  \tilde{H}(
-    \color{green}{\underbrace{\vct{x},u}\_{\vct{\tilde{x}}}},\,
-    \color{purple}{\underbrace{\vct{p},v}\_{\vct{\tilde{p}}}}
-  ) =
-  \color{green}{\underbrace{\\beta(u) \phi(\vct{x}) + \omega(u)}\_{\tilde{\phi}(\vct{\tilde{x}})}} + \color{purple}{\underbrace{\frac{1}{2}\vct{p}\tr\mtx{M}^{-1}\vct{p} + \frac{v^2}{2m}}\_{\frac{1}{2}\vct{\tilde{p}}\tr\mtx{\tilde{M}}^{-1}\vct{\tilde{p}}}}
-\]
-
-\[
-  \tilde{H}(\vct{\tilde{x}},\,\vct{\tilde{p}}) = 
-  \tilde{\phi}(\vct{\tilde{x}}) + \frac{1}{2}\vct{\tilde{p}}\tr\mtx{\tilde{M}}^{-1}\vct{\tilde{p}}
-\]<!-- .element: class="fragment" data-fragment-index="1" -->
-
-\[
-  \td{\vct{\tilde{x}}}{t} = \mtx{\tilde{M}}^{-1}\vct{\tilde{p}},
-  \quad
-  \td{\vct{\tilde{p}}}{t} = -\pd{\tilde\phi}{\vct{\tilde{x}}}
-\]<!-- .element: class="fragment" data-fragment-index="2" -->
-
----
 
 ### Metadynamics <small>Laio and Parrinello, 2002</small>
 
@@ -381,23 +359,39 @@ Flat target marginal $\pi(\beta) = 1$,  $\beta \in [0,\,1]$. <!-- .element: clas
 
 ### Our approach
 
-\begin{align}
-  \tilde{H}(\vct{x},\,u,\,\vct{p},\,v) =\,&\, 
-  \beta(u) \phi(\vct{x}) + \,
-  \color{red}{\lsb 1 - \beta(u) \rsb \psi(\vct{x}) + 
-  \beta(u) \log\zeta + \,} \\\\ \,&
+\[
+  \tilde{H}(\vct{x},\,u,\,\vct{p},\,v) =
+  \beta(u) \lsb \phi(\vct{x}) + \color{blue}{\log \zeta} \rsb + 
+  \color{red}{\lsb 1 - \beta(u) \rsb \psi(\vct{x})} +
   \frac{1}{2}\vct{p}\tr\mtx{M}^{-1}\vct{p} + \frac{v^2}{2m}
-\end{align}<!-- .element: style="font-size:90%;" class="fragment" data-fragment-index="1" -->
+\]<!-- .element: style="font-size:90%;" class="fragment" data-fragment-index="1" -->
 
-$u \in [-1, +1]$ defined on circle.<!-- .element: class="fragment" data-fragment-index="2" -->
-
-\[ 
-  \log{\zeta} \approx \log Z
-  \quad\textrm{and}\quad
-  \exp\lsb -\psi(\vct{x}) \rsb
+<span class="fragment" data-fragment-index="2">
+  $\color{blue}{\log{\zeta} \approx \log Z}$
+<span>
+<span class="fragment" data-fragment-index="3">
+  $\qquad\color{red}{\exp\lsb -\psi(\vct{x}) \rsb
   \stackrel{\scriptscriptstyle\textrm{moments}}{\approx}
-  \frac{1}{Z}\exp\lsb-\phi(\vct{x})\rsb
-\]<!-- .element: class="fragment" data-fragment-index="3" -->
+  \frac{1}{Z}\exp\lsb-\phi(\vct{x})\rsb}$.
+</span>
+
+----
+
+### Our approach
+
+\[
+  \tilde{H}(
+    \color{green}{\underbrace{\vct{x},u}\_{\vct{\tilde{x}}}},\,
+    \color{purple}{\underbrace{\vct{p},v}\_{\vct{\tilde{p}}}}
+  ) =
+  \color{green}{\overbrace{\\beta(u) \lsb \phi(\vct{x}) + \log\zeta \rsb + \lsb 1 - \beta(u) \rsb \psi(\vct{x})}^{\tilde{\phi}(\vct{\tilde{x}})}} + \color{purple}{\underbrace{\frac{1}{2}\vct{p}\tr\mtx{M}^{-1}\vct{p} + \frac{v^2}{2m}}\_{\frac{1}{2}\vct{\tilde{p}}\tr\mtx{\tilde{M}}^{-1}\vct{\tilde{p}}}}
+\]
+
+\[
+  \td{\vct{\tilde{x}}}{t} = \mtx{\tilde{M}}^{-1}\vct{\tilde{p}},
+  \quad
+  \td{\vct{\tilde{p}}}{t} = -\pd{\tilde\phi}{\vct{\tilde{x}}}
+\]<!-- .element: class="fragment" data-fragment-index="1" -->
 
 ---
 
