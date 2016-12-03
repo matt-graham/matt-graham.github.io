@@ -372,7 +372,7 @@ Flat target marginal $\pi(\beta) = 1$,  $\beta \in [0,\,1]$. <!-- .element: clas
 \]<!-- .element: class="fragment current-visible" data-fragment-index="1" -->
 
 <div class="fragment" data-fragment-index="2">
-  <img src="/images/metadynamics.gif" width="40%" />
+  <img src="images/metadynamics.gif" width="40%" />
   $$u$$
   <small>Alessandro Laio, <a href='http://people.sissa.it/~laio/Research/Images/meta.gif'>http://people.sissa.it/~laio/Research/Images/meta.gif</a></small>
 </div>
