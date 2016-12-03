@@ -1,0 +1,52 @@
+.reveal section .title-background {
+  background-color: #ffffff;
+  background-image: url('/images/cthmc-trajectory-simpler.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain; 
+  height: 450px;
+}
+
+.reveal section .title-banner {
+  position: relative; 
+  top: 170px; 
+  background-color: rgba(255, 255, 255, 0.5); 
+  border-top: solid 1px #888; 
+  border-bottom: solid 1px #888;
+}
+
+.reveal section .title-heading {
+  color: #0c2f59; 
+  font-size: 180%; 
+  margin: 0;
+}
+
+.reveal section img {
+  border: none;
+  box-shadow: none;
+  margin: 0;
+}
+
+html.dim-bg .slide-background.present {
+  opacity: 0.5 !important;
+}
+
+html.dim-bg-2 .slide-background.present {
+  opacity: 0.2 !important;
+}
+
+html.dim-bg-video .slide-background video {
+  opacity: 0.3 !important;
+}
+
+.reveal small {
+  font-size: 0.6em;
+  color: #888;
+  vertical-align: baseline !important;
+  text-transform: none !important;
+  font-weight: normal !important;
+}
+
+.reveal section .invisible {
+  display: none !important;
+}
