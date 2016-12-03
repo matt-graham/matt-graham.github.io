@@ -1,6 +1,6 @@
 .reveal section .title-background {
   background-color: #ffffff;
-  background-image: url('images/cthmc-trajectory-simpler.svg');
+  background-image: url('../images/cthmc-trajectory-simpler.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain; 
