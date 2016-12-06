@@ -65,16 +65,7 @@ $\to (\vct{x},\,\vct{p}) \in \reals^D \times \reals^D$ </span>
 
 ### Black-box inference with HMC
 
-  * Long-range moves in high-dimensional $\set{X}$. <!-- .element: class="fragment" data-fragment-index="1" -->
-
-  * $\pd{\phi}{\vct{x}}$: automatic differentiation. <!-- .element: class="fragment" data-fragment-index="2" -->
-
-  * Need to tune step-size $\delta t$ and integration time $\tau$. <!-- .element: class="fragment" data-fragment-index="3" -->
-
-  * Adaptive: No U-Turns Sampler (NUTS) <small>Hoffman and Gelman, 2014.</small>
-<!-- .element: class="fragment" data-fragment-index="4" -->
-
-<div style='text-align: center; margin: auto;' class="fragment" data-fragment-index="6">
+<div style='text-align: center; margin: auto;'>
   <div style='display: inline-block;'>
     <img src='images/stan-logo.png' height='120px' />
     <div style="font-style: italic; font-family:'volkhov', serif;">Stan</div>
@@ -84,45 +75,52 @@ $\to (\vct{x},\,\vct{p}) \in \reals^D \times \reals^D$ </span>
   </div>
 </div>
 
+  * Long-range moves in high-dimensional $\set{X}$. <!-- .element: class="fragment" data-fragment-index="1" -->
+
+  * Adaptive: No U-Turns Sampler (NUTS) <small>Hoffman and Gelman, 2014.</small>
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+  * However poor performance in multimodal targets.<!-- .element: class="fragment" data-fragment-index="3" -->
+
 ---
 
-### HMC in multimodal targets
+### HMC in 1D Gaussian mixture
 
 <img src='images/hmc-bimodal-blues-0.svg' width='80%' />
 
 ----
 
-### HMC in multimodal targets
+### HMC in 1D Gaussian mixture
 
 <img src='images/hmc-bimodal-blues-1.svg' width='80%' />
 
 ----
 
-### HMC in multimodal targets
+### HMC in 1D Gaussian mixture
 
 <img src='images/hmc-bimodal-blues-2.svg' width='80%' />
 
 ----
 
-### HMC in multimodal targets
+### HMC in 1D Gaussian mixture
 
 <img src='images/hmc-bimodal-blues-3.svg' width='80%' />
 
 ----
 
-### HMC in multimodal targets
+### HMC in 1D Gaussian mixture
 
 <img src='images/hmc-bimodal-blues-4.svg' width='80%' />
 
 ----
 
-### HMC in multimodal targets
+### HMC in 1D Gaussian mixture
 
 <img src='images/hmc-bimodal-blues-5.svg' width='80%' />
 
 ----
 
-### HMC in multimodal targets
+### HMC in 1D Gaussian mixture
 
 <img src='images/hmc-bimodal-blues-6.svg' width='80%' />
 
@@ -132,15 +130,19 @@ $\to (\vct{x},\,\vct{p}) \in \reals^D \times \reals^D$ </span>
 
 ### Thermodynamic ensembles
 
+Introduce simple normalised base density $\exp\lsb-\psi(\vct{x})\rsb$ <!-- .element: class="fragment" data-fragment-index="1" -->
+
+and inverse temperature $\beta$. <!-- .element: class="fragment" data-fragment-index="2" -->
+
 \[
   \pi\lpa \vct{x} \gvn \beta \rpa =
   \frac{1}{\mathcal{Z}(\beta)}
   \exp\lsb -\beta \phi(\vct{x}) - (1 - \beta) \psi(\vct{x}) \rsb
-\] <!-- .element: class="fragment" data-fragment-index="1" -->
+\] <!-- .element: class="fragment" data-fragment-index="3" -->
 
 \[
   \mathcal{Z}(\beta) = \int_{\set{X}} \exp\lsb -\beta \phi(\vct{x}) - (1 - \beta) \psi(\vct{x}) \rsb \,\dr\vct{x}
-\] <!-- .element: class="fragment" data-fragment-index="2" -->
+\] <!-- .element: class="fragment" data-fragment-index="4" -->
 
 ----
 
@@ -165,12 +167,12 @@ Flat target marginal $\pi(\beta) = 1$,  $\beta \in [0,\,1]$. <!-- .element: clas
   &=
   \pi(\vct{x} \gvn \beta) \pi(\beta) \pi(\vct{p})\\\\
   &=
-  \exp\underbrace{\lsb 
+  \exp\lsb 
     -\beta\phi(\vct{x}) - 
     \lpa 1 - \beta\rpa \psi(\vct{x}) -
     \frac{1}{2}\vct{p}\tr\mtx{M}^{-1}\vct{p} - 
     \color{red}{\log \mathcal{Z}(\beta)}
-  \rsb}\_{H\_c(\vct{x},\,\vct{p},\,\beta)}
+  \rsb
 \end{align}<!-- .element: style="font-size:90%;" class="fragment" data-fragment-index="2" -->
 
 ----
@@ -187,7 +189,7 @@ Flat target marginal $\pi(\beta) = 1$,  $\beta \in [0,\,1]$. <!-- .element: clas
 
 \[
   \tilde{H}(\vct{x},\,u,\,\vct{p},\,v) =
-  \beta(u) \phi(\vct{x}) + \omega(u) + \frac{1}{2}\vct{p}\tr\mtx{M}^{-1}\vct{p} + \frac{v^2}{2m}
+  \beta(u) \phi(\vct{x}) + \frac{u^2}{2 \sigma^2} + \frac{1}{2}\vct{p}\tr\mtx{M}^{-1}\vct{p} + \frac{v^2}{2m}
 \]<!-- .element: class="fragment" data-fragment-index="1" -->
 
 <img src='images/inv-temp-control-func.svg' style='margin: 0; padding: 0;' width='60%' class="fragment" data-fragment-index="2" />
@@ -201,16 +203,12 @@ Molecular dynamics simulation with Langevin updates.<!-- .element: class="fragme
 
 ----
 
-<!-- .slide: data-background-image="images/1d-gm-gaussian-u-joint-trajectory.svg" data-background-size="contain" -->
-
-----
-
 ### Metadynamics <small>Laio and Parrinello, 2002</small>
 
 \[
   \pi(u)
   \propto 
-  \exp\lsb-\omega(u)\rsb
+  \exp\lsb-\frac{u^2}{2\sigma^2}\rsb
   \color{red}{\int\_{\set{X}} \exp\lsb-\beta(u)\phi(\vct{x})\rsb\,\dr\vct{x}}
 \]<!-- .element: class="fragment current-visible" data-fragment-index="1" -->
 
@@ -267,23 +265,6 @@ Molecular dynamics simulation with Langevin updates.<!-- .element: class="fragme
 
 <!-- .slide: data-background-image="images/1d-gm-norm-const-est.svg" data-background-size="contain" -->
 
-### Estimating $Z$
-
-\[
-  Z = 
-  \frac{1 - \theta\_2}{\theta\_1}
-  \frac{\mathbb{E}\_{\pi}\lsb \mathbb{1}[0 \leq |u| \leq \theta\_1]\rsb}
-  {\mathbb{E}\_{\pi}\lsb\mathbb{1}[\theta\_2 \leq |u| \leq 1]\rsb}\zeta
-\]<!-- .element: class="fragment current-visible" data-fragment-index="-1" -->
-
-\[
-  Z \approx
-  \frac{1 - \theta\_2}{\theta\_1}
-  \frac
-  {\sum\_{s=1}^S\lbr \mathbb{1}\lsb 0 \leq |u^{(s)}| \leq \theta\_1 \rsb\rbr}
-  {\sum\_{s=1}^S\lbr \mathbb{1}\lsb \theta\_2 \leq |u^{(s)}| \leq 1 \rsb\rbr} \zeta
-\]<!-- .element: class="fragment" data-fragment-index="-1" -->
-
 ----
 
 <!-- .slide: data-background-image="images/1d-gm-norm-const-est.svg" data-background-size="contain" data-state="dim-bg" -->
@@ -291,19 +272,12 @@ Molecular dynamics simulation with Langevin updates.<!-- .element: class="fragme
 ### Estimating $Z$
 
 \[
-  Z = 
-  \frac{1 - \theta\_2}{\theta\_1}
-  \frac{\mathbb{E}\_{\pi}\lsb \mathbb{1}[0 \leq |u| \leq \theta\_1]\rsb}
-  {\mathbb{E}\_{\pi}\lsb\mathbb{1}[\theta\_2 \leq |u| \leq 1]\rsb}\zeta
-\]<!-- .element: class="fragment current-visible" data-fragment-index="1" -->
-
-\[
   Z \approx
   \frac{1 - \theta\_2}{\theta\_1}
   \frac
-  {\sum\_{s=1}^S\lbr \mathbb{1}\lsb 0 \leq |u^{(s)}| \leq \theta\_1 \rsb\rbr}
-  {\sum\_{s=1}^S\lbr \mathbb{1}\lsb \theta\_2 \leq |u^{(s)}| \leq 1 \rsb\rbr} \zeta
-\]<!-- .element: class="fragment" data-fragment-index="2" -->
+  {\color{green}{\sum\_{s=1}^S\lbr \mathbb{1}\lsb 0 \leq |u^{(s)}| \leq \theta\_1 \rsb\rbr}}
+  {\color{purple}{\sum\_{s=1}^S\lbr \mathbb{1}\lsb \theta\_2 \leq |u^{(s)}| \leq 1 \rsb\rbr}} \zeta
+\]<!-- .element: class="fragment" data-fragment-index="1" -->
 
 ---
 
@@ -388,6 +362,7 @@ Molecular dynamics simulation with Langevin updates.<!-- .element: class="fragme
   * Thermodynamic HMC augmentation which improves mode-hopping and allows estimation of $Z$.<!-- .element: class="fragment" data-fragment-index="1" -->
   * Given $\zeta$ and $\psi$ can be easily used with existing HMC code.<!-- .element: class="fragment" data-fragment-index="2" -->
   * Exploits cheap deterministic approximations to $\pi(\vct{x})$ while still allowing asymptotic exactness.<!-- .element: class="fragment" data-fragment-index="3" -->
+  * Statistical physics literature rich resource for developing MCMC methods!<!-- .element: class="fragment" data-fragment-index="4" -->
 
 ---
 
