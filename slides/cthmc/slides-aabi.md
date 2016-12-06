@@ -156,43 +156,14 @@ and inverse temperature $\beta$. <!-- .element: class="fragment" data-fragment-i
 
 ----
 
-<!-- .slide: data-background-image="images/1d-gm-adiabatic-monte-carlo-trajectory.svg" data-background-size="contain" data-state="dim-bg" -->
-
-### Adiabatic Monte Carlo <small>Betancourt, 2014</small>
-
-Flat target marginal $\pi(\beta) = 1$,  $\beta \in [0,\,1]$. <!-- .element: class="fragment current-visible" data-fragment-index="1" -->
-
-\begin{align}
-  \pi(\vct{x},\,\vct{p},\,\beta) 
-  &=
-  \pi(\vct{x} \gvn \beta) \pi(\beta) \pi(\vct{p})\\\\
-  &=
-  \exp\lsb 
-    -\beta\phi(\vct{x}) - 
-    \lpa 1 - \beta\rpa \psi(\vct{x}) -
-    \frac{1}{2}\vct{p}\tr\mtx{M}^{-1}\vct{p} - 
-    \color{red}{\log \mathcal{Z}(\beta)}
-  \rsb
-\end{align}<!-- .element: style="font-size:90%;" class="fragment" data-fragment-index="2" -->
-
-----
-
-<!-- .slide: data-background-image="images/1d-gm-adiabatic-monte-carlo-trajectory.svg" data-background-size="contain" -->
-
-----
-
-<!-- .slide: data-background-image="images/1d-gm-adiabatic-monte-carlo-stalled-trajectory.svg" data-background-size="contain" -->
-
----
-
 ### Extended Hamiltonian approach to continuous tempering <small>Gobbo and Leimkuhler, 2016</small>
+
+<img src='images/inv-temp-control-func.svg' style='margin: 0; padding: 0;' width='60%' class="fragment" data-fragment-index="1" />
 
 \[
   \tilde{H}(\vct{x},\,u,\,\vct{p},\,v) =
   \beta(u) \phi(\vct{x}) + \frac{u^2}{2 \sigma^2} + \frac{1}{2}\vct{p}\tr\mtx{M}^{-1}\vct{p} + \frac{v^2}{2m}
-\]<!-- .element: class="fragment" data-fragment-index="1" -->
-
-<img src='images/inv-temp-control-func.svg' style='margin: 0; padding: 0;' width='60%' class="fragment" data-fragment-index="2" />
+\]<!-- .element: class="fragment" data-fragment-index="2" -->
 
 \[
   \pi\lsb\vct{x} \gvn {-\theta_1} \leq |u| \leq \theta_1\rsb \propto 
@@ -203,18 +174,23 @@ Molecular dynamics simulation with Langevin updates.<!-- .element: class="fragme
 
 ----
 
-### Metadynamics <small>Laio and Parrinello, 2002</small>
+### Exploring $u$ space
 
 \[
   \pi(u)
   \propto 
   \exp\lsb-\frac{u^2}{2\sigma^2}\rsb
   \color{red}{\int\_{\set{X}} \exp\lsb-\beta(u)\phi(\vct{x})\rsb\,\dr\vct{x}}
-\]<!-- .element: class="fragment current-visible" data-fragment-index="1" -->
+\]<!-- .element: class="fragment" data-fragment-index="1" -->
 
-<div class="fragment" data-fragment-index="2">
+<img src='images/1d-gm-ext-hamiltonian-flat-base-free-energy.svg' style='margin: 0; padding: 0;' width='80%' class="fragment" data-fragment-index="2" />
+
+----
+
+### Metadynamics <small>Laio and Parrinello, 2002</small>
+
+<div>
   <img src="images/metadynamics.gif" width="40%" />
-  $$u$$
   <small>Alessandro Laio, <a href='http://people.sissa.it/~laio/Research/Images/meta.gif'>http://people.sissa.it/~laio/Research/Images/meta.gif</a></small>
 </div>
 
@@ -237,6 +213,8 @@ Molecular dynamics simulation with Langevin updates.<!-- .element: class="fragme
   \stackrel{\scriptscriptstyle\textrm{moments}}{\approx}
   \frac{1}{Z}\exp\lsb-\phi(\vct{x})\rsb}$.
 </span>
+
+<img src='images/1d-gm-ext-hamiltonian-gaussian-base-free-energy.svg' style='margin: 0; padding: 0;' width='80%' class="fragment" data-fragment-index="4" />
 
 ----
 
@@ -284,10 +262,10 @@ Molecular dynamics simulation with Langevin updates.<!-- .element: class="fragme
 ### 1D Gaussian mixture example
 
 <div>
-  <div style='display: inline-block; padding: 0px;'>
+  <div style='display: inline-block; padding: 0px;' class='fragment' data-fragment-index='1'>
      <img src='images/extended-hamiltonian-1d-gm-x-chain-2.svg' height='470px' style='margin: 0;' />
   </div>
-  <div style='display: inline-block; padding: 0px;'>
+  <div style='display: inline-block; padding: 0px;' class='fragment' data-fragment-index='2'>
     <img src='images/extended-hamiltonian-1d-gm-u-chain-2.svg' height='470px' style='margin: 0;' />
  </div>
 </div>
@@ -302,7 +280,7 @@ Molecular dynamics simulation with Langevin updates.<!-- .element: class="fragme
 
 ### Boltzmann machine relaxation results
 
-<div>
+<div class='fragment' data-fragment-index='1'>
    <div style='display: inline-block; padding: 5px;'>
      <img src='images/bmr-20d-first-mom-err-2.svg' height='200px' style='margin: 0;' />
   </div>
@@ -314,7 +292,7 @@ Molecular dynamics simulation with Langevin updates.<!-- .element: class="fragme
   </div>
 </div>
 
-<div>
+<div class='fragment' data-fragment-index='2'>
    <div style='display: inline-block; padding: 5px;'>
      <img src='images/bmr-20d-first-mom-err-1.svg' height='200px' style='margin: 0;' />
   </div>
@@ -326,35 +304,6 @@ Molecular dynamics simulation with Langevin updates.<!-- .element: class="fragme
   </div>
 </div>
 
-----
-
-### Boltzmann machine relaxation results
-
-<div>
-   <div style='display: inline-block; padding: 5px;'>
-     <img src='images/bmr-20d-first-mom-err-3.svg' height='200px' style='margin: 0;' />
-  </div>
-  <div style='display: inline-block; padding: 5px;'>
-     <img src='images/bmr-20d-second-mom-err-3.svg' height='200px' style='margin: 0;' />
-  </div>
-  <div style='display: inline-block; padding: 5px;'>
-     <img src='images/bmr-20d-log-norm-const-err-3.svg' height='200px' style='margin: 0;' />
-  </div>
-</div>
-
-<div>
-   <div style='display: inline-block; padding: 5px;'>
-     <img src='images/bmr-20d-first-mom-err-4.svg' height='200px' style='margin: 0;' />
-  </div>
-  <div style='display: inline-block; padding: 5px;'>
-     <img src='images/bmr-20d-second-mom-err-4.svg' height='200px' style='margin: 0;' />
-  </div>
-  <div style='display: inline-block; padding: 5px;'>
-     <img src='images/bmr-20d-log-norm-const-err-4.svg' height='200px' style='margin: 0;' />
-  </div>
-</div>
-
-
 ---
 
 ### Conclusions
@@ -362,7 +311,7 @@ Molecular dynamics simulation with Langevin updates.<!-- .element: class="fragme
   * Thermodynamic HMC augmentation which improves mode-hopping and allows estimation of $Z$.<!-- .element: class="fragment" data-fragment-index="1" -->
   * Given $\zeta$ and $\psi$ can be easily used with existing HMC code.<!-- .element: class="fragment" data-fragment-index="2" -->
   * Exploits cheap deterministic approximations to $\pi(\vct{x})$ while still allowing asymptotic exactness.<!-- .element: class="fragment" data-fragment-index="3" -->
-  * Statistical physics literature rich resource for developing MCMC methods!<!-- .element: class="fragment" data-fragment-index="4" -->
+  * Statistical physics literature continues to be a rich resource for developing MCMC methods!<!-- .element: class="fragment" data-fragment-index="4" -->
 
 ---
 
@@ -419,10 +368,6 @@ Molecular dynamics simulation with Langevin updates.<!-- .element: class="fragme
   *Journal of Machine Learning Research*, Hoffman & Gelman (2014).  
   </li>
   <li>
-  Adiabatic Monte Carlo. 
-  *arXiv preprint arXiv:1405.3489*, Betancourt (2014).  
-  </li>
-  <li>
   Extended Hamiltonian approach to continuous tempering. 
   *Physical Review E*, Gobbo & Leimkuhler (2015). 
   </li>
@@ -431,3 +376,180 @@ Molecular dynamics simulation with Langevin updates.<!-- .element: class="fragme
   *Proceedings of the National Academy of Sciences*, Laio & Parrinello (2002).  
   </li>
 </ul>
+
+---
+
+<!-- .slide: data-background-image="images/1d-gm-adiabatic-monte-carlo-trajectory.svg" data-background-size="contain" data-state="dim-bg" -->
+
+### Adiabatic Monte Carlo <small>Betancourt, 2014</small>
+
+Flat target marginal $\pi(\beta) = 1$,  $\beta \in [0,\,1]$. <!-- .element: class="fragment current-visible" data-fragment-index="1" -->
+
+\begin{align}
+  \pi(\vct{x},\,\vct{p},\,\beta) 
+  &=
+  \pi(\vct{x} \gvn \beta) \pi(\beta) \pi(\vct{p})\\\\
+  &=
+  \exp\lsb 
+    -\beta\phi(\vct{x}) - 
+    \lpa 1 - \beta\rpa \psi(\vct{x}) -
+    \frac{1}{2}\vct{p}\tr\mtx{M}^{-1}\vct{p} - 
+    \color{red}{\log \mathcal{Z}(\beta)}
+  \rsb
+\end{align}<!-- .element: style="font-size:90%;" class="fragment" data-fragment-index="2" -->
+
+\[
+  \td{\vct{x}}{t} = \mtx{M}^{-1}\vct{p},~
+  \td{\beta}{t} = -\vct{p}\tr \mtx{M}^{-1} \vct{p}
+\]<!-- .element: style="font-size:90%;" class="fragment current-visible" data-fragment-index="3" -->
+
+\[
+  \td{\vct{p}}{t} = 
+  -\beta \pd{\phi}{\vct{x}} - (1-\beta) \pd{\psi}{\vct{x}} +
+  \lpa\phi(\vct{x}) - \psi(\vct{x}) + \color{red}{\pd{\log \mathcal{Z}}{\beta}}\rpa\vct{p}
+\]<!-- .element:  style="font-size:90%;" class="fragment" data-fragment-index="4" -->
+
+----
+
+<!-- .slide: data-background-image="images/1d-gm-adiabatic-monte-carlo-trajectory.svg" data-background-size="contain" -->
+
+----
+
+<!-- .slide: data-background-image="images/1d-gm-adiabatic-monte-carlo-stalled-trajectory.svg" data-background-size="contain" -->
+
+---
+
+### Bounding the partition function
+
+\[
+  \pi(u) \propto \color{red}{\mathscr{Z}\lsb\beta(u)\rsb} = \frac{\color{blue}{\mathcal{Z}\lsb \beta(u)\rsb}}{\zeta^{\beta(u)}}
+\] <!-- .element: class="fragment" data-fragment-index="1" -->
+
+\[
+  \color{blue}{\mathcal{Z}\lsb \beta(u)\rsb} =
+  \int_{\set{X}} 
+    \exp\lbr 
+      \beta(u) \phi(\vct{x}) - \lsb 1 - \beta(u) \rsb \psi(\vct{x})
+    \rbr
+  \,\dr{\vct{x}}
+\] <!-- .element: class="fragment current-visible" data-fragment-index="2" -->
+
+\[
+\beta(u) \lsb \log \frac{Z}{\zeta} - \color{green}{\mathbb{D}_{\rm KL}^{b\Vert t}} \rsb \leq
+\log\color{red}{\mathscr{Z}\lsb\beta(u)\rsb} \leq
+\beta(u) \log \frac{Z}{\zeta}
+\] <!-- .element: class="fragment" data-fragment-index="3" -->
+
+\[
+  \color{green}{\mathbb{D}\_{\rm KL}^{b\Vert t}} =
+  \int\_{\set{X}}
+    \exp\lsb-\psi(\vct{x})\rsb 
+    \log \frac{\exp\lsb-\psi(\vct{x})\rsb }{\frac{1}{Z}\exp\lsb-\phi(\vct{x})\rsb }
+  \,\dr\vct{x}
+\] <!-- .element: class="fragment" data-fragment-index="4" -->
+
+----
+
+### Bounding the partition function
+
+\[
+  \pi(u) \propto \color{red}{\mathscr{Z}\lsb\beta(u)\rsb} = \frac{\color{blue}{\mathcal{Z}\lsb \beta(u)\rsb}}{\zeta^{\beta(u)}}
+\]
+
+\[
+  \color{blue}{\mathcal{Z}\lsb \beta(u)\rsb} =
+  \int_{\set{X}} 
+    \exp\lbr 
+      \beta(u) \phi(\vct{x}) - \lsb 1 - \beta(u) \rsb \psi(\vct{x})
+    \rbr
+  \,\dr{\vct{x}}
+\]<!-- .element: class="fragment current-visible" data-fragment-index="-1" -->
+
+\[
+\beta(u) \log \frac{Z}{\zeta} - \lsb 1 - \beta(u) \rsb \color{purple}{\mathbb{D}\_{\rm KL}^{t\Vert b}} \leq
+\log\color{red}{\mathscr{Z}\lsb\beta(u)\rsb}
+\] 
+
+\[
+  \color{purple}{\mathbb{D}\_{\rm KL}^{t\Vert b}} =
+  \int\_{\set{X}}
+    \frac{1}{Z}\exp\lsb-\phi(\vct{x})\rsb 
+    \log \frac{\frac{1}{Z}\exp\lsb-\phi(\vct{x})\rsb }{\exp\lsb-\psi(\vct{x})\rsb }
+  \,\dr\vct{x}
+\] <!-- .element: class="fragment" data-fragment-index="1" -->
+
+---
+
+<!-- .slide: data-background-video="images/bmr-example-1.mp4" data-background-video-loop="true" data-state="dim-bg-video" -->
+
+### Choosing a base distribution
+
+Minimise $\color{green}{\mathbb{D}\_{\rm KL}^{b\Vert t}}$(and/or $\color{purple}{\mathbb{D}\_{\rm KL}^{t\Vert b}}$),<!-- .element: class="fragment" data-fragment-index="1" -->
+
+subject to $\exp\lsb-\psi(\vct{x})\rsb$ being a simple (unimodal) density.<!-- .element: class="fragment" data-fragment-index="2" -->
+
+Choose parametric $\exp\lsb-\psi(\vct{x})\rsb$ (e.g. Gaussian) and minimise variational objective with respect to parameters?<!-- .element: class="fragment current-visible" data-fragment-index="3" -->
+
+Iteratively locally match moments with expectation propagation?<!-- .element: class="fragment current-visible" data-fragment-index="4" -->
+
+Fit a multiple local variational approximations and match moments of mixture of local approximations.<!-- .element: class="fragment" data-fragment-index="5" -->
+
+---
+
+<!-- .slide: data-background-video="images/20d-bmr-example-1.mp4" data-background-video-loop="true" data-state="dim-bg-video" -->
+
+### Boltzmann machine relaxation
+
+\[
+  \pi(\vct{s}) = 
+  \frac{1}{Z_B} 
+  \exp\lsb\frac{1}{2}\vct{s}\tr\mtx{W}\vct{s} + \vct{s}\tr\vct{b}\rsb
+\]<!-- .element: class="fragment" data-fragment-index="1" -->
+
+\[
+  \pi(\vct{x}) \propto
+  \exp\lsb-\frac{1}{2}\vct{x}\tr\vct{x} + \sum_{i=1}^{D_B}\log\cosh\lpa\vct{q}_i\tr\vct{x} + b_i \rpa\rsb
+\]<!-- .element: class="fragment" data-fragment-index="2" -->
+
+\[
+  \mtx{W} + \mtx{D} = \mtx{Q}\mtx{Q}\tr
+\]<!-- .element: class="fragment current-visible" data-fragment-index="3" -->
+
+\[
+  \log Z = \log Z_B + \frac{1}{2}\textrm{Tr}\lsb\mtx{D}\rsb + \frac{D}{2}\log(2\pi) - D_B \log(2)
+\]<!-- .element: class="fragment" data-fragment-index="4" -->
+
+\[
+  \mathbb{E}\_\pi\lsb\vct{x}\rsb= \mtx{Q}\tr\mathbb{E}\_\pi\lsb\vct{s}\rsb
+  \qquad
+  \mathbb{E}\_\pi\lsb\vct{x}\vct{x}\tr\rsb = 
+  \mtx{Q}\tr\mathbb{E}\_\pi\lsb \vct{s}\vct{s}\tr \rsb \mtx{Q} + \mtx{I}
+\]<!-- .element: class="fragment" data-fragment-index="4" -->
+
+----
+
+### Boltzmann machine relaxation results
+
+<div>
+   <div style='display: inline-block; padding: 5px;'>
+     <img src='images/bmr-20d-first-mom-err-3.svg' height='200px' style='margin: 0;' />
+  </div>
+  <div style='display: inline-block; padding: 5px;'>
+     <img src='images/bmr-20d-second-mom-err-3.svg' height='200px' style='margin: 0;' />
+  </div>
+  <div style='display: inline-block; padding: 5px;'>
+     <img src='images/bmr-20d-log-norm-const-err-3.svg' height='200px' style='margin: 0;' />
+  </div>
+</div>
+
+<div>
+   <div style='display: inline-block; padding: 5px;'>
+     <img src='images/bmr-20d-first-mom-err-4.svg' height='200px' style='margin: 0;' />
+  </div>
+  <div style='display: inline-block; padding: 5px;'>
+     <img src='images/bmr-20d-second-mom-err-4.svg' height='200px' style='margin: 0;' />
+  </div>
+  <div style='display: inline-block; padding: 5px;'>
+     <img src='images/bmr-20d-log-norm-const-err-4.svg' height='200px' style='margin: 0;' />
+  </div>
+</div>
