@@ -170,10 +170,9 @@ $\to (\vct{x},\,\vct{p}) \in \reals^D \times \reals^D$ </span>
   \td{\vct{p}}{t} = -\pd{\phi}{\vct{x}}
 \] <!-- .element: class="fragment" data-fragment-index="4" -->
 
----
+----
 
-
-### Black-box HMC
+### Black-box inference with HMC
 
   * Long-range moves in high-dimensional $\set{X}$. <!-- .element: class="fragment" data-fragment-index="1" -->
 
@@ -198,43 +197,43 @@ $\to (\vct{x},\,\vct{p}) \in \reals^D \times \reals^D$ </span>
 
 ### HMC in multimodal targets
 
-<img src='images/hmc-bimodal-0.svg' width='80%' />
+<img src='images/hmc-bimodal-blues-0.svg' width='80%' />
 
 ----
 
 ### HMC in multimodal targets
 
-<img src='images/hmc-bimodal-1.svg' width='80%' />
+<img src='images/hmc-bimodal-blues-1.svg' width='80%' />
 
 ----
 
 ### HMC in multimodal targets
 
-<img src='images/hmc-bimodal-2.svg' width='80%' />
+<img src='images/hmc-bimodal-blues-2.svg' width='80%' />
 
 ----
 
 ### HMC in multimodal targets
 
-<img src='images/hmc-bimodal-3.svg' width='80%' />
+<img src='images/hmc-bimodal-blues-3.svg' width='80%' />
 
 ----
 
 ### HMC in multimodal targets
 
-<img src='images/hmc-bimodal-4.svg' width='80%' />
+<img src='images/hmc-bimodal-blues-4.svg' width='80%' />
 
 ----
 
 ### HMC in multimodal targets
 
-<img src='images/hmc-bimodal-5.svg' width='80%' />
+<img src='images/hmc-bimodal-blues-5.svg' width='80%' />
 
 ----
 
 ### HMC in multimodal targets
 
-<img src='images/hmc-bimodal-6.svg' width='80%' />
+<img src='images/hmc-bimodal-blues-6.svg' width='80%' />
 
 ---
 
@@ -331,7 +330,7 @@ Flat target marginal $\pi(\beta) = 1$,  $\beta \in [0,\,1]$. <!-- .element: clas
   \beta(u) \phi(\vct{x}) + \omega(u) + \frac{1}{2}\vct{p}\tr\mtx{M}^{-1}\vct{p} + \frac{v^2}{2m}
 \]<!-- .element: class="fragment" data-fragment-index="1" -->
 
-<img src='images/inv-temp-control-func.svg' style='margin: 0; padding: 0;' width='50%' class="fragment" data-fragment-index="2" />
+<img src='images/inv-temp-control-func.svg' style='margin: 0; padding: 0;' width='60%' class="fragment" data-fragment-index="2" />
 
 \[
   \pi\lsb\vct{x} \gvn {-\theta_1} \leq |u| \leq \theta_1\rsb \propto 
@@ -339,6 +338,10 @@ Flat target marginal $\pi(\beta) = 1$,  $\beta \in [0,\,1]$. <!-- .element: clas
 \]<!-- .element: class="fragment current-visible" data-fragment-index="3" -->
 
 Molecular dynamics simulation with Langevin updates.<!-- .element: class="fragment" data-fragment-index="4" -->
+
+----
+
+<!-- .slide: data-background-image="images/1d-gm-gaussian-u-joint-trajectory.svg" data-background-size="contain" -->
 
 ----
 
@@ -395,6 +398,10 @@ Molecular dynamics simulation with Langevin updates.<!-- .element: class="fragme
   \quad
   \td{\vct{\tilde{p}}}{t} = -\pd{\tilde\phi}{\vct{\tilde{x}}}
 \]<!-- .element: class="fragment" data-fragment-index="1" -->
+
+----
+
+<!-- .slide: data-background-image="images/1d-gm-circular-u-joint-trajectory.svg" data-background-size="contain" -->
 
 ---
 
@@ -475,7 +482,28 @@ Fit a multiple local variational approximations and match moments of mixture of 
 
 ---
 
-<!-- .slide: data-background-image="images/3d-volume-ratio-example.svg" data-background-size="contain" data-state="dim-bg-2" -->
+<!-- .slide: data-background-image="images/1d-gm-norm-const-est.svg" data-background-size="contain" -->
+
+### Estimating $Z$
+
+\[
+  Z = 
+  \frac{1 - \theta\_2}{\theta\_1}
+  \frac{\mathbb{E}\_{\pi}\lsb \mathbb{1}[0 \leq |u| \leq \theta\_1]\rsb}
+  {\mathbb{E}\_{\pi}\lsb\mathbb{1}[\theta\_2 \leq |u| \leq 1]\rsb}\zeta
+\]<!-- .element: class="fragment current-visible" data-fragment-index="-1" -->
+
+\[
+  Z \approx
+  \frac{1 - \theta\_2}{\theta\_1}
+  \frac
+  {\sum\_{s=1}^S\lbr \mathbb{1}\lsb 0 \leq |u^{(s)}| \leq \theta\_1 \rsb\rbr}
+  {\sum\_{s=1}^S\lbr \mathbb{1}\lsb \theta\_2 \leq |u^{(s)}| \leq 1 \rsb\rbr} \zeta
+\]<!-- .element: class="fragment" data-fragment-index="-1" -->
+
+----
+
+<!-- .slide: data-background-image="images/1d-gm-norm-const-est.svg" data-background-size="contain" data-state="dim-bg" -->
 
 ### Estimating $Z$
 
@@ -509,7 +537,7 @@ Fit a multiple local variational approximations and match moments of mixture of 
 
 ---
 
-<!-- .slide: data-background-video="images/bmr-example-1.mp4" data-background-video-loop="true" data-state="dim-bg-video" -->
+<!-- .slide: data-background-video="images/20d-bmr-example-1.mp4" data-background-video-loop="true" data-state="dim-bg-video" -->
 
 ### Boltzmann machine relaxation
 
