@@ -133,7 +133,7 @@ A key issue however is that HMC like most MCMC algorithms performs poorly in mul
 
 Note:
 
-As a particular example the figure shows a series of HMC samples from a one-dimensional two component Gaussian mixture and the corresponding empirical marginals on $x$ and $p$ and energy trace. We can see that the dynamic updates remain confined to one mode in $x$. The black dotted line on the energy trace represents the energy-barrier between the two modes and we can see after the intial warm-up transient, the system kinetic energy never gets close to being sufficiently large to allow this barrier to be crossed.
+As a particular example the figure shows a series of HMC samples from a one-dimensional two component Gaussian mixture and the corresponding empirical marginals on $x$ and $p$ and energy trace. We can see that the dynamic updates remain confined to one mode in $x$. The potential barrier between the two modes is high, and the momentum is only very rarely resampled with a sufficiently high value to allow crossing the barrier.
 
 ---
 
