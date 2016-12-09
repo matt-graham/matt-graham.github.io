@@ -83,7 +83,7 @@ $$
 <div id="pose-equations">
 $$
     \overbrace{\boldsymbol{x}^{(i)}}^{\text{2D joint positions}} = 
-    \mathbf{C}(\overbrace{{\boldsymbol{\phi}}}^{\text{cam. params.}})
+    \mathbf{C}(\overbrace{ {\boldsymbol{\phi}}}^{\text{cam. params.}})
     \mathbf{r}^{(i)}(\overbrace{\boldsymbol{\psi}}^{\text{joint angles}},\,
                  \overbrace{\boldsymbol{\ell}}^{\text{bone lengths}}) + 
     \overbrace{\epsilon \boldsymbol{n}^{(i)}}^{\text{obs. noise}}
@@ -441,9 +441,9 @@ $$\small
 $$
 
 $$\small
-    \frac{{\rm d}\boldsymbol{u}}{{\rm d}t} = \mathbf{M}^{-1}\boldsymbol{p}
+    \frac{ {\rm d}\boldsymbol{u}}{ {\rm d}t} = \mathbf{M}^{-1}\boldsymbol{p}
     \qquad
-    \frac{{\rm d}\boldsymbol{u}}{{\rm d}t} = \frac{\partial \log\mathbb{P}\left[\boldsymbol{U} = \boldsymbol{u}\right]}{\partial \boldsymbol{u}} -  \frac{\partial \mathbf{c}}{\partial \boldsymbol{u}}^{\rm T} \boldsymbol{\lambda}
+    \frac{ {\rm d}\boldsymbol{u}}{ {\rm d}t} = \frac{\partial \log\mathbb{P}\left[\boldsymbol{U} = \boldsymbol{u}\right]}{\partial \boldsymbol{u}} -  \frac{\partial \mathbf{c}}{\partial \boldsymbol{u}}^{\rm T} \boldsymbol{\lambda}
 $$
 
 $$\small
