@@ -129,7 +129,7 @@ A key issue however is that HMC like most MCMC algorithms performs poorly in mul
 
 ### HMC in multimodal targets
 
-<img src='images/hmc-bimodal-blues-6.svg' width='80%' />
+<img src='images/hmc-bimodal-blues-no-energy.svg' width='100%' />
 
 Note:
 
@@ -240,7 +240,8 @@ This results in a very non-flat marginal on $u$. The figure shows the free-energ
 
 <div>
   <img src="images/metadynamics.gif" width="40%" />
-  $u$
+  <br />
+  $u$ <br />
   <small>Alessandro Laio, <a href='http://people.sissa.it/~laio/Research/Images/meta.gif'>http://people.sissa.it/~laio/Research/Images/meta.gif</a></small>
 </div>
 
@@ -274,6 +275,14 @@ Although metadynamics can work well in practice it adds extra implementation dif
 
 <img src='images/1d-gm-ext-hamiltonian-gaussian-base-free-energy.svg' style='margin: 0; padding: 0;' width='80%' class="fragment" data-fragment-index="4" />
 
+Note:
+
+In our approach we follow the natural idea of using this extended Hamiltonian formulation in a HMC framework while leveraging further augmenting the Hamiltonian with additional terms that exploit cheap determinstic approximations to the target distribution, to try to flatten out the marginal density on the temperature control variables without requiring complexity of metadynamics.
+
+In particular we introduce a $\log \zeta$ term which we choose to be some approximation to the unknown normalising constant and a Gaussian base density which we approximately match in first and second moments to the target density.
+
+Introducing these terms has the effect of helping to flatten out the marginal density on the temperature control variable, making movement about this space much better. The better the approximations the flatter this density will be but there are no strict requirements on the approximations to maintain asymptotic exactness so we can flexibly choose them appropriately to the target distribution.
+
 ----
 
 ### Our approach
@@ -293,9 +302,17 @@ Although metadynamics can work well in practice it adds extra implementation dif
   \td{\vct{\tilde{p}}}{t} = -\pd{\tilde\phi}{\vct{\tilde{x}}}
 \]<!-- .element: class="fragment" data-fragment-index="1" -->
 
+Note:
+
+A key property of the extended Hamiltonian formulation is that it retains the separability of the original Hamiltonian - that is if we define an augmented configuration state from $x$ and $u$ and augmented momentum state from $p$ and $v$ we still have a Hamiltonian which naturally decomposes into redefined potential and kinetic energy terms, and so can run HMC in the extended system using the typical leapfrog integrator and leveraging existing implementations such as in Stan.
+
 ----
 
 <!-- .slide: data-background-image="images/1d-gm-circular-u-joint-trajectory.svg" data-background-size="contain" -->
+
+Note:
+
+Shown is an example simulated Hamiltonian trajectory in the augmented configuration space. While the large potential barrier in the original $x$ space means a HMC dynamic only very infrequently has sufficient energy to cross the barrier, in the new augmented space there are low-barrier paths via the high-temperature base distribution between the modes, and the simulated trajectories naturally move between the two target modes.
 
 ---
 
@@ -314,6 +331,10 @@ Although metadynamics can work well in practice it adds extra implementation dif
   {\color{green}{\sum\_{s=1}^S\lbr \mathbb{1}\lsb 0 \leq |u^{(s)}| \leq \theta\_1 \rsb\rbr}}
   {\color{purple}{\sum\_{s=1}^S\lbr \mathbb{1}\lsb \theta\_2 \leq |u^{(s)}| \leq 1 \rsb\rbr}} \zeta
 \]<!-- .element: class="fragment" data-fragment-index="1" -->
+
+Note:
+
+Further because in our extended formulation the base density has a known normalising constant, and we can estimate the ratio of the unknown normalising constant of the target to the base density normalising constant from the time or equivalently number of sample collected under the base and target, we can come up with a consistent estimator of the unknown normalising.
 
 ---
 
