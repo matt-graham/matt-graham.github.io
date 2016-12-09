@@ -11,6 +11,10 @@
 
 <img width='35%' src='images/informatics-logo.svg' />
 
+Note:
+
+Hi. I'm Matt Graham a PhD student at University of Edinburgh. I am going to talk to you about continuously tempered Hamiltonian Monte Carlo which is joint work with my supervisor Amos Storkey.
+
 ---
 
 <!-- .slide: data-background-video="images/20d-bmr-example-1.mp4" data-background-video-loop="true" data-->
@@ -35,11 +39,19 @@ and the unknown normalising constant of the density <!-- .element: class="fragme
   Z = \int_{\set{X}} \exp\lsb-\phi(\vct{x})\rsb \,\dr\vct{x} ?
 \] <!-- .element: class="fragment" data-fragment-index="3" -->
 
+Note:
+
+Specific problem I will be considering is performing approximate inference with high-dimensional densities with a potentially large number of separated modes. 
+
+As a particular motivating example, what is being shown in the animation is a three dimensional projection of samples of a structured form of a Gaussian mixture model. 
+
+As we can see even within this 3D projection there are multiple separated high density regions evident. 
+
+These sort of multimodal densities are typically very challenging for approximate inference methods to deal with. However as we'll see later the method being presented is often able to allow accurate inference in these settings. *click*
+
+To be concrete with notation, the task I will be considering is, given a usually unnormalised density defined by a potential function $\phi$ over a $D$-dimensional real valued state space, *click* can we both compute expectations of functions $f$ with respect to the target *click* and further can we estimate the normalising constant of the density. 
+
 ---
-
-<!-- .slide: data-background-video="images/2d-density-hmc.mp4" data-background-video-loop="true" -->
-
-----
 
 <!-- .slide: data-background-video="images/2d-density-hmc.mp4" data-background-video-loop="true" data-state="dim-bg-video" -->
 
@@ -59,7 +71,28 @@ $\to (\vct{x},\,\vct{p}) \in \reals^D \times \reals^D$ </span>
   \td{\vct{x}}{t} = \mtx{M}^{-1}\vct{p},
   \quad
   \td{\vct{p}}{t} = -\pd{\phi}{\vct{x}}
-\] <!-- .element: class="fragment" data-fragment-index="4" -->
+\] <!-- .element: class="fragment current-visible" data-fragment-index="4" -->
+
+\[
+  a\lsb \vct{x}' \gvn \vct{x}\rsb =
+  \min\lbr
+    1,\,\exp\lsb H(\vct{x},\,\vct{p}) - H(\vct{x}',\,\vct{p}') \rsb
+  \rbr
+\] <!-- .element: class="fragment" data-fragment-index="5" -->
+
+Note:
+
+More specifically I will be considering Markov chain Monte Carlo methods and in particular Hybrid or Hamiltonian Monte Carlo. 
+  
+This is a method introduced in the statistical physics literature in the late 80s by Duane and colleagues. *click*
+  
+The key idea is that we augment our original configuration state $\vct{x}$ *click* with a momentum state $\vct{p}$ of the same dimensionality and which we choose to be independent of $\vct{x}$ and marginally Gaussian distributed *click*.
+  
+The negative logarithm of the resulting joint density is termed the Hamiltonian for the system in direct analogy to classical mechanics, and can be considered to be composed of a potential energy term $\phi$ from the target density and a quadratic kinetic energy term on the momentum *click*.
+  
+We simulate a Newtonian dynamic in the joint system, using a leapfrog integrator to step forward a number of time-steps from the current state, and using the end-point of the simulated trajectory as a Metropolis--Hastings proposal.
+  
+The exact dynamic is energy conserving which is approximately preserved by leapfrog integrator. As the probability of accepting moves depends on the change in Hamiltonian over a trajectory this usually gives a high probability of acceptance.
 
 ----
 
@@ -82,47 +115,25 @@ $\to (\vct{x},\,\vct{p}) \in \reals^D \times \reals^D$ </span>
 
   * However poor performance in multimodal targets.<!-- .element: class="fragment" data-fragment-index="3" -->
 
----
+Note:
 
-### HMC in 1D Gaussian mixture
+Though the algorithm just described might seem a little complicated, the very general purpose implementations in probabilistic programming frameworks such as Stan and PyMC3, mean that we don't necessarily need to deal with the implementation detail or calculation of model gradients which can be done with automatic differentation.
 
-<img src='images/hmc-bimodal-blues-0.svg' width='80%' />
+The energy-conserving property means that if we appropriately choose the step-size and number of steps, we are able to make long-range moves with a high-probability of acceptance even in high dimensional target state spaces.
 
-----
+An adaptive HMC variant called the No U-turn Sampler or NUTS, proposed by Hoffman and Gelman, is further able to automatically tune the step-size and number of integrator steps, allowing use of HMC in a very black-box manner.
 
-### HMC in 1D Gaussian mixture
-
-<img src='images/hmc-bimodal-blues-1.svg' width='80%' />
+A key issue however is that HMC like most MCMC algorithms performs poorly in multimodal densities.
 
 ----
 
-### HMC in 1D Gaussian mixture
-
-<img src='images/hmc-bimodal-blues-2.svg' width='80%' />
-
-----
-
-### HMC in 1D Gaussian mixture
-
-<img src='images/hmc-bimodal-blues-3.svg' width='80%' />
-
-----
-
-### HMC in 1D Gaussian mixture
-
-<img src='images/hmc-bimodal-blues-4.svg' width='80%' />
-
-----
-
-### HMC in 1D Gaussian mixture
-
-<img src='images/hmc-bimodal-blues-5.svg' width='80%' />
-
-----
-
-### HMC in 1D Gaussian mixture
+### HMC in multimodal targets
 
 <img src='images/hmc-bimodal-blues-6.svg' width='80%' />
+
+Note:
+
+As a particular example the figure shows a series of HMC samples from a one-dimensional two component Gaussian mixture and the corresponding empirical marginals on $x$ and $p$ and energy trace. We can see that the dynamic updates remain confined to one mode in $x$. The black dotted line on the energy trace represents the energy-barrier between the two modes and we can see after the intial warm-up transient, the system kinetic energy never gets close to being sufficiently large to allow this barrier to be crossed.
 
 ---
 
@@ -130,9 +141,9 @@ $\to (\vct{x},\,\vct{p}) \in \reals^D \times \reals^D$ </span>
 
 ### Thermodynamic ensembles
 
-Introduce simple normalised base density $\exp\lsb-\psi(\vct{x})\rsb$ <!-- .element: class="fragment" data-fragment-index="1" -->
+Introduce inverse temperature $\beta$<!-- .element: class="fragment" data-fragment-index="1" -->
 
-and inverse temperature $\beta$. <!-- .element: class="fragment" data-fragment-index="2" -->
+and simple normalised base density $\exp\lsb-\psi(\vct{x})\rsb$ . <!-- .element: class="fragment" data-fragment-index="2" -->
 
 \[
   \pi\lpa \vct{x} \gvn \beta \rpa =
@@ -144,15 +155,35 @@ and inverse temperature $\beta$. <!-- .element: class="fragment" data-fragment-i
   \mathcal{Z}(\beta) = \int_{\set{X}} \exp\lsb -\beta \phi(\vct{x}) - (1 - \beta) \psi(\vct{x}) \rsb \,\dr\vct{x}
 \] <!-- .element: class="fragment" data-fragment-index="4" -->
 
+Note:
+
+A common way to deal with multimodal distribution in MCMC is to introduce a inverse temperature variable $\beta$ and a unimodal base density defined by a potential $\psi$ which approximates the target density.
+
+This geometrically bridge between target distribution at $\beta=1$ and base density at $\beta=0$.
+
+The normalising term for this conditional distribution now dependent on $\beta$ and often termed the partition function.
+
 ----
 
 <!-- .slide: data-background-image="images/geometric-bridge-beta-ensemble.svg" data-background-size="contain" -->
+
+Note:
+
+Idea is distributions at intermediate $\beta$ retain some structure from target distribution but are easier to sample from due to energy barriers being flattened out. If we vary the inverse temperature $\beta$ during sampling the hope is that at low $\beta$ we will be able to make large moves around the state space at low $\beta$ and thus be able to jump between modes at $\beta=1$.
+
+Several methods such as simulated and parallel tempering have been proposed for defining a Markov chains on an augmented state space with $\beta$ defined on a finite set of values, however the performance of these methods are very sensitive to amongst other things the choice of the $\beta$ values and so they are difficult to use in a black box manner.
 
 ---
 
 <!-- .slide: data-background-image="images/1d-gm-continuous-inv-temp-joint.svg" data-background-size="contain" -->
 
 ### Continuous inverse temperature $\beta$? 
+
+Note:
+
+Natural question: can we use a continuous inverse temperature variable?
+
+Several methods proposed using this idea including path sampling by Gelman and Meng and Adiabatic Monte Carlo by Betancourt.
 
 ----
 
@@ -172,6 +203,18 @@ and inverse temperature $\beta$. <!-- .element: class="fragment" data-fragment-i
 
 Molecular dynamics simulation with Langevin updates.<!-- .element: class="fragment" data-fragment-index="4" -->
 
+Note:
+
+More recently a statistical physics paper 'An extended Hamiltonian approach to continuous tempering' by Gianpaolo Gobbo and Ben Leimkuhler proposed a very elegant way of inlcuding an inverse temperature variable in a Hamiltonian system.
+
+The main idea is to indirectly set the inverse temperature indirectly via a temperature control variable $u$. This is related to $\beta$ by a smooth piecewise defined function like that shown. Importantly between a lower threshold interval $u = \pm \theta_1$ the inverse temperature is exactly equal to 1. 
+
+The extended Hamiltonian of the resulting system has the form shown. In their paper the authors assume an improper flat base density $\psi$ and so there is no second $\beta$ dependent term. The temperature control variable is given a Gaussian prior to ensure it remains bounded. Importantly the temperature control variable $u$ is associated with its own conjugate momenta $v$.
+
+Because of the property that $\beta=1$ for $u$ between negative and positive $\theta_1$, we have that conditioned on $u$ being in this range the $\vct{x}$ configuration state has the desired target distribution, therefore we can estimate expecations with respect to the target just by averaging only over samples with $u$ in this range.
+
+In their paper, Gobbo and Leimkuhler apply the method to molecular dynamic simulations and use a Langevin dynamic with Metropolis correction rather than full HMC.
+
 ----
 
 ### Exploring $u$ space
@@ -185,14 +228,29 @@ Molecular dynamics simulation with Langevin updates.<!-- .element: class="fragme
 
 <img src='images/1d-gm-ext-hamiltonian-flat-base-free-energy.svg' style='margin: 0; padding: 0;' width='80%' class="fragment" data-fragment-index="2" />
 
+Note:
+
+The marginal density on the temperature control variable is formed of a product of the Gaussian prior and a partition function term. Because of the assumption of a improper flat base density this partition function term will typically vary significantly in magnitude as $\beta$ is changed, tending to infinity if $\beta$ was allowed to go to 0 due to the improper base density.
+
+This results in a very non-flat marginal on $u$. The figure shows the free-energy on $u$ or negative log marginal for the two component Gaussian mixture target encountered earlier. We can see there are large barriers in the free energy surface and this tends to lead to $u$ remaining confined to small regions over long periods.
+
 ----
 
 ### Metadynamics <small>Laio and Parrinello, 2002</small>
 
 <div>
   <img src="images/metadynamics.gif" width="40%" />
+  $u$
   <small>Alessandro Laio, <a href='http://people.sissa.it/~laio/Research/Images/meta.gif'>http://people.sissa.it/~laio/Research/Images/meta.gif</a></small>
 </div>
+
+Note:
+
+The approach used by Gobbo and Leimkuhler to overcome this problem, is to use a method developed by Laio and Parrinello in the molecular dynamics community for flattening out a free energy function called metadynamics.
+
+As illustrated by the animation, this adds an adaptive biasing potential to $u$ which helps to fill in the wells in the free energy surface and encourage movement around the full space.
+
+Although metadynamics can work well in practice it adds extra implementation difficulty and also because of the non-Markovian history dependence introduced requires even a vanishing adaption durin an intial warm up phase or careful importance reweighting post-hoc to allow unbiased estimations of expectations.
 
 ---
 
