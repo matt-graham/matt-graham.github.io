@@ -7,6 +7,23 @@
   height: 400px;
 }
 
+.reveal .align-table td {
+  border: none;
+  text-align: center;
+}
+
+.reveal .observed {
+  color: red;
+}
+
+.reveal .latent {
+  color: steelblue;
+}
+
+.reveal .input {
+  color: green;
+}
+
 .reveal section .title-banner {
   position: relative; 
   top: 120px; 
@@ -54,7 +71,7 @@ html.dim-bg-2 .slide-background.present {
 }
 
 html.dim-bg-video .slide-background video {
-  opacity: 0.3 !important;
+  opacity: 0.5 !important;
 }
 
 .reveal small {

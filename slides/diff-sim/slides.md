@@ -18,57 +18,117 @@
 
 ### Task: inference
 
-Calculate probable values of unobserved variables $\mathbf{z}$ given observations $\mathbf{x}$ of system
+Calculate probable values of unobserved variables $\latent{\rvct{z}}$ given observations $\observed{\rvct{y}}$ of system
 
-<div class='fragment' data-fragment-index="1" style='padding: 5px;'>
-  $\underset{\textrm{observed pixels}}{\mathbf{x}} =$
-  <img src='images/mnist-obs.png' width='10%' 
-  style='vertical-align: middle; background: none; border: none; box-shadow: none;' /> 
-  $\qquad \Rightarrow  \qquad  \underset{\textrm{other pixels}}{\mathbf{z}} = \textrm{?}$
-</div>
-
-<div class='fragment' data-fragment-index="2" style='padding: 5px;'>
-  $\underset{\textrm{2D projection}}{\boldsymbol{x}}= ~~$
-  <img src='images/pose-projection-obs.svg' width='10%' 
-  style='vertical-align: middle;' /> 
-  $\qquad \Rightarrow  \qquad \underset{\textrm{3D pose}}{\mathbf{z}} ~=~ \textrm{?}$
-</div>
-
-<div class='fragment' data-fragment-index="3" style='padding: 5px;'>
-  $\underset{\textrm{population data}}{\boldsymbol{x}}= ~~$
-  <img src='images/lotka-volterra-obs.svg' width='10%' 
-  style='vertical-align: middle;' /> 
-  $\qquad \Rightarrow  \qquad \underset{\textrm{parameters}}{\mathbf{z}} = \textrm{?}$
-</div>
+<table class='align-table' width='100%'>
+  <tr class='fragment' data-fragment-index="1">
+    <td>
+      $\observed{\underset{\textrm{observed pixels}}{\rvct{y}}}$
+    </td>
+    <td>
+      $\observed{=}$
+    </td>
+    <td>
+      <img src='images/mnist-obs.svg' height='100px' style='vertical-align: middle;' />
+    </td>
+    <td>
+      $\Rightarrow$
+    </td>
+    <td>
+      $\latent{\underset{\textrm{other pixels}}{\rvct{z}}}$
+    </td>
+    <td>
+      $\latent{= \textrm{?}}$
+    </td>
+  </tr>
+  <tr class='fragment' data-fragment-index="2">
+    <td>
+      $\observed{\underset{\textrm{2D projection}}{\mathbf{y}}}$
+    </td>
+    <td>
+      $\observed{=}$
+    </td>
+    <td>
+      <img src='images/pose-projection-obs.svg' height='100px' style='vertical-align: middle;' />
+    </td>
+    <td>
+      $\Rightarrow$
+    </td>
+    <td>
+      $\latent{\underset{\textrm{3D pose}}{\latent{\rvct{z}}}}$
+    </td>
+    <td>
+      $\latent{= \textrm{?}}$
+    </td>
+  </tr>
+  <tr class='fragment' data-fragment-index="3">
+    <td>
+      $\observed{\underset{\textrm{population data}}{\rvct{y}}}$
+    </td>
+    <td>
+      $\observed{=}$
+    </td>
+    <td>
+      <img src='images/lotka-volterra-obs.svg' height='100px' style='vertical-align: middle;' /> 
+    </td>
+    <td>
+      $\Rightarrow$
+    </td>
+    <td>
+      $\latent{\underset{\textrm{parameters}}{\latent{\rvct{z}}}}$
+    </td>
+    <td>
+      $\latent{= \textrm{?}}$
+    </td>
+  </tr>
+</table>
 
 ---
 
 ### Bayesian inference
 
-$\mathbf{x}$ : observed variables  <!-- .element: class="fragment" data-fragment-index="0" -->  
+<p class="fragment" data-fragment-index="0">
+  $\observed{\rvct{y}}$ 
+  <span class="observed">: observed variables</span>
+</p>
 
-$\mathbf{z}$ : latent / unobserved variables <!-- .element: class="fragment" data-fragment-index="1" -->
+<p class="fragment" data-fragment-index="1">
+  $\latent{\rvct{z}}$ 
+  <span class="latent">: latent / unobserved variables</span>
+</p>
 
 $$
   \underbrace{
-    \mathbb{P} \left[ \mathbf{z} = \boldsymbol{z} \,|\, \mathbf{x} = \boldsymbol{x} \right]
+    \prob{ 
+      \latent{\rvct{z} = \vct{z}} \gvn
+      \observed{\rvct{y} = \vct{y}} 
+    }
   }\_{\textrm{posterior}}
   =
   \frac{
     \overbrace{
-      \mathbb{P}\left[ \mathbf{x} = \boldsymbol{x} \,|\, \mathbf{z} = \boldsymbol{z} \right]
+      \prob{ 
+        \observed{\rvct{y} = \vct{y}} \gvn
+        \latent{\rvct{z} = \vct{z}} 
+      }
     }^{\textrm{likelihood}}
     \,
     \overbrace{
-      \mathbb{P}\left[ \mathbf{z} = \boldsymbol{z} \right]
+      \prob{
+        \latent{\rvct{z} = \vct{z}}
+      }
     }^{\textrm{prior}}
   }{
-    \underbrace{\mathbb{P}\left[ \mathbf{x} = \boldsymbol{x} \right]}\_
+    \underbrace{
+      \prob{
+        \observed{\rvct{y} = \vct{y}}
+      }
+    }\_
     {\textrm{evidence}}
   }
 $$<!-- .element: class="fragment" data-fragment-index="2" -->
 
-How to sample $\mathbf{z}$ from posterior? <!-- .element: class="fragment" data-fragment-index="3" -->
+How to sample $\latent{\rvct{z}}$ from posterior? <!-- .element: class="fragment" data-fragment-index="3" -->
 
 ---
 
@@ -81,9 +141,14 @@ Class of iterative sampling methods. <!-- .element: class="fragment" data-fragme
 Need to evaluate probability (density) function up to unknown normalising constant. <!-- .element: class="fragment" data-fragment-index="2" -->
 
 $$
-  \mathbb{P}\left[\mathbf{z} = \boldsymbol{z} \,|\, \mathbf{x} = \boldsymbol{x} \right] \propto
-  \mathbb{P}\left[\mathbf{x} = \boldsymbol{x} \,|\, \mathbf{z} = \boldsymbol{z} \right]
-  \mathbb{P}\left[\mathbf{z} = \boldsymbol{z} \right]
+  \prob{
+    \latent{\rvct{z} = \vct{z}} \gvn
+    \observed{\mathbf{y} = \vct{y}}
+  } \propto
+  \prob{
+    \observed{\rvct{y} = \vct{y}} ,\,
+    \latent{\rvct{z} = \vct{z}}
+  }
 $$ <!-- .element: class="fragment" data-fragment-index="3" -->
 
 ----
@@ -100,66 +165,97 @@ $$ <!-- .element: class="fragment" data-fragment-index="3" -->
 
 ### Markov chain Monte Carlo (MCMC)
 
-Requires that we can evaluate likelihood $\mathbb{P}\left[\mathbf{x} = \boldsymbol{x} \,|\, \mathbf{z} = \boldsymbol{z} \right]$ and prior $\mathbb{P}\left[\mathbf{z} = \boldsymbol{z}\right]$.  
+Requires that we can evaluate joint $\prob{\observed{\rvct{y} = \vct{y}} ,\,
+  \latent{\rvct{z} = \vct{z}}}$.  
 
 How to perform inference when we cannot do this? <!-- .element: class="fragment" data-fragment-index="1" -->
 
 ---
 
-### Differentiable generator networks
+### Differentiable generator networks <small>Goodfellow et al. 2016</small>
 
-Generative model learnt from data by gradient descent. <!-- .element: class="fragment" data-fragment-index="1" -->
+<p class="fragment" data-fragment-index="1">Model defined by differentiable *generator* function.</p>
 
 <img src='images/generator-example.svg' width='75%'
  style='background: none; border: none; box-shadow: none;' /> <!-- .element: class="fragment" data-fragment-index="2" -->
  
-e.g. decoder of variational autoencoder or generator of generative adversarial network. <!-- .element: class="fragment" data-fragment-index="3" -->
+e.g. decoder of variational autoencoder (VAE) or generator of generative adversarial network (GAN). <!-- .element: class="fragment" data-fragment-index="3" -->
 
 ----
 
-### Example: MNIST images
+### Example: MNIST VAE decoder <small>Kingma and Welling, 2013</small>
 
-<img src='images/mnist-generator.svg' width='80%' />
+$$
+  \output{\vct{x}} = 
+  \vctfunc{m}(\input{\vct{u}_1}) + 
+  \vctfunc{s}(\input{\vct{u}_1}) \odot \input{\vct{u}_2}
+$$<!-- .element: class="fragment" data-fragment-index="1" -->
+
+<img class="fragment" data-fragment-index="2" src='images/mnist-generator.svg' width='80%' />
 
 ----
 
-### Example: Human poses
-
-<img src='images/pose-generator.svg' width='80%' />
+### Example: Pose projection generator
 
 $$
-  \overset{\textrm{camera parameters}}{\boldsymbol{\phi}},
-  \overset{\textrm{joint angles}}{\boldsymbol{\psi}},
-  \overset{\textrm{bone lengths}}{\boldsymbol{\ell}}
-  = \mathbf{f}(\boldsymbol{u}_0)
-$$ <!-- .element: class="fragment current-visible" data-fragment-index="1" -->
- 
+  \overset
+  {\textrm{joint angles}}
+  {\latent{\vct{z}\_{a}} = \vctfunc{f}\_a(\input{\vct{u}\_a})}
+  \qquad
+  \overset
+  {\textrm{bone lengths}}
+  {\latent{\vct{z}\_{b}} = \vctfunc{f}\_b(\input{\vct{u}\_b})}
+  \qquad
+  \overset
+  {\textrm{camera parameters}}
+  {\latent{\vct{z}\_{c}} = \vctfunc{f}\_c(\input{\vct{u}\_c})}
 $$
-    \overset{\textrm{2D joint}}{\boldsymbol{x}_i} = 
-    \overset{\textrm{camera matrix}}{\mathbf{C}\left[\boldsymbol{\psi}\right]}
-    \overset{\textrm{3D joint}}{
-    \mathbf{r}_i\left[
-        \boldsymbol{\psi},\,
-        \boldsymbol{\ell}
-    \right]} + 
-    \overset{\textrm{obs. noise}}{\sigma\,\boldsymbol{u}_i} 
-    \quad\forall i \in \lbrace 1 \dots N \rbrace
-$$ <!-- .element: class="fragment current-visible" data-fragment-index="2" -->
 
 $$
-    \boldsymbol{y} = 
-    \left[ 
-      \left\lbrace\boldsymbol{x}^{(i)}\right\rbrace;\,
-      \boldsymbol{\phi};\,
-      \boldsymbol{\psi};\,\boldsymbol{\ell}
-    \right]
-$$ <!-- .element: class="fragment" data-fragment-index="3" -->
+  \overset
+  {\textrm{2D proj.}}
+  {\observed{\vct{y}_j}} = 
+  \overset
+  {\textrm{camera matrix}}
+  {\mtxfunc{C}\lpa\latent{\vct{z}_a}\rpa}
+  \overset
+  {\textrm{3D pos.}}{
+  \vctfunc{r}_j\lpa
+    \latent{\vct{z}_a},\,
+    \latent{\vct{z}_b}
+  \rpa} + 
+  \overset
+  {\textrm{obs. noise}}
+  {\sigma\,\input{\vct{u}_j}} 
+  \quad\forall j \in \lbrace 1 \dots J \rbrace
+$$ <!-- .element: class="fragment" data-fragment-index="2" -->
+
+$$
+  \output{\vct{x}} = 
+  \lsb
+    \observed{\vct{y}\_{1} \dots \vct{y}\_{J}};\,
+    \latent{\vct{z}\_a};\,
+    \latent{\vct{z}\_b};\,
+    \latent{\vct{z}\_c}
+  \rsb
+  \quad
+  \input{\vct{u}} = 
+  \lsb 
+    \input{\vct{u}\_{1} \dots \vct{u}\_{J}};\,
+    \input{\vct{u}\_a};\,
+    \input{\vct{u}\_b};\,
+    \input{\vct{u}\_c}
+  \rsb
+$$ <!-- .element: class="fragment current-visible" data-fragment-index="3" -->
+
+
+<img src='images/pose-generator.svg' width='80%' class="fragment" data-fragment-index="4"/>
 
 ---
 
 ### Simulator models
 
-Many simulators with continuous outputs can also be expressed as differentiable generators. <!-- .element: class="fragment" data-fragment-index="1" -->
+Many simulators with continuous outputs can be expressed as differentiable generators. <!-- .element: class="fragment" data-fragment-index="1" -->
 
 Usually defined procedurally in code:<!-- .element: class="fragment" data-fragment-index="2" -->
 
@@ -180,14 +276,18 @@ def generator(rng):
  <img src='images/fox.svg' width='15%'
  style='vertical-align:middle; background: none; border: none; box-shadow: none;' />
 
-Model of prey ($x_1$) and predator ($x_2$) populations
+Model of prey ($\observed{y_1}$) and predator ($\observed{y_2}$) populations
 
 $$
-    \textrm{d} x_1 = (\theta_1 x_1 - \theta_2 x_1 x_2) \textrm{d} t + \textrm{d} n_1
+    \textrm{d} \observed{y_1} = 
+    (\latent{\theta_1} \observed{y_1} - \latent{\theta_2} \observed{y_1 y_2}) \textrm{d} t + 
+    \textrm{d} n_1
 $$ <!-- .element: class="fragment" data-fragment-index="1" -->
 
 $$
-    \textrm{d} x_2 = (-\theta_3 x_2 + \theta_4 x_1 x_2) \textrm{d} t + \textrm{d} n_2
+    \textrm{d} \observed{y_2} = 
+    (-\latent{\theta_3} \observed{y_2} + \latent{\theta_4} \observed{y_1 y_2}) \textrm{d} t + 
+    \textrm{d} n_2
 $$ <!-- .element: class="fragment" data-fragment-index="1" -->
 
 where $n_1$ and $n_2$ are white noise processes. <!-- .element: class="fragment" data-fragment-index="2" -->
@@ -202,23 +302,25 @@ Simulate at $T$ discrete time-steps
 def sample_from_prior(rng):
   return np.exp(rng.normal(size=4) - mu)
     
-def simulate(thetas, rng):
-  x1_seq, x2_seq = [], []
-  x1, x2 = x1_init, x2_init
+def simulate(params, rng):
+  y1_seq, y2_seq = [], []
+  y1, y2 = y1_init, y2_init
   for t in range(T):
-    x1 += ( thetas[0]*x1 - thetas[1]*x2) * dt + rng.normal()*dt**.5
-    x2 += (-\theta[2]*x2 + thetas[3]*x3) * dt + rng.normal()*dt**.5
-    x1_seq.append(x1)
-    x2_seq.append(x2)
-  return np.array(x1_seq), np.array(x2_seq)
+    y1 += ( params[0]*y1 - params[1]*y2) * dt + rng.normal()*dt**.5
+    y2 += (-params[2]*y2 + params[3]*y1) * dt + rng.normal()*dt**.5
+    y1_seq.append(y1)
+    y2_seq.append(y2)
+  return np.array(y1_seq), np.array(y2_seq)
 ```
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
 
 $$
-    \boldsymbol{u} = \left[ \textrm{draws from random number generator} \right]
+    \input{\vct{u}} = 
+    \lsb \input{\textrm{draws from random number generator}} \rsb
     \qquad
-    \boldsymbol{y} = \left[ \boldsymbol{x};\,\boldsymbol{\theta} \right]
+    \output{\vct{x}} = 
+    \lsb \observed{\vct{y}};\, \latent{\vct{\theta}} \rsb
 $$ <!-- .element: class="fragment" data-fragment-index="2" -->
 
 ----
@@ -231,7 +333,7 @@ $$ <!-- .element: class="fragment" data-fragment-index="2" -->
 ---
 
 <!-- .slide: data-transition="none" -->
-### Approximate Bayesian Computation
+### Approximate Bayesian Computation <small>Beaumont et al. 2002</small>
 
 <img src='images/abc-example-joint.svg' width='70%'
  style='background: none; border: none; box-shadow: none;' />
@@ -239,7 +341,7 @@ $$ <!-- .element: class="fragment" data-fragment-index="2" -->
 ----
 
 <!-- .slide: data-transition="none" -->
-### Approximate Bayesian Computation
+### Approximate Bayesian Computation <small>Beaumont et al. 2002</small>
 
 <img src='images/abc-example-cond-exact.svg' width='70%'
  style='background: none; border: none; box-shadow: none;' /> 
@@ -247,7 +349,7 @@ $$ <!-- .element: class="fragment" data-fragment-index="2" -->
 ----
 
 <!-- .slide: data-transition="none" -->
-### Approximate Bayesian Computation
+### Approximate Bayesian Computation <small>Beaumont et al. 2002</small>
 
 <img src='images/abc-example-cond-epsilon-1e-01.svg' width='70%'
  style='background: none; border: none; box-shadow: none;' /> 
@@ -255,7 +357,7 @@ $$ <!-- .element: class="fragment" data-fragment-index="2" -->
 ----
 
 <!-- .slide: data-transition="none" -->
-### Approximate Bayesian Computation
+### Approximate Bayesian Computation <small>Beaumont et al. 2002</small>
 
 <img src='images/abc-example-cond-epsilon-5e-02.svg' width='70%'
  style='background: none; border: none; box-shadow: none;' /> 
@@ -263,7 +365,7 @@ $$ <!-- .element: class="fragment" data-fragment-index="2" -->
 ----
 
 <!-- .slide: data-transition="none" -->
-### Approximate Bayesian Computation
+### Approximate Bayesian Computation <small>Beaumont et al. 2002</small>
 
 <img src='images/abc-example-cond-epsilon-1e-02.svg' width='70%'
  style='background: none; border: none; box-shadow: none;' /> 
@@ -271,14 +373,41 @@ $$ <!-- .element: class="fragment" data-fragment-index="2" -->
 
 ----
 
-### Approximate Bayesian Computation
+### ABC challenges
 
   * Not asymptotically exact. <!-- .element: class="fragment" data-fragment-index="1" -->
   * Tolerance $\epsilon$ between simulations and data controls bias. <!-- .element: class="fragment" data-fragment-index="2" -->
   * Inefficient in high dimensions particularly for small $\epsilon$. <!-- .element: class="fragment" data-fragment-index="3" -->
 
+---
+
+<!-- .slide: data-transition="none" -->
+### ABC in input space
+
+<img src='images/abc-in-input-space.svg' width='90%' /> 
 
 ----
+
+<!-- .slide: data-transition="none" -->
+### ABC in input space
+
+<img src='images/abc-in-input-space-epsilon-1e-01.svg' width='90%' /> 
+
+----
+
+<!-- .slide: data-transition="none" -->
+### ABC in input space
+
+<img src='images/abc-in-input-space-epsilon-5e-02.svg' width='90%' /> 
+
+----
+
+<!-- .slide: data-transition="none" -->
+### Conditioning as a constraint
+
+<img src='images/abc-in-input-space-exact-constraint.svg' width='90%' /> 
+
+---
 
 ### Gradient based inference
 
@@ -287,36 +416,20 @@ Gradient information often key to performing inference in high-dimensional space
 How to calculate derivatives of arbitrary simulator models?  <!-- .element: class="fragment" data-fragment-index="2" --> 
 
 <div class="fragment" data-fragment-index="3">
-  <img src='images/theano-logo.png'  width='30%' />
-  <img src='images/tensorflow-logo.png'  width='30%' />
+  <img src='images/theano-logo.svg' style="vertical-align: middle;" width='25%' />
+  <img src='images/tensorflow-logo.svg' style="vertical-align: middle;" width='25%' />
+  <img src='images/pytorch-logo.svg' style="vertical-align: middle;" width='25%' />
 </div>
 
 ----
 
-### Automatic differentiation
+<!-- .slide: data-background-video="images/2d-density-hmc.mp4" data-background-video-loop="true" data-state="dim-bg-video" -->
 
-<img src='https://upload.wikimedia.org/wikipedia/commons/a/a0/ReverseaccumulationAD.png'  width='80%' />
-
-Image source: Wikipedia <!-- .element: style="font-size: 50%" -->
-
-----
-
-### Hamiltonian Monte Carlo (HMC) <small>Duane et al., 1987</small>
-
-<video loop autoplay width='800px'>
-  <source data-src="images/2d-density-hmc.mp4" type="video/mp4" />
-</video>
+### Hamiltonian Monte Carlo (HMC) <small>Duane et al. 1987</small>
 
 ---
 
-### Conditioning as a constraint
-
-<img src='images/cond-inference-as-constraint.svg' width='90%'
- style='background: none; border: none; box-shadow: none; margin: 10px;' />
-
----
-
-### Constrained Hamiltonian Monte Carlo <small>Brubaker et al., 2012</small>
+### Constrained Hamiltonian Monte Carlo <small>Brubaker et al. 2012</small>
 
 <video autoplay loop>
   <source data-src="images/chmc-animation.mp4" type="video/mp4" />
@@ -405,34 +518,38 @@ Currently derivative calculation very slow.  <!-- .element: class="fragment" dat
 
 ---
 
-<h2 style='font-size: 250%;'>References</h2>
+<h3 style='font-size: 200%;'>References</h3>
 
 <!-- .slide: style="font-size: 50%" -->
 
-> M. A. Brubaker, M. Saelzmann, and R. Urtasun.
-> A family of MCMC methods on implicitly defined manifolds. 
-> *AISTATS*, 2012.
+*  M. M. Graham and A. J. Storkey.  
+   Asymptotically exact inference in differentiable generative models.   
+   To appear in *AISTATS*, 2017. 
+   
+*  M. A. Beaumont, W. Zhang and D. J. Balding.  
+   Approximate Bayesian Computation in Population Genetics.  
+   *Genetics*, 2002.
+   <!-- .element: class="fragment" data-fragment-index="1"-->
 
-> I. Goodfellow, Y. Bengio, and A. Courville. 
-> Deep learning, Chapter 20: Deep Generative Models. 
-> *Book in preparation for MIT Press*, 2016.
+*  M. A. Brubaker, M. Saelzmann, and R. Urtasun.  
+   A family of MCMC methods on implicitly defined manifolds.  
+   *AISTATS*, 2012.
+   <!-- .element: class="fragment" data-fragment-index="1"-->
 
-> D. P. Kingma and M. Welling. 
-> Auto-encoding variational Bayes. 
-> *ICLR*, 2014.
+*  S. Duane, A. D. Kennedy, B. J. Pendleton and D. Roweth,  
+   Hybrid Monte Carlo.  
+   *Physics Letters B*, 1987. 
+   <!-- .element: class="fragment" data-fragment-index="1"--> 
 
-> I. Goodfellow, J. Pouget-Abadie, M. Mirza, B. Xu, D. Warde-Farley, S. Ozair, 
-> A. Courville, and Y. Bengio.
-> Generative adversarial nets. 
-> *NIPS*, 2014.
+*  I. Goodfellow, Y. Bengio, and A. Courville.  
+   Deep learning, Chapter 20: Deep Generative Models.  
+   *Book in preparation for MIT Press*, 2016.
+   <!-- .element: class="fragment" data-fragment-index="1"-->
 
-> I. Akhter and M. J. Black. 
-> Pose-conditioned joint angle limits for 3D human pose reconstruction. 
-> *IEEE CVPR*, 2015.
-
-> J.-M. Marin, P. Pudlo, C. P. Robert, and R. J. Ryder. 
-> Approximate Bayesian computational methods. 
-> *Statistics and Computing*, 2012.
+*  D. P. Kingma and M. Welling.  
+   Auto-encoding variational Bayes.  
+   *ICLR*, 2014.
+   <!-- .element: class="fragment" data-fragment-index="1"-->
 
 ---
 

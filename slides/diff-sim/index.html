@@ -70,6 +70,8 @@
 			TeX: {
 				Macros: {
 					vct: ["\\boldsymbol{#1}",1],
+					vctfunc: ["\\mathbf{#1}",1],
+					mtxfunc: ["\\mathbf{#1}",1],
 					rvct: ["\\mathbf{#1}",1],
 					mtx: ["\\mathbf{#1}",1],
 					tr: "^\\mathrm{T}",
@@ -90,7 +92,11 @@
 					lbr: "\\left\\lbrace",
 					rbr: "\\right\\rbrace",
 					set: ["\\mathcal{#1}",1],
-					reals: "\\mathbb{R}"
+					reals: "\\mathbb{R}",
+					latent: ["\\color{steelblue}{#1}",1],
+					observed: ["\\color{red}{#1}",1],
+					input: ["\\color{green}{#1}",1],
+					output: ["\\color{purple}{#1}",1]
 				}
 				
 			},
