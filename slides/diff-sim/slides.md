@@ -217,7 +217,7 @@ $$
   {\observed{\vct{y}_j}} = 
   \overset
   {\textrm{camera matrix}}
-  {\mtxfunc{C}\lpa\latent{\vct{z}_a}\rpa}
+  {\mtxfunc{C}\lpa\latent{\vct{z}_c}\rpa}
   \overset
   {\textrm{3D pos.}}{
   \vctfunc{r}_j\lpa
