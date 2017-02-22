@@ -447,7 +447,7 @@ All generative models coded using Theano. <!-- .element: class="fragment" data-f
 
 ----
 
-### Lokta-Volterra parameter inference
+### Lotka-Volterra parameter inference
 
 <img src='images/lotka-volterra-sims.svg' width='22%'
  style='background: none; border: none; box-shadow: none; margin: 10px;' /> <!-- .element: class="fragment" data-fragment-index="1" -->
