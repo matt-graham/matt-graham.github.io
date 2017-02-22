@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with matplotlib (http://matplotlib.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   height="94.694916pt"
+   version="1.1"
+   viewBox="0 0 94.694913 94.694914"
+   width="94.694916pt"
+   id="svg2"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="mnist-obs.svg">
+  <metadata
+     id="metadata135">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="695"
+     id="namedview133"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="1.7481481"
+     inkscape:cx="-105.90093"
+     inkscape:cy="-7.9355063"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="axes_1"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-paths="true" />
+  <defs
+     id="defs4"
+     style="stroke-linecap:butt;stroke-linejoin:round">
+    <style
+       type="text/css"
+       id="style6">
+*{stroke-linecap:butt;stroke-linejoin:round;}
+  </style>
+  </defs>
+  <g
+     id="figure_1"
+     style="stroke-linecap:butt;stroke-linejoin:round"
+     transform="translate(-8.360643,-118.84083)">
+    <g
+       id="g4315"
+       transform="matrix(1.5813673,0,0,1.5813673,-32.891074,-95.854731)"
+       style="stroke-linecap:butt;stroke-linejoin:round">
+      <g
+         style="stroke-linecap:butt;stroke-linejoin:round"
+         id="axes_1">
+        <g
+           style="stroke-linecap:butt;stroke-linejoin:round"
+           id="matplotlib.axis_1" />
+        <g
+           style="stroke-linecap:butt;stroke-linejoin:round"
+           id="matplotlib.axis_2" />
+        <image
+           y="135.76578"
+           x="26.086105"
+           id="image4150"
+           xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADsAAAA7CAYAAADFJfKzAAAABmJLR0QA/wD/AP+gvaeTAAAACXBI
+WXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4QEeFQQXYThKwwAAAUhJREFUaN7t2LFqwlAYhuH3tJU0
+m0Skl9Ct0EmoOkkRh9LBi/BGxEEdOzk5mK2XIIF29DpKoGtbIbEJ6XBitFAKXdIh378knHOSk+f/
+SIaYh0YjoyJ1QoVKWGGFFVZYYYUVVlhhf6mzsje8dhwArqZTAM47Hdv1ej1vv+1/lqYAREEAgD8a
+Fff4zDIl+6/JXtZqxfnNcgmA02oBYPKEs+0WgCQMv1172mza9e02APe9XjH3uF4r2VKT3Xdu2O8D
+4E0mhznPs0nGMQDvqxUAwXgMwGv+ju4f6NZ1AbjwfQDcbvewkZItOdnhYGATnc/twG5XzL0tFgA8
+zWYAvCTJj/dI8+NzFAFwt9nYgaP1jjEAxH/8KlcqWROGH/rhJqywwgorrLDCCiussMIKK6ywwgor
+rLDCCiussMIKK6ywwgorrLDCCitsNeoLjHxCj+Dd0OsAAAAASUVORK5CYII=
+"
+           style="stroke-linecap:butt;stroke-linejoin:round;image-rendering:optimizeSpeed"
+           preserveAspectRatio="none"
+           height="59.881672"
+           width="59.881676" />
+      </g>
+    </g>
+  </g>
+  <defs
+     id="defs128">
+    <clipPath
+       id="p4c72f1c596"
+       style="stroke-linecap:butt;stroke-linejoin:round">
+      <rect
+         height="172.8"
+         width="167.39999"
+         x="27"
+         y="21.6"
+         id="rect131"
+         style="stroke-linecap:butt;stroke-linejoin:round" />
+    </clipPath>
+  </defs>
+</svg>
