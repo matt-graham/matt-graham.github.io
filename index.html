@@ -185,9 +185,6 @@
                 <i>Matthew M. Graham</i> and <a href="http://homepages.inf.ed.ac.uk/amos">Amos J. Storkey</a>
               </p>
               <div class="btn-group" role="group">
-                <a href="files/cthmc/paper.pdf" class="btn btn-default">
-                  <i class="fa fa-file-pdf-o fa-fw"></i> Paper
-                </a>
                 <a href="files/cthmc/extended-abstract.pdf" class="btn btn-default">
                   <i class="fa fa-file-pdf-o fa-fw"></i> Extended abstract
                 </a>
@@ -222,17 +219,20 @@
                 <a href="https://arxiv.org/abs/1605.07826" class="btn btn-default">
                   <i class="ai ai-arxiv fa-fw"></i> Paper
                 </a>
-                <a href="slides/diff-sim" class="btn btn-default">
+                <a href="files/dgm_poster.pdf" class="btn btn-default">
+                  <i class="fa fa-file-pdf-o fa-fw"></i> Poster
+                </a>
+                <a href="slides/dgm" class="btn btn-default">
                   <i class="fa fa-television fa-fw"></i> Slides
                 </a>
                 <a href="https://github.com/matt-graham/differentiable-generative-models" class="btn btn-default">
                   <i class="fa fa-code fa-fw"></i> Code
                 </a>
-                <button class="btn btn-default btn-abs collapsed" data-toggle="collapse" data-target="#cond-inf-abs">
+                <button class="btn btn-default btn-abs collapsed" data-toggle="collapse" data-target="#dgm-abs">
                   Abstract
                 </button>
               </div>
-              <div id="cond-inf-abs" class="collapse abstract">
+              <div id="dgm-abs" class="collapse abstract">
                 Many generative models can be expressed as a differentiable function of random inputs drawn from some simple probability density. This framework includes both deep generative architectures such as Variational Autoencoders and a large class of procedurally defined simulator models. We present a method for performing efficient MCMC inference in such models when conditioning on observations of the model output. For some models this offers an asymptotically exact inference method where Approximate Bayesian Computation might otherwise be employed. We use the intuition that inference corresponds to integrating a density across the manifold corresponding to the set of inputs consistent with the observed outputs. This motivates the use of a constrained variant of Hamiltonian Monte Carlo which leverages the smooth geometry of the manifold to coherently move between inputs exactly consistent with observations. We validate the method by performing inference tasks in a diverse set of models.
               </div>
             </li>
