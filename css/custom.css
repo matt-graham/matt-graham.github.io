@@ -44,6 +44,11 @@ body {
     font-style: italic;
 }
 
+.row .section-header, .row h2, .row h3 {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
 .section-header {
   padding-bottom: 9px;
   margin-bottom: 20px;
@@ -94,4 +99,8 @@ body {
 .pad-sides {
   padding-left: 15px;
   padding-right: 15px;
+}
+
+.btn-group a, .btn-group button, .btn-group .btn {
+  margin-top: 5px;
 }
