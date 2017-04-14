@@ -291,29 +291,30 @@ $$ <!-- .element: class="fragment" data-fragment-index="2" -->
 
 ### Example: Hodgkin-Huxley model
 
-<img src='images/hodgkin-huxley-fig-1-coloured.svg' width='50%' />
+<img src='images/hodgkin-huxley-fig-1-coloured.svg' width='40%' />
 
-\begin{equation}
-C\_m \td{V}{t} = -
-\bar{g}\_{\ell}(V - E\_{\ell}) -
+<span style='font-size: 80%;'>
+\begin{align}
+-C\_m \td{V}{t} &= 
+\bar{g}\_{\ell}(V - E\_{\ell}) +
 \observed{\overbrace{\bar{g}\_{\textrm{Na}} h m^3}^{g\_{\textrm{Na}}}} 
-(V - E\_{\textrm{Na}}) -
+(V - E\_{\textrm{Na}}) +
 \observed{\overbrace{\bar{g}\_{\textrm{K}} n^3}^{g\_{\textrm{K}}}} 
 (V - E\_{\textrm{K}})
-\end{equation}
-
-\begin{equation}
-\td{x}{t} = -
+\\\\
+\td{x}{t} &=
 \alpha\_x(V)\, (1 - x) - \beta\_x(V)\, x
 \\quad \forall x \in \lbr{h,\,m,\,n}\rbr
-\end{equation}
+\end{align}
+</span>
 
 ----
 
-### Example: Hodgkin-Huxley model
+### Example: Hodgkin-Huxley model <small>Daly et al. 2015</small>
 
 Latent variables $\latent{\rvct{z}}$: gate voltage dependence parameters
 
+<span style='font-size: 80%;'>
 \begin{align}
 \alpha\_h(V) &= 
 \latent{k\_{\alpha\_h,0}} \exp\lsb -\frac{V}{\latent{k\_{\alpha\_h,1}}}\rsb &
@@ -330,12 +331,13 @@ Latent variables $\latent{\rvct{z}}$: gate voltage dependence parameters
 \beta\_n(V) &= 
 \latent{k\_{\beta\_n,0}} \exp\lsb -\frac{V}{\latent{k\_{\beta\_n,1}}}\rsb
 \end{align}
+</span>
 
 ----
 
 ### Example: Hodgkin-Huxley model
 
-Observed data $\observed{\vct{y}}$: sodium and potassium conductances
+Observed data $\observed{\vct{y}\_{\textrm{obs}}}$: sodium and potassium conductances
 
 <img src='images/hodgkin-huxley-figs-3-and-6-coloured.svg' width='80%' />
 
@@ -511,7 +513,7 @@ Compare to ABC MCMC approach using pseudo-marginal slice sampling <small>(Murray
 
 ---
 
-<!-- .slide: style="font-size: 60%" -->
+<!-- .slide: style="font-size: 50%" -->
 
 <h3 style='font-size: 200%;'>References</h3>
    
@@ -523,11 +525,15 @@ Compare to ABC MCMC approach using pseudo-marginal slice sampling <small>(Murray
    A family of MCMC methods on implicitly defined manifolds.  
    *AISTATS*, 2012.
    
-*  S. Duane, A. D. Kennedy, B. J. Pendleton and D. Roweth,  
+*  A. C. Daly, D. J. Gavaghan, C. Holmes and J. Cooper.  
+   Hodgkin-Huxley revisited: reparameterization and identifiability analysis of classic actional potential model with approximate Bayesian methods.  
+   *Royal Society open science*, 2015.
+   
+*  S. Duane, A. D. Kennedy, B. J. Pendleton and D. Roweth.    
    Hybrid Monte Carlo.  
    *Physics Letters B*, 1987.
    
-*  A. L. Hodgkin and A. F. Huxley,  
+*  A. L. Hodgkin and A. F. Huxley.  
    A quantitative description of membrance current and its application to conduction and excitation in nerve.  
    *Journal of Physiology*, 1952.
 
@@ -573,6 +579,6 @@ Compare to ABC MCMC approach using pseudo-marginal slice sampling <small>(Murray
 
 <br />
 
-<i class="fa fa-github fa-fw"></i> `python` code http://git.io/dgm
+<i class="fa fa-github fa-fw"></i> http://git.io/dgm
 
-<i class="ai ai-arxiv fa-fw"></i> Paper http://arxiv.org/abs/1605.07826
+<i class="ai ai-arxiv fa-fw"></i> http://arxiv.org/abs/1605.07826
