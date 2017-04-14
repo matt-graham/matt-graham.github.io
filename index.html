@@ -94,8 +94,8 @@
                 <a href="https://plus.google.com/u/0/+MatthewGrahamUK" class="btn btn-social-icon btn-google-plus">
                   <i class="fa fa-google-plus fa-fw"></i>
                 </a>
-                <a href="https://www.kaggle.com/users/82086/matt-graham" class="btn btn-social-icon btn-kaggle">
-                  <i class="fa icon-kaggle-k fa-fw"></i>
+                <a href="https://twitter.com/mattgrahamuk" class="btn btn-social-icon btn-twitter">
+                  <i class="fa fa-twitter fa-fw"></i>
                 </a>
                 <a href="https://scholar.google.co.uk/citations?user=1QMZI4kAAAAJ&hl=en" class="btn btn-social-icon btn-google-yellow">
                   <i style="margin-top: 2px;" class="fa icon-google-scholar-g-thicker fa-fw"></i>
@@ -186,16 +186,7 @@
               </p>
               <div class="btn-group" role="group">
                 <a href="https://arxiv.org/abs/1704.03338" class="btn btn-default">
-                  <i class="ai ai-arxiv fa-fw"></i> Paper
-                </a>
-                <a href="files/cthmc/extended-abstract.pdf" class="btn btn-default">
-                  <i class="fa fa-file-pdf-o fa-fw"></i> Extended abstract
-                </a>
-                <a href="files/cthmc/poster.pdf" class="btn btn-default">
-                  <i class="fa fa-file-pdf-o fa-fw"></i> Poster
-                </a>
-                <a href="slides/cthmc" class="btn btn-default">
-                  <i class="fa fa-television fa-fw"></i> Slides
+                  <i class="ai ai-arxiv fa-fw"></i> arXiv
                 </a>
                 <a href="https://github.com/matt-graham/continuously-tempered-hmc" class="btn btn-default">
                   <i class="fa fa-code fa-fw"></i> Code
@@ -208,19 +199,28 @@
                 Hamiltonian Monte Carlo (HMC) is a powerful Markov chain Monte Carlo (MCMC) method for performing approximate inference in complex probabilistic models of continuous variables. In common with many MCMC methods, however, the standard HMC approach performs poorly in distributions with multiple isolated modes. We present a method for augmenting the Hamiltonian system with an extra continuous temperature control variable which allows the dynamic to bridge between sampling a complex target distribution and a simpler unimodal base distribution. This augmentation both helps improve mixing in multimodal targets and allows the normalisation constant of the target distribution to be estimated. The method is simple to implement within existing HMC code, requiring only a standard leapfrog integrator. We demonstrate experimentally that the method is competitive with annealed importance sampling and simulating tempering methods at sampling from challenging multimodal distributions and estimating their normalising constants.
               </div>
             </li>
+          </ul>
+        </div> <!-- row Pre-prints -->
+        <div class="row">
+          <h3> Publications </h3>
+          <ul class="publications-list">
             <li class="publication">
               <h4>
+                <small>04/2017</small>
                 Asymptotically exact inference in differentiable generative models
               </h4>
               <p>
                 <i>Matthew M. Graham</i> and <a href="http://homepages.inf.ed.ac.uk/amos">Amos J. Storkey</a>
               </p>
               <p class='published-in'>
-                <em>To appear in </em> Proceedings of the 20th International Conference on Artificial Intelligence and Statistics
+                Proceedings of the 20th International Conference on Artificial Intelligence and Statistics
               </p>
               <div class="btn-group" role="group">
+                <a href="http://proceedings.mlr.press/v54/graham17a.html" class="btn btn-default">
+                  <i class="fa fa-file-o fa-fw"></i> Proceedings
+                </a>
                 <a href="https://arxiv.org/abs/1605.07826" class="btn btn-default">
-                  <i class="ai ai-arxiv fa-fw"></i> Paper
+                  <i class="ai ai-arxiv fa-fw"></i> arXiv
                 </a>
                 <a href="files/dgm_poster.pdf" class="btn btn-default">
                   <i class="fa fa-file-pdf-o fa-fw"></i> Poster
@@ -239,11 +239,34 @@
                 Many generative models can be expressed as a differentiable function of random inputs drawn from some simple probability density. This framework includes both deep generative architectures such as Variational Autoencoders and a large class of procedurally defined simulator models. We present a method for performing efficient MCMC inference in such models when conditioning on observations of the model output. For some models this offers an asymptotically exact inference method where Approximate Bayesian Computation might otherwise be employed. We use the intuition that inference corresponds to integrating a density across the manifold corresponding to the set of inputs consistent with the observed outputs. This motivates the use of a constrained variant of Hamiltonian Monte Carlo which leverages the smooth geometry of the manifold to coherently move between inputs exactly consistent with observations. We validate the method by performing inference tasks in a diverse set of models.
               </div>
             </li>
-          </ul>
-        </div> <!-- row Pre-prints -->
-        <div class="row">
-          <h3> Publications </h3>
-          <ul class="publications-list">
+            <li class="publication">
+              <h4>
+                <small>12/2016</small>  Continuously tempered Hamiltonian Monte Carlo
+              </h4>
+              <p>
+                <i>Matthew M. Graham</i> and <a href="http://homepages.inf.ed.ac.uk/amos">Amos J. Storkey</a>
+              </p>
+              <p class='published-in'>
+                NIPS 2016 workshop: Advances in Approximate Bayesian Inference
+              </p>
+              <div class="btn-group" role="group">
+                <a href="http://approximateinference.org/accepted/GrahamStorkey2016.pdf" class="btn btn-default">
+                  <i class="fa fa-file-pdf-o fa-fw"></i> Extended abstract
+                </a>
+                <a href="files/cthmc/poster.pdf" class="btn btn-default">
+                  <i class="fa fa-file-pdf-o fa-fw"></i> Poster
+                </a>
+                <a href="slides/cthmc/aabi" class="btn btn-default">
+                  <i class="fa fa-television fa-fw"></i> Slides
+                </a>
+                <button class="btn btn-default btn-abs collapsed" data-toggle="collapse" data-target="#cthmc-wk-abs">
+                  Abstract
+                </button>
+              </div>
+              <div id="cthmc-wk-abs" class="collapse abstract">
+                Hamiltonian Monte Carlo (HMC) is a powerful Markov chain Monte Carlo (MCMC) method for performing approximate inference in complex probabilistic models of continuous variables. In common with many MCMC methods however the standard HMC approach performs poorly in distributions with multiple isolated modes. Based on an approach proposed in the statistical physics literature, we present a method for augmenting the Hamiltonian system with an extra continuous temperature control variable which allows the dynamic to bridge between sampling a complex target distribution and a simpler uni-modal base distribution. This augmentation both helps increase mode-hopping in multi-modal targets and allows the normalisation constant of the target distribution to be estimated. The method is simple to implement within existing HMC code, requiring only a standard leapfrog integrator. It produces MCMC samples from the target distribution which can be used to directly estimate expectations without any importance re-weighting.
+              </div>
+            </li>
             <li class="publication">
               <h4><small>05/2016</small> Pseudo-Marginal Slice Sampling</h4>
               <p>
@@ -253,8 +276,11 @@
                 Proceedings of the 19th International Conference on Artificial Intelligence and Statistics
               </p>
               <div class="btn-group" role="group">
-                <a href="http://jmlr.org/proceedings/papers/v51/murray16.pdf" class="btn btn-default">
-                  <i class="fa fa-file-pdf-o fa-fw"></i> Paper
+                <a href="http://proceedings.mlr.press/v51/murray16.html" class="btn btn-default">
+                  <i class="fa fa-file-o fa-fw"></i> Proceedings
+                </a>
+                <a href="https://arxiv.org/abs/1510.02958" class="btn btn-default">
+                  <i class="ai ai-arxiv fa-fw"></i> arXiv
                 </a>
                 <a href="files/pm_slice_poster.pdf" class="btn btn-default">
                   <i class="fa fa-file-pdf-o fa-fw"></i> Poster
