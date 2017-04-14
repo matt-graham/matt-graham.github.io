@@ -1,16 +1,17 @@
+<h1 class='title-heading'> 
+  Inference in differentiable generative models
+</h1>
 
-  <h1 class='title-heading'> 
-    Inference in differentiable generative models
-  </h1>
-  
-  <img src='images/mnist-generator-samples.svg' width='25%'
-   style='background: none; border: none; box-shadow: none;' />
-  <img src='images/pose-generator-samples.svg' width='25%'
-   style='background: none; border: none; box-shadow: none;' />
-  <img src='images/lotka-volterra-generator-samples.svg' width='25%'
-   style='background: none; border: none; box-shadow: none;' />
+<img src='images/title-image.svg' width='70%'
+ style='background: none; border: none; box-shadow: none;' />
    
-**Matt Graham &lt;[matt-graham.github.io](http://matt-graham.github.io)&gt;**
+<p style='font-size: 90%; font-weight: bold;'>
+  Matt Graham &lt;[matt-graham.github.io](http://matt-graham.github.io)&gt;
+</p>
+
+<p style='font-size: 80%; font-style: italic;'>
+  Joint work with Amos Storkey
+</p>
 
 <img width='35%' src='images/informatics-logo.svg' />
 
@@ -18,7 +19,7 @@
 
 ### Task: inference
 
-Calculate probable values of unobserved variables $\latent{\rvct{z}}$ given observations $\observed{\rvct{y}}$ of system
+Calculate probable values of unobserved variables $\latent{\rvct{z}}$ given observations $\observed{\rvct{y} = \vct{y}_{\textrm{obs}}}$ of system
 
 <table class='align-table' width='100%'>
   <tr class='fragment' data-fragment-index="1">
@@ -99,29 +100,29 @@ Calculate probable values of unobserved variables $\latent{\rvct{z}}$ given obse
 
 $$
   \underbrace{
-    \prob{ 
+    \pden{ 
       \latent{\rvct{z} = \vct{z}} \gvn
-      \observed{\rvct{y} = \vct{y}} 
+      \observed{\rvct{y} = \vct{y}\_{\textrm{obs}}} 
     }
   }\_{\textrm{posterior}}
   =
   \frac{
     \overbrace{
-      \prob{ 
-        \observed{\rvct{y} = \vct{y}} \gvn
+      \pden{ 
+        \observed{\rvct{y} = \vct{y}\_{\textrm{obs}}} \gvn
         \latent{\rvct{z} = \vct{z}} 
       }
     }^{\textrm{likelihood}}
     \,
     \overbrace{
-      \prob{
+      \pden{
         \latent{\rvct{z} = \vct{z}}
       }
     }^{\textrm{prior}}
   }{
     \underbrace{
-      \prob{
-        \observed{\rvct{y} = \vct{y}}
+      \pden{
+        \observed{\rvct{y} = \vct{y}\_{\textrm{obs}}}
       }
     }\_
     {\textrm{evidence}}
@@ -141,12 +142,12 @@ Class of iterative sampling methods. <!-- .element: class="fragment" data-fragme
 Need to evaluate probability (density) function up to unknown normalising constant. <!-- .element: class="fragment" data-fragment-index="2" -->
 
 $$
-  \prob{
+  \pden{
     \latent{\rvct{z} = \vct{z}} \gvn
-    \observed{\mathbf{y} = \vct{y}}
+    \observed{\mathbf{y} = \vct{y}\_{\textrm{obs}}}
   } \propto
-  \prob{
-    \observed{\rvct{y} = \vct{y}} ,\,
+  \pden{
+    \observed{\rvct{y} = \vct{y}\_{\textrm{obs}}} ,\,
     \latent{\rvct{z} = \vct{z}}
   }
 $$ <!-- .element: class="fragment" data-fragment-index="3" -->
@@ -165,105 +166,44 @@ $$ <!-- .element: class="fragment" data-fragment-index="3" -->
 
 ### Markov chain Monte Carlo (MCMC)
 
-Requires that we can evaluate joint $\prob{\observed{\rvct{y} = \vct{y}} ,\,
+Requires that we can evaluate joint $\pden{\observed{\rvct{y} = \vct{y}_{\textrm{obs}}} ,\,
   \latent{\rvct{z} = \vct{z}}}$.  
 
 How to perform inference when we cannot do this? <!-- .element: class="fragment" data-fragment-index="1" -->
 
 ---
 
-### Differentiable generator networks <small>Goodfellow et al. 2016</small>
+### Differentiable generative models
 
-<p class="fragment" data-fragment-index="1">Model defined by differentiable *generator* function.</p>
+Model defined by a differentiable *generator function* $\vctfunc{g}$
+and *random inputs* $\input{\rvct{u}}$ drawn from a *base density* $\rho(\input{\vct{u}})$.
+
+$$
+  \input{\rvct{u}} \sim \rho
+  \qquad
+  \output{\rvct{x}} = \vctfunc{g}(\input{\rvct{u}})
+  \qquad
+  \output{\rvct{x}} = \left[\observed{\rvct{y}};\,\latent{\rvct{z}}\right]
+$$
+
+<br />
 
 <img src='images/generator-example.svg' width='75%'
- style='background: none; border: none; box-shadow: none;' /> <!-- .element: class="fragment" data-fragment-index="2" -->
- 
-e.g. decoder of variational autoencoder (VAE) or generator of generative adversarial network (GAN). <!-- .element: class="fragment" data-fragment-index="3" -->
-
-----
-
-### Example: MNIST VAE decoder <small>Kingma and Welling, 2013</small>
-
-$$
-  \output{\vct{x}} = 
-  \vctfunc{m}(\input{\vct{u}_1}) + 
-  \vctfunc{s}(\input{\vct{u}_1}) \odot \input{\vct{u}_2}
-$$<!-- .element: class="fragment" data-fragment-index="1" -->
-
-<img class="fragment" data-fragment-index="2" src='images/mnist-generator.svg' width='80%' />
-
-----
-
-### Example: Pose projection generator
-
-$$
-  \overset
-  {\textrm{joint angles}}
-  {\latent{\vct{z}\_{a}} = \vctfunc{f}\_a(\input{\vct{u}\_a})}
-  \qquad
-  \overset
-  {\textrm{bone lengths}}
-  {\latent{\vct{z}\_{b}} = \vctfunc{f}\_b(\input{\vct{u}\_b})}
-  \qquad
-  \overset
-  {\textrm{camera parameters}}
-  {\latent{\vct{z}\_{c}} = \vctfunc{f}\_c(\input{\vct{u}\_c})}
-$$
-
-$$
-  \overset
-  {\textrm{2D proj.}}
-  {\observed{\vct{y}_j}} = 
-  \overset
-  {\textrm{camera matrix}}
-  {\mtxfunc{C}\lpa\latent{\vct{z}_c}\rpa}
-  \overset
-  {\textrm{3D pos.}}{
-  \vctfunc{r}_j\lpa
-    \latent{\vct{z}_a},\,
-    \latent{\vct{z}_b}
-  \rpa} + 
-  \overset
-  {\textrm{obs. noise}}
-  {\sigma\,\input{\vct{u}_j}} 
-  \quad\forall j \in \lbrace 1 \dots J \rbrace
-$$ <!-- .element: class="fragment" data-fragment-index="2" -->
-
-$$
-  \output{\vct{x}} = 
-  \lsb
-    \observed{\vct{y}\_{1} \dots \vct{y}\_{J}};\,
-    \latent{\vct{z}\_a};\,
-    \latent{\vct{z}\_b};\,
-    \latent{\vct{z}\_c}
-  \rsb
-  \quad
-  \input{\vct{u}} = 
-  \lsb 
-    \input{\vct{u}\_{1} \dots \vct{u}\_{J}};\,
-    \input{\vct{u}\_a};\,
-    \input{\vct{u}\_b};\,
-    \input{\vct{u}\_c}
-  \rsb
-$$ <!-- .element: class="fragment current-visible" data-fragment-index="3" -->
-
-
-<img src='images/pose-generator.svg' width='80%' class="fragment" data-fragment-index="4"/>
+ style='background: none; border: none; box-shadow: none;' /> <!-- .element: class="fragment" data-fragment-index="1" -->
 
 ---
 
 ### Simulator models
 
-Many simulators with continuous outputs can be expressed as differentiable generators. <!-- .element: class="fragment" data-fragment-index="1" -->
+Many simulators with continuous outputs are differentiable generative models. <!-- .element: class="fragment" data-fragment-index="1" -->
 
 Usually defined procedurally in code:<!-- .element: class="fragment" data-fragment-index="2" -->
 
 ```Python
 def generator(rng):
-    params = sample_from_prior(rng)
-    outputs = simulate(params, rng)
-    return outputs, params
+    z = sample_from_prior(rng)
+    y = simulate(z, rng)
+    return y, z
 ```
 <!-- .element: class="fragment" data-fragment-index="2" -->
 
@@ -276,17 +216,17 @@ def generator(rng):
  <img src='images/fox.svg' width='15%'
  style='vertical-align:middle; background: none; border: none; box-shadow: none;' />
 
-Model of prey ($\observed{y_1}$) and predator ($\observed{y_2}$) populations
+Continuous variant of model of prey ($\observed{y_1}$) and predator ($\observed{y_2}$) populations
 
 $$
     \textrm{d} \observed{y_1} = 
-    (\latent{\theta_1} \observed{y_1} - \latent{\theta_2} \observed{y_1 y_2}) \textrm{d} t + 
+    (\latent{z_1} \observed{y_1} - \latent{z_2} \observed{y_1 y_2}) \textrm{d} t + 
     \textrm{d} n_1
 $$ <!-- .element: class="fragment" data-fragment-index="1" -->
 
 $$
     \textrm{d} \observed{y_2} = 
-    (-\latent{\theta_3} \observed{y_2} + \latent{\theta_4} \observed{y_1 y_2}) \textrm{d} t + 
+    (-\latent{z_3} \observed{y_2} + \latent{z_4} \observed{y_1 y_2}) \textrm{d} t + 
     \textrm{d} n_2
 $$ <!-- .element: class="fragment" data-fragment-index="1" -->
 
@@ -300,27 +240,39 @@ Simulate at $T$ discrete time-steps
 
 ```Python
 def sample_from_prior(rng):
-  return np.exp(rng.normal(size=4) - mu)
+    return np.exp(rng.normal(size=4) - mu)
     
-def simulate(params, rng):
-  y1_seq, y2_seq = [], []
-  y1, y2 = y1_init, y2_init
-  for t in range(T):
-    y1 += ( params[0]*y1 - params[1]*y2) * dt + rng.normal()*dt**.5
-    y2 += (-params[2]*y2 + params[3]*y1) * dt + rng.normal()*dt**.5
-    y1_seq.append(y1)
-    y2_seq.append(y2)
-  return np.array(y1_seq), np.array(y2_seq)
+def simulate(z, rng):
+    y1_seq, y2_seq = [], []
+    y1, y2 = y1_init, y2_init
+    for t in range(T):
+        y1 += ( z[0]*y1 - z[1]*y2) * dt + rng.normal()*dt**0.5
+        y2 += (-z[2]*y2 + z[3]*y1) * dt + rng.normal()*dt**0.5
+        y1_seq.append(y1)
+        y2_seq.append(y2)
+    return np.array(y1_seq), np.array(y2_seq)
 ```
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
 
 $$
-    \input{\vct{u}} = 
-    \lsb \input{\textrm{draws from random number generator}} \rsb
-    \qquad
-    \output{\vct{x}} = 
-    \lsb \observed{\vct{y}};\, \latent{\vct{\theta}} \rsb
+    \input{\rvct{u}} = 
+    \lsb \input{\textrm{random number generator draws}} \rsb
+$$  <!-- .element: class="fragment" data-fragment-index="2" -->
+
+$$
+    \output{\rvct{x}} = 
+    \lsb 
+      \observed{
+        \rvar{y}^{(1)}_1,\,\rvar{y}^{(1)}_2,
+        \,\dots\,
+        \rvar{y}^{(T)}_1,\,\rvar{y}^{(T)}_2
+      }
+      ;\, 
+      \latent{
+        \rvar{z_1},\,\rvar{z_2},\,\rvar{z_3},\,\rvar{z_4}
+      } 
+    \rsb
 $$ <!-- .element: class="fragment" data-fragment-index="2" -->
 
 ----
@@ -329,6 +281,71 @@ $$ <!-- .element: class="fragment" data-fragment-index="2" -->
 
 <img src='images/lotka-volterra-generator.svg' width='80%'
  style='background: none; border: none; box-shadow: none;' />
+
+
+----
+
+<img src='images/hodgkin-huxley-title.svg' width='100%' />
+
+----
+
+### Example: Hodgkin-Huxley model
+
+<img src='images/hodgkin-huxley-fig-1-coloured.svg' width='50%' />
+
+\begin{equation}
+C\_m \td{V}{t} = -
+\bar{g}\_{\ell}(V - E\_{\ell}) -
+\observed{\overbrace{\bar{g}\_{\textrm{Na}} h m^3}^{g\_{\textrm{Na}}}} 
+(V - E\_{\textrm{Na}}) -
+\observed{\overbrace{\bar{g}\_{\textrm{K}} n^3}^{g\_{\textrm{K}}}} 
+(V - E\_{\textrm{K}})
+\end{equation}
+
+\begin{equation}
+\td{x}{t} = -
+\alpha\_x(V)\, (1 - x) - \beta\_x(V)\, x
+\\quad \forall x \in \lbr{h,\,m,\,n}\rbr
+\end{equation}
+
+----
+
+### Example: Hodgkin-Huxley model
+
+Latent variables $\latent{\rvct{z}}$: gate voltage dependence parameters
+
+\begin{align}
+\alpha\_h(V) &= 
+\latent{k\_{\alpha\_h,0}} \exp\lsb -\frac{V}{\latent{k\_{\alpha\_h,1}}}\rsb &
+\beta\_h(V) &= 
+\frac{1}{1 + \exp\lsb-\frac{V - \latent{k\_{\beta\_h,0}}}{\latent{k\_{\beta\_h,1}}}\rsb}\\\\
+\alpha\_m(V) &= 
+\frac{\latent{k\_{\alpha\_m,0}} (V - \latent{k\_{\alpha\_m,1}})}
+{1 -\exp\lsb-\frac{V - \latent{k\_{\alpha\_m,1}}}{\latent{k\_{\alpha\_m,2}}}\rsb} &
+\beta\_m(V) &= 
+\latent{k\_{\beta\_m,0}} \exp\lsb -\frac{V}{\latent{k\_{\beta\_m,1}}}\rsb\\\\
+\alpha\_n(V) &= 
+\frac{\latent{k\_{\alpha\_n,0}} (V - \latent{k\_{\alpha\_n,1}})}
+{1 -\exp\lsb-\frac{V - \latent{k\_{\alpha\_n,1}}}{\latent{k\_{\alpha\_n,2}}}\rsb} &
+\beta\_n(V) &= 
+\latent{k\_{\beta\_n,0}} \exp\lsb -\frac{V}{\latent{k\_{\beta\_n,1}}}\rsb
+\end{align}
+
+----
+
+### Example: Hodgkin-Huxley model
+
+Observed data $\observed{\vct{y}}$: sodium and potassium conductances
+
+<img src='images/hodgkin-huxley-figs-3-and-6-coloured.svg' width='80%' />
+
+----
+
+### Example: Hodgkin-Huxley model
+
+Generator $\vct{g}$: simulated voltage clamp experiments coupling proportional-integral controller to Hodgkin-Huxley model
+
+<img src='images/hodgkin-huxley-simulated-conductances.svg' width='80%' />
 
 ---
 
@@ -384,34 +401,34 @@ $$ <!-- .element: class="fragment" data-fragment-index="2" -->
 <!-- .slide: data-transition="none" -->
 ### ABC in input space
 
-<img src='images/abc-in-input-space.svg' width='90%' /> 
+<img src='images/abc-in-input-space.svg' width='100%' /> 
 
 ----
 
 <!-- .slide: data-transition="none" -->
 ### ABC in input space
 
-<img src='images/abc-in-input-space-epsilon-1e-01.svg' width='90%' /> 
+<img src='images/abc-in-input-space-epsilon-1e-01.svg' width='100%' /> 
 
 ----
 
 <!-- .slide: data-transition="none" -->
 ### ABC in input space
 
-<img src='images/abc-in-input-space-epsilon-5e-02.svg' width='90%' /> 
+<img src='images/abc-in-input-space-epsilon-5e-02.svg' width='100%' /> 
 
 ----
 
 <!-- .slide: data-transition="none" -->
 ### Conditioning as a constraint
 
-<img src='images/abc-in-input-space-exact-constraint.svg' width='90%' /> 
+<img src='images/abc-in-input-space-exact-constraint.svg' width='100%' /> 
 
 ---
 
 ### Gradient based inference
 
-Gradient information often key to performing inference in high-dimensional spaces.  <!-- .element: class="fragment" data-fragment-index="1" -->
+Gradient information often key to scaling inference to high-dimensional spaces.  <!-- .element: class="fragment" data-fragment-index="1" -->
 
 How to calculate derivatives of arbitrary simulator models?  <!-- .element: class="fragment" data-fragment-index="2" --> 
 
@@ -431,81 +448,57 @@ How to calculate derivatives of arbitrary simulator models?  <!-- .element: clas
 
 ### Constrained Hamiltonian Monte Carlo <small>Brubaker et al. 2012</small>
 
-<video autoplay loop>
-  <source data-src="images/chmc-animation.mp4" type="video/mp4" />
+<video controls loop>
+  <source data-src="images/chmc-animation-io.mp4" type="video/mp4" />
 </video>
 
 ---
 
-### Experiments
+### Lotka-Volterra parameter inference
 
-  1. Parameter inference in Lotka-Volterra model
-  2. Monocular pose and camera model inference
-  3. Digit image in-painting with MNIST model
+<div class='fragment' data-fragment-index='1' style='padding-bottom: 1em;'>
+$\input{\rvct{u} = [\rvct{u}\_{\mathrm{z}};\, \rvct{u}\_{\mathrm{y}}]}$ with $\rho(\input{\vct{u}}) = \mathcal{N}\lpa\input{\vct{u}};\,\vct{0},\,\mtx{I}\rpa$
+</div>
 
-All generative models coded using Theano. <!-- .element: class="fragment" data-fragment-index="1" -->
+<div class='fragment' data-fragment-index='2' style='padding-bottom: 1em;'>
+$\vctfunc{g}\_{\latent{\rvct{z}}}(\input{\vct{u}\_{\rvct{z}}}) = \exp(\input{\vct{u}\_{\rvct{z}}} - \vct{\mu})$  
+$\latent{\rvct{z} = [ z_1,\, z_2,\, z_3,\, z_4]}$
+</div>
+
+<div class='fragment' data-fragment-index='3' style='padding-bottom: 1em;'>
+$\vctfunc{g}\_{\observed{\rvct{y}}}(\latent{\vct{z}},\,\input{\vct{u}_{\rvct{y}}})$: Euler-Maruyama integration of SDEs  
+
+$\observed{\rvct{y} = [ \rvar{y}_1^{(1)}, \, \rvar{y}_2^{(1)},\,\dots \rvar{y}_1^{(50)},\, \rvar{y}_2^{(50)} ]}$
+</div>
+
+<p class='fragment' data-fragment-index='4' style='padding-bottom: 1em;'>
+Compare to ABC MCMC approach using pseudo-marginal slice sampling <small>(Murray and Graham, 2016)</small>.
+</p>
 
 ----
 
 ### Lotka-Volterra parameter inference
 
-<img src='images/lotka-volterra-sims.svg' width='22%'
- style='background: none; border: none; box-shadow: none; margin: 10px;' /> <!-- .element: class="fragment" data-fragment-index="1" -->
-<img src='images/lotka-volterra-marginals.svg' width='35%'
- style='background: none; border: none; box-shadow: none; margin: 10px;' /> <!-- .element: class="fragment" data-fragment-index="2" -->
-<img src='images/lotka-volterra-ess.svg' width='33%'
- style='background: none; border: none; box-shadow: none; margin: 10px;' /> <!-- .element: class="fragment" data-fragment-index="3" -->
+<img src='images/lotka-volterra-sims.svg' width='80%' /> 
 
 ----
 
-### Binocular pose estimation
+### Lotka-Volterra parameter inference
 
-<img src='images/binocular-pose.svg' width='30%' />  <!-- .element: class="fragment current-visible" data-fragment-index="1" -->
-
-<img src='images/binocular-pose-estimates-rmse.svg' width='80%' />  <!-- .element: class="fragment" data-fragment-index="2" -->
+<img src='images/lotka-volterra-marginals-with-prior.svg' width='100%'/>
 
 ----
 
-### Monocular pose estimation
+### Lotka-Volterra parameter inference
 
-<img src='images/monocular-pose-sample-projections.svg' width='60%' />
+<img src='images/lotka-volterra-ess.svg' width='80%' />
 
-----
-
-### MNIST in-painting
-
-<img src='images/chmc-mnist-mean-samples.png' width='80%' />
-
----
-
-### Current work
-
-Complex simulations common in science and engineering
-
-<div>
-    <img width='250px' src='images/computational-fluid-dynamics.png' />
-    <!-- .element: class="fragment" data-fragment-index="1" -->
-    <img width='250px' src='images/finite-element-analysis.png' />
-    <!-- .element: class="fragment" data-fragment-index="2" -->
-</div>
-
-<div>
-    <img width='250px' src='images/grav-n-body.png' />
-    <!-- .element: class="fragment" data-fragment-index="3" -->
-    <img width='250px' src='images/molecular-dynamics.jpg' />
-    <!-- .element: class="fragment" data-fragment-index="4" -->
-</div>
 
 ----
 
-### Differentiable fluid simulation
+### Hodgkin-Huxley parameter inference
 
-<img src='images/flame-2.gif' width='200px' />
-<img src='images/flame-3.gif' width='200px' />
-
-Fluid simulation implemented in Theano.  <!-- .element: class="fragment" data-fragment-index="1" -->
-
-Currently derivative calculation very slow.  <!-- .element: class="fragment" data-fragment-index="2" -->
+<img src='images/hodgkin-huxley-parameter-posterior-n.svg' width='60%' />
 
 ---
 
@@ -514,42 +507,33 @@ Currently derivative calculation very slow.  <!-- .element: class="fragment" dat
   * Inference method for differentiable generative models.  <!-- .element: class="fragment" data-fragment-index="1" -->
   * Consider conditioning as constraint on inputs. <!-- .element: class="fragment" data-fragment-index="2" -->
   * Use of gradients allows high-dimensional inference. <!-- .element: class="fragment" data-fragment-index="3" -->
-  * Asymptotically exact alternative to ABC. <!-- .element: class="fragment" data-fragment-index="4" -->
+  * Asymptotically exact alternative to ABC where applicable. <!-- .element: class="fragment" data-fragment-index="4" -->
 
 ---
 
+<!-- .slide: style="font-size: 60%" -->
+
 <h3 style='font-size: 200%;'>References</h3>
-
-<!-- .slide: style="font-size: 50%" -->
-
-*  M. M. Graham and A. J. Storkey.  
-   Asymptotically exact inference in differentiable generative models.   
-   To appear in *AISTATS*, 2017. 
    
 *  M. A. Beaumont, W. Zhang and D. J. Balding.  
    Approximate Bayesian Computation in Population Genetics.  
    *Genetics*, 2002.
-   <!-- .element: class="fragment" data-fragment-index="1"-->
-
+   
 *  M. A. Brubaker, M. Saelzmann, and R. Urtasun.  
    A family of MCMC methods on implicitly defined manifolds.  
    *AISTATS*, 2012.
-   <!-- .element: class="fragment" data-fragment-index="1"-->
-
+   
 *  S. Duane, A. D. Kennedy, B. J. Pendleton and D. Roweth,  
    Hybrid Monte Carlo.  
-   *Physics Letters B*, 1987. 
-   <!-- .element: class="fragment" data-fragment-index="1"--> 
+   *Physics Letters B*, 1987.
+   
+*  A. L. Hodgkin and A. F. Huxley,  
+   A quantitative description of membrance current and its application to conduction and excitation in nerve.  
+   *Journal of Physiology*, 1952.
 
-*  I. Goodfellow, Y. Bengio, and A. Courville.  
-   Deep learning, Chapter 20: Deep Generative Models.  
-   *Book in preparation for MIT Press*, 2016.
-   <!-- .element: class="fragment" data-fragment-index="1"-->
-
-*  D. P. Kingma and M. Welling.  
-   Auto-encoding variational Bayes.  
-   *ICLR*, 2014.
-   <!-- .element: class="fragment" data-fragment-index="1"-->
+*  I. Murray and M. M. Graham.  
+   Pseudo-marginal slice sampling.  
+   *AISTATS*, 2016.
 
 ---
 
@@ -589,10 +573,6 @@ Currently derivative calculation very slow.  <!-- .element: class="fragment" dat
 
 <br />
 
-`python` constrained HMC code
+<i class="fa fa-github fa-fw"></i> `python` code http://git.io/dgm
 
-http://github.com/matt-graham/hmc
-
-Paper pre-print with more details
-
-http://arxiv.org/abs/1605.07826
+<i class="ai ai-arxiv fa-fw"></i> Paper http://arxiv.org/abs/1605.07826
