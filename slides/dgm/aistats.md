@@ -1,6 +1,6 @@
 
 <h1 class='title-heading' style='font-size:140%;'> 
-  Asymptoptically exact inference in differentiable generative models
+  Asymptotically exact inference in differentiable generative models
 </h1>
 
 <img src='images/title-image.svg' width='70%'
@@ -364,7 +364,7 @@ Using LOTUS expectations can be rewritten as<!-- .element: class="fragment" data
 
 ----
 
-### Asymptoptically exact inference
+### Asymptotically exact inference
 
 <div class="fragment" data-fragment-index="0" style='padding-bottom: 1em;'>
 Define a manifold embedded in input space
@@ -396,7 +396,7 @@ Conditional expectations correspond to integrals over $\set{M}\_{\observed{\vct{
 
 ----
 
-### Asymptoptically exact inference
+### Asymptotically exact inference
 
 If we can sample $\lbr \input{\vct{u}^{(s)}} \rbr_{s=1}^S$ from a Markov chain such that:
 
