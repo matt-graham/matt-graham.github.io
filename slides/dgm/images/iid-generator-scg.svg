@@ -374,11 +374,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="-345.15064"
-     inkscape:cy="218.45002"
+     inkscape:zoom="0.9899495"
+     inkscape:cx="120.32689"
+     inkscape:cy="118.09566"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g29661"
      showgrid="false"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -397,7 +397,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -608,10 +608,10 @@
              id="use29539" />
         </g>
         <g
-           style="fill:#4682b4;fill-opacity:1"
+           style="fill:#008000;fill-opacity:1"
            id="g29545">
           <use
-             style="fill:#4682b4;fill-opacity:1"
+             style="fill:#008000;fill-opacity:1"
              height="100%"
              width="100%"
              xlink:href="#textext-c2e71729-4"
@@ -638,10 +638,10 @@
              id="use29549" />
         </g>
         <g
-           style="fill:#ff0000;fill-opacity:1"
+           style="fill:#008000;fill-opacity:1"
            id="g29555">
           <use
-             style="fill:#ff0000"
+             style="fill:#008000"
              height="100%"
              width="100%"
              xlink:href="#textext-c2e71729-9"
@@ -650,10 +650,10 @@
              id="use29553" />
         </g>
         <g
-           style="fill:#ff0000;fill-opacity:1"
+           style="fill:#008000;fill-opacity:1"
            id="g29559">
           <use
-             style="fill:#ff0000"
+             style="fill:#008000"
              height="100%"
              width="100%"
              xlink:href="#textext-c2e71729-14"
@@ -680,10 +680,10 @@
              id="use29563" />
         </g>
         <g
-           style="fill:#ff0000;fill-opacity:1"
+           style="fill:#008000;fill-opacity:1"
            id="g29569">
           <use
-             style="fill:#ff0000"
+             style="fill:#008000"
              height="100%"
              width="100%"
              xlink:href="#textext-c2e71729-9"
@@ -692,10 +692,10 @@
              id="use29567" />
         </g>
         <g
-           style="fill:#ff0000;fill-opacity:1"
+           style="fill:#008000;fill-opacity:1"
            id="g29573">
           <use
-             style="fill:#ff0000"
+             style="fill:#008000"
              height="100%"
              width="100%"
              xlink:href="#textext-c2e71729-15"
@@ -722,10 +722,10 @@
              id="use29577" />
         </g>
         <g
-           style="fill:#ff0000;fill-opacity:1"
+           style="fill:#008000;fill-opacity:1"
            id="g29583">
           <use
-             style="fill:#ff0000"
+             style="fill:#008000"
              height="100%"
              width="100%"
              xlink:href="#textext-c2e71729-9"
@@ -734,10 +734,10 @@
              id="use29581" />
         </g>
         <g
-           style="fill:#ff0000;fill-opacity:1"
+           style="fill:#008000;fill-opacity:1"
            id="g29587">
           <use
-             style="fill:#ff0000"
+             style="fill:#008000"
              height="100%"
              width="100%"
              xlink:href="#textext-c2e71729-16"

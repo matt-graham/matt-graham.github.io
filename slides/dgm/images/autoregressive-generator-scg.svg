@@ -201,11 +201,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="-133.66237"
-     inkscape:cy="-26.536429"
+     inkscape:zoom="0.9899495"
+     inkscape:cx="98.623746"
+     inkscape:cy="189.13418"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="textext-c2e71729-17"
      showgrid="false"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -224,7 +224,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -436,7 +436,7 @@
         </g>
         <g
            id="g26655"
-           style="fill:#4682b4;fill-opacity:1">
+           style="fill:#008000;fill-opacity:1">
           <use
              id="use26653"
              y="139.489"
@@ -444,7 +444,7 @@
              xlink:href="#textext-c2e71729-4"
              width="100%"
              height="100%"
-             style="fill:#4682b4;fill-opacity:1" />
+             style="fill:#008000;fill-opacity:1" />
         </g>
         <path
            id="path26657"
@@ -466,7 +466,7 @@
         </g>
         <g
            id="g26665"
-           style="fill:#ff0000;fill-opacity:1">
+           style="fill:#008000;fill-opacity:1">
           <use
              id="use26663"
              y="195.056"
@@ -474,11 +474,11 @@
              xlink:href="#textext-c2e71729-9"
              width="100%"
              height="100%"
-             style="fill:#ff0000" />
+             style="fill:#008000" />
         </g>
         <g
            id="g26669"
-           style="fill:#ff0000;fill-opacity:1">
+           style="fill:#008000;fill-opacity:1">
           <use
              id="use26667"
              y="196.924"
@@ -486,7 +486,7 @@
              xlink:href="#textext-c2e71729-14"
              width="100%"
              height="100%"
-             style="fill:#ff0000" />
+             style="fill:#008000" />
         </g>
         <path
            id="path26671"
@@ -508,7 +508,7 @@
         </g>
         <g
            id="g26679"
-           style="fill:#ff0000;fill-opacity:1">
+           style="fill:#008000;fill-opacity:1">
           <use
              id="use26677"
              y="195.056"
@@ -516,11 +516,11 @@
              xlink:href="#textext-c2e71729-9"
              width="100%"
              height="100%"
-             style="fill:#ff0000" />
+             style="fill:#008000" />
         </g>
         <g
            id="g26683"
-           style="fill:#ff0000;fill-opacity:1">
+           style="fill:#008000;fill-opacity:1">
           <use
              id="use26681"
              y="196.924"
@@ -528,7 +528,7 @@
              xlink:href="#textext-c2e71729-15"
              width="100%"
              height="100%"
-             style="fill:#ff0000" />
+             style="fill:#008000" />
         </g>
         <path
            id="path26685"
@@ -550,7 +550,7 @@
         </g>
         <g
            id="g26693"
-           style="fill:#ff0000;fill-opacity:1">
+           style="fill:#008000;fill-opacity:1">
           <use
              id="use26691"
              y="195.028"
@@ -558,11 +558,11 @@
              xlink:href="#textext-c2e71729-9"
              width="100%"
              height="100%"
-             style="fill:#ff0000" />
+             style="fill:#008000" />
         </g>
         <g
            id="g26697"
-           style="fill:#ff0000;fill-opacity:1">
+           style="fill:#008000;fill-opacity:1">
           <use
              id="use26695"
              y="196.896"
@@ -570,7 +570,7 @@
              xlink:href="#textext-c2e71729-16"
              width="100%"
              height="100%"
-             style="fill:#ff0000" />
+             style="fill:#008000" />
         </g>
         <path
            id="path26699"

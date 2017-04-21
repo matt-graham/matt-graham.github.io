@@ -151,32 +151,14 @@ $$
   \quad\forall j \in \lbrace 1 \dots J \rbrace
 $$ <!-- .element: class="fragment" data-fragment-index="2" -->
 
-$$
-  \output{\rvct{x}} = 
-  \lsb
-    \observed{\rvct{y}\_{1} \dots \rvct{y}\_{J}};\,
-    \latent{\rvct{z}\_a};\,
-    \latent{\rvct{z}\_b};\,
-    \latent{\rvct{z}\_c}
-  \rsb
-  \quad
-  \input{\rvct{u}} = 
-  \lsb 
-    \input{\rvct{u}\_{1} \dots \rvct{u}\_{J}};\,
-    \input{\rvct{u}\_a};\,
-    \input{\rvct{u}\_b};\,
-    \input{\rvct{u}\_c}
-  \rsb
-$$ <!-- .element: class="fragment current-visible" data-fragment-index="3" -->
 
-
-<img src='images/pose-generator.svg' width='80%' class="fragment" data-fragment-index="4"/>
+<img src='images/pose-generator.svg' width='80%' class="fragment" data-fragment-index="3"/>
 
 ---
 
 ### Simulator models
 
-Many simulators with continuous outputs can be expressed as differentiable generators. <!-- .element: class="fragment" data-fragment-index="1" -->
+Many simulators with continuous outputs can be expressed as directed differentiable generative models. <!-- .element: class="fragment" data-fragment-index="1" -->
 
 Usually defined procedurally in code:<!-- .element: class="fragment" data-fragment-index="2" -->
 
@@ -211,7 +193,7 @@ $$
     \textrm{d} n_2
 $$ <!-- .element: class="fragment" data-fragment-index="1" -->
 
-where $n_1$ and $n_2$ are white noise processes. <!-- .element: class="fragment" data-fragment-index="2" -->
+where $n_1$ and $n_2$ are white noise processes. <!-- .element: class="fragment" data-fragment-index="1" -->
 
 ----
 
@@ -312,16 +294,77 @@ How do we propagate derivatives through complex generative models / simulators?
 
 <img src='images/abc-in-input-space-epsilon-3e-02.svg' width='100%' /> 
 
+---
+
+<!-- .slide: data-transition="none" -->
+### (Pseudo-marginal) ABC MCMC
+
+Perturbatively update $\latent{\rvct{z}}$, independently sample $\observed{\rvct{y}}\gvn\latent{\rvct{z}}$
+
+<img src='images/toy-example-abc-mcmc-1.svg' width='100%' /> 
+
 ----
 
 <!-- .slide: data-transition="none" -->
-### Conditioning as a constraint
+### (Pseudo-marginal) ABC MCMC
 
-<img src='images/abc-in-input-space-exact-constraint.svg' width='100%' /> 
+Perturbatively update $\latent{\rvct{z}}$, independently sample $\observed{\rvct{y}}\gvn\latent{\rvct{z}}$
+
+<img src='images/toy-example-abc-mcmc-2.svg' width='100%' /> 
 
 ---
 
-### Inference in input space
+### ABC expectations in input space
+
+ABC approximates expectations by introducing *kernel* e.g.
+
+\begin{equation}
+k\_{\epsilon}\lpa\,\observed{\vct{y}\_{\textrm{obs}}};\,\observed{\vct{y}}\rpa
+\propto
+\mathbb{I}\lsb \left|\observed{\vct{y}\_{\textrm{obs}}} - \observed{\vct{y}}| < \epsilon\right|\rsb / \epsilon^{N\_y}
+\end{equation}<!-- .element: class="fragment current-visible" data-fragment-index="1" -->
+
+\begin{equation}
+  \expc{\,f(\latent{\rvct{z}}) \gvn \observed{\rvct{y} = \vct{y}\_{\textrm{obs}}}} \approx \\\\
+  \frac{1}{C}
+  \int\_{\latent{\set{Z}}}\int\_{\observed{\set{Y}}}
+    \hspace{-0.2em}
+    f(\latent{\vct{z}})\,
+    k\_{\epsilon}\lpa\,
+      \observed{\vct{y}\_{\textrm{obs}}};\,
+      \observed{\vct{y}}
+    \rpa
+    \pden{\observed{\rvct{y} = \vct{y}\_{\textrm{obs}}},\,
+          \latent{\rvct{z} = \vct{z}}}\,
+  \dr\observed{\vct{y}}\,\dr\latent{\vct{z}}
+\end{equation}<!-- .element: class="fragment" data-fragment-index="2" -->
+
+Using LOTUS expectations can be rewritten as<!-- .element: class="fragment" data-fragment-index="3" -->
+
+\begin{equation}
+  \expc{\,f(\latent{\rvct{z}}) \gvn \observed{\rvct{y} = \vct{y}\_{\textrm{obs}}}} \approx
+  \frac{1}{C}
+  \int\_{\input{\set{U}}}
+    \hspace{-0.2em}
+    f \circ \vctfunc{g}\_{\latent{\rvct{z}}}(\input{\vct{u}})\,
+    \rho(\input{\vct{u}})\,
+    k\_{\epsilon}\lpa\,
+      \observed{\vct{y}\_{\textrm{obs}}};\,
+      \vctfunc{g}\_{\observed{\rvct{y}}}(\input{\vct{u}})
+    \rpa
+  \dr\input{\vct{u}}
+\end{equation}<!-- .element: class="fragment" data-fragment-index="3" -->
+
+----
+
+<!-- .slide: data-transition="none" -->
+### $\epsilon \to 0$ : conditioning as a constraint
+
+<img src='images/abc-in-input-space-exact-constraint-dens.svg' width='100%' /> 
+
+----
+
+### Asymptoptically exact inference
 
 <div class="fragment" data-fragment-index="0" style='padding-bottom: 1em;'>
 Define a manifold embedded in input space
@@ -353,7 +396,7 @@ Conditional expectations correspond to integrals over $\set{M}\_{\observed{\vct{
 
 ----
 
-### Inference in input space
+### Asymptoptically exact inference
 
 If we can sample $\lbr \input{\vct{u}^{(s)}} \rbr_{s=1}^S$ from a Markov chain such that:
 
