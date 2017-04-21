@@ -700,5 +700,14 @@ cf. *Pseudo-Marginal Hamiltonian Monte Carlo*, Lindsten and Doucet, 2016; *Hamil
 
 ### MNIST in-painting
 
+CHMC samples (consecutive)
 <img src='images/chmc-mnist-samples.png' width='80%' />
+
+HMC samples (thinned by factor 40)
 <img src='images/hmc-mnist-samples.png' width='80%' />
+
+----
+
+### MNIST in-painting
+
+<img src='images/hmc-mnist-samples-consecutive.png' width='80%' />
