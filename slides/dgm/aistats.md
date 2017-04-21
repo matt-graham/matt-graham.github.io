@@ -1,6 +1,6 @@
 
-<h1 class='title-heading'> 
-  Inference in differentiable generative models
+<h1 class='title-heading' style='font-size:140%;'> 
+  Asymptoptically exact inference in differentiable generative models
 </h1>
 
 <img src='images/title-image.svg' width='70%'
@@ -402,43 +402,6 @@ subject to $\vctfunc{g}\_{\observed{\rvct{y}}}(\input{\vct{u}}) = \observed{\vct
 
 ---
 
-### Alternative: Gaussian ABC + HMC
-
-<div class="fragment" data-fragment-index="1" style='padding-bottom: 1em;'>
-Gaussian ABC 'posterior' on $\input{\rvct{u}}$
-
-$$\pden{\input{\rvct{u} = \vct{u}} \gvn \observed{\rvct{y} = \vct{y}\_{\textrm{obs}}}} \propto \exp\lbr -\frac{1}{2\epsilon^2}\left| \vctfunc{g}\_{\observed{\rvct{y}}}(\input{\vct{u}}) - \observed{\vct{y}\_{\textrm{obs}}} \right|^2 - \log \rho(\input{\vct{u}})\rbr$$
-</div>
-
-<div class="fragment" data-fragment-index="2" style='padding-bottom: 1em';>
-Augment with Gaussian distributed momenta $\rvct{p}$
-
-$$H(\input{\vct{u}},\,\vct{p}) = \frac{1}{2\epsilon^2} \left| \vctfunc{g}\_{\observed{\rvct{y}}}(\input{\vct{u}}) - \observed{\vct{y}\_{\textrm{obs}}} \right|^2 +  \log \rho(\input{\vct{u}}) + \frac{1}{2}\vct{p}\tr\vct{p}$$
-</div>
-
-<p style='font-size: 80%;' class="fragment" data-fragment-index="3">
-cf. *Pseudo-Marginal Hamiltonian Monte Carlo*, Lindsten and Doucet, 2016; *Hamiltonian ABC*, Meeds, Leenders and Welling 2015.
-</p>
-
-----
-
-### Gaussian ABC posterior in toy example
-
-
-<div style='height: 100%'>
-<img src='images/gaussian-abc-with-hmc-trajectory.svg' width='60%' />
-</div>
-
-----
-
-### Gaussian ABC + HMC in toy example
-
-<video controls loop width="1080" height="540" >
-  <source data-src="images/abc-hmc-animation-io.mp4" type="video/mp4" />
-</video>
-
----
-
 ### Lotka-Volterra parameter inference
 
 <div class='fragment' data-fragment-index='1' style='padding-bottom: 1em;'>
@@ -480,27 +443,27 @@ Compare to ABC MCMC approach using pseudo-marginal slice sampling <small>(Murray
 
 ---
 
-## Pose inference
+### Pose inference
 
-<video controls loop width="300" height="300" >
-  <source data-src="images/pose-prior.mp4" type="video/mp4" />
+<video autoplay loop width="300" height="300" >
+  <source data-src="images/pose-prior-small.mp4" type="video/mp4" />
 </video>
 
-<video controls loop width="300" height="300" >
-  <source data-src="images/pose-hand-constrained-anim-1.mp4" type="video/mp4" />
+<video autoplay loop width="300" height="300" >
+  <source data-src="images/pose-hand-constrained-anim-1-small.mp4" type="video/mp4" />
 </video>
 
-<video controls loop width="300" height="300" >
-  <source data-src="images/pose-hand-constrained-anim-2.mp4" type="video/mp4" />
+<video autoplay loop width="300" height="300" >
+  <source data-src="images/pose-hand-constrained-anim-2-small.mp4" type="video/mp4" />
 </video>
 
 ----
 
 ### Binocular pose estimation
 
-<img src='images/binocular-pose.svg' width='30%' />  <!-- .element: class="fragment current-visible" data-fragment-index="1" -->
+<br />
 
-<img src='images/binocular-pose-estimates-rmse.svg' width='80%' />  <!-- .element: class="fragment" data-fragment-index="2" -->
+<img src='images/binocular-pose-estimates-rmse.svg' width='100%' />
 
 ---
 
@@ -664,6 +627,74 @@ Compare to ABC MCMC approach using pseudo-marginal slice sampling <small>(Murray
 ### Constrained step
 
 <img src='images/constrained-step-10.svg'  /> 
+
+---
+
+### Alternative: Gaussian ABC + HMC
+
+<div class="fragment" data-fragment-index="1" style='padding-bottom: 1em;'>
+Gaussian ABC 'posterior' on $\input{\rvct{u}}$
+
+$$\pden{\input{\rvct{u} = \vct{u}} \gvn \observed{\rvct{y} = \vct{y}\_{\textrm{obs}}}} \propto \exp\lbr -\frac{1}{2\epsilon^2}\left| \vctfunc{g}\_{\observed{\rvct{y}}}(\input{\vct{u}}) - \observed{\vct{y}\_{\textrm{obs}}} \right|^2 - \log \rho(\input{\vct{u}})\rbr$$
+</div>
+
+<div class="fragment" data-fragment-index="2" style='padding-bottom: 1em';>
+Augment with Gaussian distributed momenta $\rvct{p}$
+
+$$H(\input{\vct{u}},\,\vct{p}) = \frac{1}{2\epsilon^2} \left| \vctfunc{g}\_{\observed{\rvct{y}}}(\input{\vct{u}}) - \observed{\vct{y}\_{\textrm{obs}}} \right|^2 +  \log \rho(\input{\vct{u}}) + \frac{1}{2}\vct{p}\tr\vct{p}$$
+</div>
+
+<p style='font-size: 80%;' class="fragment" data-fragment-index="3">
+cf. *Pseudo-Marginal Hamiltonian Monte Carlo*, Lindsten and Doucet, 2016; *Hamiltonian ABC*, Meeds, Leenders and Welling 2015.
+</p>
+
+----
+
+### Gaussian ABC posterior in toy example
+
+
+<div style='height: 100%'>
+<img src='images/gaussian-abc-with-hmc-trajectory.svg' width='60%' />
+</div>
+
+----
+
+### Gaussian ABC + HMC in toy example
+
+<video controls loop width="1080" height="540" >
+  <source data-src="images/abc-hmc-animation-io.mp4" type="video/mp4" />
+</video>
+
+---
+
+### Structure in generator Jacobian
+
+<div>
+
+<div class='half-column fragment' data-fragment-index='1'>
+<p>*Independent*</p>
+
+<div class='img-row'>
+<img src='images/jacobian-structure-iid.svg' height='20%' />
+<img src='images/iid-generator-scg.svg' height='15%' />
+</div>
+
+</div>
+
+<div class='half-column fragment' data-fragment-index='2'>
+<p>*Autoregressive*</p>
+
+<div class='img-row'>
+<img src='images/jacobian-structure-autoregressive.svg' height='20%' />
+<img src='images/autoregressive-generator-scg.svg' height='15%' />
+</div>
+
+</div>
+
+<div style='clear: both;'></div>
+
+</div>
+
 
 ---
 
