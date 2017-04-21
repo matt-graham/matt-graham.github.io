@@ -560,7 +560,7 @@ Compare to ABC MCMC approach using pseudo-marginal slice sampling <small>(Murray
 
 <i class="ai ai-arxiv fa-fw"></i> http://arxiv.org/abs/1605.07826
 
-<i class "fa fa-file-o fa-fw"></i> Poster fP08
+<i class="fa fa-file-o fa-fw"></i> Poster fP08
 
 ---
 
