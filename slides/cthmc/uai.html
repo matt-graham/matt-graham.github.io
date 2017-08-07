@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Continuously tempered Hamiltonian Monte Carlo</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/white.css">
+		<link rel="stylesheet" href="css/custom.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		
+		<div class="reveal">
+			<div class="slides">
+				<section data-markdown="slides-uai.md"  
+         data-separator="^\n---\n"  
+         data-separator-vertical="^\n----\n"  
+         data-separator-notes="^Note:"  
+         data-charset="iso-8859-15">
+</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+				controls: true,
+				progress: true,
+				mouseWheel: true,
+				transition: 'none',
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/math/math.js', async: true }
+				]
+				});
+				
+		</script>
+
+		<!-- Loading mathjax macro -->
+		<!-- Load mathjax -->
+		<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+		</script>
+
+		<!-- MathJax configuration -->
+		<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+			TeX: {
+				Macros: {
+					vct: ["\\boldsymbol{#1}",1],
+					rvct: ["\\mathbf{#1}",1],
+					mtx: ["\\mathbf{#1}",1],
+					tr: "^\\mathrm{T}",
+					rvar: ["\\mathrm{#1}",1],
+					pd: ["\\frac{\\partial #1}{\\partial #2}",2],
+					dr: "\\mathrm{d}",
+					td: ["\\frac{\\dr #1}{\\dr #2}",2],
+					prob: ["\\mathbb{P}\\left[ #1 \\right]",1],
+					expc: ["\\mathbb{E}\\left[ #1 \\right]",1],
+					pden: ["\\mathsf{p}\\left( #1 \\right)",1],
+					tgtden: ["\\pi\\left( #1 \\right)",1],
+					ind: ["\\mathbb{I}\\left[ #1 \\right]",1],
+					gvn: "\\,|\\,",
+					lpa: "\\left(",
+					rpa: "\\right)",
+					lsb: "\\left[",
+					rsb: "\\right]",
+					lbr: "\\left\\lbrace",
+					rbr: "\\right\\rbrace",
+					set: ["\\mathcal{#1}",1],
+					reals: "\\mathbb{R}"
+				}
+				
+			},
+			tex2jax: {
+				inlineMath: [ ['$','$'] ],
+				displayMath: [ ['$$','$$'], ["\[","\]"] ],
+				processEscapes: true,
+				processEnvironments: true
+			},
+			// Center justify equations in code and markdown cells. Elsewhere
+			// we use CSS to left justify single line equations in code cells.
+			displayAlign: 'center',
+			"HTML-CSS": {
+				styles: {'.MathJax_Display': {
+					"margin-top": "0.5em",
+					"margin-bottom": "0.5em"
+				}},
+        linebreaks: { automatic: true },
+				preferredFont: "STIX"
+			}
+		});
+		</script>
+		<!-- End of mathjax configuration -->
+
+	</body>
+</html>
