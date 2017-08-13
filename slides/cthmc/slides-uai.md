@@ -11,11 +11,15 @@
 
 <img width='35%' src='images/informatics-logo.svg' />
 
-Note:
-
-Hi. I'm Matt Graham a PhD student at University of Edinburgh. I am going to talk to you about continuously tempered Hamiltonian Monte Carlo which is joint work with my supervisor Amos Storkey.
-
 ---
+
+### TL;DR
+
+  * Simple tempered dynamics extension to Hamiltonian Monte Carlo using continuous temperature variable. <!-- .element: class="fragment" data-fragment-index="1" -->
+  * Improves exploration of multimodal target distributions and allows estimation of normalising constants. <!-- .element: class="fragment" data-fragment-index="2" -->
+  * Straightforward to use in existing HMC implementations. <!-- .element: class="fragment" data-fragment-index="3" -->
+
+----
 
 <!-- .slide: data-background-image="images/2d-density-mcmc-0.svg" data-state="dim-bg" -->
 
@@ -47,36 +51,6 @@ To be concrete with notation, the task I will be considering is, given a usually
 
 ----
 
-<!-- .slide: data-background-image="images/2d-density-mcmc-0.svg" data-state="dim-bg" -->
-
-e.g. Bayesian inference  <!-- .element: class="fragment" data-fragment-index="1" -->
-
-\[
-  \phantom{\pi\lpa\vct{x}\rpa =} 
-  \pden{\vct{x} \gvn \vct{y}} = 
-  \frac
-  {\pden{\vct{y}\gvn\vct{x}}\pden{\vct{x}}}
-  {\pden{\vct{y}}} 
-  \phantom{= \frac{\exp\lpa -\phi(\vct{x})\rpa}{Z}}
-\]  <!-- .element: class="fragment" data-fragment-index="2" -->
-
-----
-
-<!-- .slide: data-background-image="images/2d-density-mcmc-0.svg" data-state="dim-bg" -->
-
-e.g. Bayesian inference 
-
-\[
-  \pi\lpa\vct{x}\rpa = 
-  \pden{\vct{x} \gvn \vct{y}} = 
-  \frac
-  {\pden{\vct{y}\gvn\vct{x}}\pden{\vct{x}}}
-  {\pden{\vct{y}}} =
-  \frac{\exp\lpa -\phi(\vct{x})\rpa}{Z}
-\] 
-
-----
-
 <!-- .slide: data-background-image="images/2d-density-mcmc-1.svg" -->
 
   <div style='background-color: rgba(255, 255, 255, 0.3);'>
@@ -99,44 +73,13 @@ e.g. Bayesian inference
 
 <!-- .slide: data-background-video="images/2d-density-hmc.mp4" data-background-video-loop="true" data-state="dim-bg-video" -->
 
-### Hamiltonian Monte Carlo (HMC) <small>Duane et al., 1987</small>
+<h3 style='font-size: 110%;'>Hamiltonian Monte Carlo (HMC) <span class='ref'>Duane+ 1987</span></h3>
 
-<span class="fragment" data-fragment-index="1">$\vct{x} \in \reals^D$</span><span class="fragment" data-fragment-index="2">
-$\to (\vct{x},\,\vct{p}) \in \reals^D \times \reals^D$ </span>
+Auxiliary variable MCMC method - augments space with momentum. <!-- .element: class="fragment" data-fragment-index="1" -->
 
-\[
-  \pi(\vct{x},\,\vct{p}) \propto 
-  \exp \underbrace{
-    \lpa  -\phi(\vct{x}) - \frac{1}{2}\vct{p}\tr\mtx{M}^{-1}\vct{p} \rpa
-  }_{-H(\vct{x},\,\vct{p})}
-\] <!-- .element: class="fragment" data-fragment-index="3" -->
+Simulate Hamiltonian dynamics in augmented space to generate proposed update. <!-- .element: class="fragment" data-fragment-index="2" -->
 
-\[
-  \td{\vct{x}}{t} = \mtx{M}^{-1}\vct{p},
-  \quad
-  \td{\vct{p}}{t} = -\pd{\phi}{\vct{x}}
-\] <!-- .element: class="fragment current-visible" data-fragment-index="4" -->
-
-\[
-  a\lpa \vct{x}' \gvn \vct{x}\rpa =
-  \min\lbr
-    1,\,\exp\lpa H(\vct{x},\,\vct{p}) - H(\vct{x}',\,\vct{p}') \rpa
-  \rbr
-\] <!-- .element: class="fragment" data-fragment-index="5" -->
-
-Note:
-
-More specifically I will be considering Markov chain Monte Carlo methods and in particular Hybrid or Hamiltonian Monte Carlo. 
-  
-This is a method introduced in the statistical physics literature in the late 80s by Duane and colleagues. *click*
-  
-The key idea is that we augment our original configuration state $\vct{x}$ *click* with a momentum state $\vct{p}$ of the same dimensionality and which we choose to be independent of $\vct{x}$ and marginally Gaussian distributed *click*.
-  
-The negative logarithm of the resulting joint density is termed the Hamiltonian for the system in direct analogy to classical mechanics, and can be considered to be composed of a potential energy term $\phi$ from the target density and a quadratic kinetic energy term on the momentum *click*.
-  
-We simulate a Newtonian dynamic in the joint system, using a leapfrog integrator to step forward a number of time-steps from the current state, and using the end-point of the simulated trajectory as a Metropolis--Hastings proposal.
-  
-The exact dynamic is energy conserving which is approximately preserved by leapfrog integrator. As the probability of accepting moves depends on the change in Hamiltonian over a trajectory this usually gives a high probability of acceptance.
+Accept or reject proposed update in Metropolis step. <!-- .element: class="fragment" data-fragment-index="3" -->
 
 ----
 
@@ -153,282 +96,344 @@ The exact dynamic is energy conserving which is approximately preserved by leapf
 
   * Long-range moves in high-dimensional $\set{X}$. <!-- .element: class="fragment" data-fragment-index="1" -->
 
-  * Adaptive: No U-Turns Sampler (NUTS) <small>Hoffman and Gelman, 2014.</small>
+  * Adaptive: No U-Turns Sampler <span class='ref'>(Hoffman & Gelman 2014)</span>.
 <!-- .element: class="fragment" data-fragment-index="2" -->
 
   * However: <!-- .element: class="fragment" data-fragment-index="3" -->
     *  Poor performance in multimodal targets. <!-- .element: class="fragment" data-fragment-index="4" -->
     *  Non-trivial to use samples to estimate $Z$. <!-- .element: class="fragment" data-fragment-index="4" -->
-Note:
-
-Though the algorithm just described might seem a little complicated, the very general purpose implementations in probabilistic programming frameworks such as Stan and PyMC3, mean that we don't necessarily need to deal with the implementation detail or calculation of model gradients which can be done with automatic differentation.
-
-The energy-conserving property means that if we appropriately choose the step-size and number of steps, we are able to make long-range moves with a high-probability of acceptance even in high dimensional target state spaces.
-
-An adaptive HMC variant called the No U-turn Sampler or NUTS, proposed by Hoffman and Gelman, is further able to automatically tune the step-size and number of integrator steps, allowing use of HMC in a very black-box manner.
-
-A key issue however is that HMC like most MCMC algorithms performs poorly in multimodal densities.
-
-----
-
-### HMC in multimodal targets
-
-<img src='images/hmc-bimodal-blues-no-energy.svg' width='100%' />
-
-Note:
-
-As a particular example the figure shows a series of HMC samples from a one-dimensional two component Gaussian mixture and the corresponding empirical marginals on $x$ and $p$ and energy trace. We can see that the dynamic updates remain confined to one mode in $x$. The potential barrier between the two modes is high, and the momentum is only very rarely resampled with a sufficiently high value to allow crossing the barrier.
 
 ---
 
-<!-- .slide: data-background-image="images/bimodal-geometric-bridge-visualisation.svg" data-background-size="contain" data-state="dim-bg" -->
+<!-- .slide: data-background-image="images/bimodal-geometric-bridge-visualisation.svg" data-background-size="auto 95%" data-state="dim-bg" -->
 
 ### Thermodynamic methods
 
 Introduce inverse temperature $\beta$<!-- .element: class="fragment" data-fragment-index="1" -->
 
-and simple normalised base density $\exp\lsb-\psi(\vct{x})\rsb$ . <!-- .element: class="fragment" data-fragment-index="2" -->
+<p class="fragment" data-fragment-index="2">and simple normalised <em>base density</em> $\exp\lpa-\psi(\vct{x})\rpa$. </p>
 
 \[
-  \pi\lpa \vct{x} \gvn \beta \rpa =
-  \frac{1}{\mathcal{Z}(\beta)}
+  p\lpa \vct{x} \gvn \beta \rpa \propto
   \exp\lpa -\beta \phi(\vct{x}) - (1 - \beta) \psi(\vct{x}) \rpa
 \] <!-- .element: class="fragment" data-fragment-index="3" -->
 
+----
+
+<!-- .slide: data-background-image="images/bimodal-geometric-bridge-visualisation.svg" data-background-size="auto 95%" -->
+
+---
+
+<!-- .slide: data-background-image="images/annealed-importance-sampling-0.svg" data-background-size="auto 95%"  -->
+
+<div style='background-color: rgba(255, 255, 255, 0.3);'>
+<h3 style='font-size: 110%;'>Annealed importance sampling (AIS) <span class='ref'>(Neal 2001)</small></h3>
+</div>
+
+----
+
+<!-- .slide: data-background-image="images/annealed-importance-sampling-1.svg" data-background-size="auto 95%" -->
+
+----
+
+<!-- .slide: data-background-image="images/annealed-importance-sampling-2.svg" data-background-size="auto 95%" -->
+
+----
+
+<!-- .slide: data-background-image="images/annealed-importance-sampling-3.svg" data-background-size="auto 95%" -->
+
+----
+
+<!-- .slide: data-background-image="images/annealed-importance-sampling-4.svg" data-background-size="auto 95%" -->
+
+----
+
+<!-- .slide: data-background-image="images/annealed-importance-sampling-5.svg" data-background-size="auto 95%" -->
+
+---
+
+<!-- .slide: data-background-image="images/simulated-tempering-0.svg" data-background-size="auto 95%"  -->
+
+<div style='background-color: rgba(255, 255, 255, 0.3);'>
+<h3 style='font-size: 110%;'>Simulated tempering (ST) <span class='ref'>Marinari &amp; Parisi 1992</span></h3>
+</div>
+
+----
+
+<!-- .slide: data-background-image="images/simulated-tempering-1.svg" data-background-size="auto 95%"  -->
+
+----
+
+<!-- .slide: data-background-image="images/simulated-tempering-2.svg" data-background-size="auto 95%"  -->
+
+----
+
+<!-- .slide: data-background-image="images/simulated-tempering-3.svg" data-background-size="auto 95%"  -->
+
+----
+
+<!-- .slide: data-background-image="images/simulated-tempering-4.svg" data-background-size="auto 95%"  -->
+
+----
+
+<!-- .slide: data-background-image="images/simulated-tempering-5.svg" data-background-size="auto 95%"  -->
+
+----
+
+<!-- .slide: data-background-image="images/simulated-tempering-6.svg" data-background-size="auto 95%"  -->
+
+----
+
+<!-- .slide: data-background-image="images/rb-simulated-tempering-0.svg" data-background-size="auto 95%"  -->
+
+<div style='background-color: rgba(255, 255, 255, 0.3);'>
+<h3 style='font-size: 100%;'>Rao-Blackwellized tempered sampling <span class='ref'>Carlson+ 2016</span></h3>
+</div>
+
+---
+
+### Continuous tempering
+
+Use continuous inverse temperature variable $\beta \in [0,1] \Rightarrow$
+
+Avoid need to choose inverse temperature 'ladder'.
+
 \[
-  \mathcal{Z}(\beta) = \int_{\set{X}} \exp\lpa -\beta \phi(\vct{x}) - (1 - \beta) \psi(\vct{x}) \rpa \,\dr\vct{x}
-\] <!-- .element: class="fragment" data-fragment-index="4" -->
+  p(\vct{x},\beta) \propto \exp\lpa-\beta \lpa \phi(\vct{x}) + \log\zeta\rpa - (1- \beta)\psi(\vct{x})\rpa
+\]<!-- .element: class="fragment" data-fragment-index="1" -->
 
-Note:
 
-A common way to deal with multimodal distribution in MCMC is to introduce a inverse temperature variable $\beta$ and a unimodal base density defined by a potential $\psi$ which approximates the target density.
+<p style='color: #888; font-size: 80%;' class="fragment" data-fragment-index="2">$\log \zeta \approx \log Z$ $\Rightarrow$ $\frac{p(\beta=1)}{p(\beta=0)} \approx 1$</p>
 
-This geometrically bridge between target distribution at $\beta=1$ and base density at $\beta=0$.
-
-The normalising term for this conditional distribution now dependent on $\beta$ and often termed the partition function.
 
 ----
 
-<!-- .slide: data-background-image="images/bimodal-geometric-bridge-visualisation.svg" data-background-size="contain" -->
+### Continuous tempering
 
-Note:
+Conditional density $\beta \gvn \vct{x}$ : truncated exponential
 
-Idea is distributions at intermediate $\beta$ retain some structure from target distribution but are easier to sample from due to energy barriers being flattened out. If we vary the inverse temperature $\beta$ during sampling the hope is that at low $\beta$ we will be able to make large moves around the state space at low $\beta$ and thus be able to jump between modes at $\beta=1$.
+\[
+  p(\beta\gvn\vct{x}) = \frac{\exp(-\beta \Delta(\vct{x}))\Delta(\vct{x})}{1- \exp(-\beta\Delta(\vct{x}))},
+\]
 
-Several methods such as simulated and parallel tempering have been proposed for defining a Markov chains on an augmented state space with $\beta$ defined on a finite set of values, however the performance of these methods are very sensitive to amongst other things the choice of the $\beta$ values and so they are difficult to use in a black box manner.
+\[
+  \Delta(\vct{x}) = \phi(\vct{x}) + \log\zeta - \psi(\vct{x})
+\]
 
----
-
-<h3 style='font-size: 120%;'>Annealed importance sampling (AIS) <small>Neal 2001</small></g3>
-
-<img src='images/annealed-importance-sampling-0.svg' style='margin: 0; padding: 0;' width='90%'  />
-
-----
-
-<h3 style='font-size: 120%;'>Annealed importance sampling (AIS) <small>Neal 2001</small></g3>
-
-<img src='images/annealed-importance-sampling-1.svg' style='margin: 0; padding: 0;' width='90%'  />
-
-----
-
-<h3 style='font-size: 120%;'>Annealed importance sampling (AIS) <small>Neal 2001</small></g3>
-
-<img src='images/annealed-importance-sampling-2.svg' style='margin: 0; padding: 0;' width='90%'  />
-
-----
-
-<h3 style='font-size: 120%;'>Annealed importance sampling (AIS) <small>Neal 2001</small></g3>
-
-<img src='images/annealed-importance-sampling-3.svg' style='margin: 0; padding: 0;' width='90%'  />
-
-----
-
-<h3 style='font-size: 120%;'>Annealed importance sampling (AIS) <small>Neal 2001</small></g3>
-
-<img src='images/annealed-importance-sampling-4.svg' style='margin: 0; padding: 0;' width='90%'  />
-
-----
-
-<h3 style='font-size: 120%;'>Annealed importance sampling (AIS) <small>Neal 2001</small></g3>
-
-<img src='images/annealed-importance-sampling-5.svg' style='margin: 0; padding: 0;' width='90%'  />
-
----
-
-### Simulated tempering (ST) <small>Marinari &amp; Parisi 1992</small>
-
-<img src='images/simulated-tempering-0.svg' style='margin: 0; padding: 0;' width='90%'  />
-
-----
-
-### Simulated tempering (ST) <small>Marinari &amp; Parisi 1992</small>
-
-<img src='images/simulated-tempering-1.svg' style='margin: 0; padding: 0;' width='90%'  />
-
-----
-
-### Simulated tempering (ST) <small>Marinari &amp; Parisi 1992</small>
-
-<img src='images/simulated-tempering-2.svg' style='margin: 0; padding: 0;' width='90%'  />
-
-----
-
-### Simulated tempering (ST) <small>Marinari &amp; Parisi 1992</small>
-
-<img src='images/simulated-tempering-3.svg' style='margin: 0; padding: 0;' width='90%'  />
-
-----
-
-### Simulated tempering (ST) <small>Marinari &amp; Parisi 1992</small>
-
-<img src='images/simulated-tempering-4.svg' style='margin: 0; padding: 0;' width='90%'  />
-
-----
-
-### Simulated tempering (ST) <small>Marinari &amp; Parisi 1992</small>
-
-<img src='images/simulated-tempering-5.svg' style='margin: 0; padding: 0;' width='90%'  />
-
-----
-
-### Rao-Blackwellised ST <small>Carlson et al. 2016</small>
-
-<img src='images/rb-simulated-tempering-0.svg' style='margin: 0; padding: 0;' width='90%'  />
+Can generate independent samples from $p(\beta\gvn\vct{x})$.<!-- .element: class="fragment" data-fragment-index="1" -->
 
 
 ---
 
-### Gibbs continuous tempering (Gibbs-CT)
+### Rao-Blackwellisation
 
-<img src='images/gibbs-continuous-tempering-0.svg' style='margin: 0; padding: 0;' width='90%'  />
+If $\lbrace \vct{x}^{(s)} \rbrace_{s=1}^S$ samples from joint $p(\vct{x},\beta)$<!-- .element: class="fragment" data-fragment-index="1" -->
 
-----
-
-
-### Gibbs continuous tempering (Gibbs-CT)
-
-<img src='images/gibbs-continuous-tempering-1.svg' style='margin: 0; padding: 0;' width='90%'  />
-
-----
+\[
+  Z  \approx \sum_{s=1}^S \frac{p(\beta=1|\vct{x}^{(s)})}{p(\beta=0|\vct{x}^{(s)})} \,\zeta
+\]<!-- .element: class="fragment" data-fragment-index="2" -->
 
 
-### Gibbs continuous tempering (Gibbs-CT)
-
-<img src='images/gibbs-continuous-tempering-2.svg' style='margin: 0; padding: 0;' width='90%'  />
-
-----
+\[
+  \int\_{\set{X}} f(\vct{x})\,\pi(\vct{x})\,\dr\vct{x}  \approx \sum_{s=1}^S \frac{p(\beta=1|\vct{x}^{(s)}) \,f(\vct{x}^{(s)})}{p(\beta=1|\vct{x}^{(s)})}.
+\]<!-- .element: class="fragment" data-fragment-index="3" -->
 
 
-### Gibbs continuous tempering (Gibbs-CT)
+---
 
-<img src='images/gibbs-continuous-tempering-3.svg' style='margin: 0; padding: 0;' width='90%'  />
+<!-- .slide: data-background-image="images/gibbs-continuous-tempering-0.svg" data-background-size="auto 95%"  -->
+
+<div style='background-color: rgba(255, 255, 255, 0.3);'>
+<h3 style='font-size: 110%;'>Gibbs continuous tempering (Gibbs-CT)</h3>
+</div>
 
 ----
 
-
-### Gibbs continuous tempering (Gibbs-CT)
-
-<img src='images/gibbs-continuous-tempering-4.svg' style='margin: 0; padding: 0;' width='90%'  />
+<!-- .slide: data-background-image="images/gibbs-continuous-tempering-1.svg" data-background-size="auto 95%"  -->
 
 ----
 
-### Gibbs continuous tempering (Gibbs-CT)
+<!-- .slide: data-background-image="images/gibbs-continuous-tempering-2.svg" data-background-size="auto 95%"  -->
 
-<img src='images/gibbs-continuous-tempering-5.svg' style='margin: 0; padding: 0;' width='90%'  />
+----
+
+<!-- .slide: data-background-image="images/gibbs-continuous-tempering-3.svg" data-background-size="auto 95%"  -->
+
+----
+
+<!-- .slide: data-background-image="images/gibbs-continuous-tempering-4.svg" data-background-size="auto 95%"  -->
+
+----
+
+<!-- .slide: data-background-image="images/gibbs-continuous-tempering-5.svg" data-background-size="auto 95%"  -->
 
 ---
 
 ### Joint continuous tempering (joint-CT)
 
-<img src='images/joint-continuous-tempering-0.svg' style='margin: 0; padding: 0;' width='90%'  />
+Jointly update $\beta$ and $\vct{x}$ with HMC? <!-- .element: class="fragment" data-fragment-index="1" -->
 
-----
 
-### Joint continuous tempering (joint-CT)
+Reparameterise $\beta \in [0, 1] \to u \in \reals$ <!-- .element: class="fragment" data-fragment-index="2" -->
 
-<img src='images/joint-continuous-tempering-1.svg' style='margin: 0; padding: 0;' width='90%'  />
+e.g. $\beta(u) = \frac{1}{1 + \exp(-u)}$ <!-- .element: class="fragment" data-fragment-index="3" -->
 
-----
+<div style='font-size: 90%;' class="fragment" data-fragment-index="4">
+\[
+  p(\vct{x},u) \propto \left|\pd{\beta}{u}\right| \exp\lpa\beta(u) \lpa \phi(\vct{x}) + \log\zeta \rpa - (1 - \beta(u)) \psi(\vct{x})\rpa 
+\]
+</div>
 
-### Joint continuous tempering (joint-CT)
-
-<img src='images/joint-continuous-tempering-2.svg' style='margin: 0; padding: 0;' width='90%'  />
-
-----
-
-### Joint continuous tempering (joint-CT)
-
-<img src='images/joint-continuous-tempering-3.svg' style='margin: 0; padding: 0;' width='90%'  />
-
-----
-
-### Joint continuous tempering (joint-CT)
-
-<img src='images/joint-continuous-tempering-4.svg' style='margin: 0; padding: 0;' width='90%'  />
 
 ---
 
-### Choosing a base distribution
+<!-- .slide: data-background-image="images/joint-continuous-tempering-0.svg" data-background-size="auto 95%"  -->
 
-Minimise ${\mathbb{D}\_{\rm KL}^{b\Vert t}}$(and/or ${\mathbb{D}\_{\rm KL}^{t\Vert b}}$),<!-- .element: class="fragment" data-fragment-index="1" -->
+<div style='background-color: rgba(255, 255, 255, 0.3);'>
+<h3 style='font-size: 110%;'>Joint continuous tempering (joint-CT)</h3>
+</div>
 
-subject to $\exp\lpa-\psi(\vct{x})\rpa$ being a simple (unimodal) density.<!-- .element: class="fragment" data-fragment-index="2" -->
+----
 
-Choose parametric $\exp\lpa-\psi(\vct{x})\rpa$ and minimise variational objective with respect to parameters, e.g. ADVI?<!-- .element: class="fragment current-visible" data-fragment-index="3" -->
+<!-- .slide: data-background-image="images/joint-continuous-tempering-1.svg" data-background-size="auto 95%"  -->
 
-Iteratively locally match moments with expectation propagation?<!-- .element: class="fragment current-visible" data-fragment-index="4" -->
+----
 
-Fit a multiple local variational approximations and match moments of mixture of local approximations.<!-- .element: class="fragment" data-fragment-index="5" -->
+<!-- .slide: data-background-image="images/joint-continuous-tempering-2.svg" data-background-size="auto 95%"  -->
+
+
+----
+
+<!-- .slide: data-background-image="images/joint-continuous-tempering-3.svg" data-background-size="auto 95%"  -->
+
+
+----
+
+<!-- .slide: data-background-image="images/joint-continuous-tempering-4.svg" data-background-size="auto 95%"  -->
+
+
+---
+
+<!-- .slide: data-background-image="images/fitting-base-distribution-0.svg"  data-state="dim-bg"-->
+
+### Choosing a base density
+
+Important in determining how flat $p(\beta)$ is.<!-- .element: class="fragment" data-fragment-index="1" -->
+
+Ideally $\exp\lpa-\phi(\vct{x})\rpa \approx \zeta \exp\lpa-\psi(\vct{x})\rpa$.<!-- .element: class="fragment" data-fragment-index="2" -->
+
+Smaller $\mathbb{D}_{\textrm{KL}}\lsb \exp\lpa-\psi(\vct{x})\rpa \,\Vert\, \frac{1}{Z}\exp\lpa-\phi(\vct{x})\rpa\rsb$ $\Rightarrow$ flatter $p(\beta)$.<!-- .element: class="fragment" data-fragment-index="3" -->
+
+
+----
+
+<!-- .slide: data-background-image="images/fitting-base-distribution-1.svg" -->
+
+<div style='background-color: rgba(255, 255, 255, 0.3); margin-left:-500px; padding-left:500px; margin-right:-500px; padding-right:500px;'>
+  <p> 
+    $\exp\lpa-\psi(\vct{x})\rpa =$ prior?
+  </p>
+</div>
+
+----
+
+<!-- .slide: data-background-image="images/fitting-base-distribution-2.svg" -->
+
+<div style='background-color: rgba(255, 255, 255, 0.5); margin-left:-500px; padding-left:500px; margin-right:-500px; padding-right:500px;'>
+  <p> 
+    $\exp\lpa-\psi(\vct{x})\rpa =$ Gaussian variational approximation?
+  </p>
+</div>
+
+----
+
+<!-- .slide: data-background-image="images/fitting-base-distribution-3.svg" -->
+
+<div style='background-color: rgba(255, 255, 255, 0.5); margin-left:-500px; padding-left:500px; margin-right:-500px; padding-right:500px;'>
+  <p> 
+    $\exp\lpa-\psi(\vct{x})\rpa =$ mixture of approximations?
+  </p>
+</div>
+
+----
+
+<!-- .slide: data-background-image="images/fitting-base-distribution-4.svg" -->
+
+<div style='background-color: rgba(255, 255, 255, 0.5); margin-left:-500px; padding-left:500px; margin-right:-500px; padding-right:500px;'>
+  <p> 
+    $\exp\lpa-\psi(\vct{x})\rpa =$ Gaussian moment-matched to mixture of approximations?
+  </p>
+</div>
 
 ---
 
 <!-- .slide: data-background-video="images/20d-bmr-example-1.mp4" data-background-video-loop="true" -->
 
-### Gaussian mixture
-### Boltzmann machine relaxations <small>Zhang et al. 2012</small> 
+### Boltzmann machine relaxations 
+
+<p class="fragment" data-fragment-index="1">Continuous relaxation of Boltzmann machine corresponding to structure Gaussian mixture model <span class='ref'>(Zhang+ 2012)</span>.</p>
+
+10 generated frustrated 30-unit systems - highly multimodal.<!-- .element: class="fragment" data-fragment-index="2" -->
+
+Ground truth for $Z$ and $\expc{\vct{x}}$ by exhaustive summation.<!-- .element: class="fragment" data-fragment-index="3" -->
+
+Base density: Gaussian moment matched to mixture of mean-field approximations.<!-- .element: class="fragment" data-fragment-index="4" -->
 
 ----
 
 ### Boltzmann machine relaxation results
 
-<div class='fragment' >
-   <div style='display: inline-block; padding: 5px;'>
-     <img src='images/gaussian-bm-relaxation-30-unit-scale-6-log-norm-rmses.svg' height='250px' style='margin: 0;' />
-     <div><small>$\log Z$</small></div>
-  </div>
-  <div style='display: inline-block; padding: 5px;'>
-     <img src='images/gaussian-bm-relaxation-30-unit-scale-6-mean-rmses.svg' height='250px' style='margin: 0;' />
-     <div><small>$\expc{\vct{x}}$</small></div>
-  </div>
-</div>
+\[ \log Z \]
+
+<img src='images/gaussian-bm-relaxation-30-unit-scale-6-log-norm-rmses.svg' width='80%' />
+
+----
+
+### Boltzmann machine relaxation results
+
+\[ \expc{\vct{x}} \]
+
+<img src='images/gaussian-bm-relaxation-30-unit-scale-6-mean-rmses.svg' width='80%' />
 
 ---
 
 <!-- .slide: data-background-image="images/omniglot-samples.png" data-background-size="contain" data-state="dim-bg" -->
 
-### IWAE marginal likelihood estimation <small>Burda et al. 2016; Wu et al. 2017</small> </h3>
+### OMNIGLOT IWAE marginal likelihood 
 
-<img src='images/omni-marginal-likelihood-est.svg' width='80%' />
+<p class="fragment" data-fragment-index="1">Importance weighted autoencoder <span class='ref'>(Burda+ 2016)</span> trained on binarised OMNIGLOT dataset.</p>
+
+<p class="fragment" data-fragment-index="2">Estimate log marginal likelihood of 1000 *generated* images under trained decoder model (1000$\times$50 latent dimensions).</p>
+
+<p class="fragment" data-fragment-index="3">Use bidirectional Monte Carlo  <span class='ref'>(Grosse+ 2015)</span> to stochastically upper/lower bound log marginal likelihood.</p>
+
+<p class="fragment" data-fragment-index="4">Base density: Gaussian approximate latent posteriors from trained encoder model <span class='ref'>(Wu+ 2017)</span>.</p>
 
 ----
 
-<!-- .slide: data-background-image="images/mnist-samples.png" data-background-size="contain" data-state="dim-bg" -->
+### IWAE marginal likelihood results
 
-### IWAE marginal likelihood estimation <small>Burda et al. 2016; Wu et al. 2017</small> </h3>
-
-<img src='images/mnist-marginal-likelihood-est.svg' width='80%' />
+<img src='images/omni-marginal-likelihood-est.svg' width='90%' />
 
 ---
 
-### Hierarchical regression model <small>Gelman and Hill 2006</small> </h3>
+### Hierarchical regression model 
 
-<img src='images/radon-hierarchical-linear-regression-factor-graph.svg' width='80%' />
+<p class="fragment" data-fragment-index="1">Hierarchical linear regression model applied to household Radon measurement dataset <span class='ref'>(Gelman & Hill 2006)</span>.</p>
+
+<p class="fragment" data-fragment-index="2">919 data points and 92 free parameters.</p>
+
+<img src='images/pymc3-logo.svg' height='200px' class="fragment" data-fragment-index="3" />
+
+<p class="fragment" data-fragment-index="4">Use ADVI <span class='ref'>(Kucukelbir+ 2016)</span> to fit base density.</p>
+
+<p class="fragment" data-fragment-index="4">Use NUTS <span class='ref'>(Hoffman & Gelman 2014)</span> in augmented space.</p>
 
 ----
 
 ### Hierarchical regression model results
 
-<img src='images/hier-lin-regression-marg-lik.svg' width='80%' />
+<img src='images/hier-lin-regression-marg-lik.svg' width='90%' />
 
 ---
 
@@ -483,18 +488,18 @@ Fit a multiple local variational approximations and match moments of mixture of 
 
 ### References
 
-<ul style='font-size: 65%;'>
+<ul style='font-size: 50%;'>
   
   <li>
-  Hybrid Monte Carlo. 
+  Hybrid Monte Carlo.  
   *Physics Letters B*, Duane, Kennedy, Pendleton & Roweth (1987).  
   </li>
   <li>
-  The No-U-turn sampler: adaptively setting path lengths in Hamiltonian Monte Carlo. 
-  *Journal of Machine Learning Research*, Hoffman & Gelman (2014).  
+  The No-U-turn sampler: adaptively setting path lengths in Hamiltonian Monte Carlo.  
+  *JMLR*, Hoffman & Gelman (2014).  
   </li>
   <li>
-  Annealed importance sampling. 
+  Annealed importance sampling.  
   *Statistics and Computing*, Neal (2001).  
   </li>
   <li>
@@ -514,51 +519,17 @@ Fit a multiple local variational approximations and match moments of mixture of 
   *ICLR*, Burda, Grosse and Salakhutdinov (2016).
   </li>
   <li>
+  Sandwiching the marginal likelihood using bidirectional Monte Carlo.   
+  *arXiv*, Grosse, Ghahramani and Adams (2015).
+  <li>
   On the quantitative analysis of decoder-based generative models.   
   *ICLR*, Wu, Burda, Salakhutdinov and Grosse (2017).
   </li>
   <li>
   Data analysis using regression and multilevel/hierarchical models.  
-  *Camrbidge University Press*, Gelman and Hill (2006).
+  *Cambridge University Press*, Gelman and Hill (2006).
+  </li>
+  <li>Automatic differentiation variational inference.  
+  *JMLR*, Kucukelbir, Tran, Ranganath, Gelman and Blei (2017).
   </li>
 </ul>
-
----
-
-<!-- .slide: data-background-image="images/1d-gm-adiabatic-monte-carlo-trajectory.svg" data-background-size="contain" data-state="dim-bg" -->
-
-### Adiabatic Monte Carlo <small>Betancourt, 2014</small>
-
-Flat target marginal $\pi(\beta) = 1$,  $\beta \in [0,\,1]$. <!-- .element: class="fragment current-visible" data-fragment-index="1" -->
-
-\begin{align}
-  \pi(\vct{x},\,\vct{p},\,\beta) 
-  &=
-  \pi(\vct{x} \gvn \beta) \pi(\beta) \pi(\vct{p})\\\\
-  &=
-  \exp\lsb 
-    -\beta\phi(\vct{x}) - 
-    \lpa 1 - \beta\rpa \psi(\vct{x}) -
-    \frac{1}{2}\vct{p}\tr\mtx{M}^{-1}\vct{p} - 
-    \color{red}{\log \mathcal{Z}(\beta)}
-  \rsb
-\end{align}<!-- .element: style="font-size:90%;" class="fragment" data-fragment-index="2" -->
-
-\[
-  \td{\vct{x}}{t} = \mtx{M}^{-1}\vct{p},~
-  \td{\beta}{t} = -\vct{p}\tr \mtx{M}^{-1} \vct{p}
-\]<!-- .element: style="font-size:90%;" class="fragment current-visible" data-fragment-index="3" -->
-
-\[
-  \td{\vct{p}}{t} = 
-  -\beta \pd{\phi}{\vct{x}} - (1-\beta) \pd{\psi}{\vct{x}} +
-  \lpa\phi(\vct{x}) - \psi(\vct{x}) + \color{red}{\pd{\log \mathcal{Z}}{\beta}}\rpa\vct{p}
-\]<!-- .element:  style="font-size:90%;" class="fragment" data-fragment-index="4" -->
-
-----
-
-<!-- .slide: data-background-image="images/1d-gm-adiabatic-monte-carlo-trajectory.svg" data-background-size="contain" -->
-
-----
-
-<!-- .slide: data-background-image="images/1d-gm-adiabatic-monte-carlo-stalled-trajectory.svg" data-background-size="contain" -->

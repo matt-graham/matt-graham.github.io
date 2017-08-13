@@ -52,3 +52,11 @@ html.dim-bg-video .slide-background video {
 .reveal section .invisible {
   display: none !important;
 }
+
+span.ref {
+  font-size: 80%;
+  color: #296;
+  vertical-align: baseline !important;
+  text-transform: none !important;
+  font-weight: normal !important;
+}
