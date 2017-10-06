@@ -104,3 +104,7 @@ body {
 .btn-group a, .btn-group button, .btn-group .btn {
   margin-top: 5px;
 }
+
+h3.sub-heading {
+  padding-bottom: 0.5em;
+}
