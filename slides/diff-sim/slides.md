@@ -220,13 +220,13 @@ Continuous variant of model of prey ($\observed{y_1}$) and predator ($\observed{
 
 $$
     \textrm{d} \observed{y_1} = 
-    (\latent{z_1} \observed{y_1} - \latent{z_2} \observed{y_1 y_2}) \textrm{d} t + 
+    (\latent{z_1} \observed{y_1} - \latent{z_2} \observed{y_1 y_2}) \textrm{d} t \,+\, 
     \textrm{d} n_1
 $$ <!-- .element: class="fragment" data-fragment-index="1" -->
 
 $$
     \textrm{d} \observed{y_2} = 
-    (-\latent{z_3} \observed{y_2} + \latent{z_4} \observed{y_1 y_2}) \textrm{d} t + 
+    (-\latent{z_3} \observed{y_2} + \latent{z_4} \observed{y_1 y_2}) \textrm{d} t \,+\, 
     \textrm{d} n_2
 $$ <!-- .element: class="fragment" data-fragment-index="1" -->
 

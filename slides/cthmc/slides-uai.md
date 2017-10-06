@@ -49,25 +49,28 @@ Specific problem I will be considering is performing approximate inference with 
 
 To be concrete with notation, the task I will be considering is, given a usually unnormalised density defined by a potential function $\phi$ over a $D$-dimensional real valued state space, *click* can we both compute expectations of functions $f$ with respect to the target *click* and further can we estimate the normalising constant of the density. 
 
-----
-
 <!-- .slide: data-background-image="images/2d-density-mcmc-1.svg" -->
 
+<!--
   <div style='background-color: rgba(255, 255, 255, 0.3);'>
     <h3> 
       Markov chain Monte Carlo
     </h3>
   </div>
+-->
 
-----
 
 <!-- .slide: data-background-image="images/2d-density-mcmc-2.svg" -->
 
+<!--
 <div style='background-color: rgba(255, 255, 255, 0.3);'>
   <h3> 
     Markov chain Monte Carlo
   </h3>
 </div>
+
+-->
+
 
 ---
 
@@ -145,10 +148,6 @@ Introduce inverse temperature $\beta$<!-- .element: class="fragment" data-fragme
 ----
 
 <!-- .slide: data-background-image="images/annealed-importance-sampling-4.svg" data-background-size="auto 95%" -->
-
-----
-
-<!-- .slide: data-background-image="images/annealed-importance-sampling-5.svg" data-background-size="auto 95%" -->
 
 ---
 

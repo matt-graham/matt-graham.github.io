@@ -85,3 +85,20 @@ html.dim-bg-video .slide-background video {
 .reveal section .invisible {
   display: none !important;
 }
+
+div.half-column {
+  float: left; 
+  width: 50%; 
+  overflow: hidden; 
+  text-align: center; 
+}
+
+div.img-row {
+  margin: 10px;
+  vertical-align: middle;
+}
+
+div.img-row img {
+  padding-left: 20px;
+  padding-right: 20px;
+}
