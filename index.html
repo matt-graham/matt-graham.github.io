@@ -174,13 +174,41 @@
             </p>
           </div>
         </div>
-<!--
         <div class="row">
-          <h3> Pre-prints </h3>
+          <h2> Pre-prints </h2>
+          <h3 class='sub-heading'>Journal articles</h3>
           <ul class="publications-list">
+          <li class="publication">
+            <h4>
+              Asymptotically exact inference in differentiable generative models
+            </h4>
+            <p>
+              <i>Matthew M. Graham</i> and <a href="http://homepages.inf.ed.ac.uk/amos">Amos J. Storkey</a>
+            </p>
+            <p class='published-in'>
+              <small>To appear in:</small> <a href='http://imstat.org/ejs/'>Electronic Journal of Statistics</a>
+            </p>
+            <div class="btn-group" role="group">
+              <a href="files/dgm-ejs-preprint.pdf" class="btn btn-default">
+                <i class="fa fa-file-pdf-o fa-fw"></i> Paper
+              </a>
+              <a href="slides/dgm" class="btn btn-default">
+                <i class="fa fa-television fa-fw"></i> Slides
+              </a>
+              <a href="https://github.com/matt-graham/differentiable-generative-models" class="btn btn-default">
+                <i class="fa fa-code fa-fw"></i> Code
+              </a>
+              <button class="btn btn-default btn-abs collapsed" data-toggle="collapse" data-target="#dgm-ejs-abs">
+                Abstract
+              </button>
+            </div>
+            <div id="dgm-ejs-abs" class="collapse abstract">
+              Many generative models can be expressed as a differentiable function applied to input variables sampled from a known probability distribution. This framework includes both the generative component of learned parametric models such as variational autoencoders and generative adversarial networks, and also procedurally defined simulator models which involve only differentiable operations. Though the distribution on the input variables to such models is known, often the distribution on the output variables is only implicitly defined. We present a method for performing efficient Markov chain Monte Carlo inference in such models when conditioning on observations of the model output. For some models this offers an asymptotically exact inference method where approximate Bayesian computation might otherwise be employed. We use the intuition that computing conditional expectations is equivalent to integrating over a density defined on the manifold corresponding to the set of inputs consistent with the observed outputs. This motivates the use of a constrained variant of Hamiltonian Monte Carlo which leverages the smooth geometry of the manifold to coherently move between inputs exactly consistent with observations. We validate the method by performing inference experiments in a diverse set of models.
+            </div>
+          </li>
           </ul>
         </div> 
---><!-- row Pre-prints -->
+<!-- row Pre-prints -->
         <div class="row">
           <h2> Publications </h2>
           <h3 class='sub-heading'>Conference proceedings</h3>
