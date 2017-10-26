@@ -62,7 +62,9 @@
         <ul class="nav navbar-nav" id="mainNav">
           <li class="active"><a href="#intro">intro</a></li>
           <li><a href="#contact">contact</a></li>
-          <li><a href="#research">research</a></li>
+          <li><a href="#publications">publications</a></li>
+          <li><a href="#talks">talks</a></li>
+          <li><a href="#projects">projects</a></li>
           <li><a href="#code">code</a></li>
           <li><a href="#teaching">teaching</a></li>
           <li><a href="#misc">misc</a></li>
@@ -106,9 +108,10 @@
             </div>
           </div> <!--/.profile-photo-and-social-col-->
           <div class="col-md-9" id="intro-text-col">
-            <p class="lead">I am a research fellow in the <a href="https://www.stat.nus.edu.sg">Department of Statistics and Applied Probability</a> at the National University of Singapore. I am part of <a href="http://www.normalesup.org/~athiery/index.html">Alex Thiery's</a> research group.</p>
+            <p class="lead">I am a research fellow in the <a href="https://www.stat.nus.edu.sg">Department of Statistics and Applied Probability</a> at the National University of Singapore. I am part of <a href="http://www.normalesup.org/~athiery/index.html">Alex Thiery's</a> research group. My <a href='#publications'>research</a> is focused on developing methods for performing efficient approximate inference in complex probabilistic models.
+            </p>
             <p class="lead">
-              My <a href='#research'>research</a> is focused on developing methods for performing efficient approximate inference in complex probabilistic models.
+              <span class="text-muted">Research interests:</span> Markov chain Monte Carlo methods, Hamiltonian Monte Carlo, approximate Bayesian computation, numerical simulation.
             </p>
             <div class="btn-group" role="group">
               <span class="btn btn-default active">CV</span>
@@ -146,37 +149,13 @@
       </div>
     </div><!--./contact-->
 
-    <div class="row" id="research">
+    <div class="row" id="publications">
       <div class="col-xs-12">
         <div class="row section-header">
-          <h1>Research</h1>
-        </div>
-        <div class="row" id="phd-project">
-          <h2>
-            <span class="text-muted">PhD project:</span>
-            Auxiliary variable MCMC methods
-            <small>(Supervisor: <a href="http://homepages.inf.ed.ac.uk/amos">Amos Storkey</a>)</small>
-          </h2>
+          <h1>Publications</h1>
         </div>
         <div class="row">
-          <div class="col-md-3">
-            <img src="images/mcmc_visualisation.png" width="256" class="img-thumbnail center-block vertical-buffer"/>
-          </div>
-          <div class="col-md-9 vertical-buffer">
-            <p>
-              My PhD project has been primarily concerned with developments to <em>Markov Chain Monte Carlo</em> (MCMC) methods.             These are a group of techniques for performing approximate inference with probabilistic models. 
-            </p>
-            <p>
-              The core idea of MCMC methods is to simulate a stochastic dynamical system where the probability distribution over the state of the system converges to the distribution of interest. The samples of the system state can then be used to estimate expectations (averages under a probability distribution) of the model. How well the dynamic is able to explore the state-space determines how quickly these estimates converge to the correct values.
-            </p>
-            <p>
-              I am specifically considering methods which augment the system state space with additional auxiliary variables. In some cases this allows the robustness or efficiency of sampling methods to be improved, for example by making it easier for the sampler to coherently explore the target distribution or to increase movement between modes in multimodal target distributions. In other settings redefining the state space of the problem can allow us to perform inference in settings where we do not have an explicit form for the distribution on the variables of interest.
-            </p>
-          </div>
-        </div>
-        <div class="row">
-          <h2> Pre-prints </h2>
-          <h3 class='sub-heading'>Journal articles</h3>
+          <h2 class='sub-heading'> Pre-prints </h2>
           <ul class="publications-list">
           <li class="publication">
             <h4>
@@ -207,11 +186,7 @@
             </div>
           </li>
           </ul>
-        </div> 
-<!-- row Pre-prints -->
-        <div class="row">
-          <h2> Publications </h2>
-          <h3 class='sub-heading'>Conference proceedings</h3>
+          <h2 class='sub-heading'>Conference proceedings</h2>
           <ul class="publications-list">
             <li class="publication">
               <h4>
@@ -316,7 +291,7 @@
               </div>
             </li>
           </ul>
-          <h3 class='sub-heading'>Workshop papers </h3>
+          <h2 class='sub-heading'>Workshop papers </h2>
           <ul class="publications-list">
             <li class="publication">
               <h4>
@@ -371,8 +346,15 @@
             </li>
           </ul>
         </div> <!-- row Publications -->
-        <div class="row" id="talks">
-          <h2> Talks </h2>
+      </div>
+    </div>
+    
+    <div class="row" id="talks">
+      <div class="col-xs-12">
+        <div class="row section-header">
+          <h1> Talks </h1>
+        </div>
+        <div class="row">
           <ul class="publications-list">
             <li class="publication">
               <h4>
@@ -447,9 +429,38 @@
             </li>
           </ul>
         </div>
-        <div class="row" id="previous-projects">
-          <h2>Previous projects</h2>
+      </div>
+    </div>
+    
+    <div class="row" id="projects">
+      <div class="col-xs-12">
+        <div class="row section-header">
+          <h1>Projects</h1>
         </div>
+
+        <div class="row" id="phd-project">
+          <h3>
+            <span class="text-muted">PhD project:</span>
+            Auxiliary variable MCMC methods
+            <small>(Supervisor: <a href="http://homepages.inf.ed.ac.uk/amos">Amos Storkey</a>)</small>
+          </h3>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <img src="images/mcmc_visualisation_cropped.png" width="256" class="img-thumbnail center-block vertical-buffer"/>
+          </div>
+          <div class="col-md-9 vertical-buffer">
+            <p>
+              My PhD project was focussed on developments to <em>Markov Chain Monte Carlo</em> (MCMC) methods. I specifically considered methods which augment the system state space with additional auxiliary variables. In some cases this allows the robustness or efficiency of sampling methods to be improved, for example by making it easier for the sampler to coherently explore the target distribution or to increase movement between modes in multimodal target distributions. In other settings redefining the state space of the problem can allow us to perform inference in settings where we do not have an explicit form for the distribution on the variables of interest.
+            </p>
+            <div class="btn-group" role="group">
+              <a href="files/phd_thesis.pdf" class="btn btn-default">
+                <i class="fa fa-file-pdf-o fa-fw"></i> Thesis
+              </a>
+            </div>
+          </div>
+        </div>
+        
         <div class="row" id="msc-project">
           <h3>
             <span class="text-muted">MSc by Research project:</span> Insect olfactory landmark navigation
@@ -545,9 +556,9 @@
           <h1>Teaching</h1>
         </div>
         <div class="row">
+          <h2 class="sub-heading">University of Edinburgh, School of Informatics</h2>
           <p class="pad-sides">
-            I was the teaching assistant for the coursework-based <a href='http://www.inf.ed.ac.uk/teaching/courses/mlp/'>Machine Learning Practical</a> in the 2016-2017 academic year. The Jupyter notebooks and Python framework I helped co-develop for the course lab sessions are available at <a href="https://github.com/CSTR-Edinburgh/mlpractical/tree/mlp2016-7/master">the course Github repository</a>.
-            I am also a tutor for  I have also previously tutored for <a href="http://www.inf.ed.ac.uk/teaching/courses/mlpr/2016/">Machine Learning and Pattern Recognition</a>, <a href="http://www.inf.ed.ac.uk/teaching/courses/it/">Information Theory</a> and <a href="http://www.inf.ed.ac.uk/teaching/courses/pmr/">Probabilistic Modelling and Reasoning (PMR)</a>. There a couple of Jupyter notebooks with notes on PMR topics I made when tutoring on Github <a href="https://github.com/matt-graham/pmr-notebooks">here</a>.
+            I was the teaching assistant for the coursework-based <a href='http://www.inf.ed.ac.uk/teaching/courses/mlp/'>Machine Learning Practical</a> in the 2016-2017 academic year. The Jupyter notebooks and Python framework I helped co-develop for the course lab sessions are available at <a href="https://github.com/CSTR-Edinburgh/mlpractical/tree/mlp2016-7/master">the course Github repository</a>. I have also previously tutored for <a href="http://www.inf.ed.ac.uk/teaching/courses/mlpr/2016/">Machine Learning and Pattern Recognition</a>, <a href="http://www.inf.ed.ac.uk/teaching/courses/it/">Information Theory</a> and <a href="http://www.inf.ed.ac.uk/teaching/courses/pmr/">Probabilistic Modelling and Reasoning (PMR)</a>. There a couple of Jupyter notebooks with notes on PMR topics I made when tutoring on Github <a href="https://github.com/matt-graham/pmr-notebooks">here</a>.
           </p>
           <p class="pad-sides">
             I did a short tutorial on Hamiltonian Monte Carlo for the Institute for Adaptive and Neural Computation <a href="https://wiki.inf.ed.ac.uk/ANC/PIGlets">PIGlets</a> discussion group. The slides are available <a href="slides/hmc-tutorial">here</a> and an associated Jupyter notebook going through an example implementation is available <a href="https://github.com/ANC-PIGlets/gradient-based-mcmc/blob/master/Hamiltonian%20Monte%20Carlo.ipynb">on Github</a>.
@@ -570,12 +581,10 @@
         <div class="row">
           <p class="pad-sides">
             In my spare time I'm a keen hillwalker and mountaineer. I walked extensively with the
-            <a href="http://www.cuhwc.org.uk">Cambridge University Hillwalking Club</a> while doing
-            my undergraduate there. In the summer of 2012 I helped organise and took part in an
+            <a href="http://www.cuhwc.org.uk">Cambridge University Hillwalking Club</a> during my undergraduate studies. In the summer of 2012 I helped organise and took part in an
             <a href="http://www.catse.org.uk">expedition to the Tien Shan range</a> in Kyrgyzstan
-            with seven other CUHWC members. Since coming to Edinburgh I've joined the
-            <a href="http://euhwc.eusu.ed.ac.uk">Edinburgh University Hillwalking Club</a> and have
-            started climbing regularly at the wall in the <a href="http://www.ed.ac.uk/schools-departments/sport-exercise/sports-centre/sports-activities/climbing/">University sports centre</a>.
+            with seven other CUHWC members. During my PhD in Edinburgh I was a member of
+            <a href="http://euhwc.eusu.ed.ac.uk">Edinburgh University Hillwalking Club</a> and also began climbing in and outdoors more regularly (though still sadly not all that often!).
           </p>
         </div>
       </div>
