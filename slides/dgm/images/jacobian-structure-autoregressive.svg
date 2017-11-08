@@ -26,10 +26,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="76.455914"
-     inkscape:cy="-65.846207"
+     inkscape:cx="-47.472657"
+     inkscape:cy="17.010936"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="use4600"
      showgrid="false"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -48,7 +48,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -76,6 +76,17 @@
          d="M 3.296875,-1.28125 3.03125,-3.171875 C 2.953125,-3.65625 2.71875,-4.375 2.46875,-4.578125 L 0.78125,-4.25 0.8125,-4.015625 C 1.09375,-4.0625 1.28125,-4.09375 1.328125,-4.09375 c 0.328125,0 0.421875,0.578125 0.5,1.046875 L 2.359375,0.125 C 2.15625,0.609375 1.625,1.296875 1.5,1.296875 1.34375,1.296875 1.375,0.8125 0.953125,0.8125 0.4375,0.8125 0.34375,1.21875 0.359375,1.46875 0.375,1.703125 0.5625,2.046875 1.125,2.046875 c 0.84375,0 1.4375,-0.921875 2.125,-1.953125 0.40625,-0.609375 1.953125,-3.171875 1.953125,-3.953125 0,-0.53125 -0.234375,-0.75 -0.703125,-0.75 -0.328125,0 -0.59375,0.359375 -0.59375,0.546875 0,0.578125 0.453125,0.40625 0.453125,0.703125 0,0.15625 -0.25,0.671875 -0.453125,1.0625 C 3.734375,-1.953125 3.5,-1.5625 3.296875,-1.28125 Z m 0,0"
          style="stroke:none"
          inkscape:connector-curvature="0" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="-11.170474"
+         y="14.225866"
+         id="text4522"><tspan
+           sodipodi:role="line"
+           id="tspan4520"
+           x="-11.170474"
+           y="14.225866"
+           style="stroke-width:0.26458332px">x</tspan></text>
     </g>
     <rect
        y="77.478485"
