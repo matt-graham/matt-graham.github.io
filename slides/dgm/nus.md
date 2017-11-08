@@ -44,8 +44,7 @@ $$\expc{\,f(\latent{\rvct{z}}) \gvn \observed{\rvct{x} = \vct{x}}}.$$ <!-- .elem
 
 ### Approximate inference
 
-$$\expc{\,f(\latent{\rvct{z}}) \gvn \observed{\rvct{x} = \vct{x}}} =
-\int\_{\latent{\set{Z}}} f(\latent{\vct{z}})\, \pden{\latent{\rvct{z}}|\observed{\rvct{x}}}(\latent{\vct{z}}\gvn\observed{\vct{x}})\,\dr\latent{\vct{z}} = \int\_{\latent{\set{Z}}} f(\latent{\vct{z}})\,\frac{\pden{\latent{\rvct{z}},\observed{\rvct{x}}}(\latent{\vct{z}},\observed{\vct{x}})}{\pden{\observed{\rvct{x}}}(\observed{\vct{x}})}\,\dr\latent{\vct{z}}$$ <!-- .element: class="fragment current-visible" data-fragment-index="0" -->
+$$\expc{\,f(\latent{\rvct{z}}) \gvn \observed{\rvct{x} = \vct{x}}} = \int\_{\latent{\set{Z}}} f(\latent{\vct{z}})\,\frac{\pden{\latent{\rvct{z}},\observed{\rvct{x}}}(\latent{\vct{z}},\observed{\vct{x}})}{\pden{\observed{\rvct{x}}}(\observed{\vct{x}})}\,\dr\latent{\vct{z}}$$ <!-- .element: class="fragment current-visible" data-fragment-index="0" -->
 
 $$ \pi(\latent{\vct{z}}) = \pden{\latent{\rvct{z}},\observed{\rvct{x}}}(\latent{\vct{z}},\observed{\vct{x}}) \implies \expc{\,f(\latent{\rvct{z}}) \gvn \observed{\rvct{x} = \vct{x}}} \propto \int\_{\latent{\set{Z}}} f(\latent{\vct{z}})\, \pi(\latent{\vct{z}})\,\dr\latent{\vct{z}}$$ <!-- .element: class="fragment" data-fragment-index="1" -->
 
@@ -384,7 +383,7 @@ Calculate $\pd{\rho}{\input{\vct{u}}}$ with cost $\sim$ evaluation of $\rho$ and
 
 ---
 
-### Issues with ABC reject
+### Problems with ABC approach
 
   * Curse of dimensionality <!-- .element: class="fragment" data-fragment-index="1" -->
     * Reduce $D\_{\observed{\rvct{x}}}$ with summary statistics $\observed{\rvct{s}} = \vct{s}(\observed{\rvct{x}})$ <!-- .element: class="fragment" data-fragment-index="2" -->
@@ -608,7 +607,7 @@ subject to $\vctfunc{g}\_{\observed{\rvct{x}}}(\input{\vct{u}}) = \observed{\vct
 
 ### Constrained HMC in toy example
 
-<video controls loop>
+<video autoplay controls loop>
   <source data-src="images/chmc-animation-io.mp4" type="video/mp4" />
 </video>
 
@@ -645,7 +644,7 @@ cf. *Pseudo-Marginal Hamiltonian Monte Carlo*, Lindsten and Doucet, 2016; *Hamil
 
 ### Gaussian ABC + HMC in toy example
 
-<video controls loop width="1080" height="540" >
+<video autoplay controls loop width="1080" height="540" >
   <source data-src="images/abc-hmc-animation-io.mp4" type="video/mp4" />
 </video>
 
@@ -920,7 +919,7 @@ Backwards pass - calculate $\pd{c}{x}$, $\pd{c}{m}$ and $\pd{c}{s}$
 </div>
 
 <div class='half-column fragment' data-fragment-index='2'>
-<p>*Markov*</p>
+<p>*Markovian*</p>
 
 <div class='img-row'>
 <img src='images/markov-directed-generative-model.svg' height='300px' />
