@@ -77,7 +77,7 @@ def generate_x_gvn_z(rng, z):
 def generate_x(rng):
     z = generate_z(rng)
     x = generate_x_gvn_z(
-            rng, z)
+        rng, z)
     return x
 </code>
 </pre>
@@ -165,7 +165,7 @@ Concentrate on restricted case where
 
 ---
 
-<!-- .slide: data-transition="none" -->
+    <!-- .slide: data-transition="none" -->
 ### $\epsilon \to 0$ : conditioning as a constraint
 
 <img  src='images/abc-in-input-space-exact-constraint-v3.svg' width='80%' />
@@ -173,7 +173,7 @@ Concentrate on restricted case where
 Exactly conditioning on observations restricts inputs to a manifold embedded in input space
 
 $$
-  \vctfunc{g}\_{\observed{\rvct{x}}}^{-1}(\observed{\obs{\vct{x}}}) = \lbr \input{\vct{u}} \in \input{\set{U}} : \vctfunc{g}\_{\observed{\rvct{x}}}(\input{\vct{u}}) = \observed{\vct{x}} \rbr.
+  \vctfunc{g}\_{\observed{\rvct{x}}}^{-1}(\observed{\obs{\vct{x}}}) = \lbr \input{\vct{u}} \in \input{\set{U}} : \vctfunc{g}\_{\observed{\rvct{x}}}(\input{\vct{u}}) = \observed{\obs{\vct{x}}} \rbr.
 $$
 
 ----
@@ -185,9 +185,9 @@ Conditional expectations are integrals over $\vctfunc{g}\_{\observed{\rvct{x}}}^
 
 <div style='padding-top:10px'>
 \begin{equation}
-  \expc{\,f(\latent{\rvct{z}}) \gvn \observed{\rvct{x} = \vct{x}}} = \\\\
+  \expc{\,f(\latent{\rvct{z}}) \gvn \observed{\rvct{x}} = \observed{\obs{\vct{x}}}} = \\\\
   \frac{1}{C}
-  \int\_{\vctfunc{g}\_{\observed{\rvct{x}}}^{-1}(\observed{\vct{x}})}
+  \int\_{\vctfunc{g}\_{\observed{\rvct{x}}}^{-1}(\observed{\obs{\vct{x}}})}
     f \circ \vctfunc{g}\_{\latent{\rvct{z}}}(\input{\vct{u}})\,
     \left|
       \pd{\vctfunc{g}\_{\observed{\rvct{x}}}}{\input{\vct{u}}}
