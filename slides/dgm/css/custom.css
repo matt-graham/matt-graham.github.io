@@ -86,11 +86,21 @@ html.dim-bg-video .slide-background video {
   display: none !important;
 }
 
+.reveal pre {
+    box-shadow: none;
+}
+
 div.half-column {
   float: left; 
   width: 50%; 
   overflow: hidden; 
   text-align: center; 
+}
+
+div.third-column {
+  float: left; 
+  width: 33%; 
+  text-align: center;     
 }
 
 div.img-row {
