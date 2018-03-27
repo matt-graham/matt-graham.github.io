@@ -311,26 +311,3 @@ Shorter *AISTATS* 2017 conference paper  <i class="ai ai-arxiv fa-fw"></i> [arxi
 *  T. Leli&egrave;vre, M. Rousset and G. Stoltz.
    Langevin dynamics with constraints and computation of free energy differences.
    *Mathematics of Computation*, 2012.
-
-
-----
-
-<!-- .slide: style="font-size: 70%" -->
-
-<h3 style='font-size: 200%;'>References</h3>
-
-*  G. Deligiannidis, A. Doucet and M. K. Pitt. 
-   The Correlated Pseudo-Marginal Method. 
-   *arXiv pre-print*, 2015.
-   
-*  J. Dahlin, F. Lindsten, J. Kronander and T. B. Sch&ouml;n. 
-   Accelerating pseudo-marginal Metropolis-Hastings by correlating auxiliary variables. 
-   *arXiv pre-print*, 2015.
-
-*  I. Murray and M. M. Graham. 
-   Pseudo-marginal slice sampling. 
-   *AISTATS*, 2016.
-
-*  T. Leli&egrave;vre, M. Rousset and G. Stoltz. 
-   Pseudo-Marginal Hamiltonian Monte Carlo. 
-   *arXiv pre-print*, 2016.
