@@ -254,7 +254,7 @@ subject to $\vctfunc{g}\_{\observed{\rvct{x}}}(\input{\vct{u}}) = \observed{\obs
 
 ---
 
-### Conclusions
+### Summary
 
   * Inference method for differentiable generative models.  <!-- .element: class="fragment" data-fragment-index="1" -->
   * Consider conditioning as constraint on inputs. <!-- .element: class="fragment" data-fragment-index="2" -->
