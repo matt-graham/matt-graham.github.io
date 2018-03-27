@@ -131,9 +131,8 @@ Often $\pden{\observed{\rvct{x}},\latent{\rvct{z}}}$ not explicitly defined. How
 Concentrate on restricted case where
 
   * variables real-valued: $\input{\set{U}} \subseteq \reals^{D\_{\input{\rvct{u}}}}$, $\observed{\set{X}} \subseteq \reals^{D\_{\observed{\rvct{x}}}}$, $\latent{\set{Z}} \subseteq \reals^{D\_{\latent{\rvct{z}}}}$, <!-- .element: class="fragment" data-fragment-index="1" -->
-  * input density $\pden{\input{\rvct{u}}}$ defined wrt Lebesgue measure on $\input{\set{U}}$, <!-- .element: class="fragment" data-fragment-index="2" -->
-  * input density gradient $\pd{\pden{\input{\rvct{u}}}}{\input{\vct{u}}}$ exists almost everywhere, <!-- .element: class="fragment" data-fragment-index="3" -->
-  * generator Jacobian $\pd{\vctfunc{g}\_{\observed{\rvct{x}}}}{\input{\vct{u}}}$ exists almost everywhere. <!-- .element: class="fragment" data-fragment-index="4" -->
+  * input density gradient $\pd{\pden{\input{\rvct{u}}}}{\input{\vct{u}}}$ exists almost everywhere, <!-- .element: class="fragment" data-fragment-index="2" -->
+  * generator Jacobian $\pd{\vctfunc{g}\_{\observed{\rvct{x}}}}{\input{\vct{u}}}$ exists almost everywhere. <!-- .element: class="fragment" data-fragment-index="3" -->
 
 ---
 
