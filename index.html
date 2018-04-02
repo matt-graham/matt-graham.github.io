@@ -83,7 +83,7 @@
         <div class="row">
           <div class="col-md-3" id="profile-photo-and-social-col">
             <div class="text-center">
-              <img src="images/profile_photo_small.jpg" class="img-thumbnail" width="200" />
+              <img src="images/profile-photo-mm-graham-small.jpg" class="img-thumbnail" width="200" />
             </div>
             <div class="text-center vertical-buffer">
               <div class="btn-group" role="group">
@@ -96,6 +96,9 @@
                 <a href="https://plus.google.com/u/0/+MatthewGrahamUK" class="btn btn-social-icon btn-google-plus">
                   <i class="fa fa-google-plus fa-fw"></i>
                 </a>
+                <a href="https://orcid.org/0000-0001-9104-7960" class="btn btn-social-icon btn-orcid-green">
+                  <i class="ai ai-orcid fa-fw ai-3x"></i>
+                </a>
 <!--
                 <a href="https://twitter.com/mattgrahamuk" class="btn btn-social-icon btn-twitter">
                   <i class="fa fa-twitter fa-fw"></i>
@@ -104,6 +107,9 @@
                 <a href="https://scholar.google.co.uk/citations?user=1QMZI4kAAAAJ&hl=en" class="btn btn-social-icon btn-google-yellow">
                   <i style="margin-top: 2px;" class="fa icon-google-scholar-g-thicker fa-fw"></i>
                 </a>
+                <a href="http://arxiv.org/a/graham_m_2" class="btn btn-social-icon btn-arxiv-red">
+                  <i class="ai ai-arxiv fa-fw ai-3x"></i>
+                </a>
               </div>
             </div>
           </div> <!--/.profile-photo-and-social-col-->
@@ -111,7 +117,7 @@
             <p class="lead">I am a research fellow in the <a href="https://www.stat.nus.edu.sg">Department of Statistics and Applied Probability</a> at the National University of Singapore. I am part of <a href="http://www.normalesup.org/~athiery/index.html">Alex Thiery's</a> research group. My <a href='#publications'>research</a> is focused on developing methods for performing efficient approximate inference in complex probabilistic models.
             </p>
             <p class="lead">
-              <span class="text-muted">Research interests:</span> Markov chain Monte Carlo methods, Hamiltonian Monte Carlo, approximate Bayesian computation, numerical simulation.
+              <span class="text-muted">Research interests:</span> Markov chain Monte Carlo methods, Hamiltonian Monte Carlo, approximate Bayesian computation, data assimilation, numerical simulation.
             </p>
             <div class="btn-group" role="group">
               <span class="btn btn-default active">CV</span>
@@ -172,6 +178,9 @@
               <a href="http://dx.doi.org/10.1214/17-EJS1340SI" class="btn btn-default">
                 <i class="fa fa-file-o fa-fw"></i> Article
               </a>
+                <a href="files/dgm-poster-bayescomp.pdf" class="btn btn-default">
+                  <i class="fa fa-file-pdf-o fa-fw"></i> Poster
+                </a>
               <a href="slides/dgm/nus.html" class="btn btn-default">
                 <i class="fa fa-television fa-fw"></i> Slides
               </a>
@@ -346,6 +355,64 @@
               </div>
             </li>
           </ul>
+          <h2 class='sub-heading'> Theses and dissertations </h2>
+          <ul class="publications-list">
+            <li class="publication">
+              <h4>
+                <small>2018/07</small>
+                Auxiliary variable Markov chain Monte Carlo methods
+              </h4>
+              <p>
+                <i>Matthew M. Graham</i>
+              </p>
+              <p class='published-in'>
+                PhD Thesis, University of Edinburgh
+              </p>
+              <div class="btn-group" role="group">
+                <a href="http://hdl.handle.net/1842/28962" class="btn btn-default">
+                  <i class="fa fa-file-o fa-fw"></i> ERA record
+                </a>
+                <a href="files/phd_thesis.pdf" class="btn btn-default">
+                  <i class="fa fa-file-pdf-o fa-fw"></i> Thesis
+                </a>
+                <a href="slides/viva" class="btn btn-default">
+                  <i class="fa fa-television fa-fw"></i> Slides
+                </a>
+                <button class="btn btn-default btn-abs collapsed" data-toggle="collapse" data-target="#phd-thesis-abs">
+                  Abstract
+                </button>
+              </div>
+              <div id="phd-thesis-abs" class="collapse abstract">
+                Markov chain Monte Carlo (MCMC) methods are a widely applicable  class of algorithms for estimating integrals in statistical inference problems.  A common approach in MCMC methods is to introduce additional auxiliary variables into the Markov chain state and perform transitions in the joint space of target and auxiliary variables. In this thesis we consider novel methods for using auxiliary variables within MCMC methods to allow approximate inference in otherwise intractable models and to improve sampling performance in models exhibiting challenging properties such as multimodality. We first consider the pseudo-marginal framework. This extends the Metropolis–Hastings algorithm to cases where we only have access to an unbiased estimator of the density of target distribution. The resulting chains can sometimes show ‘sticking’ behaviour where long series of proposed updates are rejected. Further the algorithms can be difficult to tune and it is not immediately clear how to generalise the approach to alternative transition operators. We show that if the auxiliary variables used in the density estimator are included in the chain state it is possible to use new transition operators such as those based on slice-sampling algorithms within a pseudo-marginal setting. This auxiliary pseudo-marginal approach leads to easier to tune methods and is often able to improve sampling efficiency over existing approaches. As a second contribution we consider inference in probabilistic models defined via a generative process with the probability density of the outputs of this process only implicitly defined. The approximate Bayesian computation (ABC) framework allows inference in such models when conditioning on the values of observed model variables by making the approximation that generated observed variables are ‘close’ rather than exactly equal to observed data. Although making the inference problem more tractable, the approximation error introduced in ABC methods can be difficult to quantify and standard algorithms tend to perform poorly when conditioning on high dimensional observations. This often requires further approximation by reducing the observations to lower dimensional summary statistics. We show how including all of the random variables used in generating model outputs as auxiliary variables in a Markov chain state can allow the use of more efficient and robust MCMC methods such as slice sampling and Hamiltonian Monte Carlo (HMC) within an ABC framework. In some cases this can allow inference when conditioning on the full set of observed values when standard ABC methods require reduction to lower dimensional summaries for tractability. Further we introduce a novel constrained HMC method for performing inference in a restricted class of differentiable generative models which allows conditioning the generated observed variables to be arbitrarily close to observed data while maintaining computational tractability. As a final topicwe consider the use of an auxiliary temperature variable in MCMC methods to improve exploration of multimodal target densities and allow estimation of normalising constants. Existing approaches such as simulated tempering and annealed importance sampling use temperature variables which take on only a discrete set of values. The performance of these methods can be sensitive to the number and spacing of the temperature values used, and the discrete nature of the temperature variable prevents the use of gradient-based methods such as HMC to update the temperature alongside the target variables. We introduce new MCMC methods which instead use a continuous temperature variable. This both removes the need to tune the choice of discrete temperature values and allows the temperature variable to be updated jointly with the target variables within a HMC method.
+              </div>
+            </li>
+            <li class="publication">
+              <h4>
+                <small>2013/07</small>
+                Insect olfactory landmark navigation
+              </h4>
+              <p>
+                <i>Matthew M. Graham</i>
+              </p>
+              <p class='published-in'>
+                MSc by Research Dissertation, University of Edinburgh
+              </p>
+              <div class="btn-group" role="group">
+                <a href="files/msc_project_report.pdf" class="btn btn-default">
+                  <i class="fa fa-file-pdf-o fa-fw"></i> Dissertation
+                </a>
+                <a href="files/msc_project_poster.pdf" class="btn btn-default">
+                  <i class="fa fa-file-pdf-o fa-fw"></i> Poster
+                </a>
+                <button class="btn btn-default btn-abs collapsed" data-toggle="collapse" data-target="#msc-thesis-abs">
+                  Abstract
+                </button>
+              </div>
+              <div id="msc-thesis-abs" class="collapse abstract">
+                The natural world is full of chemical signals - organisms of all scales and taxonomic classifications transmit and receive chemical signals to guide the full gamut of life’s processes: from helping forming mother-infant bonds, to identifying potential mates and even signalling their own deaths. Insects are particularly reliant on chemical cues to guide their behaviour and understanding how insects respond to and use chemical cues in their environment is a high active research area. In a series of recent studies Steck et al. produced evidence that foragers of the Saharan desert ant species Cataglyphis fortis are able to learn an association between an array of odour sources arranged around the entrance to their nest and the relative location of the nest entrance and later use the information they receive from the odour sources to help them navigate to the visually inconspicious nest entrance. This ability to use odour sources as olfactory landmarks had not been previously seen experimentally in insects, and is a remarkable behaviour given the extremely complex and highly dynamic nature of the olfactory signals received by the ants from the turbulent odour plumes the chemicals travel in from the sources. After an introductory chapter covering some relevant background theory to the work in this project, the second chapter of this dissertation will detail a field study conducted with the European desert ant species Cataglyphis velox. As in the studies of Steck et al. the ants were constrained to moving a linear channel and so the navigation task limited to being one-dimensional, the aim of this study was to see if there was any evidence supporting the hypothesis that Cataglyphis velox ants are able to use olfactory landmarks to navigate in a more realistic open environment. The results of the study were inconclusive, due to the low sample sizes that were collected and small effect size in the study design used, however it is proposed that the study could be considered usefully as pilot for a full study at a later date, and an adjusted study design is proposed that might overcome a lot of the issues encountered in the current study. In the third and final chapter of this dissertation, a modelling study of what information is available in the olfactory signal received from a turbulent odour plume about the location of the source of that plume is presented, with this work aiming to explore the information which may being used by Cataglyphis desert ants when using olfactory landmarks to navigate. The details of the plume and olfactory sensor models used are described and the results of an analysis of the estimated mutual information between the modelled olfactory signals and the location of odour source presented. It is found that the locational informational content of individual signal segment statistics seems to be low, though combining multiple statistics does potentially allow more useful reductions in uncertainty.
+              </div>
+            </li>
+          </ul>
         </div> <!-- row Publications -->
       </div>
     </div>
@@ -357,6 +424,19 @@
         </div>
         <div class="row">
           <ul class="publications-list">
+            <li class="publication">
+              <h4>
+                <small>03/2018</small> Asymptotically exact inference in differentiable generative models
+              </h4>
+              <p class='published-in'>
+                <a href='https://www.maths.nottingham.ac.uk/personal/tk/bayescomp/'>BayesComp 2018, Barcelona</a>
+              </p>
+              <div class="btn-group" role="group">
+                <a href="slides/dgm/bayescomp.html" class="btn btn-default">
+                  <i class="fa fa-television fa-fw"></i> Slides
+                </a>
+              </div>
+            </li>
               <li class="publication">
                 <h4>
                   <small>11/2017</small> Inference in differentiable generative models

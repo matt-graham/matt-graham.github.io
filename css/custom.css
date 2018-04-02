@@ -84,6 +84,30 @@ body {
   border-color: rgba(0,0,0,0.2);
 }
 
+.btn-orcid-green {
+  color: #fff;
+  background-color: #a6ce39;
+  border-color: rgba(0,0,0,0.2)
+}
+
+.btn-orcid-green:hover, .btn-orcid-green:focus, .btn-orcid-green:active, .btn-orcid-green.active, .open>.dropdown-toggle.btn-orcid-green {
+  color: #fff;
+  background-color: #89a835;
+  border-color: rgba(0,0,0,0.2);
+}
+
+.btn-arxiv-red {
+  color: #fff;
+  background-color: #b31b1b;
+  border-color: rgba(0,0,0,0.2)
+}
+
+.btn-arxiv-red:hover, .btn-arxiv-red:focus, .btn-arxiv-red:active, .btn-arxiv-red.active, .open>.dropdown-toggle.btn-arxiv-red {
+  color: #fff;
+  background-color: #912525;
+  border-color: rgba(0,0,0,0.2);
+}
+
 .space-bottom {
   margin-bottom: 20px;
 }
