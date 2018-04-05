@@ -6,8 +6,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="description" content="Personal academic homepage">
+  <meta name="author" content="Matt Graham">
 
   <title>Matt Graham</title>
 
@@ -29,15 +29,6 @@
   <!-- Site specific CSS -->
   <link href="./css/custom.css" rel="stylesheet">
 
-  <!-- MathJax -->
-  <script type="text/javascript" async
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
-  </script>
-
-  <script type="text/x-mathjax-config">
-  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
-  </script>
-
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -46,7 +37,7 @@
 
 </head>
 
-<body data-spy="scroll" data-target="#mainNav">
+<body data-spy="scroll">
 
   <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -93,19 +84,9 @@
                 <a href="https://uk.linkedin.com/in/matt-graham-460217130" class="btn btn-social-icon btn-linkedin">
                   <i class="fa fa-linkedin fa-fw"></i>
                 </a>
-<!--
-                <a href="https://plus.google.com/u/0/+MatthewGrahamUK" class="btn btn-social-icon btn-google-plus">
-                  <i class="fa fa-google-plus fa-fw"></i>
-                </a>
--->
                 <a href="https://orcid.org/0000-0001-9104-7960" class="btn btn-social-icon btn-orcid-green">
                   <i class="ai ai-orcid fa-fw ai-3x"></i>
                 </a>
-<!--
-                <a href="https://twitter.com/mattgrahamuk" class="btn btn-social-icon btn-twitter">
-                  <i class="fa fa-twitter fa-fw"></i>
-                </a>
--->
                 <a href="https://scholar.google.co.uk/citations?user=1QMZI4kAAAAJ&hl=en" class="btn btn-social-icon btn-google-yellow">
                   <i style="margin-top: 2px;" class="fa icon-google-scholar-g-thicker fa-fw"></i>
                 </a>
@@ -116,7 +97,7 @@
             </div>
           </div> <!--/.profile-photo-and-social-col-->
           <div class="col-md-9" id="intro-text-col">
-            <p class="lead">I am a research fellow in the <a href="https://www.stat.nus.edu.sg">Department of Statistics and Applied Probability</a> at the National University of Singapore. I am part of <a href="http://www.normalesup.org/~athiery/index.html">Alex Thiery's</a> research group. My <a href='#publications'>research</a> is focused on developing methods for performing efficient approximate inference in complex probabilistic models.
+            <p class="lead">I am a research fellow in the <a href="https://www.stat.nus.edu.sg">Department of Statistics and Applied Probability</a> at the National University of Singapore, where I am part of <a href="http://www.normalesup.org/~athiery/index.html">Alex Thiery's</a> research group. My <a href='#publications'>research</a> is focused on developing methods for performing efficient approximate inference in complex probabilistic models.
             </p>
             <p class="lead">
               <span class="text-muted">Research interests:</span> Markov chain Monte Carlo methods, Hamiltonian Monte Carlo, approximate Bayesian computation, data assimilation, numerical simulation.
@@ -700,14 +681,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
   <script src="js/bootstrap.js"></script>
   <script src="js/plugins.js"></script>
-
-  <script>
-  $('#mainNav').onePageNav({
-    currentClass: 'active',
-    changeHash: true,
-    scrollSpeed: 1200
-  });
-  </script>
 
   <script>
     $('.github-card').each(function( i, div ) {
