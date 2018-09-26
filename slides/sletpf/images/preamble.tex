@@ -1,0 +1,56 @@
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{color}
+
+\usepackage{acro}
+\acsetup{
+  tooltip = true,
+  long-format = \it,
+  short-format = \sf
+}
+
+\usepackage{stix}
+
+% Acronym definitions
+\DeclareAcronym{enkf}{short=EnKF, long=ensemble Kalman filter}
+\DeclareAcronym{pf}{short=PF, long=particle filter}
+\DeclareAcronym{etpf}{short=ETPF, long=ensemble transport particle filter}
+\DeclareAcronym{ot}{short=OT, long=optimal transport}
+\DeclareAcronym{nwp}{short=NWP, long=numerical weather prediction}
+\DeclareAcronym{rmse}{short=RMSE, long=root mean squared error}
+\DeclareAcronym{pou}{short=PoU, long=partition of unity}
+
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\lbr}{\left\lbrace}
+\newcommand{\rbr}{\right\rbrace}
+\newcommand{\lpa}{\left(}
+\newcommand{\rpa}{\right)}
+\newcommand{\lsb}{\left[}
+\newcommand{\rsb}{\right]}
+\newcommand{\set}[1]{\mathcal{#1}}
+\newcommand{\metric}[1]{\mathnormal{#1}}
+\newcommand{\op}[1]{{#1}}
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\expc}{\mathbb{E}}
+\newcommand{\dr}{\mathrm{d}}
+\newcommand{\gvn}{\,|\,}
+\newcommand{\gau}{\gamma}
+\newcommand{\tr}{^{\mkern-1.5mu\mathsf{T}}}
+\newcommand{\td}[2]{\frac{\dr #1}{\dr #2}}
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\cns}[1]{\mathtt{#1}}
+\newcommand{\mtx}[1]{\boldsymbol{#1}}
+\newcommand{\vct}[1]{\boldsymbol{#1}}
+\newcommand{\rvar}[1]{\mathsf{#1}}
+\newcommand{\rvct}[1]{\vct{\rvar{#1}}}
+\newcommand{\rmtx}[1]{\mtx{\rvar{#1}}}
+\newcommand{\otilde}{\widetilde{\mathcal{O}}}
+\newcommand{\range}[2][1]{#1\colon\mkern-4mu#2}
+\newcommand{\idxset}[4]
+  {\lbrace #1 \rbrace_{#2\in\range[#3]{#4}}}
+  %{\lbrace #1 \rbrace_{#2=#3}^{#4}}
+\newcommand{\sumrange}[3]
+  {\sum_{#1\in\range[#2]{#3}}}
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator{\trace}{tr}

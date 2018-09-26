@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="331.10345mm"
+   height="230.96399mm"
+   viewBox="0 0 331.10345 230.96399"
+   version="1.1"
+   id="svg17428"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="localised-particle-weights.svg"
+   inkscape:export-filename="/home/matt/Projects/spatially-smooth-local-etpf-paper/slides/images/localised-particle-weights.png"
+   inkscape:export-xdpi="150.00433"
+   inkscape:export-ydpi="150.00433">
+  <sodipodi:namedview
+     fit-margin-bottom="0"
+     fit-margin-right="0"
+     fit-margin-left="0"
+     fit-margin-top="0"
+     inkscape:window-maximized="1"
+     inkscape:window-y="50"
+     inkscape:window-x="1680"
+     inkscape:window-height="1348"
+     inkscape:window-width="2450"
+     showgrid="false"
+     inkscape:current-layer="g533707"
+     inkscape:document-units="mm"
+     inkscape:cy="529.53667"
+     inkscape:cx="411.46882"
+     inkscape:zoom="1.4"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base" />
+  <defs
+     id="defs17422">
+    <clipPath
+       id="p6f24822c94">
+      <rect
+         id="rect3659"
+         y="0"
+         x="0"
+         width="288"
+         height="288" />
+    </clipPath>
+    <clipPath
+       id="p06904819c9">
+      <rect
+         id="rect3662"
+         y="298.79999"
+         x="0"
+         width="288"
+         height="288" />
+    </clipPath>
+    <clipPath
+       id="p81f008ccb9">
+      <rect
+         id="rect3665"
+         y="597.59998"
+         x="0"
+         width="288"
+         height="288" />
+    </clipPath>
+    <clipPath
+       id="p57c91e7f60">
+      <rect
+         id="rect3516"
+         y="0"
+         x="0"
+         width="288"
+         height="288" />
+    </clipPath>
+    <clipPath
+       id="p882d96c6d2">
+      <rect
+         id="rect3519"
+         y="298.79999"
+         x="0"
+         width="288"
+         height="288" />
+    </clipPath>
+    <clipPath
+       id="pf12686722c">
+      <rect
+         id="rect3522"
+         y="597.59998"
+         x="0"
+         width="288"
+         height="288" />
+    </clipPath>
+    <clipPath
+       id="p06eac70dd3">
+      <rect
+         id="rect5083"
+         y="0"
+         x="0"
+         width="288"
+         height="288" />
+    </clipPath>
+    <clipPath
+       id="p5ac93aae56">
+      <rect
+         id="rect73"
+         y="0"
+         x="0"
+         width="288"
+         height="288" />
+    </clipPath>
+    <clipPath
+       id="pd19bd52379">
+      <rect
+         id="rect76"
+         y="298.79999"
+         x="0"
+         width="288"
+         height="288" />
+    </clipPath>
+    <clipPath
+       id="p2154fedf5b">
+      <rect
+         id="rect79"
+         y="597.59998"
+         x="0"
+         width="288"
+         height="288" />
+    </clipPath>
+    <clipPath
+       id="p48ffc43062">
+      <rect
+         id="rect3413"
+         y="0"
+         x="0"
+         width="288"
+         height="288" />
+    </clipPath>
+  </defs>
+  <metadata
+     id="metadata17425">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>
