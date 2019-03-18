@@ -135,7 +135,7 @@ $$\pd{z}{x} = \partial f(y) \partial g(x).$$
   \\\\
   &= (\partial f \circ \underbrace{g(x)}_{y=g(x)}) \, \partial g(x) \, v
   \\\\
-  &= v\tr \partial f(y) \, \partial g(x) 
+  &= \partial f(y) \, \partial g(x) v
   \\\\
   &=  \texttt{JVP}(\,f)(y)(\texttt{JVP}(g)(x)(v))
 \end{align}
@@ -406,7 +406,7 @@ defvjp(anp.multiply,
 
 
 <!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="1" --> Alows compact and readable syntax like  
-`y = W @ x + b1` rather than  
+`y = W @ x + b` rather than  
 `y = np.add(np.matmul(W, x), b)`.
 
 <!-- .element: class="fragment" data-fragment-index="2" --> As Autograd wraps arrays in boxes, it needs to also wrap the operators and methods of `ndarray` which is done via a specific `ArrayBox` subclass.
@@ -426,7 +426,7 @@ class ArrayBox(Box):
     # ...
     # Operator overloads - call Autograd wrapper functions
     def __neg__(self): return anp.negative(self)
-    def __add__(self, other): return anp.add(     self, other)
+    def __add__(self, other): return anp.add(self, other)
     def __sub__(self, other): return anp.subtract(self, other)
     def __mul__(self, other): return anp.multiply(self, other)
     # ...

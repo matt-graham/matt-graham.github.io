@@ -1037,7 +1037,7 @@ with $\rvar{\zeta} : \set{S} \times \set{T} \to \reals$ the system state at time
 Use a spectral spatial discretisation with $\cns{M} = 512$ nodes in space 
 
 $$
-  \rvar{z}_t(s) = \rvar{\zeta}(s, \tau_t) = \sumrange{m}{1}{\cns{M}} \rvar{x}_{t,m} \exp\left(i \frac{2\pi m}{S}\right)
+  \rvar{z}_t(s) = \rvar{\zeta}(s, \tau_t) = \sumrange{m}{1}{\cns{M}} \rvar{x}_{t,m} \exp\left(i \frac{2\pi m s}{S}\right)
 $$
  
 and fixed $\dr\tau = 0.25$ for time-stepping using 10 steps between each observed timepoint such that $\tau_{t} - \tau_{t-1} = 2.5~~\forall t\in\range{1}{200}, \, \tau_0 = 0$.
