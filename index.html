@@ -100,7 +100,7 @@
             <p class="lead">I am a research fellow in the <a href="https://www.stat.nus.edu.sg">Department of Statistics and Applied Probability</a> at the National University of Singapore, where I am part of <a href="http://www.normalesup.org/~athiery/index.html">Alex Thiery's</a> research group. My <a href='#publications'>research</a> is focused on developing methods for performing efficient approximate inference in complex probabilistic models.
             </p>
             <p class="lead">
-              <span class="text-muted">Research interests:</span> Markov chain Monte Carlo methods, Hamiltonian Monte Carlo, approximate Bayesian computation, data assimilation, numerical simulation.
+              <span class="text-muted">Research interests:</span> Markov chain Monte Carlo methods, Hamiltonian Monte Carlo, approximate Bayesian computation, data assimilation, inverse problems.
             </p>
             <div class="btn-group" role="group">
               <span class="btn btn-default active">CV</span>
@@ -144,6 +144,32 @@
           <h1>Publications</h1>
         </div>
         <div class="row">
+          <h2 class='sub-heading'>Pre-prints</h2>
+          <ul class="publications-list">
+          <li class="publication">
+            <h4>
+              <small>2019/06</small>
+              A scalable optimal-transport based local particle filter
+            </h4>
+            <p>
+              <i>Matthew M. Graham</i> and <a href="http://www.normalesup.org/~athiery/index.html">Alexandre H. Thiery</a>
+            </p>
+            <div class="btn-group" role="group">
+              <a href="https://arxiv.org/abs/1906.00507" class="btn btn-default">
+                <i class="ai ai-arxiv fa-fw"></i> arXiv
+              </a>
+              <a href="slides/sletpf/nus.html" class="btn btn-default">
+                <i class="fa fa-television fa-fw"></i> Slides
+              </a>
+              <button class="btn btn-default btn-abs collapsed" data-toggle="collapse" data-target="#sletpf-abs">
+                Abstract
+              </button>
+            </div>
+            <div id="sletpf-abs" class="collapse abstract">
+                Filtering in spatially-extended dynamical systems is a challenging problem with significant practical applications such as numerical weather prediction. Particle filters allow asymptotically consistent inference but require infeasibly large ensemble sizes for accurate estimates in complex spatial models. Localisation approaches, which perform local state updates by exploiting low dependence between variables at distant points, have been suggested as a potential resolution to this issue. Naively applying the resampling step of the particle filter locally however produces implausible spatially discontinuous states. The ensemble transform particle filter replaces resampling with an optimal-transport map and can be localised by computing maps for every spatial mesh node. The resulting local ensemble transport particle filter is however computationally intensive for dense meshes. We propose a new optimal-transport based local particle filter which computes a fixed number of maps independent of the mesh resolution and interpolates these maps across space, reducing the computation required and allowing it to be ensured particles remain spatially smooth. We numerically illustrate that, at a reduced computational cost, we are able to achieve the same accuracy as the local ensemble transport particle filter, and retain its improved robustness to non-Gaussianity and ability to quantify uncertainty when compared to local ensemble Kalman filters.
+            </div>
+          </li>
+          </ul>
           <h2 class='sub-heading'> Journal articles</h2>
           <ul class="publications-list">
           <li class="publication">
@@ -183,7 +209,7 @@
           <ul class="publications-list">
             <li class="publication">
               <h4>
-                <small>08/2017</small>
+                <small>2017/08</small>
                 Continuously tempered Hamiltonian Monte Carlo
               </h4>
               <p>
@@ -215,7 +241,7 @@
             </li>
             <li class="publication">
               <h4>
-                <small>04/2017</small>
+                <small>2017/04</small>
                 Asymptotically exact inference in differentiable generative models
               </h4>
               <p>
@@ -249,7 +275,7 @@
               </div>
             </li>
             <li class="publication">
-              <h4><small>05/2016</small> Pseudo-Marginal Slice Sampling</h4>
+              <h4><small>2016/05</small> Pseudo-Marginal Slice Sampling</h4>
               <p>
                 <a href="http://homepages.inf.ed.ac.uk/imurray2/">Iain Murray</a> and <i>Matthew M. Graham</i>
               </p>
@@ -288,7 +314,7 @@
           <ul class="publications-list">
             <li class="publication">
               <h4>
-                <small>08/2017</small>
+                <small>2017/08</small>
                 Inference in differentiable generative models
               </h4>
               <p>
@@ -311,7 +337,7 @@
             </li>
             <li class="publication">
               <h4>
-                <small>12/2016</small>  Continuously tempered Hamiltonian Monte Carlo
+                <small>2016/12</small>  Continuously tempered Hamiltonian Monte Carlo
               </h4>
               <p>
                 <i>Matthew M. Graham</i> and <a href="http://homepages.inf.ed.ac.uk/amos">Amos J. Storkey</a>
@@ -409,7 +435,40 @@
           <ul class="publications-list">
             <li class="publication">
               <h4>
-                <small>03/2018</small> Asymptotically exact inference in differentiable generative models
+                <small>2019/03</small> Sidestepping intractability by augmentation: auxiliary variable pseudo-marginal methods
+              </h4>
+              <div class="btn-group" role="group">
+                <a href="slides/auxvar/apm.html" class="btn btn-default">
+                  <i class="fa fa-television fa-fw"></i> Slides
+                </a>
+              </div>
+            </li>
+            <li class="publication">
+              <h4>
+                <small>2019/03</small> Spatially smooth local ensemble transport particle filtering
+              </h4>
+              <p class='published-in'>
+                <a href='https://www.stat.nus.edu.sg/index.php/events/academic/seminars/eventdetail/90/-/spatially-smooth-local-ensemble-transform-particle-filtering'>Seminar at Department of Statistics and Applied Probability, National University of Singapore.</a>
+              </p>
+              <div class="btn-group" role="group">
+                <a href="slides/sletpf/nus.html" class="btn btn-default">
+                  <i class="fa fa-television fa-fw"></i> Slides
+                </a>
+              </div>
+            </li>
+            <li class="publication">
+              <h4>
+                <small>2019/01</small> A brief introduction to automatic differentation
+              </h4>
+              <div class="btn-group" role="group">
+                <a href="slides/ad/index.html" class="btn btn-default">
+                  <i class="fa fa-television fa-fw"></i> Slides
+                </a>
+              </div>
+            </li>
+            <li class="publication">
+              <h4>
+                <small>2018/03</small> Asymptotically exact inference in differentiable generative models
               </h4>
               <p class='published-in'>
                 <a href='https://www.maths.nottingham.ac.uk/personal/tk/bayescomp/'>BayesComp 2018, Barcelona</a>
@@ -422,7 +481,7 @@
             </li>
               <li class="publication">
                 <h4>
-                  <small>11/2017</small> Inference in differentiable generative models
+                  <small>2017/11</small> Inference in differentiable generative models
                 </h4>
                 <p class='published-in'>
                   <a href='https://www.stat.nus.edu.sg/index.php/events/academic/seminars/eventdetail/28/-/inference-in-differentiable-generative-models'>Seminar at Department of Statistics and Applied Probability, National University of Singapore.</a>
@@ -435,7 +494,7 @@
               </li>
             <li class="publication">
               <h4>
-                <small>08/2017</small> Continuously tempered Hamiltonian Monte Carlo
+                <small>2017/08</small> Continuously tempered Hamiltonian Monte Carlo
               </h4>
               <p class='published-in'>
                 <a href='http://auai.org/uai2017/schedule.php'>33rd Conference on Uncertainty in Artificial Intelligence</a>
@@ -448,7 +507,7 @@
             </li>
             <li class="publication">
               <h4>
-                <small>07/2017</small> Inference in implicit generative models
+                <small>2017/07</small> Inference in implicit generative models
               </h4>
               <p class='published-in'>
                 Seminar at School of Mathematics and Statistics, University of Newcastle
@@ -461,7 +520,7 @@
             </li>
             <li class="publication">
               <h4>
-                <small>04/2017</small> Asymptotically exact inference in differentiable generative models
+                <small>2017/04</small> Asymptotically exact inference in differentiable generative models
               </h4>
               <p class='published-in'>
                 <a href='http://www.aistats.org'>20th International Conference on Artificial Intelligence and Statistics</a>
@@ -474,7 +533,7 @@
             </li>
             <li class="publication">
               <h4>
-                <small>02/2017</small> Inference in differentiable generative models
+                <small>2017/02</small> Inference in differentiable generative models
               </h4>
               <p class='published-in'>
                 <a href='https://www.birs.ca/events/2017/5-day-workshops/17w5025'>BIRS workshop: Validating and Expanding Approximate Bayesian Computation Methods</a>
@@ -490,7 +549,7 @@
             </li>
             <li class="publication">
               <h4>
-                <small>12/2016</small> Continuously tempered Hamiltonian Monte Carlo
+                <small>2016/12</small> Continuously tempered Hamiltonian Monte Carlo
               </h4>
               <p class='published-in'>
                 <a href='http://approximateinference.org/'>NIPS 2016 workshop: Advances in Approximate Bayesian Inference</a>
