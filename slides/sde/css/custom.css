@@ -1,0 +1,250 @@
+.reveal {
+  font-family: Roboto, Helvetica, sans-serif;
+  font-weight: 400;
+}
+
+.fragment.current-visible-alt.visible:not(.current-fragment) {
+    display: none;
+    height:0px;
+    line-height: 0px;
+    font-size: 0px;
+    margin: 0;
+    padding: 0;
+}
+
+.reveal a.ref {
+  font-family: Roboto Condensed, Helvetica, sans-serif;
+  font-size: 25pt;
+  font-weight: 400 !important;
+  text-transform: uppercase !important;
+}
+
+.reveal ul.reference-list {
+    font-size: 75%;
+    list-style-type: none;
+}
+
+.reveal ul.reference-list li:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.reveal ul.reference-list .ref {
+    text-transform: uppercase !important;
+    font-family: Roboto Condensed, Helvetica, sans-serif;
+    font-size: 90% !important;
+}
+
+.reveal .slides h1,
+.reveal .slides h2,
+.reveal .slides h3,
+.reveal .slides h4 {
+  font-weight: normal;
+}
+
+.reveal .slides h1,
+.reveal .slides h3 {
+  color: #444;
+  line-height: 1.1;
+}
+
+.reveal .slides h2,
+.reveal .slides h4 {
+  color: #468;
+  line-height: 1.1;
+}
+
+.reveal .slides h1,
+.reveal .slides h2 {
+  font-family: Roboto Condensed, Helvetica, sans-serif;
+  text-transform: none;
+}
+
+.reveal .slides h3,
+.reveal .slides h4 {
+  font-family: Roboto, Helvetica, sans-serif;
+  text-transform: none;
+}
+
+.reveal .slide-number { top: 8px; bottom: inherit;}
+
+.reveal .slides h1 { font-size: 170%;}
+.reveal .slides h2 { font-size: 150%;}
+.reveal .slides h3 { font-size: 120%;}
+
+
+.reveal .image-table td {
+    border: none;
+    vertical-align: middle;
+}
+
+.reveal .image-table td img {
+    max-width: none;
+    max-height: none;
+    vertical-align: middle;
+}
+
+.reveal .align-table td {
+  border: none;
+  text-align: center;
+  font-size: 70%;
+}
+
+.reveal .observed {
+  color: red;
+}
+
+.reveal .latent {
+  color: steelblue;
+}
+
+.reveal .input {
+  color: green;
+}
+
+.reveal section .title-banner {
+  position: relative;
+  top: 120px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-top: solid 1px #888;
+  border-bottom: solid 1px #888;
+}
+
+.reveal section .title-heading {
+  color: #0c2f59;
+  font-size: 180%;
+  margin: 0;
+}
+
+.reveal section img {
+  border: none;
+  box-shadow: none;
+  margin: 0;
+}
+
+
+.reveal .img-caption {
+  font-size: 60%;
+  display: none;
+}
+
+.reveal .img-row {
+  margin: auto;
+  text-align: center;
+}
+
+.reveal .img-col {
+  margin: 0;
+  display: inline-block;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+html.dim-bg .slide-background.present {
+  opacity: 0.5 !important;
+}
+
+html.dim-bg-2 .slide-background.present {
+  opacity: 0.2 !important;
+}
+
+html.dim-bg-video .slide-background video {
+  opacity: 0.5 !important;
+}
+
+.reveal small {
+  font-size: 0.6em;
+  color: #888;
+  vertical-align: baseline !important;
+  text-transform: none !important;
+  font-weight: normal !important;
+}
+
+.reveal section .invisible {
+  display: none !important;
+}
+
+.reveal pre {
+    box-shadow: none;
+}
+
+.reveal .slides section .fragment.strong-fade-out {
+  opacity: 1.;
+  visibility: inherit;
+}
+
+.reveal .slides section .fragment.strong-fade-out.visible {
+  opacity: 0.1;
+  visibility: hidden;
+}
+
+.reveal .slides section .fragment.fade-in-then-strong-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.reveal .slides section .fragment.fade-in-then-strong-out.visible {
+  opacity: 0.1;
+  visibility: inherit;
+}
+
+.reveal .slides section .fragment.fade-in-then-strong-out.current-fragment {
+  opacity: 1;
+  visibility: inherit;
+}
+
+div.half-column {
+  float: left;
+  width: 50%;
+  overflow: hidden;
+  text-align: center;
+}
+
+div.third-column {
+  float: left;
+  width: 33%;
+  text-align: center;
+}
+
+div.two-third-column {
+  float: left;
+  width: 66%;
+  text-align: center;
+}
+
+div.img-row {
+  margin: 10px;
+  vertical-align: middle;
+}
+
+div.img-row img {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+span.ref {
+  font-size: 80%;
+  color: #333;
+}
+
+.reveal pre.small-code code {
+    font-size: 85%;
+    overflow: hidden;
+}
+
+
+.reveal blockquote {
+    text-align: justify;
+    width: 88%;
+    margin-left: 60px;
+    padding: 0px;
+    font-style: italic;
+    border-left: 5px solid #ddd;
+    box-shadow: None;
+}
+
+.reveal blockquote p {
+    padding: 0px;
+    margin: 0px;
+    margin-left: 20px;
+    font-size: 80%;
+}

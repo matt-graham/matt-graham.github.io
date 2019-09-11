@@ -1,0 +1,2380 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:xhtml="http://www.w3.org/1999/xhtml"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   width="611"
+   height="201"
+   viewBox="-0.5 -0.5 611 201"
+   id="svg188"
+   sodipodi:docname="exact-joint-model-factor-graph.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <metadata
+     id="metadata192">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1038"
+     id="namedview190"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="0.81380576"
+     inkscape:cx="293.9133"
+     inkscape:cy="111.41497"
+     inkscape:window-x="280"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g186" />
+  <defs
+     id="defs2" />
+  <g
+     id="g186"
+     transform="translate(-48)">
+    <g
+       transform="translate(32.5,112.5)"
+       id="g8">
+      <switch
+         id="switch6">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="51"
+           height="15"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 52px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;white-space:normal;">
+              <xhtml:font
+                 style="font-size: 14px">
+                <xhtml:span
+                   class="MathJax_Preview"
+                   style="color: inherit;" />
+                <xhtml:div
+                   class="MathJax_Display"
+                   style="text-align: center;">
+                  <xhtml:span
+                     class="MathJax"
+                     id="MathJax-Element-159-Frame"
+                     tabindex="0"
+                     style="text-align: center;">
+                    <xhtml:nobr>
+                      <xhtml:span
+                         class="math"
+                         id="MathJax-Span-1434"
+                         style="width: 0.658em; display: inline-block;">
+                        <xhtml:span
+                           style="display: inline-block; position: relative; width: 0.539em; height: 0px; font-size: 120%;">
+                          <xhtml:span
+                             style="position: absolute; clip: rect(1.551em, 1000.54em, 2.324em, -999.997em); top: -2.14em; left: 0em;">
+                            <xhtml:span
+                               class="mrow"
+                               id="MathJax-Span-1435">
+                              <xhtml:span
+                                 class="mi"
+                                 id="MathJax-Span-1436"
+                                 style="font-family: MathJax_Math; font-style: italic;">ν<xhtml:span
+   style="display: inline-block; overflow: hidden; height: 1px; width: 0.063em;" />
+</xhtml:span>
+                            </xhtml:span>
+                            <xhtml:span
+                               style="display: inline-block; width: 0px; height: 2.146em;" />
+                          </xhtml:span>
+                        </xhtml:span>
+                        <xhtml:span
+                           style="display: inline-block; overflow: hidden; vertical-align: -0.068em; border-left: 0px solid; width: 0px; height: 0.646em;" />
+                      </xhtml:span>
+                    </xhtml:nobr>
+                  </xhtml:span>
+                </xhtml:div>
+                <xhtml:script
+                   type="math/tex; mode=display"
+                   id="MathJax-Element-159">\nu</xhtml:script>
+              </xhtml:font>
+            </xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="26"
+           y="14"
+           font-size="12px"
+           id="text4"
+           style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">[Not supported by viewer]</text>
+      </switch>
+    </g>
+    <circle
+       cx="98"
+       cy="100"
+       pointer-events="none"
+       id="ellipse10"
+       r="20"
+       style="fill:#ffffff;stroke:#000000" />
+    <g
+       transform="translate(1.5,92.5)"
+       id="g16">
+      <switch
+         id="switch14">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="193"
+           height="15"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 194px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;white-space:normal;">
+              <xhtml:font
+                 style="font-size: 14px">
+                <xhtml:span
+                   class="MathJax_Preview"
+                   style="color: inherit;" />
+                <xhtml:div
+                   class="MathJax_Display"
+                   style="text-align: center;">
+                  <xhtml:span
+                     class="MathJax"
+                     id="MathJax-Element-160-Frame"
+                     tabindex="0"
+                     style="text-align: center;">
+                    <xhtml:nobr>
+                      <xhtml:span
+                         class="math"
+                         id="MathJax-Span-1437"
+                         style="width: 1.193em; display: inline-block;">
+                        <xhtml:span
+                           style="display: inline-block; position: relative; width: 0.955em; height: 0px; font-size: 120%;">
+                          <xhtml:span
+                             style="position: absolute; clip: rect(1.491em, 1000.96em, 2.503em, -999.997em); top: -2.14em; left: 0em;">
+                            <xhtml:span
+                               class="mrow"
+                               id="MathJax-Span-1438">
+                              <xhtml:span
+                                 class="msubsup"
+                                 id="MathJax-Span-1439">
+                                <xhtml:span
+                                   style="display: inline-block; position: relative; width: 0.955em; height: 0px;">
+                                <xhtml:span
+                                   style="position: absolute; clip: rect(3.336em, 1000.48em, 4.17em, -999.997em); top: -3.985em; left: 0em;">
+                                <xhtml:span
+                                   class="texatom"
+                                   id="MathJax-Span-1440">
+                                <xhtml:span
+                                   class="mrow"
+                                   id="MathJax-Span-1441">
+                                <xhtml:span
+                                   class="mi"
+                                   id="MathJax-Span-1442"
+                                   style="font-family: MathJax_SansSerif; font-weight: bold;">x</xhtml:span>
+                                </xhtml:span>
+                                </xhtml:span>
+                                <xhtml:span
+                                   style="display: inline-block; width: 0px; height: 3.991em;" />
+                                </xhtml:span>
+                                <xhtml:span
+                                   style="position: absolute; top: -3.807em; left: 0.479em;">
+                                <xhtml:span
+                                   class="mn"
+                                   id="MathJax-Span-1443"
+                                   style="font-size: 70.7%; font-family: MathJax_Main;">0</xhtml:span>
+                                <xhtml:span
+                                   style="display: inline-block; width: 0px; height: 3.991em;" />
+                                </xhtml:span>
+                                </xhtml:span>
+                              </xhtml:span>
+                            </xhtml:span>
+                            <xhtml:span
+                               style="display: inline-block; width: 0px; height: 2.146em;" />
+                          </xhtml:span>
+                        </xhtml:span>
+                        <xhtml:span
+                           style="display: inline-block; overflow: hidden; vertical-align: -0.282em; border-left: 0px solid; width: 0px; height: 0.861em;" />
+                      </xhtml:span>
+                    </xhtml:nobr>
+                  </xhtml:span>
+                </xhtml:div>
+                <xhtml:script
+                   type="math/tex; mode=display"
+                   id="MathJax-Element-160">\boldsymbol{\mathsf{x}}_0</xhtml:script>
+              </xhtml:font>
+            </xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="97"
+           y="14"
+           font-size="12px"
+           id="text12"
+           style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">&lt;font style=&quot;font-size: 14px&quot;&gt;<xhtml:span
+   class="MathJax_Preview"
+   style="color: inherit;" />
+<xhtml:div
+   class="MathJax_Display"
+   style="text-align: center;">
+  <xhtml:span
+     class="MathJax"
+     id="MathJax-Element-161-Frame"
+     tabindex="0"
+     style="text-align: center;">
+    <xhtml:nobr>
+      <xhtml:span
+         class="math"
+         id="MathJax-Span-1444"
+         style="width: 1.193em; display: inline-block;">
+        <xhtml:span
+           style="display: inline-block; position: relative; width: 0.955em; height: 0px; font-size: 120%;">
+          <xhtml:span
+             style="position: absolute; clip: rect(1.491em, 1000.96em, 2.503em, -999.997em); top: -2.14em; left: 0em;">
+            <xhtml:span
+               class="mrow"
+               id="MathJax-Span-1445">
+              <xhtml:span
+                 class="msubsup"
+                 id="MathJax-Span-1446">
+                <xhtml:span
+                   style="display: inline-block; position: relative; width: 0.955em; height: 0px;">
+                  <xhtml:span
+                     style="position: absolute; clip: rect(3.336em, 1000.48em, 4.17em, -999.997em); top: -3.985em; left: 0em;">
+                    <xhtml:span
+                       class="texatom"
+                       id="MathJax-Span-1447">
+                      <xhtml:span
+                         class="mrow"
+                         id="MathJax-Span-1448">
+                        <xhtml:span
+                           class="mi"
+                           id="MathJax-Span-1449"
+                           style="font-family: MathJax_SansSerif; font-weight: bold;">x</xhtml:span>
+                      </xhtml:span>
+                    </xhtml:span>
+                    <xhtml:span
+                       style="display: inline-block; width: 0px; height: 3.991em;" />
+                  </xhtml:span>
+                  <xhtml:span
+                     style="position: absolute; top: -3.807em; left: 0.479em;">
+                    <xhtml:span
+                       class="mn"
+                       id="MathJax-Span-1450"
+                       style="font-size: 70.7%; font-family: MathJax_Main;">0</xhtml:span>
+                    <xhtml:span
+                       style="display: inline-block; width: 0px; height: 3.991em;" />
+                  </xhtml:span>
+                </xhtml:span>
+              </xhtml:span>
+            </xhtml:span>
+            <xhtml:span
+               style="display: inline-block; width: 0px; height: 2.146em;" />
+          </xhtml:span>
+        </xhtml:span>
+        <xhtml:span
+           style="display: inline-block; overflow: hidden; vertical-align: -0.282em; border-left: 0px solid; width: 0px; height: 0.861em;" />
+      </xhtml:span>
+    </xhtml:nobr>
+  </xhtml:span>
+</xhtml:div>
+<xhtml:script
+   type="math/tex; mode=display"
+   id="MathJax-Element-161">\boldsymbol{\mathsf{x}}_0</xhtml:script>
+&lt;/font&gt;</text>
+      </switch>
+    </g>
+    <path
+       d="m 63,100 h 8.63"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path18"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+    <path
+       d="m 76.88,100 -7,3.5 1.75,-3.5 -1.75,-3.5 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path20"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-miterlimit:10" />
+    <rect
+       x="48"
+       y="92.5"
+       width="15"
+       height="15"
+       pointer-events="none"
+       id="rect22"
+       style="fill:#000000;stroke:#000000" />
+    <path
+       d="m 118,100 h 53"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path24"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+    <path
+       d="m 279,100 h 52"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path26"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+    <circle
+       cx="258.5"
+       cy="100"
+       pointer-events="none"
+       id="ellipse28"
+       r="20"
+       style="fill:#ffffff;stroke:#000000" />
+    <g
+       transform="translate(147.5,92.5)"
+       id="g34">
+      <switch
+         id="switch32">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="222"
+           height="15"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 223px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;white-space:normal;">
+              <xhtml:font
+                 style="font-size: 14px">
+                <xhtml:span
+                   class="MathJax_Preview"
+                   style="color: inherit;" />
+                <xhtml:div
+                   class="MathJax_Display"
+                   style="text-align: center;">
+                  <xhtml:span
+                     class="MathJax"
+                     id="MathJax-Element-162-Frame"
+                     tabindex="0"
+                     style="text-align: center;">
+                    <xhtml:nobr>
+                      <xhtml:span
+                         class="math"
+                         id="MathJax-Span-1451"
+                         style="width: 1.432em; display: inline-block;">
+                        <xhtml:span
+                           style="display: inline-block; position: relative; width: 1.193em; height: 0px; font-size: 120%;">
+                          <xhtml:span
+                             style="position: absolute; clip: rect(1.491em, 1001.19em, 2.503em, -999.997em); top: -2.14em; left: 0em;">
+                            <xhtml:span
+                               class="mrow"
+                               id="MathJax-Span-1452">
+                              <xhtml:span
+                                 class="msubsup"
+                                 id="MathJax-Span-1453">
+                                <xhtml:span
+                                   style="display: inline-block; position: relative; width: 1.193em; height: 0px;">
+                                <xhtml:span
+                                   style="position: absolute; clip: rect(3.336em, 1000.48em, 4.17em, -999.997em); top: -3.985em; left: 0em;">
+                                <xhtml:span
+                                   class="texatom"
+                                   id="MathJax-Span-1454">
+                                <xhtml:span
+                                   class="mrow"
+                                   id="MathJax-Span-1455">
+                                <xhtml:span
+                                   class="mi"
+                                   id="MathJax-Span-1456"
+                                   style="font-family: MathJax_SansSerif; font-weight: bold;">x</xhtml:span>
+                                </xhtml:span>
+                                </xhtml:span>
+                                <xhtml:span
+                                   style="display: inline-block; width: 0px; height: 3.991em;" />
+                                </xhtml:span>
+                                <xhtml:span
+                                   style="position: absolute; top: -3.807em; left: 0.479em;">
+                                <xhtml:span
+                                   class="mi"
+                                   id="MathJax-Span-1457"
+                                   style="font-size: 70.7%; font-family: MathJax_Main;">Δ</xhtml:span>
+                                <xhtml:span
+                                   style="display: inline-block; width: 0px; height: 3.991em;" />
+                                </xhtml:span>
+                                </xhtml:span>
+                              </xhtml:span>
+                            </xhtml:span>
+                            <xhtml:span
+                               style="display: inline-block; width: 0px; height: 2.146em;" />
+                          </xhtml:span>
+                        </xhtml:span>
+                        <xhtml:span
+                           style="display: inline-block; overflow: hidden; vertical-align: -0.282em; border-left: 0px solid; width: 0px; height: 0.861em;" />
+                      </xhtml:span>
+                    </xhtml:nobr>
+                  </xhtml:span>
+                </xhtml:div>
+                <xhtml:script
+                   type="math/tex; mode=display"
+                   id="MathJax-Element-162">\boldsymbol{\mathsf{x}}_\Delta</xhtml:script>
+              </xhtml:font>
+            </xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="111"
+           y="14"
+           font-size="12px"
+           id="text30"
+           style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">&lt;font style=&quot;font-size: 14px&quot;&gt;<xhtml:span
+   class="MathJax_Preview"
+   style="color: inherit;" />
+<xhtml:div
+   class="MathJax_Display"
+   style="text-align: center;">
+  <xhtml:span
+     class="MathJax"
+     id="MathJax-Element-163-Frame"
+     tabindex="0"
+     style="text-align: center;">
+    <xhtml:nobr>
+      <xhtml:span
+         class="math"
+         id="MathJax-Span-1458"
+         style="width: 1.432em; display: inline-block;">
+        <xhtml:span
+           style="display: inline-block; position: relative; width: 1.193em; height: 0px; font-size: 120%;">
+          <xhtml:span
+             style="position: absolute; clip: rect(1.491em, 1001.19em, 2.503em, -999.997em); top: -2.14em; left: 0em;">
+            <xhtml:span
+               class="mrow"
+               id="MathJax-Span-1459">
+              <xhtml:span
+                 class="msubsup"
+                 id="MathJax-Span-1460">
+                <xhtml:span
+                   style="display: inline-block; position: relative; width: 1.193em; height: 0px;">
+                  <xhtml:span
+                     style="position: absolute; clip: rect(3.336em, 1000.48em, 4.17em, -999.997em); top: -3.985em; left: 0em;">
+                    <xhtml:span
+                       class="texatom"
+                       id="MathJax-Span-1461">
+                      <xhtml:span
+                         class="mrow"
+                         id="MathJax-Span-1462">
+                        <xhtml:span
+                           class="mi"
+                           id="MathJax-Span-1463"
+                           style="font-family: MathJax_SansSerif; font-weight: bold;">x</xhtml:span>
+                      </xhtml:span>
+                    </xhtml:span>
+                    <xhtml:span
+                       style="display: inline-block; width: 0px; height: 3.991em;" />
+                  </xhtml:span>
+                  <xhtml:span
+                     style="position: absolute; top: -3.807em; left: 0.479em;">
+                    <xhtml:span
+                       class="mi"
+                       id="MathJax-Span-1464"
+                       style="font-size: 70.7%; font-family: MathJax_Main;">Δ</xhtml:span>
+                    <xhtml:span
+                       style="display: inline-block; width: 0px; height: 3.991em;" />
+                  </xhtml:span>
+                </xhtml:span>
+              </xhtml:span>
+            </xhtml:span>
+            <xhtml:span
+               style="display: inline-block; width: 0px; height: 2.146em;" />
+          </xhtml:span>
+        </xhtml:span>
+        <xhtml:span
+           style="display: inline-block; overflow: hidden; vertical-align: -0.282em; border-left: 0px solid; width: 0px; height: 0.861em;" />
+      </xhtml:span>
+    </xhtml:nobr>
+  </xhtml:span>
+</xhtml:div>
+<xhtml:script
+   type="math/tex; mode=display"
+   id="MathJax-Element-163">\boldsymbol{\mathsf{x}}_\Delta</xhtml:script>
+&lt;/font&gt;</text>
+      </switch>
+    </g>
+    <path
+       d="m 638,120 v 12"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path36"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+    <circle
+       cx="638"
+       cy="100"
+       pointer-events="none"
+       id="ellipse38"
+       r="20"
+       style="fill:#ffffff;stroke:#000000" />
+    <g
+       transform="translate(496.5,92.5)"
+       id="g44">
+      <switch
+         id="switch42">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="283"
+           height="15"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 284px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;white-space:normal;">
+              <xhtml:font
+                 style="font-size: 14px">
+                <xhtml:span
+                   class="MathJax_Preview"
+                   style="color: inherit;" />
+                <xhtml:div
+                   class="MathJax_Display"
+                   style="text-align: center;">
+                  <xhtml:span
+                     class="MathJax"
+                     id="MathJax-Element-164-Frame"
+                     tabindex="0"
+                     style="text-align: center;">
+                    <xhtml:nobr>
+                      <xhtml:span
+                         class="math"
+                         id="MathJax-Span-1465"
+                         style="width: 1.908em; display: inline-block;">
+                        <xhtml:span
+                           style="display: inline-block; position: relative; width: 1.551em; height: 0px; font-size: 120%;">
+                          <xhtml:span
+                             style="position: absolute; clip: rect(1.491em, 1001.55em, 2.503em, -999.997em); top: -2.14em; left: 0em;">
+                            <xhtml:span
+                               class="mrow"
+                               id="MathJax-Span-1466">
+                              <xhtml:span
+                                 class="msubsup"
+                                 id="MathJax-Span-1467">
+                                <xhtml:span
+                                   style="display: inline-block; position: relative; width: 1.551em; height: 0px;">
+                                <xhtml:span
+                                   style="position: absolute; clip: rect(3.336em, 1000.48em, 4.17em, -999.997em); top: -3.985em; left: 0em;">
+                                <xhtml:span
+                                   class="texatom"
+                                   id="MathJax-Span-1468">
+                                <xhtml:span
+                                   class="mrow"
+                                   id="MathJax-Span-1469">
+                                <xhtml:span
+                                   class="mi"
+                                   id="MathJax-Span-1470"
+                                   style="font-family: MathJax_SansSerif; font-weight: bold;">x</xhtml:span>
+                                </xhtml:span>
+                                </xhtml:span>
+                                <xhtml:span
+                                   style="display: inline-block; width: 0px; height: 3.991em;" />
+                                </xhtml:span>
+                                <xhtml:span
+                                   style="position: absolute; top: -3.807em; left: 0.479em;">
+                                <xhtml:span
+                                   class="texatom"
+                                   id="MathJax-Span-1471">
+                                <xhtml:span
+                                   class="mrow"
+                                   id="MathJax-Span-1472">
+                                <xhtml:span
+                                   class="texatom"
+                                   id="MathJax-Span-1473">
+                                <xhtml:span
+                                   class="mrow"
+                                   id="MathJax-Span-1474">
+                                <xhtml:span
+                                   class="mtext"
+                                   id="MathJax-Span-1475"
+                                   style="font-size: 70.7%; font-family: MathJax_Typewriter;">T</xhtml:span>
+                                </xhtml:span>
+                                </xhtml:span>
+                                <xhtml:span
+                                   class="mi"
+                                   id="MathJax-Span-1476"
+                                   style="font-size: 70.7%; font-family: MathJax_Main; margin-left: -0.4em;">Δ</xhtml:span>
+                                </xhtml:span>
+                                </xhtml:span>
+                                <xhtml:span
+                                   style="display: inline-block; width: 0px; height: 3.991em;" />
+                                </xhtml:span>
+                                </xhtml:span>
+                              </xhtml:span>
+                            </xhtml:span>
+                            <xhtml:span
+                               style="display: inline-block; width: 0px; height: 2.146em;" />
+                          </xhtml:span>
+                        </xhtml:span>
+                        <xhtml:span
+                           style="display: inline-block; overflow: hidden; vertical-align: -0.282em; border-left: 0px solid; width: 0px; height: 0.861em;" />
+                      </xhtml:span>
+                    </xhtml:nobr>
+                  </xhtml:span>
+                </xhtml:div>
+                <xhtml:script
+                   type="math/tex; mode=display"
+                   id="MathJax-Element-164">\boldsymbol{\mathsf{x}}_{\texttt{T}\Delta}</xhtml:script>
+              </xhtml:font>
+            </xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="142"
+           y="14"
+           font-size="12px"
+           id="text40"
+           style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">&lt;font style=&quot;font-size: 14px&quot;&gt;<xhtml:span
+   class="MathJax_Preview"
+   style="color: inherit;" />
+<xhtml:div
+   class="MathJax_Display"
+   style="text-align: center;">
+  <xhtml:span
+     class="MathJax"
+     id="MathJax-Element-165-Frame"
+     tabindex="0"
+     style="text-align: center;">
+    <xhtml:nobr>
+      <xhtml:span
+         class="math"
+         id="MathJax-Span-1477"
+         style="width: 1.908em; display: inline-block;">
+        <xhtml:span
+           style="display: inline-block; position: relative; width: 1.551em; height: 0px; font-size: 120%;">
+          <xhtml:span
+             style="position: absolute; clip: rect(1.491em, 1001.55em, 2.503em, -999.997em); top: -2.14em; left: 0em;">
+            <xhtml:span
+               class="mrow"
+               id="MathJax-Span-1478">
+              <xhtml:span
+                 class="msubsup"
+                 id="MathJax-Span-1479">
+                <xhtml:span
+                   style="display: inline-block; position: relative; width: 1.551em; height: 0px;">
+                  <xhtml:span
+                     style="position: absolute; clip: rect(3.336em, 1000.48em, 4.17em, -999.997em); top: -3.985em; left: 0em;">
+                    <xhtml:span
+                       class="texatom"
+                       id="MathJax-Span-1480">
+                      <xhtml:span
+                         class="mrow"
+                         id="MathJax-Span-1481">
+                        <xhtml:span
+                           class="mi"
+                           id="MathJax-Span-1482"
+                           style="font-family: MathJax_SansSerif; font-weight: bold;">x</xhtml:span>
+                      </xhtml:span>
+                    </xhtml:span>
+                    <xhtml:span
+                       style="display: inline-block; width: 0px; height: 3.991em;" />
+                  </xhtml:span>
+                  <xhtml:span
+                     style="position: absolute; top: -3.807em; left: 0.479em;">
+                    <xhtml:span
+                       class="texatom"
+                       id="MathJax-Span-1483">
+                      <xhtml:span
+                         class="mrow"
+                         id="MathJax-Span-1484">
+                        <xhtml:span
+                           class="texatom"
+                           id="MathJax-Span-1485">
+                          <xhtml:span
+                             class="mrow"
+                             id="MathJax-Span-1486">
+                            <xhtml:span
+                               class="mtext"
+                               id="MathJax-Span-1487"
+                               style="font-size: 70.7%; font-family: MathJax_Typewriter;">T</xhtml:span>
+                          </xhtml:span>
+                        </xhtml:span>
+                        <xhtml:span
+                           class="mi"
+                           id="MathJax-Span-1488"
+                           style="font-size: 70.7%; font-family: MathJax_Main;">Δ</xhtml:span>
+                      </xhtml:span>
+                    </xhtml:span>
+                    <xhtml:span
+                       style="display: inline-block; width: 0px; height: 3.991em;" />
+                  </xhtml:span>
+                </xhtml:span>
+              </xhtml:span>
+            </xhtml:span>
+            <xhtml:span
+               style="display: inline-block; width: 0px; height: 2.146em;" />
+          </xhtml:span>
+        </xhtml:span>
+        <xhtml:span
+           style="display: inline-block; overflow: hidden; vertical-align: -0.282em; border-left: 0px solid; width: 0px; height: 0.861em;" />
+      </xhtml:span>
+    </xhtml:nobr>
+  </xhtml:span>
+</xhtml:div>
+<xhtml:script
+   type="math/tex; mode=display"
+   id="MathJax-Element-165">\boldsymbol{\mathsf{x}}_{\texttt{T}\Delta}</xhtml:script>
+&lt;/font&gt;</text>
+      </switch>
+    </g>
+    <circle
+       cx="258.5"
+       cy="180"
+       pointer-events="none"
+       id="ellipse46"
+       r="20"
+       style="fill:#cccccc;stroke:#000000" />
+    <g
+       transform="translate(161.5,172.5)"
+       id="g52">
+      <switch
+         id="switch50">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="193"
+           height="15"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 194px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;white-space:normal;">
+              <xhtml:font
+                 style="font-size: 14px">
+                <xhtml:span
+                   class="MathJax_Preview"
+                   style="color: inherit;" />
+                <xhtml:div
+                   class="MathJax_Display"
+                   style="text-align: center;">
+                  <xhtml:span
+                     class="MathJax"
+                     id="MathJax-Element-166-Frame"
+                     tabindex="0"
+                     style="text-align: center;">
+                    <xhtml:nobr>
+                      <xhtml:span
+                         class="math"
+                         id="MathJax-Span-1489"
+                         style="width: 1.193em; display: inline-block;">
+                        <xhtml:span
+                           style="display: inline-block; position: relative; width: 0.955em; height: 0px; font-size: 120%;">
+                          <xhtml:span
+                             style="position: absolute; clip: rect(1.491em, 1000.96em, 2.562em, -999.997em); top: -2.14em; left: 0em;">
+                            <xhtml:span
+                               class="mrow"
+                               id="MathJax-Span-1490">
+                              <xhtml:span
+                                 class="msubsup"
+                                 id="MathJax-Span-1491">
+                                <xhtml:span
+                                   style="display: inline-block; position: relative; width: 0.955em; height: 0px;">
+                                <xhtml:span
+                                   style="position: absolute; clip: rect(3.336em, 1000.48em, 4.348em, -999.997em); top: -3.985em; left: 0em;">
+                                <xhtml:span
+                                   class="texatom"
+                                   id="MathJax-Span-1492">
+                                <xhtml:span
+                                   class="mrow"
+                                   id="MathJax-Span-1493">
+                                <xhtml:span
+                                   class="mi"
+                                   id="MathJax-Span-1494"
+                                   style="font-family: MathJax_SansSerif; font-weight: bold;">y</xhtml:span>
+                                </xhtml:span>
+                                </xhtml:span>
+                                <xhtml:span
+                                   style="display: inline-block; width: 0px; height: 3.991em;" />
+                                </xhtml:span>
+                                <xhtml:span
+                                   style="position: absolute; top: -3.747em; left: 0.479em;">
+                                <xhtml:span
+                                   class="mn"
+                                   id="MathJax-Span-1495"
+                                   style="font-size: 70.7%; font-family: MathJax_Main;">1</xhtml:span>
+                                <xhtml:span
+                                   style="display: inline-block; width: 0px; height: 3.991em;" />
+                                </xhtml:span>
+                                </xhtml:span>
+                              </xhtml:span>
+                            </xhtml:span>
+                            <xhtml:span
+                               style="display: inline-block; width: 0px; height: 2.146em;" />
+                          </xhtml:span>
+                        </xhtml:span>
+                        <xhtml:span
+                           style="display: inline-block; overflow: hidden; vertical-align: -0.354em; border-left: 0px solid; width: 0px; height: 1.004em;" />
+                      </xhtml:span>
+                    </xhtml:nobr>
+                  </xhtml:span>
+                </xhtml:div>
+                <xhtml:script
+                   type="math/tex; mode=display"
+                   id="MathJax-Element-166">\boldsymbol{\mathsf{y}}_1</xhtml:script>
+              </xhtml:font>
+            </xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="97"
+           y="14"
+           font-size="12px"
+           id="text48"
+           style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">&lt;font style=&quot;font-size: 14px&quot;&gt;<xhtml:span
+   class="MathJax_Preview"
+   style="color: inherit;" />
+<xhtml:div
+   class="MathJax_Display"
+   style="text-align: center;">
+  <xhtml:span
+     class="MathJax"
+     id="MathJax-Element-167-Frame"
+     tabindex="0"
+     style="text-align: center;">
+    <xhtml:nobr>
+      <xhtml:span
+         class="math"
+         id="MathJax-Span-1496"
+         style="width: 1.193em; display: inline-block;">
+        <xhtml:span
+           style="display: inline-block; position: relative; width: 0.955em; height: 0px; font-size: 120%;">
+          <xhtml:span
+             style="position: absolute; clip: rect(1.491em, 1000.96em, 2.562em, -999.997em); top: -2.14em; left: 0em;">
+            <xhtml:span
+               class="mrow"
+               id="MathJax-Span-1497">
+              <xhtml:span
+                 class="msubsup"
+                 id="MathJax-Span-1498">
+                <xhtml:span
+                   style="display: inline-block; position: relative; width: 0.955em; height: 0px;">
+                  <xhtml:span
+                     style="position: absolute; clip: rect(3.336em, 1000.48em, 4.348em, -999.997em); top: -3.985em; left: 0em;">
+                    <xhtml:span
+                       class="texatom"
+                       id="MathJax-Span-1499">
+                      <xhtml:span
+                         class="mrow"
+                         id="MathJax-Span-1500">
+                        <xhtml:span
+                           class="mi"
+                           id="MathJax-Span-1501"
+                           style="font-family: MathJax_SansSerif; font-weight: bold;">y</xhtml:span>
+                      </xhtml:span>
+                    </xhtml:span>
+                    <xhtml:span
+                       style="display: inline-block; width: 0px; height: 3.991em;" />
+                  </xhtml:span>
+                  <xhtml:span
+                     style="position: absolute; top: -3.747em; left: 0.479em;">
+                    <xhtml:span
+                       class="mn"
+                       id="MathJax-Span-1502"
+                       style="font-size: 70.7%; font-family: MathJax_Main;">1</xhtml:span>
+                    <xhtml:span
+                       style="display: inline-block; width: 0px; height: 3.991em;" />
+                  </xhtml:span>
+                </xhtml:span>
+              </xhtml:span>
+            </xhtml:span>
+            <xhtml:span
+               style="display: inline-block; width: 0px; height: 2.146em;" />
+          </xhtml:span>
+        </xhtml:span>
+        <xhtml:span
+           style="display: inline-block; overflow: hidden; vertical-align: -0.354em; border-left: 0px solid; width: 0px; height: 1.004em;" />
+      </xhtml:span>
+    </xhtml:nobr>
+  </xhtml:span>
+</xhtml:div>
+<xhtml:script
+   type="math/tex; mode=display"
+   id="MathJax-Element-167">\boldsymbol{\mathsf{y}}_1</xhtml:script>
+&lt;/font&gt;</text>
+      </switch>
+    </g>
+    <path
+       d="m 418,120 v 12"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path54"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+    <circle
+       cx="418"
+       cy="100"
+       pointer-events="none"
+       id="ellipse56"
+       r="20"
+       style="fill:#ffffff;stroke:#000000" />
+    <g
+       transform="translate(298.5,92.5)"
+       id="g62">
+      <switch
+         id="switch60">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="239"
+           height="15"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 240px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;white-space:normal;">
+              <xhtml:font
+                 style="font-size: 14px">
+                <xhtml:span
+                   class="MathJax_Preview"
+                   style="color: inherit;" />
+                <xhtml:div
+                   class="MathJax_Display"
+                   style="text-align: center;">
+                  <xhtml:span
+                     class="MathJax"
+                     id="MathJax-Element-168-Frame"
+                     tabindex="0"
+                     style="text-align: center;">
+                    <xhtml:nobr>
+                      <xhtml:span
+                         class="math"
+                         id="MathJax-Span-1503"
+                         style="width: 1.789em; display: inline-block;">
+                        <xhtml:span
+                           style="display: inline-block; position: relative; width: 1.491em; height: 0px; font-size: 120%;">
+                          <xhtml:span
+                             style="position: absolute; clip: rect(1.491em, 1001.49em, 2.503em, -999.997em); top: -2.14em; left: 0em;">
+                            <xhtml:span
+                               class="mrow"
+                               id="MathJax-Span-1504">
+                              <xhtml:span
+                                 class="msubsup"
+                                 id="MathJax-Span-1505">
+                                <xhtml:span
+                                   style="display: inline-block; position: relative; width: 1.491em; height: 0px;">
+                                <xhtml:span
+                                   style="position: absolute; clip: rect(3.336em, 1000.48em, 4.17em, -999.997em); top: -3.985em; left: 0em;">
+                                <xhtml:span
+                                   class="texatom"
+                                   id="MathJax-Span-1506">
+                                <xhtml:span
+                                   class="mrow"
+                                   id="MathJax-Span-1507">
+                                <xhtml:span
+                                   class="mi"
+                                   id="MathJax-Span-1508"
+                                   style="font-family: MathJax_SansSerif; font-weight: bold;">x</xhtml:span>
+                                </xhtml:span>
+                                </xhtml:span>
+                                <xhtml:span
+                                   style="display: inline-block; width: 0px; height: 3.991em;" />
+                                </xhtml:span>
+                                <xhtml:span
+                                   style="position: absolute; top: -3.807em; left: 0.479em;">
+                                <xhtml:span
+                                   class="texatom"
+                                   id="MathJax-Span-1509">
+                                <xhtml:span
+                                   class="mrow"
+                                   id="MathJax-Span-1510">
+                                <xhtml:span
+                                   class="mn"
+                                   id="MathJax-Span-1511"
+                                   style="font-size: 70.7%; font-family: MathJax_Main;">2Δ</xhtml:span>
+                                </xhtml:span>
+                                </xhtml:span>
+                                <xhtml:span
+                                   style="display: inline-block; width: 0px; height: 3.991em;" />
+                                </xhtml:span>
+                                </xhtml:span>
+                              </xhtml:span>
+                            </xhtml:span>
+                            <xhtml:span
+                               style="display: inline-block; width: 0px; height: 2.146em;" />
+                          </xhtml:span>
+                        </xhtml:span>
+                        <xhtml:span
+                           style="display: inline-block; overflow: hidden; vertical-align: -0.282em; border-left: 0px solid; width: 0px; height: 0.861em;" />
+                      </xhtml:span>
+                    </xhtml:nobr>
+                  </xhtml:span>
+                </xhtml:div>
+                <xhtml:script
+                   type="math/tex; mode=display"
+                   id="MathJax-Element-168">\boldsymbol{\mathsf{x}}_{2\Delta}</xhtml:script>
+              </xhtml:font>
+            </xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="120"
+           y="14"
+           font-size="12px"
+           id="text58"
+           style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">&lt;font style=&quot;font-size: 14px&quot;&gt;<xhtml:span
+   class="MathJax_Preview"
+   style="color: inherit;" />
+<xhtml:div
+   class="MathJax_Display"
+   style="text-align: center;">
+  <xhtml:span
+     class="MathJax"
+     id="MathJax-Element-169-Frame"
+     tabindex="0"
+     style="text-align: center;">
+    <xhtml:nobr>
+      <xhtml:span
+         class="math"
+         id="MathJax-Span-1513"
+         style="width: 1.789em; display: inline-block;">
+        <xhtml:span
+           style="display: inline-block; position: relative; width: 1.491em; height: 0px; font-size: 120%;">
+          <xhtml:span
+             style="position: absolute; clip: rect(1.491em, 1001.49em, 2.503em, -999.997em); top: -2.14em; left: 0em;">
+            <xhtml:span
+               class="mrow"
+               id="MathJax-Span-1514">
+              <xhtml:span
+                 class="msubsup"
+                 id="MathJax-Span-1515">
+                <xhtml:span
+                   style="display: inline-block; position: relative; width: 1.491em; height: 0px;">
+                  <xhtml:span
+                     style="position: absolute; clip: rect(3.336em, 1000.48em, 4.17em, -999.997em); top: -3.985em; left: 0em;">
+                    <xhtml:span
+                       class="texatom"
+                       id="MathJax-Span-1516">
+                      <xhtml:span
+                         class="mrow"
+                         id="MathJax-Span-1517">
+                        <xhtml:span
+                           class="mi"
+                           id="MathJax-Span-1518"
+                           style="font-family: MathJax_SansSerif; font-weight: bold;">x</xhtml:span>
+                      </xhtml:span>
+                    </xhtml:span>
+                    <xhtml:span
+                       style="display: inline-block; width: 0px; height: 3.991em;" />
+                  </xhtml:span>
+                  <xhtml:span
+                     style="position: absolute; top: -3.807em; left: 0.479em;">
+                    <xhtml:span
+                       class="texatom"
+                       id="MathJax-Span-1519">
+                      <xhtml:span
+                         class="mrow"
+                         id="MathJax-Span-1520">
+                        <xhtml:span
+                           class="mn"
+                           id="MathJax-Span-1521"
+                           style="font-size: 70.7%; font-family: MathJax_Main;">2</xhtml:span>
+                        <xhtml:span
+                           class="mi"
+                           id="MathJax-Span-1522"
+                           style="font-size: 70.7%; font-family: MathJax_Main;">Δ</xhtml:span>
+                      </xhtml:span>
+                    </xhtml:span>
+                    <xhtml:span
+                       style="display: inline-block; width: 0px; height: 3.991em;" />
+                  </xhtml:span>
+                </xhtml:span>
+              </xhtml:span>
+            </xhtml:span>
+            <xhtml:span
+               style="display: inline-block; width: 0px; height: 2.146em;" />
+          </xhtml:span>
+        </xhtml:span>
+        <xhtml:span
+           style="display: inline-block; overflow: hidden; vertical-align: -0.282em; border-left: 0px solid; width: 0px; height: 0.861em;" />
+      </xhtml:span>
+    </xhtml:nobr>
+  </xhtml:span>
+</xhtml:div>
+<xhtml:script
+   type="math/tex; mode=display"
+   id="MathJax-Element-169">\boldsymbol{\mathsf{x}}_{2\Delta}</xhtml:script>
+&lt;/font&gt;</text>
+      </switch>
+    </g>
+    <circle
+       cx="418"
+       cy="180"
+       pointer-events="none"
+       id="ellipse64"
+       r="20"
+       style="fill:#cccccc;stroke:#000000" />
+    <g
+       transform="translate(321.5,172.5)"
+       id="g70">
+      <switch
+         id="switch68">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="193"
+           height="15"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 194px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;white-space:normal;">
+              <xhtml:font
+                 style="font-size: 14px">
+                <xhtml:span
+                   class="MathJax_Preview"
+                   style="color: inherit;" />
+                <xhtml:div
+                   class="MathJax_Display"
+                   style="text-align: center;">
+                  <xhtml:span
+                     class="MathJax"
+                     id="MathJax-Element-170-Frame"
+                     tabindex="0"
+                     style="text-align: center;">
+                    <xhtml:nobr>
+                      <xhtml:span
+                         class="math"
+                         id="MathJax-Span-1523"
+                         style="width: 1.193em; display: inline-block;">
+                        <xhtml:span
+                           style="display: inline-block; position: relative; width: 0.955em; height: 0px; font-size: 120%;">
+                          <xhtml:span
+                             style="position: absolute; clip: rect(1.491em, 1000.96em, 2.562em, -999.997em); top: -2.14em; left: 0em;">
+                            <xhtml:span
+                               class="mrow"
+                               id="MathJax-Span-1524">
+                              <xhtml:span
+                                 class="msubsup"
+                                 id="MathJax-Span-1525">
+                                <xhtml:span
+                                   style="display: inline-block; position: relative; width: 0.955em; height: 0px;">
+                                <xhtml:span
+                                   style="position: absolute; clip: rect(3.336em, 1000.48em, 4.348em, -999.997em); top: -3.985em; left: 0em;">
+                                <xhtml:span
+                                   class="texatom"
+                                   id="MathJax-Span-1526">
+                                <xhtml:span
+                                   class="mrow"
+                                   id="MathJax-Span-1527">
+                                <xhtml:span
+                                   class="mi"
+                                   id="MathJax-Span-1528"
+                                   style="font-family: MathJax_SansSerif; font-weight: bold;">y</xhtml:span>
+                                </xhtml:span>
+                                </xhtml:span>
+                                <xhtml:span
+                                   style="display: inline-block; width: 0px; height: 3.991em;" />
+                                </xhtml:span>
+                                <xhtml:span
+                                   style="position: absolute; top: -3.747em; left: 0.479em;">
+                                <xhtml:span
+                                   class="mn"
+                                   id="MathJax-Span-1529"
+                                   style="font-size: 70.7%; font-family: MathJax_Main;">2</xhtml:span>
+                                <xhtml:span
+                                   style="display: inline-block; width: 0px; height: 3.991em;" />
+                                </xhtml:span>
+                                </xhtml:span>
+                              </xhtml:span>
+                            </xhtml:span>
+                            <xhtml:span
+                               style="display: inline-block; width: 0px; height: 2.146em;" />
+                          </xhtml:span>
+                        </xhtml:span>
+                        <xhtml:span
+                           style="display: inline-block; overflow: hidden; vertical-align: -0.354em; border-left: 0px solid; width: 0px; height: 1.004em;" />
+                      </xhtml:span>
+                    </xhtml:nobr>
+                  </xhtml:span>
+                </xhtml:div>
+                <xhtml:script
+                   type="math/tex; mode=display"
+                   id="MathJax-Element-170">\boldsymbol{\mathsf{y}}_2</xhtml:script>
+              </xhtml:font>
+            </xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="97"
+           y="14"
+           font-size="12px"
+           id="text66"
+           style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">&lt;font style=&quot;font-size: 14px&quot;&gt;<xhtml:span
+   class="MathJax_Preview"
+   style="color: inherit;" />
+<xhtml:div
+   class="MathJax_Display"
+   style="text-align: center;">
+  <xhtml:span
+     class="MathJax"
+     id="MathJax-Element-171-Frame"
+     tabindex="0"
+     style="text-align: center;">
+    <xhtml:nobr>
+      <xhtml:span
+         class="math"
+         id="MathJax-Span-1530"
+         style="width: 1.193em; display: inline-block;">
+        <xhtml:span
+           style="display: inline-block; position: relative; width: 0.955em; height: 0px; font-size: 120%;">
+          <xhtml:span
+             style="position: absolute; clip: rect(1.491em, 1000.96em, 2.562em, -999.997em); top: -2.14em; left: 0em;">
+            <xhtml:span
+               class="mrow"
+               id="MathJax-Span-1531">
+              <xhtml:span
+                 class="msubsup"
+                 id="MathJax-Span-1532">
+                <xhtml:span
+                   style="display: inline-block; position: relative; width: 0.955em; height: 0px;">
+                  <xhtml:span
+                     style="position: absolute; clip: rect(3.336em, 1000.48em, 4.348em, -999.997em); top: -3.985em; left: 0em;">
+                    <xhtml:span
+                       class="texatom"
+                       id="MathJax-Span-1533">
+                      <xhtml:span
+                         class="mrow"
+                         id="MathJax-Span-1534">
+                        <xhtml:span
+                           class="mi"
+                           id="MathJax-Span-1535"
+                           style="font-family: MathJax_SansSerif; font-weight: bold;">y</xhtml:span>
+                      </xhtml:span>
+                    </xhtml:span>
+                    <xhtml:span
+                       style="display: inline-block; width: 0px; height: 3.991em;" />
+                  </xhtml:span>
+                  <xhtml:span
+                     style="position: absolute; top: -3.747em; left: 0.479em;">
+                    <xhtml:span
+                       class="mn"
+                       id="MathJax-Span-1536"
+                       style="font-size: 70.7%; font-family: MathJax_Main;">2</xhtml:span>
+                    <xhtml:span
+                       style="display: inline-block; width: 0px; height: 3.991em;" />
+                  </xhtml:span>
+                </xhtml:span>
+              </xhtml:span>
+            </xhtml:span>
+            <xhtml:span
+               style="display: inline-block; width: 0px; height: 2.146em;" />
+          </xhtml:span>
+        </xhtml:span>
+        <xhtml:span
+           style="display: inline-block; overflow: hidden; vertical-align: -0.354em; border-left: 0px solid; width: 0px; height: 1.004em;" />
+      </xhtml:span>
+    </xhtml:nobr>
+  </xhtml:span>
+</xhtml:div>
+<xhtml:script
+   type="math/tex; mode=display"
+   id="MathJax-Element-171">\boldsymbol{\mathsf{y}}_2</xhtml:script>
+&lt;/font&gt;</text>
+      </switch>
+    </g>
+    <circle
+       cx="638"
+       cy="180"
+       pointer-events="none"
+       id="ellipse72"
+       r="20"
+       style="fill:#cccccc;stroke:#000000" />
+    <g
+       transform="translate(518.5,172.5)"
+       id="g78">
+      <switch
+         id="switch76">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="238"
+           height="15"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 238px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;white-space:normal;">
+              <xhtml:font
+                 style="font-size: 14px">
+                <xhtml:span
+                   class="MathJax_Preview"
+                   style="color: inherit;" />
+                <xhtml:div
+                   class="MathJax_Display"
+                   style="text-align: center;">
+                  <xhtml:span
+                     class="MathJax"
+                     id="MathJax-Element-172-Frame"
+                     tabindex="0"
+                     style="text-align: center;">
+                    <xhtml:nobr>
+                      <xhtml:span
+                         class="math"
+                         id="MathJax-Span-1537"
+                         style="width: 1.193em; display: inline-block;">
+                        <xhtml:span
+                           style="display: inline-block; position: relative; width: 0.955em; height: 0px; font-size: 120%;">
+                          <xhtml:span
+                             style="position: absolute; clip: rect(1.491em, 1000.96em, 2.562em, -999.997em); top: -2.14em; left: 0em;">
+                            <xhtml:span
+                               class="mrow"
+                               id="MathJax-Span-1538">
+                              <xhtml:span
+                                 class="msubsup"
+                                 id="MathJax-Span-1539">
+                                <xhtml:span
+                                   style="display: inline-block; position: relative; width: 0.955em; height: 0px;">
+                                <xhtml:span
+                                   style="position: absolute; clip: rect(3.336em, 1000.48em, 4.348em, -999.997em); top: -3.985em; left: 0em;">
+                                <xhtml:span
+                                   class="texatom"
+                                   id="MathJax-Span-1540">
+                                <xhtml:span
+                                   class="mrow"
+                                   id="MathJax-Span-1541">
+                                <xhtml:span
+                                   class="mi"
+                                   id="MathJax-Span-1542"
+                                   style="font-family: MathJax_SansSerif; font-weight: bold;">y</xhtml:span>
+                                </xhtml:span>
+                                </xhtml:span>
+                                <xhtml:span
+                                   style="display: inline-block; width: 0px; height: 3.991em;" />
+                                </xhtml:span>
+                                <xhtml:span
+                                   style="position: absolute; top: -3.747em; left: 0.479em;">
+                                <xhtml:span
+                                   class="texatom"
+                                   id="MathJax-Span-1543">
+                                <xhtml:span
+                                   class="mrow"
+                                   id="MathJax-Span-1544">
+                                <xhtml:span
+                                   class="mtext"
+                                   id="MathJax-Span-1545"
+                                   style="font-size: 70.7%; font-family: MathJax_Typewriter;">T</xhtml:span>
+                                </xhtml:span>
+                                </xhtml:span>
+                                <xhtml:span
+                                   style="display: inline-block; width: 0px; height: 3.991em;" />
+                                </xhtml:span>
+                                </xhtml:span>
+                              </xhtml:span>
+                            </xhtml:span>
+                            <xhtml:span
+                               style="display: inline-block; width: 0px; height: 2.146em;" />
+                          </xhtml:span>
+                        </xhtml:span>
+                        <xhtml:span
+                           style="display: inline-block; overflow: hidden; vertical-align: -0.354em; border-left: 0px solid; width: 0px; height: 1.004em;" />
+                      </xhtml:span>
+                    </xhtml:nobr>
+                  </xhtml:span>
+                </xhtml:div>
+                <xhtml:script
+                   type="math/tex; mode=display"
+                   id="MathJax-Element-172">\boldsymbol{\mathsf{y}}_\texttt{T}</xhtml:script>
+              </xhtml:font>
+            </xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="119"
+           y="14"
+           font-size="12px"
+           id="text74"
+           style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">&lt;font style=&quot;font-size: 14px&quot;&gt;<xhtml:span
+   class="MathJax_Preview"
+   style="color: inherit;" />
+<xhtml:div
+   class="MathJax_Display"
+   style="text-align: center;">
+  <xhtml:span
+     class="MathJax"
+     id="MathJax-Element-173-Frame"
+     tabindex="0"
+     style="text-align: center;">
+    <xhtml:nobr>
+      <xhtml:span
+         class="math"
+         id="MathJax-Span-1546"
+         style="width: 1.193em; display: inline-block;">
+        <xhtml:span
+           style="display: inline-block; position: relative; width: 0.955em; height: 0px; font-size: 120%;">
+          <xhtml:span
+             style="position: absolute; clip: rect(1.491em, 1000.96em, 2.562em, -999.997em); top: -2.14em; left: 0em;">
+            <xhtml:span
+               class="mrow"
+               id="MathJax-Span-1547">
+              <xhtml:span
+                 class="msubsup"
+                 id="MathJax-Span-1548">
+                <xhtml:span
+                   style="display: inline-block; position: relative; width: 0.955em; height: 0px;">
+                  <xhtml:span
+                     style="position: absolute; clip: rect(3.336em, 1000.48em, 4.348em, -999.997em); top: -3.985em; left: 0em;">
+                    <xhtml:span
+                       class="texatom"
+                       id="MathJax-Span-1549">
+                      <xhtml:span
+                         class="mrow"
+                         id="MathJax-Span-1550">
+                        <xhtml:span
+                           class="mi"
+                           id="MathJax-Span-1551"
+                           style="font-family: MathJax_SansSerif; font-weight: bold;">y</xhtml:span>
+                      </xhtml:span>
+                    </xhtml:span>
+                    <xhtml:span
+                       style="display: inline-block; width: 0px; height: 3.991em;" />
+                  </xhtml:span>
+                  <xhtml:span
+                     style="position: absolute; top: -3.747em; left: 0.479em;">
+                    <xhtml:span
+                       class="texatom"
+                       id="MathJax-Span-1552">
+                      <xhtml:span
+                         class="mrow"
+                         id="MathJax-Span-1553">
+                        <xhtml:span
+                           class="mtext"
+                           id="MathJax-Span-1554"
+                           style="font-size: 70.7%; font-family: MathJax_Typewriter;">T</xhtml:span>
+                      </xhtml:span>
+                    </xhtml:span>
+                    <xhtml:span
+                       style="display: inline-block; width: 0px; height: 3.991em;" />
+                  </xhtml:span>
+                </xhtml:span>
+              </xhtml:span>
+            </xhtml:span>
+            <xhtml:span
+               style="display: inline-block; width: 0px; height: 2.146em;" />
+          </xhtml:span>
+        </xhtml:span>
+        <xhtml:span
+           style="display: inline-block; overflow: hidden; vertical-align: -0.354em; border-left: 0px solid; width: 0px; height: 1.004em;" />
+      </xhtml:span>
+    </xhtml:nobr>
+  </xhtml:span>
+</xhtml:div>
+<xhtml:script
+   type="math/tex; mode=display"
+   id="MathJax-Element-173">\boldsymbol{\mathsf{y}}_\texttt{T}</xhtml:script>
+&lt;/font&gt;</text>
+      </switch>
+    </g>
+    <path
+       d="m 259,146 v 7.63"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path80"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+    <path
+       d="m 259,158.88 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path82"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-miterlimit:10" />
+    <path
+       d="M 258.5,130 V 120"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path84"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+    <g
+       transform="translate(307.5,30.5)"
+       id="g90">
+      <switch
+         id="switch88">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="55"
+           height="15"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 56px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;white-space:normal;">
+              <xhtml:font
+                 style="font-size: 14px">
+                <xhtml:span
+                   class="MathJax_Preview"
+                   style="color: inherit;" />
+                <xhtml:div
+                   class="MathJax_Display"
+                   style="text-align: center;">
+                  <xhtml:span
+                     class="MathJax"
+                     id="MathJax-Element-174-Frame"
+                     tabindex="0"
+                     style="text-align: center;">
+                    <xhtml:nobr>
+                      <xhtml:span
+                         class="math"
+                         id="MathJax-Span-1555"
+                         style="width: 0.717em; display: inline-block;">
+                        <xhtml:span
+                           style="display: inline-block; position: relative; width: 0.598em; height: 0px; font-size: 120%;">
+                          <xhtml:span
+                             style="position: absolute; clip: rect(1.551em, 1000.6em, 2.562em, -999.997em); top: -2.14em; left: 0em;">
+                            <xhtml:span
+                               class="mrow"
+                               id="MathJax-Span-1556">
+                              <xhtml:span
+                                 class="mi"
+                                 id="MathJax-Span-1557"
+                                 style="font-family: MathJax_Math; font-style: italic;">μ</xhtml:span>
+                            </xhtml:span>
+                            <xhtml:span
+                               style="display: inline-block; width: 0px; height: 2.146em;" />
+                          </xhtml:span>
+                        </xhtml:span>
+                        <xhtml:span
+                           style="display: inline-block; overflow: hidden; vertical-align: -0.354em; border-left: 0px solid; width: 0px; height: 0.932em;" />
+                      </xhtml:span>
+                    </xhtml:nobr>
+                  </xhtml:span>
+                </xhtml:div>
+                <xhtml:script
+                   type="math/tex; mode=display"
+                   id="MathJax-Element-174">\mu</xhtml:script>
+              </xhtml:font>
+            </xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="28"
+           y="14"
+           font-size="12px"
+           id="text86"
+           style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">[Not supported by viewer]</text>
+      </switch>
+    </g>
+    <path
+       d="M 378,40 V 66 H 56 v 27"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path92"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+    <path
+       d="M 378,40 V 66 H 178 v 27"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path94"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+    <path
+       d="M 378,40 V 66 H 338 V 93"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path96"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+    <path
+       d="M 378,40 V 66 H 558 V 93"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path98"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+    <circle
+       cx="377.5"
+       cy="20"
+       pointer-events="none"
+       id="ellipse100"
+       r="20"
+       style="fill:#ffffff;stroke:#000000" />
+    <g
+       transform="translate(288.5,12.5)"
+       id="g106">
+      <switch
+         id="switch104">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="178"
+           height="15"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 178px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;white-space:normal;">
+              <xhtml:font
+                 style="font-size: 14px">
+                <xhtml:span
+                   class="MathJax_Preview"
+                   style="color: inherit;" />
+                <xhtml:div
+                   class="MathJax_Display"
+                   style="text-align: center;">
+                  <xhtml:span
+                     class="MathJax"
+                     id="MathJax-Element-175-Frame"
+                     tabindex="0"
+                     style="text-align: center;">
+                    <xhtml:nobr>
+                      <xhtml:span
+                         class="math"
+                         id="MathJax-Span-1558"
+                         style="width: 0.598em; display: inline-block;">
+                        <xhtml:span
+                           style="display: inline-block; position: relative; width: 0.479em; height: 0px; font-size: 120%;">
+                          <xhtml:span
+                             style="position: absolute; clip: rect(1.491em, 1000.42em, 2.324em, -999.997em); top: -2.14em; left: 0em;">
+                            <xhtml:span
+                               class="mrow"
+                               id="MathJax-Span-1559">
+                              <xhtml:span
+                                 class="texatom"
+                                 id="MathJax-Span-1560">
+                                <xhtml:span
+                                   class="mrow"
+                                   id="MathJax-Span-1561">
+                                <xhtml:span
+                                   class="mi"
+                                   id="MathJax-Span-1562"
+                                   style="font-family: MathJax_SansSerif; font-weight: bold;">z</xhtml:span>
+                                </xhtml:span>
+                              </xhtml:span>
+                            </xhtml:span>
+                            <xhtml:span
+                               style="display: inline-block; width: 0px; height: 2.146em;" />
+                          </xhtml:span>
+                        </xhtml:span>
+                        <xhtml:span
+                           style="display: inline-block; overflow: hidden; vertical-align: -0.068em; border-left: 0px solid; width: 0px; height: 0.718em;" />
+                      </xhtml:span>
+                    </xhtml:nobr>
+                  </xhtml:span>
+                </xhtml:div>
+                <xhtml:script
+                   type="math/tex; mode=display"
+                   id="MathJax-Element-175">\boldsymbol{\mathsf{z}}</xhtml:script>
+              </xhtml:font>
+            </xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="89"
+           y="14"
+           font-size="12px"
+           id="text102"
+           style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">&lt;font style=&quot;font-size: 14px&quot;&gt;<xhtml:span
+   class="MathJax_Preview"
+   style="color: inherit;" />
+<xhtml:div
+   class="MathJax_Display"
+   style="text-align: center;">
+  <xhtml:span
+     class="MathJax"
+     id="MathJax-Element-176-Frame"
+     tabindex="0"
+     style="text-align: center;">
+    <xhtml:nobr>
+      <xhtml:span
+         class="math"
+         id="MathJax-Span-1563"
+         style="width: 0.598em; display: inline-block;">
+        <xhtml:span
+           style="display: inline-block; position: relative; width: 0.479em; height: 0px; font-size: 120%;">
+          <xhtml:span
+             style="position: absolute; clip: rect(1.491em, 1000.42em, 2.324em, -999.997em); top: -2.14em; left: 0em;">
+            <xhtml:span
+               class="mrow"
+               id="MathJax-Span-1564">
+              <xhtml:span
+                 class="texatom"
+                 id="MathJax-Span-1565">
+                <xhtml:span
+                   class="mrow"
+                   id="MathJax-Span-1566">
+                  <xhtml:span
+                     class="mi"
+                     id="MathJax-Span-1567"
+                     style="font-family: MathJax_SansSerif; font-weight: bold;">z</xhtml:span>
+                </xhtml:span>
+              </xhtml:span>
+            </xhtml:span>
+            <xhtml:span
+               style="display: inline-block; width: 0px; height: 2.146em;" />
+          </xhtml:span>
+        </xhtml:span>
+        <xhtml:span
+           style="display: inline-block; overflow: hidden; vertical-align: -0.068em; border-left: 0px solid; width: 0px; height: 0.718em;" />
+      </xhtml:span>
+    </xhtml:nobr>
+  </xhtml:span>
+</xhtml:div>
+<xhtml:script
+   type="math/tex; mode=display"
+   id="MathJax-Element-176">\boldsymbol{\mathsf{z}}</xhtml:script>
+&lt;/font&gt;</text>
+      </switch>
+    </g>
+    <path
+       d="m 342.5,20 h 8.63"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path108"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+    <path
+       d="m 356.38,20 -7,3.5 1.75,-3.5 -1.75,-3.5 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path110"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-miterlimit:10" />
+    <rect
+       x="327.5"
+       y="12.5"
+       width="15"
+       height="15"
+       pointer-events="none"
+       id="rect112"
+       style="fill:#000000;stroke:#000000" />
+    <path
+       d="m 186,100 h 46.63"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path114"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+    <path
+       d="m 237.88,100 -7,3.5 1.75,-3.5 -1.75,-3.5 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path116"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-miterlimit:10" />
+    <rect
+       x="170.5"
+       y="92.5"
+       width="15"
+       height="15"
+       pointer-events="none"
+       id="rect118"
+       style="fill:#000000;stroke:#000000" />
+    <path
+       d="m 346,100 h 45.63"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path120"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+    <path
+       d="m 396.88,100 -7,3.5 1.75,-3.5 -1.75,-3.5 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path122"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-miterlimit:10" />
+    <rect
+       x="330.5"
+       y="92.5"
+       width="15"
+       height="15"
+       pointer-events="none"
+       id="rect124"
+       style="fill:#000000;stroke:#000000" />
+    <path
+       d="m 418,148 v 5.63"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path126"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+    <path
+       d="m 418,158.88 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path128"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-miterlimit:10" />
+    <path
+       d="m 638,148 v 5.63"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path130"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+    <path
+       d="m 638,158.88 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path132"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-miterlimit:10" />
+    <path
+       d="m 566,100 h 45.63"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path134"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+    <path
+       d="m 616.88,100 -7,3.5 1.75,-3.5 -1.75,-3.5 z"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path136"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;stroke:#000000;stroke-miterlimit:10" />
+    <rect
+       x="550.5"
+       y="92.5"
+       width="15"
+       height="15"
+       pointer-events="none"
+       id="rect138"
+       style="fill:#000000;stroke:#000000" />
+    <path
+       d="m 258.5,130 8,8 -8,8 -8,-8 z"
+       stroke-miterlimit="10"
+       transform="rotate(90,258.5,138)"
+       pointer-events="none"
+       id="path140"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;stroke:#000000;stroke-miterlimit:10" />
+    <g
+       transform="translate(177.5,132.5)"
+       id="g146">
+      <switch
+         id="switch144">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="123"
+           height="15"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 124px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;white-space:normal;">
+              <xhtml:font
+                 style="font-size: 14px">
+                <xhtml:span
+                   class="MathJax_Preview"
+                   style="color: inherit;" />
+                <xhtml:div
+                   class="MathJax_Display"
+                   style="text-align: center;">
+                  <xhtml:span
+                     class="MathJax"
+                     id="MathJax-Element-177-Frame"
+                     tabindex="0"
+                     style="text-align: center;">
+                    <xhtml:nobr>
+                      <xhtml:span
+                         class="math"
+                         id="MathJax-Span-1568"
+                         style="width: 0.836em; display: inline-block;">
+                        <xhtml:span
+                           style="display: inline-block; position: relative; width: 0.658em; height: 0px; font-size: 120%;">
+                          <xhtml:span
+                             style="position: absolute; clip: rect(1.253em, 1000.66em, 2.324em, -999.997em); top: -2.14em; left: 0em;">
+                            <xhtml:span
+                               class="mrow"
+                               id="MathJax-Span-1569">
+                              <xhtml:span
+                                 class="mi"
+                                 id="MathJax-Span-1570"
+                                 style="font-family: MathJax_Math; font-style: italic; font-weight: bold;">h</xhtml:span>
+                            </xhtml:span>
+                            <xhtml:span
+                               style="display: inline-block; width: 0px; height: 2.146em;" />
+                          </xhtml:span>
+                        </xhtml:span>
+                        <xhtml:span
+                           style="display: inline-block; overflow: hidden; vertical-align: -0.068em; border-left: 0px solid; width: 0px; height: 1.004em;" />
+                      </xhtml:span>
+                    </xhtml:nobr>
+                  </xhtml:span>
+                </xhtml:div>
+                <xhtml:script
+                   type="math/tex; mode=display"
+                   id="MathJax-Element-177">\boldsymbol{h}</xhtml:script>
+              </xhtml:font>
+            </xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="62"
+           y="14"
+           font-size="12px"
+           id="text142"
+           style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">[Not supported by viewer]</text>
+      </switch>
+    </g>
+    <path
+       d="M 468,100 H 438"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path148"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10;stroke-dasharray:3, 3" />
+    <path
+       d="M 550.5,100 H 518"
+       stroke-miterlimit="10"
+       pointer-events="none"
+       id="path150"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-miterlimit:10;stroke-dasharray:3, 3" />
+    <path
+       d="m 418,132 8,8 -8,8 -8,-8 z"
+       stroke-miterlimit="10"
+       transform="rotate(90,418,140)"
+       pointer-events="none"
+       id="path152"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;stroke:#000000;stroke-miterlimit:10" />
+    <path
+       d="m 638,132 8,8 -8,8 -8,-8 z"
+       stroke-miterlimit="10"
+       transform="rotate(90,638,140)"
+       pointer-events="none"
+       id="path154"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;stroke:#000000;stroke-miterlimit:10" />
+    <g
+       transform="translate(337.5,132.5)"
+       id="g160">
+      <switch
+         id="switch158">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="123"
+           height="15"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 124px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;white-space:normal;">
+              <xhtml:font
+                 style="font-size: 14px">
+                <xhtml:span
+                   class="MathJax_Preview"
+                   style="color: inherit;" />
+                <xhtml:div
+                   class="MathJax_Display"
+                   style="text-align: center;">
+                  <xhtml:span
+                     class="MathJax"
+                     id="MathJax-Element-178-Frame"
+                     tabindex="0"
+                     style="text-align: center;">
+                    <xhtml:nobr>
+                      <xhtml:span
+                         class="math"
+                         id="MathJax-Span-1571"
+                         style="width: 0.836em; display: inline-block;">
+                        <xhtml:span
+                           style="display: inline-block; position: relative; width: 0.658em; height: 0px; font-size: 120%;">
+                          <xhtml:span
+                             style="position: absolute; clip: rect(1.253em, 1000.66em, 2.324em, -999.997em); top: -2.14em; left: 0em;">
+                            <xhtml:span
+                               class="mrow"
+                               id="MathJax-Span-1572">
+                              <xhtml:span
+                                 class="mi"
+                                 id="MathJax-Span-1573"
+                                 style="font-family: MathJax_Math; font-style: italic; font-weight: bold;">h</xhtml:span>
+                            </xhtml:span>
+                            <xhtml:span
+                               style="display: inline-block; width: 0px; height: 2.146em;" />
+                          </xhtml:span>
+                        </xhtml:span>
+                        <xhtml:span
+                           style="display: inline-block; overflow: hidden; vertical-align: -0.068em; border-left: 0px solid; width: 0px; height: 1.004em;" />
+                      </xhtml:span>
+                    </xhtml:nobr>
+                  </xhtml:span>
+                </xhtml:div>
+                <xhtml:script
+                   type="math/tex; mode=display"
+                   id="MathJax-Element-178">\boldsymbol{h}</xhtml:script>
+              </xhtml:font>
+            </xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="62"
+           y="14"
+           font-size="12px"
+           id="text156"
+           style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">[Not supported by viewer]</text>
+      </switch>
+    </g>
+    <g
+       transform="translate(557.5,132.5)"
+       id="g166">
+      <switch
+         id="switch164">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="123"
+           height="15"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 124px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;white-space:normal;">
+              <xhtml:font
+                 style="font-size: 14px">
+                <xhtml:span
+                   class="MathJax_Preview"
+                   style="color: inherit;" />
+                <xhtml:div
+                   class="MathJax_Display"
+                   style="text-align: center;">
+                  <xhtml:span
+                     class="MathJax"
+                     id="MathJax-Element-179-Frame"
+                     tabindex="0"
+                     style="text-align: center;">
+                    <xhtml:nobr>
+                      <xhtml:span
+                         class="math"
+                         id="MathJax-Span-1574"
+                         style="width: 0.836em; display: inline-block;">
+                        <xhtml:span
+                           style="display: inline-block; position: relative; width: 0.658em; height: 0px; font-size: 120%;">
+                          <xhtml:span
+                             style="position: absolute; clip: rect(1.253em, 1000.66em, 2.324em, -999.997em); top: -2.14em; left: 0em;">
+                            <xhtml:span
+                               class="mrow"
+                               id="MathJax-Span-1575">
+                              <xhtml:span
+                                 class="mi"
+                                 id="MathJax-Span-1576"
+                                 style="font-family: MathJax_Math; font-style: italic; font-weight: bold;">h</xhtml:span>
+                            </xhtml:span>
+                            <xhtml:span
+                               style="display: inline-block; width: 0px; height: 2.146em;" />
+                          </xhtml:span>
+                        </xhtml:span>
+                        <xhtml:span
+                           style="display: inline-block; overflow: hidden; vertical-align: -0.068em; border-left: 0px solid; width: 0px; height: 1.004em;" />
+                      </xhtml:span>
+                    </xhtml:nobr>
+                  </xhtml:span>
+                </xhtml:div>
+                <xhtml:script
+                   type="math/tex; mode=display"
+                   id="MathJax-Element-179">\boldsymbol{h}</xhtml:script>
+              </xhtml:font>
+            </xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="62"
+           y="14"
+           font-size="12px"
+           id="text162"
+           style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">[Not supported by viewer]</text>
+      </switch>
+    </g>
+    <g
+       transform="translate(118.5,112.5)"
+       id="g172">
+      <switch
+         id="switch170">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="118"
+           height="15"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 118px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;white-space:normal;">
+              <xhtml:font
+                 style="font-size: 14px">
+                <xhtml:span
+                   class="MathJax_Preview"
+                   style="color: inherit;" />
+                <xhtml:div
+                   class="MathJax_Display"
+                   style="text-align: center;">
+                  <xhtml:span
+                     class="MathJax"
+                     id="MathJax-Element-180-Frame"
+                     tabindex="0"
+                     style="text-align: center;">
+                    <xhtml:nobr>
+                      <xhtml:span
+                         class="math"
+                         id="MathJax-Span-1577"
+                         style="width: 1.551em; display: inline-block;">
+                        <xhtml:span
+                           style="display: inline-block; position: relative; width: 1.253em; height: 0px; font-size: 120%;">
+                          <xhtml:span
+                             style="position: absolute; clip: rect(1.551em, 1001.25em, 2.503em, -999.997em); top: -2.14em; left: 0em;">
+                            <xhtml:span
+                               class="mrow"
+                               id="MathJax-Span-1578">
+                              <xhtml:span
+                                 class="msubsup"
+                                 id="MathJax-Span-1579">
+                                <xhtml:span
+                                   style="display: inline-block; position: relative; width: 1.253em; height: 0px;">
+                                <xhtml:span
+                                   style="position: absolute; clip: rect(3.396em, 1000.54em, 4.17em, -999.997em); top: -3.985em; left: 0em;">
+                                <xhtml:span
+                                   class="mi"
+                                   id="MathJax-Span-1580"
+                                   style="font-family: MathJax_Math; font-style: italic;">κ</xhtml:span>
+                                <xhtml:span
+                                   style="display: inline-block; width: 0px; height: 3.991em;" />
+                                </xhtml:span>
+                                <xhtml:span
+                                   style="position: absolute; top: -3.807em; left: 0.598em;">
+                                <xhtml:span
+                                   class="mi"
+                                   id="MathJax-Span-1581"
+                                   style="font-size: 70.7%; font-family: MathJax_Main;">Δ</xhtml:span>
+                                <xhtml:span
+                                   style="display: inline-block; width: 0px; height: 3.991em;" />
+                                </xhtml:span>
+                                </xhtml:span>
+                              </xhtml:span>
+                            </xhtml:span>
+                            <xhtml:span
+                               style="display: inline-block; width: 0px; height: 2.146em;" />
+                          </xhtml:span>
+                        </xhtml:span>
+                        <xhtml:span
+                           style="display: inline-block; overflow: hidden; vertical-align: -0.282em; border-left: 0px solid; width: 0px; height: 0.861em;" />
+                      </xhtml:span>
+                    </xhtml:nobr>
+                  </xhtml:span>
+                </xhtml:div>
+                <xhtml:script
+                   type="math/tex; mode=display"
+                   id="MathJax-Element-180">\kappa_\Delta</xhtml:script>
+              </xhtml:font>
+            </xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="59"
+           y="14"
+           font-size="12px"
+           id="text168"
+           style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">[Not supported by viewer]</text>
+      </switch>
+    </g>
+    <g
+       transform="translate(278.5,112.5)"
+       id="g178">
+      <switch
+         id="switch176">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="118"
+           height="15"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 118px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;white-space:normal;">
+              <xhtml:font
+                 style="font-size: 14px">
+                <xhtml:span
+                   class="MathJax_Preview"
+                   style="color: inherit;" />
+                <xhtml:div
+                   class="MathJax_Display"
+                   style="text-align: center;">
+                  <xhtml:span
+                     class="MathJax"
+                     id="MathJax-Element-181-Frame"
+                     tabindex="0"
+                     style="text-align: center;">
+                    <xhtml:nobr>
+                      <xhtml:span
+                         class="math"
+                         id="MathJax-Span-1582"
+                         style="width: 1.551em; display: inline-block;">
+                        <xhtml:span
+                           style="display: inline-block; position: relative; width: 1.253em; height: 0px; font-size: 120%;">
+                          <xhtml:span
+                             style="position: absolute; clip: rect(1.551em, 1001.25em, 2.503em, -999.997em); top: -2.14em; left: 0em;">
+                            <xhtml:span
+                               class="mrow"
+                               id="MathJax-Span-1583">
+                              <xhtml:span
+                                 class="msubsup"
+                                 id="MathJax-Span-1584">
+                                <xhtml:span
+                                   style="display: inline-block; position: relative; width: 1.253em; height: 0px;">
+                                <xhtml:span
+                                   style="position: absolute; clip: rect(3.396em, 1000.54em, 4.17em, -999.997em); top: -3.985em; left: 0em;">
+                                <xhtml:span
+                                   class="mi"
+                                   id="MathJax-Span-1585"
+                                   style="font-family: MathJax_Math; font-style: italic;">κ</xhtml:span>
+                                <xhtml:span
+                                   style="display: inline-block; width: 0px; height: 3.991em;" />
+                                </xhtml:span>
+                                <xhtml:span
+                                   style="position: absolute; top: -3.807em; left: 0.598em;">
+                                <xhtml:span
+                                   class="mi"
+                                   id="MathJax-Span-1586"
+                                   style="font-size: 70.7%; font-family: MathJax_Main;">Δ</xhtml:span>
+                                <xhtml:span
+                                   style="display: inline-block; width: 0px; height: 3.991em;" />
+                                </xhtml:span>
+                                </xhtml:span>
+                              </xhtml:span>
+                            </xhtml:span>
+                            <xhtml:span
+                               style="display: inline-block; width: 0px; height: 2.146em;" />
+                          </xhtml:span>
+                        </xhtml:span>
+                        <xhtml:span
+                           style="display: inline-block; overflow: hidden; vertical-align: -0.282em; border-left: 0px solid; width: 0px; height: 0.861em;" />
+                      </xhtml:span>
+                    </xhtml:nobr>
+                  </xhtml:span>
+                </xhtml:div>
+                <xhtml:script
+                   type="math/tex; mode=display"
+                   id="MathJax-Element-181">\kappa_\Delta</xhtml:script>
+              </xhtml:font>
+            </xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="59"
+           y="14"
+           font-size="12px"
+           id="text174"
+           style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">[Not supported by viewer]</text>
+      </switch>
+    </g>
+    <g
+       transform="translate(498.5,112.5)"
+       id="g184">
+      <switch
+         id="switch182">
+        <foreignObject
+           style="overflow:visible;"
+           pointer-events="all"
+           width="118"
+           height="15"
+           requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+          <xhtml:div
+             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; vertical-align: top; width: 118px; white-space: nowrap; overflow-wrap: normal; text-align: center;">
+            <xhtml:div
+               style="display:inline-block;text-align:inherit;text-decoration:inherit;white-space:normal;">
+              <xhtml:font
+                 style="font-size: 14px">
+                <xhtml:span
+                   class="MathJax_Preview"
+                   style="color: inherit;" />
+                <xhtml:div
+                   class="MathJax_Display"
+                   style="text-align: center;">
+                  <xhtml:span
+                     class="MathJax"
+                     id="MathJax-Element-182-Frame"
+                     tabindex="0"
+                     style="text-align: center;">
+                    <xhtml:nobr>
+                      <xhtml:span
+                         class="math"
+                         id="MathJax-Span-1587"
+                         style="width: 1.551em; display: inline-block;">
+                        <xhtml:span
+                           style="display: inline-block; position: relative; width: 1.253em; height: 0px; font-size: 120%;">
+                          <xhtml:span
+                             style="position: absolute; clip: rect(1.551em, 1001.25em, 2.503em, -999.997em); top: -2.14em; left: 0em;">
+                            <xhtml:span
+                               class="mrow"
+                               id="MathJax-Span-1588">
+                              <xhtml:span
+                                 class="msubsup"
+                                 id="MathJax-Span-1589">
+                                <xhtml:span
+                                   style="display: inline-block; position: relative; width: 1.253em; height: 0px;">
+                                <xhtml:span
+                                   style="position: absolute; clip: rect(3.396em, 1000.54em, 4.17em, -999.997em); top: -3.985em; left: 0em;">
+                                <xhtml:span
+                                   class="mi"
+                                   id="MathJax-Span-1590"
+                                   style="font-family: MathJax_Math; font-style: italic;">κ</xhtml:span>
+                                <xhtml:span
+                                   style="display: inline-block; width: 0px; height: 3.991em;" />
+                                </xhtml:span>
+                                <xhtml:span
+                                   style="position: absolute; top: -3.807em; left: 0.598em;">
+                                <xhtml:span
+                                   class="mi"
+                                   id="MathJax-Span-1591"
+                                   style="font-size: 70.7%; font-family: MathJax_Main;">Δ</xhtml:span>
+                                <xhtml:span
+                                   style="display: inline-block; width: 0px; height: 3.991em;" />
+                                </xhtml:span>
+                                </xhtml:span>
+                              </xhtml:span>
+                            </xhtml:span>
+                            <xhtml:span
+                               style="display: inline-block; width: 0px; height: 2.146em;" />
+                          </xhtml:span>
+                        </xhtml:span>
+                        <xhtml:span
+                           style="display: inline-block; overflow: hidden; vertical-align: -0.282em; border-left: 0px solid; width: 0px; height: 0.861em;" />
+                      </xhtml:span>
+                    </xhtml:nobr>
+                  </xhtml:span>
+                </xhtml:div>
+                <xhtml:script
+                   type="math/tex; mode=display"
+                   id="MathJax-Element-182">\kappa_\Delta</xhtml:script>
+              </xhtml:font>
+            </xhtml:div>
+          </xhtml:div>
+        </foreignObject>
+        <text
+           x="59"
+           y="14"
+           font-size="12px"
+           id="text180"
+           style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">[Not supported by viewer]</text>
+      </switch>
+    </g>
+  </g>
+</svg>

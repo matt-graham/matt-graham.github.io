@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Manifold MCMC methods for inference in diffusion models</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/white.css">
+		<link rel="stylesheet" href="css/custom.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/github-gist.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+				<section data-markdown="slides.md"
+         data-separator="^\n---\n"
+         data-separator-vertical="^\n----\n"
+         data-separator-notes="^Note:"
+         data-charset="iso-8859-15">
+</section>
+			</div>
+		</div>
+
+		<!-- Loading mathjax macro -->
+		<!-- Load mathjax -->
+		<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+		</script>
+
+		<!-- MathJax configuration -->
+		<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+			TeX: {
+				Macros: {
+                    reals: "\\mathbb{R}",
+                    set: ["\\mathcal{#1}", 1],
+                    vct: ["\\boldsymbol{#1}", 1],
+                    opfunc: ["\\boldsymbol{#1}", 1],
+                    vctfunc: ["\\boldsymbol{#1}", 1],
+                    mtx: ["\\boldsymbol{#1}", 1],
+                    idmtx: "\\mathbb{I}",
+                    intg: ["\\mathtt{#1}", 1],
+                    rvar: ["\\mathsf{#1}", 1],
+                    rvct: ["\\vct{\\rvar{#1}}", 1],
+                    expc: "\\mathbb{E}",
+                    prob: "\\mathbb{P}",
+                    nrm: "\\mathcal{N}",
+                    gvn: "\\,|\\,",
+                    range: ["#1{:}\\mkern0.5mu#2", 2, "1"],
+                    tr: "^{\\mkern-1.5mu\\mathsf{T}}",
+                    dr: "\\mathrm{d}",
+                    diff: "\\mathop{}\\!\\dr",
+                    jacob: "\\mathop{}\\!\\partial",
+                    grad: "\\mathop{}\\!\\nabla",
+                    td: ["\\frac{\\dr #1}{\\dr #2}", 2],
+                    pd: ["\\frac{\\partial #1}{\\partial #2}", 2],
+                    ind: ["{\\large 𝟙}\\mkern-1.5mu_{#1}", 1],
+                    lebm: ["{\\lambda}_{#1}", 1],
+                    haum: ["{\\eta}\\mkern1mu^{#1}_{#2}", 2],
+                    otext: ["\\style{font-family:inherit;}{\\text{#1}}", 1],
+				}
+
+			},
+			tex2jax: {
+				inlineMath: [ ['$','$'] ],
+				displayMath: [ ['$$','$$'], ["\[","\]"] ],
+				processEscapes: true,
+				processEnvironments: true
+			},
+			// Center justify equations in code and markdown cells. Elsewhere
+			// we use CSS to left justify single line equations in code cells.
+			displayAlign: 'center',
+			"HTML-CSS": {
+				styles: {'.MathJax_Display': {
+					"margin-top": "0.5em",
+					"margin-bottom": "0.5em"
+				}},
+                //availableFonts: ['STIX'],
+				//preferredFont: 'STIX',
+                //webFont: "STIX-Web",
+                scale: 90,
+                mtextFontInherit: true,
+                matchFontHeight: true
+			}
+		});
+		</script>
+		<!-- End of mathjax configuration -->
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+				controls: false,
+                controlsTutorial: false,
+                controlsLayout: 'edges',
+                fragmentInURL: true,
+				progress: true,
+				mouseWheel: true,
+				transition: 'none',
+                backgroundTransition: 'none',
+                pdfSeparateFragments: true,
+                pdfMaxPagesPerSlide: 1,
+                slideNumber: false,
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					// { src: 'plugin/math/math.js', async: true }
+				]
+				});
+
+		</script>
+
+	</body>
+</html>
