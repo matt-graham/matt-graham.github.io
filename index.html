@@ -148,6 +148,29 @@
           <ul class="publications-list">
           <li class="publication">
             <h4>
+              <small>2019/12</small>
+              Manifold Markov chain Monte Carlo methods for Bayesian inference in a wide class of diffusion models
+            </h4>
+            <p>
+              <i>Matthew M. Graham</i>, <a href="http://www.normalesup.org/~athiery/index.html">Alexandre H. Thiery</a> and <a href="http://www.homepages.ucl.ac.uk/~ucakabe/">Alexandros Beskos</a>
+            </p>
+            <div class="btn-group" role="group">
+              <a href="https://arxiv.org/abs/1912.02982" class="btn btn-default">
+                <i class="ai ai-arxiv fa-fw"></i> arXiv
+              </a>
+              <a href="slides/sde" class="btn btn-default">
+                <i class="fa fa-television fa-fw"></i> Slides
+              </a>
+              <button class="btn btn-default btn-abs collapsed" data-toggle="collapse" data-target="#sde-mcmc-abs">
+                Abstract
+              </button>
+            </div>
+            <div id="sde-mcmc-abs" class="collapse abstract">
+                Bayesian inference for partially observed, nonlinear diffusion models is a challenging task that has led to the development of several important methodological advances. We propose a novel framework for inferring the posterior distribution on both a time discretisation of the diffusion process and any unknown model parameters, given partial observations of the process. The set of joint configurations of the noise increments and parameters which map to diffusion paths consistent with the observations form an implicitly defined manifold. By using a constrained Hamiltonian Monte Carlo algorithm for constructing Markov kernels on embedded manifolds, we are able to perform computationally efficient inference in a wide class of partially observed diffusions. Unlike other approaches in the literature, that are often limited to specific model classes, our approach allows full generality in the choice of observation and diffusion models, including complex cases such as hypoelliptic systems with degenerate diffusion coefficients. By exploiting the Markovian structure of diffusions, we propose a variant of the approach with a complexity that scales linearly in the time resolution of the discretisation and quasi-linearly in the number of observation times.
+            </div>
+          </li>
+          <li class="publication">
+            <h4>
               <small>2019/06</small>
               A scalable optimal-transport based local particle filter
             </h4>
