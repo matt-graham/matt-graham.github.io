@@ -148,6 +148,26 @@
           <ul class="publications-list">
           <li class="publication">
             <h4>
+              <small>2020/03</small>
+              Manifold lifting: scaling MCMC to the vanishing noise regime
+            </h4>
+            <p>
+              Khai Xiang Au, <i>Matthew M. Graham</i> and <a href="http://www.normalesup.org/~athiery/index.html">Alexandre H. Thiery</a>
+            </p>
+            <div class="btn-group" role="group">
+              <a href="https://arxiv.org/abs/2003.03950" class="btn btn-default">
+                <i class="ai ai-arxiv fa-fw"></i> arXiv
+              </a>
+              <button class="btn btn-default btn-abs collapsed" data-toggle="collapse" data-target="#manifold-lifting-abs">
+                Abstract
+              </button>
+            </div>
+            <div id="manifold-lifting-abs" class="collapse abstract">
+                Standard Markov chain Monte Carlo methods struggle to explore distributions that are concentrated in the neighbourhood of low-dimensional structures. These pathologies naturally occur in a number of situations. For example, they are common to Bayesian inverse problem modelling and Bayesian neural networks, when observational data are highly informative, or when a subset of the statistical parameters of interest are non-identifiable. In this paper, we propose a strategy that transforms the original sampling problem into the task of exploring a distribution supported on a manifold embedded in a higher dimensional space; in contrast to the original posterior this lifted distribution remains diffuse in the vanishing noise limit. We employ a constrained Hamiltonian Monte Carlo method which exploits the manifold geometry of this lifted distribution, to perform efficient approximate inference. We demonstrate in several numerical experiments that, contrarily to competing approaches, the sampling efficiency of our proposed methodology does not degenerate as the target distribution to be explored concentrates near low dimensional structures.
+            </div>
+          </li>
+          <li class="publication">
+            <h4>
               <small>2019/12</small>
               Manifold Markov chain Monte Carlo methods for Bayesian inference in a wide class of diffusion models
             </h4>
