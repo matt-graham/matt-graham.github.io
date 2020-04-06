@@ -1,0 +1,663 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="154.06741mm"
+   height="71.821518mm"
+   viewBox="0 0 545.90816 254.48569"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="constrained-step-cm-font.svg">
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="189.03075"
+     inkscape:cy="28.68306"
+     inkscape:document-units="px"
+     inkscape:current-layer="svg2"
+     showgrid="false"
+     inkscape:object-nodes="true"
+     inkscape:snap-object-midpoints="true"
+     inkscape:window-width="2560"
+     inkscape:window-height="1348"
+     inkscape:window-x="0"
+     inkscape:window-y="1130"
+     inkscape:window-maximized="1"
+     inkscape:snap-global="true"
+     showguides="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:measure-start="0,0"
+     inkscape:measure-end="0,0">
+    <inkscape:grid
+       id="grid4136"
+       type="xygrid"
+       originx="-61.410156"
+       originy="-342.3179" />
+  </sodipodi:namedview>
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker12553"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path12551"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker3432"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend">
+      <path
+         inkscape:connector-curvature="0"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path3430" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker11372"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mstart">
+      <path
+         transform="matrix(0.4,0,0,0.4,4,0)"
+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path11374"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker10803"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path10805"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="TriangleInL"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker18925"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path18927"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="scale(-0.8)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker13458"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mstart">
+      <path
+         transform="matrix(0.4,0,0,0.4,4,0)"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path13460"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker13232"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:collect="always">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path13234"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker12882"
+       style="overflow:visible"
+       inkscape:isstock="true"
+       inkscape:collect="always">
+      <path
+         id="path12884"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="TriangleOutL"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="TriangleOutL">
+      <path
+         transform="scale(0.8)"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path4369"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="Arrow2Lend"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lend">
+      <path
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         id="path4248"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="TriangleInL"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker5174"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path5176"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="scale(-0.8)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="TriangleInL"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker5128"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path5130"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="scale(-0.8)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker4960"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4962"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker4588"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4590"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(0.8,0,0,0.8,10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+  </defs>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Layer 1"
+     transform="translate(-61.410158,-455.55856)">
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#008080;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 61.474517,691.36476 c 35.980762,-2.32051 68.513033,-20.6023 94.461523,-43.61216 94.64102,-83.92305 203.25318,-102.04483 278.69546,-52.7147 67.08722,43.86692 113.82467,7.05073 138.20446,-10.89558"
+       id="path12294"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cssc" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:none;fill-rule:evenodd;stroke:#ff0000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.00000003, 3.00000009;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 311.20911,455.89033 434.62542,595.04364"
+       id="path12304" />
+    <path
+       id="path12308"
+       d="M 156.02263,647.80266 334.95618,489.13306"
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.40625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker12882)"
+       inkscape:connector-curvature="0" />
+    <circle
+       r="3.9346049"
+       cy="252.00203"
+       cx="535.92096"
+       id="circle12306"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       transform="rotate(30)" />
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.40625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#marker13458)"
+       d="M 604.99886,706.582 434.57082,595.143"
+       id="path12880" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.40625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker13232)"
+       d="M 155.93604,647.7526 430.63871,596.33692"
+       id="path12322"
+       sodipodi:nodetypes="cc" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#008000;fill-rule:evenodd;stroke:#008000;stroke-width:1.875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.87499996, 1.87499996;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 505.21604,641.62157 365.74467,550.46887"
+       id="path12296" />
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.40625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker3432)"
+       d="M 156.02263,647.80266 309.8602,458.35498"
+       id="path3428" />
+    <path
+       id="path11033"
+       d="M 103.54216,588.67562 209.02417,707.61965"
+       style="fill:none;fill-rule:evenodd;stroke:#ff0000;stroke-width:1.87499988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.87499993, 1.87499993;stroke-dashoffset:0;stroke-opacity:1"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#000000;fill-rule:evenodd;stroke:#008000;stroke-width:1.875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.87499995, 1.87499995;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 95.680384,701.26092 218.31013,592.57863"
+       id="path12298" />
+    <circle
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="circle12312"
+       cx="458.92087"
+       cy="483.0022"
+       r="5"
+       transform="rotate(30)" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:none;fill-rule:evenodd;stroke:#ff0000;stroke-width:1.875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.87499996, 1.87499996;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 481.88791,523.45209 391.96673,659.63841"
+       id="path11385" />
+    <circle
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="circle12316"
+       cx="673.9209"
+       cy="298.00214"
+       r="5"
+       transform="rotate(30)" />
+  </g>
+  <text
+     xml:space="preserve"
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:28.125px;line-height:1.25;font-family:Roboto;-inkscape-font-specification:'Roboto Italic';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"
+     x="68.695099"
+     y="193.15591"
+     id="text4895"><tspan
+       sodipodi:role="line"
+       id="tspan4893"
+       x="68.695099"
+       y="193.15591"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.75px;font-family:'Libertinus Math';-inkscape-font-specification:'Libertinus Math Italic';fill:#000000;fill-opacity:1;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"><tspan
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MathJax_Main;-inkscape-font-specification:'MathJax_Main Italic'"
+         id="tspan12256">q</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.1875px;font-family:MathJax_Main;-inkscape-font-specification:MathJax_Main;baseline-shift:sub;fill:#000000;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"
+         id="tspan2859">0</tspan></tspan></text>
+  <text
+     id="text4903"
+     y="226.93468"
+     x="4.3236928"
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.75px;line-height:1.25;font-family:'Libertinus Math';-inkscape-font-specification:'Libertinus Math Italic';letter-spacing:0px;word-spacing:0px;fill:#008080;fill-opacity:1;stroke:none;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"
+     xml:space="preserve"><tspan
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.75px;font-family:'Libertinus Math';-inkscape-font-specification:'Libertinus Math Italic';fill:#008080;fill-opacity:1;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"
+       y="226.93468"
+       x="4.3236928"
+       id="tspan4901"
+       sodipodi:role="line"><tspan
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MathJax_Caligraphic;-inkscape-font-specification:'MathJax_Caligraphic Italic';stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"
+   id="tspan2964">M</tspan> <tspan
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Libertinus Serif';-inkscape-font-specification:'Libertinus Serif';stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"
+   id="tspan2851" /></tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:37.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.9375"
+     x="299.52737"
+     y="343.67865"
+     id="text4913"><tspan
+       sodipodi:role="line"
+       id="tspan4911"
+       x="299.52737"
+       y="376.85736"
+       style="stroke-width:0.9375" /></text>
+  <text
+     id="text4961"
+     y="199.87477"
+     x="183.29659"
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.75px;line-height:1.25;font-family:'Libertinus Math';-inkscape-font-specification:'Libertinus Math Italic';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"
+     xml:space="preserve"
+     transform="rotate(-11.354421)"><tspan
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.75px;font-family:'Libertinus Math';-inkscape-font-specification:'Libertinus Math Italic';fill:#000000;fill-opacity:1;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"
+       y="199.87477"
+       x="183.29659"
+       id="tspan4959"
+       sodipodi:role="line"><tspan
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MathJax_Math;-inkscape-font-specification:'MathJax_Math Italic'"
+         id="tspan12248">ϵp</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.1875px;font-family:MathJax_Main;-inkscape-font-specification:MathJax_Main;baseline-shift:sub;fill:#000000;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"
+         id="tspan2855">1/2</tspan></tspan></text>
+  <text
+     id="text4967"
+     y="158.40405"
+     x="367.75839"
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.75px;line-height:1.25;font-family:'Libertinus Math';-inkscape-font-specification:'Libertinus Math Italic';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"
+     xml:space="preserve"><tspan
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.75px;font-family:MathJax_Main;-inkscape-font-specification:'MathJax_Main Italic';fill:#000000;fill-opacity:1;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"
+       y="158.40405"
+       x="367.75839"
+       id="tspan4965"
+       sodipodi:role="line">q<tspan
+   style="font-size:12.1875px;baseline-shift:sub;fill:#000000;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none;-inkscape-font-specification:'MathJax_Main Italic';font-family:MathJax_Main;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
+   id="tspan2892">1</tspan></tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.75px;line-height:1.25;font-family:'Libertinus Math';-inkscape-font-specification:'Libertinus Math Italic';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"
+     x="478.16339"
+     y="-63.599751"
+     id="text5171"
+     transform="rotate(29.120842)"><tspan
+       sodipodi:role="line"
+       id="tspan5169"
+       x="478.16339"
+       y="-63.599751"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.75px;font-family:'Libertinus Math';-inkscape-font-specification:'Libertinus Math Italic';fill:#000000;fill-opacity:1;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"><tspan
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MathJax_Math;-inkscape-font-specification:'MathJax_Math Italic'"
+         id="tspan12260">ϵ</tspan><tspan
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MathJax_Main;-inkscape-font-specification:'MathJax_Main Italic'"
+         id="tspan12258">p</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.1875px;font-family:MathJax_Main;-inkscape-font-specification:'MathJax_Main Italic';baseline-shift:sub;fill:#000000;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"
+         id="tspan2890">1</tspan></tspan></text>
+  <text
+     id="text5177"
+     y="222.4845"
+     x="70.476089"
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.75px;line-height:1.25;font-family:'Libertinus Math';-inkscape-font-specification:'Libertinus Math Italic';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"
+     xml:space="preserve"
+     transform="rotate(-41.283481)"><tspan
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.75px;font-family:'Libertinus Math';-inkscape-font-specification:'Libertinus Math Italic';fill:#000000;fill-opacity:1;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"
+       y="222.4845"
+       x="70.476089"
+       id="tspan5175"
+       sodipodi:role="line"><tspan
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MathJax_Math;-inkscape-font-specification:'MathJax_Math Italic'"
+         id="tspan12326">ϵ</tspan><tspan
+         style="-inkscape-font-specification:'MathJax_Math Italic';font-family:MathJax_Math;font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal"
+         id="tspan12344">p</tspan><tspan
+         style="font-style:normal;font-size:12.1875px;baseline-shift:sub;fill:#000000;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none;-inkscape-font-specification:'MathJax_Main Italic';font-family:MathJax_Main;font-weight:normal;font-stretch:normal;font-variant:normal"
+         id="tspan2862">1/2</tspan></tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.75px;line-height:1.25;font-family:'Libertinus Math';-inkscape-font-specification:'Libertinus Math Italic';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"
+     x="13.505284"
+     y="184.94792"
+     id="text5183"
+     transform="rotate(-50.836025)"><tspan
+       sodipodi:role="line"
+       id="tspan5181"
+       x="13.505284"
+       y="184.94792"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.75px;font-family:'Libertinus Math';-inkscape-font-specification:'Libertinus Math Italic';fill:#000000;fill-opacity:1;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"> <tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MathJax_Math;-inkscape-font-specification:'MathJax_Math Italic'"
+   id="tspan12330">ϵ</tspan><tspan
+   id="tspan12422"
+   style="-inkscape-font-specification:'MathJax_Main Italic';font-family:MathJax_Main;font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal">p</tspan><tspan
+   style="font-style:normal;font-size:12.1875px;baseline-shift:sub;fill:#000000;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none;-inkscape-font-specification:'MathJax_Main Italic';font-family:MathJax_Main;font-weight:normal;font-stretch:normal;font-variant:normal"
+   id="tspan2864">1/2</tspan></tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.75px;line-height:1.25;font-family:Roboto;-inkscape-font-specification:'Roboto Italic';letter-spacing:0px;word-spacing:0px;opacity:0.98999999;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"
+     x="286.30295"
+     y="32.300953"
+     id="text5295"><tspan
+       sodipodi:role="line"
+       id="tspan5293"
+       x="286.30295"
+       y="32.300953"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.75px;font-family:'Libertinus Math';-inkscape-font-specification:'Libertinus Math Italic';fill:#000000;fill-opacity:1;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"><tspan
+         style="-inkscape-font-specification:'MathJax_Main Italic';font-family:MathJax_Main;font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal"
+         id="tspan12474">q</tspan><tspan
+         style="font-style:normal;font-size:12.1875px;baseline-shift:sub;fill:#000000;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none;-inkscape-font-specification:'MathJax_Main Italic';font-family:MathJax_Main;font-weight:normal;font-stretch:normal;font-variant:normal"
+         id="tspan2886">1</tspan><tspan
+         style="-inkscape-font-specification:'MathJax_Main Italic';font-family:MathJax_Main;font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal"
+         id="tspan12476"> </tspan><tspan
+         style="font-style:normal;fill:#000000;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none;-inkscape-font-specification:'MathJax_Main Italic';font-family:MathJax_Main;font-weight:normal;font-stretch:normal;font-variant:normal"
+         id="tspan3094">=</tspan><tspan
+         style="font-size:12.1875px;baseline-shift:sub;fill:#000000;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none;-inkscape-font-specification:'MathJax_Main Italic';font-family:MathJax_Main;font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal"
+         id="tspan2876">  </tspan><tspan
+         style="-inkscape-font-specification:'MathJax_Main Italic';font-family:MathJax_Main;font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal"
+         id="tspan12478">q</tspan><tspan
+         style="font-style:normal;font-size:12.1875px;baseline-shift:sub;fill:#000000;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none;-inkscape-font-specification:'MathJax_Main Italic';font-family:MathJax_Main;font-weight:normal;font-stretch:normal;font-variant:normal"
+         id="tspan2866">0</tspan><tspan
+         style="-inkscape-font-specification:'MathJax_Main Italic';font-family:MathJax_Main;font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal"
+         id="tspan12480"> </tspan><tspan
+         style="font-style:normal;fill:#000000;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none;-inkscape-font-specification:'MathJax_Main Italic';font-family:MathJax_Main;font-weight:normal;font-stretch:normal;font-variant:normal"
+         id="tspan3106">+</tspan><tspan
+         style="-inkscape-font-specification:'MathJax_Main Italic';font-family:MathJax_Main;font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal"
+         id="tspan12482"> </tspan><tspan
+         style="-inkscape-font-specification:'MathJax_Math Italic';font-family:MathJax_Math;font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal"
+         id="tspan12472">ϵ</tspan><tspan
+         style="-inkscape-font-specification:'MathJax_Main Italic';font-family:MathJax_Main;font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal"
+         id="tspan12470">p</tspan><tspan
+         style="font-style:normal;font-size:12.1875px;baseline-shift:sub;fill:#000000;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none;-inkscape-font-specification:'MathJax_Main Italic';font-family:MathJax_Main;font-weight:normal;font-stretch:normal;font-variant:normal"
+         id="tspan2868">1/2</tspan></tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:37.5px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.9375"
+     x="60.464848"
+     y="34.303623"
+     id="text2874"><tspan
+       sodipodi:role="line"
+       id="tspan2872"
+       x="60.464848"
+       y="67.482338"
+       style="stroke-width:0.9375" /></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.5px;line-height:1.25;font-family:MathJax_Caligraphic;-inkscape-font-specification:MathJax_Caligraphic;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.9375"
+     x="109.20309"
+     y="100.23699"
+     id="text10828"><tspan
+       sodipodi:role="line"
+       id="tspan10826"
+       x="109.20309"
+       y="134.36479"
+       style="stroke-width:0.9375"></tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.75px;line-height:1.25;font-family:'Libertinus Math';-inkscape-font-specification:'Libertinus Math Italic';letter-spacing:0px;word-spacing:0px;fill:#008000;fill-opacity:1;stroke:none;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"
+     x="-124.83486"
+     y="227.31659"
+     id="text10856"
+     transform="rotate(-40.496239)"><tspan
+       sodipodi:role="line"
+       id="tspan10854"
+       x="-124.83486"
+       y="227.31659"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.75px;font-family:'Libertinus Math';-inkscape-font-specification:'Libertinus Math Italic';fill:#008000;fill-opacity:1;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"><tspan
+   id="tspan10850"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MathJax_Caligraphic;-inkscape-font-specification:'MathJax_Caligraphic Italic';fill:#008000;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none">T<tspan
+   style="font-size:12.1875px;baseline-shift:sub;fill:#008000;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"
+   id="tspan10868">M</tspan></tspan><tspan
+   style="font-style:normal;fill:#008000;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none;-inkscape-font-specification:MathJax_Main;font-family:MathJax_Main;font-weight:normal;font-stretch:normal;font-variant:normal"
+   id="tspan10866">(</tspan><tspan
+   style="-inkscape-font-specification:'MathJax_Main Italic';font-family:MathJax_Main;font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal"
+   id="tspan12254">q</tspan><tspan
+   style="font-style:normal;font-size:12.1875px;baseline-shift:sub;fill:#008000;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none;-inkscape-font-specification:'MathJax_Main Italic';font-family:MathJax_Main;font-weight:normal;font-stretch:normal;font-variant:normal"
+   id="tspan10862">0</tspan><tspan
+   style="font-style:normal;fill:#008000;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none;-inkscape-font-specification:MathJax_Main;font-family:MathJax_Main;font-weight:normal;font-stretch:normal;font-variant:normal"
+   id="tspan10864">)</tspan> </tspan></text>
+  <text
+     id="text10882"
+     y="48.254349"
+     x="130.87959"
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.75px;line-height:1.25;font-family:'Libertinus Math';-inkscape-font-specification:'Libertinus Math Italic';letter-spacing:0px;word-spacing:0px;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"
+     xml:space="preserve"
+     transform="rotate(47.969063)"><tspan
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.75px;font-family:'Libertinus Math';-inkscape-font-specification:'Libertinus Math Italic';fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"
+       y="48.254349"
+       x="130.87959"
+       id="tspan10880"
+       sodipodi:role="line"><tspan
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MathJax_Caligraphic;-inkscape-font-specification:'MathJax_Caligraphic Italic';fill:#ff0000;stroke:none;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"
+   id="tspan10872">N<tspan
+   id="tspan10870"
+   style="font-size:12.1875px;baseline-shift:sub;fill:#ff0000;stroke:none;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none">M</tspan></tspan><tspan
+   id="tspan10874"
+   style="font-style:normal;fill:#ff0000;stroke:none;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none;-inkscape-font-specification:MathJax_Main;font-family:MathJax_Main;font-weight:normal;font-stretch:normal;font-variant:normal">(</tspan>q<tspan
+   id="tspan10876"
+   style="font-style:normal;font-size:12.1875px;baseline-shift:sub;fill:#ff0000;stroke:none;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none">0</tspan><tspan
+   id="tspan10878"
+   style="font-style:normal;fill:#ff0000;stroke:none;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none;-inkscape-font-specification:MathJax_Main;font-family:MathJax_Main;font-weight:normal;font-stretch:normal;font-variant:normal">)</tspan> </tspan></text>
+  <text
+     id="text11251"
+     y="-42.248886"
+     x="422.16949"
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.75px;line-height:1.25;font-family:'Libertinus Math';-inkscape-font-specification:'Libertinus Math Italic';letter-spacing:0px;word-spacing:0px;fill:#008000;fill-opacity:1;stroke:none;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"
+     xml:space="preserve"
+     transform="rotate(30)"><tspan
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.75px;font-family:'Libertinus Math';-inkscape-font-specification:'Libertinus Math Italic';fill:#008000;fill-opacity:1;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"
+       y="-42.248886"
+       x="422.16949"
+       id="tspan11249"
+       sodipodi:role="line"><tspan
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MathJax_Caligraphic;-inkscape-font-specification:'MathJax_Caligraphic Italic';fill:#008000;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"
+   id="tspan11241">T<tspan
+   id="tspan11239"
+   style="font-size:12.1875px;baseline-shift:sub;fill:#008000;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none">M</tspan></tspan><tspan
+   id="tspan11243"
+   style="font-style:normal;fill:#008000;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none;-inkscape-font-specification:MathJax_Main;font-family:MathJax_Main;font-weight:normal;font-stretch:normal;font-variant:normal">(</tspan><tspan
+   style="-inkscape-font-specification:'MathJax_Main Italic';font-family:MathJax_Main;font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal"
+   id="tspan12262">q</tspan><tspan
+   id="tspan11245"
+   style="font-style:normal;font-size:12.1875px;baseline-shift:sub;fill:#008000;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none;-inkscape-font-specification:MathJax_Main;font-family:MathJax_Main;font-weight:normal;font-stretch:normal;font-variant:normal">1</tspan><tspan
+   id="tspan11247"
+   style="font-style:normal;fill:#008000;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none;-inkscape-font-specification:MathJax_Main;font-family:MathJax_Main;font-weight:normal;font-stretch:normal;font-variant:normal">)</tspan> </tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.75px;line-height:1.25;font-family:'Libertinus Math';-inkscape-font-specification:'Libertinus Math Italic';letter-spacing:0px;word-spacing:0px;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"
+     x="109.93332"
+     y="408.34137"
+     id="text11399"
+     transform="rotate(-56.38404)"><tspan
+       sodipodi:role="line"
+       id="tspan11397"
+       x="109.93332"
+       y="408.34137"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.75px;font-family:'Libertinus Math';-inkscape-font-specification:'Libertinus Math Italic';fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"><tspan
+   id="tspan11389"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MathJax_Caligraphic;-inkscape-font-specification:'MathJax_Caligraphic Italic';fill:#ff0000;stroke:none;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none">N<tspan
+   style="font-size:12.1875px;baseline-shift:sub;fill:#ff0000;stroke:none;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"
+   id="tspan11387">M</tspan></tspan><tspan
+   style="font-style:normal;fill:#ff0000;stroke:none;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none;-inkscape-font-specification:MathJax_Main;font-family:MathJax_Main;font-weight:normal;font-stretch:normal;font-variant:normal"
+   id="tspan11391">(</tspan><tspan
+   style="-inkscape-font-specification:'MathJax_Main Italic';font-family:MathJax_Main;font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal"
+   id="tspan12322">q</tspan><tspan
+   style="font-style:normal;font-size:12.1875px;baseline-shift:sub;fill:#ff0000;stroke:none;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none;-inkscape-font-specification:'MathJax_Main Italic';font-family:MathJax_Main;font-weight:normal;font-stretch:normal;font-variant:normal"
+   id="tspan11393">1</tspan><tspan
+   style="font-style:normal;fill:#ff0000;stroke:none;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none;-inkscape-font-specification:MathJax_Main;font-family:MathJax_Main;font-weight:normal;font-stretch:normal;font-variant:normal"
+   id="tspan11395">)</tspan> </tspan></text>
+  <path
+     inkscape:connector-curvature="0"
+     d="m 205.18299,101.88961 c 0.18317,-0.16082 0.15775,-0.58763 0.0375,-0.78145 -0.0602,-0.0969 -0.18732,-0.18485 -0.31409,-0.0735 l -4.80461,4.2185 c -0.15499,0.13609 -0.14194,0.54881 -0.0358,0.755 0.0725,0.11096 0.19969,0.19894 0.32646,0.0876 z"
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.75px;line-height:1.25;font-family:'Libertinus Math';-inkscape-font-specification:'Libertinus Math Italic';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.46874997;stroke-miterlimit:4;stroke-dasharray:none"
+     id="path12388-6" />
+  <path
+     inkscape:connector-curvature="0"
+     d="m 156.34775,84.085182 c -0.22498,0.276215 -0.50437,0.41139 -0.8446,0.47282 -0.40483,0.08136 -0.90873,0.10621 -1.26397,0.54234 -0.50918,0.625119 -0.3093,1.537602 0.24055,2.614224 0.14643,-0.0016 0.27938,-0.135175 0.38052,-0.318803 -0.27844,-0.637907 -0.34256,-1.004518 -0.0347,-1.382497 0.20131,-0.24714 0.51891,-0.399549 0.86829,-0.501896 0.41667,-0.0959 0.8915,-0.14443 1.15201,-0.464259 0.5447,-0.668732 0.40402,-1.653903 -0.18404,-2.713291 -0.11736,0.02532 -0.26754,0.120637 -0.38326,0.292393 0.33823,0.831705 0.32967,1.139109 0.0692,1.458937 z"
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.75px;line-height:1.25;font-family:'Libertinus Math';-inkscape-font-specification:'Libertinus Math Italic';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.46874997;stroke-miterlimit:4;stroke-dasharray:none"
+     id="path12430-0" />
+  <g
+     aria-label="q̃1 =  q0 + ϵ p̅1/2"
+     style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.75px;line-height:1.25;font-family:Roboto;-inkscape-font-specification:'Roboto Italic';letter-spacing:0px;word-spacing:0px;opacity:0.98999999;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"
+     id="text12468">
+    <path
+       d="m 293.88498,21.632204 c -0.35625,0 -0.6375,-0.13125 -0.9,-0.35625 -0.31875,-0.2625 -0.65625,-0.6375 -1.21875,-0.6375 -0.80625,0 -1.3875,0.73125 -1.875,1.8375 0.0937,0.1125 0.28125,0.13125 0.4875,0.09375 0.31875,-0.61875 0.5625,-0.9 1.05,-0.9 0.31875,0 0.6375,0.15 0.9375,0.35625 0.3375,0.2625 0.675,0.6 1.0875,0.6 0.8625,0 1.5375,-0.73125 1.9875,-1.85625 -0.0937,-0.075 -0.2625,-0.13125 -0.46875,-0.1125 -0.43125,0.7875 -0.675,0.975 -1.0875,0.975 z"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.75px;font-family:'Libertinus Math';-inkscape-font-specification:'Libertinus Math Italic';fill:#000000;fill-opacity:1;stroke-width:0.46875;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path12486"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:connector-curvature="0"
+       d="m 382.40845,22.168515 c 0.24375,0 0.50625,-0.3375 0.54375,-0.5625 0.0188,-0.1125 -0.0188,-0.2625 -0.1875,-0.2625 h -6.39375 c -0.20625,0 -0.46875,0.31875 -0.525,0.54375 -0.0188,0.13125 0.0187,0.28125 0.1875,0.28125 z"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.75px;line-height:1.25;font-family:'Libertinus Math';-inkscape-font-specification:'Libertinus Math Italic';letter-spacing:0px;word-spacing:0px;opacity:0.98999999;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.46874997;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path12502-0" />
+  </g>
+</svg>
