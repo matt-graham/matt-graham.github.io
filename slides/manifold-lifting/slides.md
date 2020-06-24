@@ -4,24 +4,44 @@
 <img src='images/loop-manifold-sigma-1e-01.svg' height='300' />
 <img src='images/loop-manifold-sigma-2e-02.svg' height='300' />
 
+<span style='color: #666; font-size: 85%;'>
+  Matt Graham - <span style='color: #444;'>Newcastle University &amp; Alan Turing Institute</apan>
+</span>
 
+---
 
-### <span style='font-size: 90%;'>Joint work with Khai Xiang Au and Alex Thiery, National University of Singapore</span>
+## Collaborators
+
+<div style="margin-top: 0.5em; width: 45%; float: left; text-align: right;">
+  <img src='images/khai.jpg' height='200' />
+  <p>Khai Xiang Au</p>
+</div>
+<div style="margin-top: 2.25em; width: 10%; float: left; text-align: center;">
+  &amp;
+</div>
+<div style="margin-top: 0.5em; width: 45%; float: left; text-align: left;">
+  <img src='images/alex.jpg' height='200' />
+  <p>Alex Thiery</p>
+</div>
+
+<img src='images/nus_logo_full-horizontal.jpg' height='200' />
 
 
 ---
 
 ## Problem statement
 
-**Task**: Infer a latent vector $\vct{\theta} \in \Theta \subseteq \mathbb{R}^{d_{\Theta}}$ given noisy observations $\vct{y} \in \set{Y} = \mathbb{R}^{d_{\set{Y}}}$ with
+<p class="fragment fade-in" data-fragment-index="1">
+  **Task**: Infer a latent vector $\vct{\theta} \in \Theta \subseteq \mathbb{R}^{d_{\Theta}}$ given noisy observations $\vct{y} \in \set{Y} = \mathbb{R}^{d_{\set{Y}}}$ with
+</p>
 
 $$
   \vct{y} = F(\vct{\theta}) + \sigma \vct{\eta}
   \quad\text{and}\quad
   \vct{\eta} \sim \set{N}(\vct{0},\mathbf{I}_{d_{\set{Y}}}),
-$$
+$$ <!-- .element: class="fragment fade-in" data-fragment-index="1" -->
 
-where $F : \Theta \to \set{Y}$ generally non-linear and $\sigma > 0$.
+where $F : \Theta \to \set{Y}$ generally non-linear and $\sigma > 0$. <!-- .element: class="fragment fade-in" data-fragment-index="2" -->
 
 ----
 
@@ -101,7 +121,7 @@ How does acceptance probability vary with $\sigma$ &amp; $\epsilon$?<!-- .elemen
     However when discretised with implicit leapfrog method performance still degenerates as $\sigma \to 0$.
   </p>
   <p class="fragment fade-in" data-fragment-index="2" style="width:100%; height: 100%; position:absolute;top:0;left:0;" >
-    Instead of specifying manifold geometry intrinsically via metric, embed in extended space and use constrained leaprog integrator.
+    Instead of specifying manifold geometry intrinsically via metric, *embed in extended space* and use *constrained leapfrog integrator*.
   </p>
 </div>
 
@@ -129,22 +149,11 @@ $$
     \exp(-{\textstyle\frac{1}{2}\Vert\vct{\eta}\Vert^2})
     \frac{\dr\rho}{\dr\lambda^{d_\Theta}}(\vct{\theta})
   }{
-  |\partial F(\vct{\theta})\partial F(\vct{\theta})\tr + \sigma^2\mathbf{I}_{d_{\set{Y}}}|^{\frac{1}{2}}
+  |\mathbf{D} F(\vct{\theta}) \mathbf{D} F(\vct{\theta})\tr + \sigma^2\mathbf{I}_{d_{\set{Y}}}|^{\frac{1}{2}}
   }
   \,\set{H}^{d_\Theta}_{\set{M}^\sigma}(\dr\vct{\theta}, \dr\vct{\eta}).
 $$
 <!-- .element: class="fragment fade-in" data-fragment-index="2" -->
-
-<!--
-
-such that for all measurable $\varphi: \Theta \to \mathbb{R}$
-
-$$
-  \int_\Theta \varphi(\vct{\theta}) \,\pi^\sigma(\dr\vct{\theta}) =
-  \int_{\set{M}^\sigma} \varphi(\vct{\theta}) \,\bar{\pi}^\sigma(\dr\vct{\theta},\dr\vct{\eta}) .
-$$
-
--->
 
 ----
 
@@ -174,19 +183,19 @@ Lifted distribution $\bar{\pi}^
 
 <h2 style="line-height: 80%;">Constrained Hamiltonian Monte Carlo <small>(Hartmann &amp; Schutte, 2005; Brubaker+, 2012; Leli&egrave;vre+, 2019)</small> </h2>
 
-MCMC method based on simulating a constrained Hamiltonian dynamic defined by DAEs <!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="1" -->
+MCMC method based on simulating constrained Hamiltonian dynamics defined by DAEs <!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="1" -->
 
 $$
   \td{\vct{q}}{t} = \vct{p},
   ~~
-  \td{\vct{p}}{t} = -\partial\phi(\vct{q})\tr + \partial C(\vct{q})\tr\vct{\lambda},
+  \td{\vct{p}}{t} = -\nabla\phi(\vct{q}) + \mathbf{D} C(\vct{q})\tr\vct{\lambda},
   ~~
   C(\vct{q}) = \vct{0},
 $$ <!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="1" -->
 
 <div style="position:relative; width:100%; height:120px;">
   <p class="fragment fade-in-then-out" data-fragment-index="2" style="width:100%; height: 100%; position:absolute;top:0;left:0;" >
-    In our case: $\vct{q} = (\vct{\theta}, \vct{\eta})$, $C(\vct{\theta},\vct{\eta}) = F(\vct{\theta}) + \sigma\vct{\eta} - \vct{y}$ and <span style='font-size: 87%;'>$\phi(\vct{\theta},\vct{\eta}) = -\log\rho(\vct{\theta}) + {\textstyle \frac{1}{2}}\Vert\vct{\eta}\Vert^2 +  {\textstyle \frac{1}{2}}\log|\partial F(\vct{\theta})\partial F(\vct{\theta})\tr + \sigma^2\mathbf{I}|$</span>.
+    In our case: $\vct{q} = (\vct{\theta}, \vct{\eta})$, $C(\vct{\theta},\vct{\eta}) = F(\vct{\theta}) + \sigma\vct{\eta} - \vct{y}$ and <span style='font-size: 87%;'>$\phi(\vct{\theta},\vct{\eta}) = -\log\rho(\vct{\theta}) + {\textstyle \frac{1}{2}}\Vert\vct{\eta}\Vert^2 +  {\textstyle \frac{1}{2}}\log|\mathbf{D} F(\vct{\theta})\mathbf{D} F(\vct{\theta})\tr + \sigma^2\mathbf{I}|$</span>.
   </p>
   <p class="fragment fade-in-then-out" data-fragment-index="3" style="width:100%; height: 100%; position:absolute;top:0;left:0;" >
     Simulate using a constraint-preserving symplectic integrator such as RATTLE <small>(Andersen, 1983)</small>.
@@ -198,11 +207,14 @@ $$ <!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="1"
 
 ----
 
-## Constrained leapfrog step
+## Constrained HMC on lifted distribution
 
-<img height='400' src='images/constrained-step-cm-path.svg' />
+<video width="540" height="540" autoplay loop>
+  <source src="videos/constrained-hmc-on-lifted-distribution.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
----
+----
 
 ## Manifold MCMC methods in Python
 
@@ -211,7 +223,6 @@ $$ <!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="1"
 Available on Github at [git.io/mici.py](https://git.io/mici.py) or 
 
 ```pip install mici```
-
 
 ---
 
@@ -230,97 +241,16 @@ Available on Github at [git.io/mici.py](https://git.io/mici.py) or
   <img src='images/ess-pde.svg' height='250' />
 </div>
 
----
-
-## Bayesian probabilistic numerical methods (BPNMs) <small>(Cockayne+, 2019)</small>
-
-Latent variable $u \in \set{U}$ with prior distribution $\mu$ and  information operator $Y : \set{U} \to \set{Y}$. <!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="1" -->
-
-Posterior $\mu^y$ is supported on $Y^{-1}(y)$ and satisfies for all $\mu$-measurable $\varphi : \set{U} \to \mathbb{R}$<!-- .element: class="fragment fade-in" data-fragment-index="2" -->
-
-$$
- \int_{\set{U}} \varphi(u)\,\mu(\dr u) =
- \int_{\set{Y}} \int_{Y^{-1}(y)}\varphi(u)\,\mu^{y}(\dr u) \, (Y_\sharp\mu) (\dr y).
-$$
-<!-- .element: class="fragment fade-in" data-fragment-index="2" -->
-
----
-
-## Numerical disintegration (ND)
-
-Define family of relaxed posteriors for $\delta > 0$ <!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="1" -->
-
-$$
-  \mu^y_\delta(\dr u) \propto \delta^{-d_{\set{Y}}}\exp\left({\textstyle-\frac{1}{2\delta^2}}\Vert y - Y(u)\Vert^2 \right)\mu(\dr u).
-$$
- <!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="1" -->
-
-<p class="fragment fade-in-then-semi-out" data-fragment-index="2">Under appropriate assumptions as $\delta \to 0$, $\mu^y_\delta$ weakly converges to $\mu^y$ <small>(Cockayne+, 2019).</small></p>
-
-Approximate $\mu^y$ by iteratively sampling from sequence of relaxed distributions $\lbrace \mu^y_{\delta_m} \rbrace_{m=1}^M$ with $\infty > \delta_1 > \delta_2 > \dots > \delta_M > 0$.<!-- .element: class="fragment fade-in" data-fragment-index="3" -->
-
----
-
-## Sequential Monte Carlo (SMC) ND
-
-<p class="fragment fade-in" data-fragment-index="1">**Input**: Markov kernels $K_{1:M}$ with $K_m \mu^y_{\delta_m} = \mu^y_{\delta_m}$</p>
-
-$$
-\begin{aligned}
-&u^0_p \sim \mu \quad \forall p \in 1{:}P\\\
-&\text{for } m \in 1{:}M:\\\
-&\quad \tilde{u}^m_p \sim K_m(u^{m-1}_p, \cdot) & \forall p \in 1{:}P\\\  
-&\quad w^m_p \gets \exp(-{\textstyle\frac{\delta_{m-1}-\delta_m}{2\delta_m\delta_{m-1}}}\Vert Y(u) - y\Vert^2) & \forall p \in 1{:}P \\\
-&\quad u^m_p \sim \text{Discrete}(\tilde{u}^m_{1:P}, w^m_{1:P}) & \forall p \in 1{:}P
-\end{aligned}
-$$<!-- .element: class="fragment fade-in" data-fragment-index="2" -->
 
 ----
 
-## Computational issues with SMC-ND
+## Conclusion
 
-*'for small $\delta$, mixing of the chains tends to be poor'*
+  * Propose an MCMC method with efficiency that remains efficient as $\sigma \to 0$. <!-- .element: class="fragment semi-fade-out" data-fragment-index="1" -->
+  * Relies on forward function $F$ being differentiable. <!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="1" -->
+  * Can be combined with standard HMC techniques such as dynamic integration times and step size adaptation for fully tuning-free approach. <!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="2" -->
+  * Straightforward to generalise to models with non-isotropic / variable noise $\boldsymbol{y} = F(\boldsymbol{\theta}) + S(\boldsymbol{\theta}) \boldsymbol{\eta}$. <!-- .element: class="fragment fade-in" data-fragment-index="3" -->
 
-Need to use many MALA iterations for each kernel $K_{1:M}$ and large number of tolerances $M$. <!-- .element: class="fragment fade-in" data-fragment-index="1" -->
-
-Also need to tune step size for each $K_{1:M}$. <!-- .element: class="fragment fade-in" data-fragment-index="2" -->
-
----
-
-## <small>Idea 1:</small> Constrained HMC for BPNMs
-
-Assuming $d_\set{U} < \infty$, $\mu \ll \lambda_{d_{\set{U}}}$, $Y$ is continuously differentiable and $\partial Y$ is full row-rank $\mu$-a.e. then <!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="1" -->
-
-$$
-  \mu^y(\dr u) \propto 
-  \frac{\dr\mu}{\dr\lambda_{d_{\set{U}}}}(u)
-  \det(\partial Y(u) \partial Y(u)\tr)^{-\frac{1}{2}}
-  \,\set{H}^{d_{\set{U}}-d_{\set{Y}}}_{Y^{-1}(y)}(\dr u),
-$$ <!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="1" -->
-
-with support $Y^{-1}(y)$ in this case a (potentially disconnected) manifold embedded in $\set{U}$. <!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="1" -->
-
-Use constrained HMC to directly construct Markov chain with $\mu^y$ as unique invariant distribution?<!-- .element: class="fragment fade-in" data-fragment-index="2" -->
-
-
----
-
-## Potential issues
-
-  * How to find point in $Y^{-1}(y)$ to initialise chain?<!-- .element: class="fragment fade-in" data-fragment-index="1" -->
-  * $Y^{-1}(y)$ may consist of disconnected components $\rightarrow$ non-ergodic.<!-- .element: class="fragment fade-in" data-fragment-index="2" -->
-
----
-
-## <small>Idea 2:</small> Constrained HMC within SMC-ND
-
-Use constrained HMC for $K_{1:M}$ in SMC-ND method.<!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="1" -->
-
-Earlier results $\Rightarrow$ sampling efficiency does not degenerate as $\delta \to 0$.<!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="2" -->
-
-Can use single fixed step size and also use dynamic integration time HMC implementation $\Rightarrow$ minimal tuning.<!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="3" -->
-
-<p class="fragment fade-in" data-fragment-index="4">**Technical issue**: is it possible to do a final move-reweight-resample to $\delta = 0$ 'exactly'?</p>
 
 ---
 
@@ -333,11 +263,6 @@ Can use single fixed step size and also use dynamic integration time HMC impleme
      *arxiv:2003.03950*, 2020.
    </li>
    <li>
-     J. Cockayne, C. J. Oates, T. J. Sullivan and M. Girolami. 
-     Bayesian probabilistic numerical methods. 
-     *SIAM Review*, 2019.
-   </li>
-   <li>
      M. Girolami and B. Calderhead. 
      Riemann manifold Langevin and Hamiltonian Monte Carlo methods. 
      *J-RSS (Series B)*, 2011.
@@ -347,6 +272,11 @@ Can use single fixed step size and also use dynamic integration time HMC impleme
      Langevin diffusions and the Metropolis-adjusted Langevin algorithm.  
      *Statistics &amp; Probability Letters*, 2014.
    </li>
+   <li>
+     H. C. Andersen. 
+     RATTLE: A 'velocity' version of the SHAKE algorithm for molecular dynamics calculations. 
+     *Journal of Comp. Physics*, 1983.
+   </li>
 </div>
 
 ----
@@ -354,11 +284,6 @@ Can use single fixed step size and also use dynamic integration time HMC impleme
 ## References
 
 <ul style="font-size: 70%;">
-   <li>
-     H. C. Andersen. 
-     RATTLE: A 'velocity' version of the SHAKE algorithm for molecular dynamics calculations. 
-     *Journal of Comp. Physics*, 1983.
-   </li>
    <li>
      C. Hartmann and C. Schutte. 
      A constrained hybrid Monte Carlo algorithm and the problem of calculating the free energy in several variables. 
