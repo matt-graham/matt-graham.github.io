@@ -47,7 +47,7 @@ where $F : \Theta \to \set{Y}$ generally non-linear and $\sigma > 0$. <!-- .elem
 
 ## Problem statement
 
-**Bayesian approach**: Assume prior beliefs specified by a distribution $\rho$  with density wrt $\lambda^{d_\Theta}$ on $\Theta$.  
+**Bayesian approach**: Assume prior beliefs given as a distribution with density $\rho$ wrt Lebesgue measure.  
 
 Posterior distribution then<!-- .element: class="fragment fade-in" data-fragment-index="1" -->
 
@@ -57,7 +57,7 @@ $$
   \exp\big(
     {\textstyle-\frac{1}{2 \sigma^2}} \Vert\vct{y} -  F(\vct{\theta})\Vert^2
   \big) 
-  \,\rho(\dr\vct{\theta}).
+  \,\rho(\vct{\theta}) \,\dr\boldsymbol{\theta}.
 $$
 <!-- .element: class="fragment fade-in" data-fragment-index="1" -->
 
@@ -144,16 +144,16 @@ $$
 Posterior distribution $\pi^\sigma$ on $\Theta$ can be 'lifted' to distribution $\bar{\pi}^\sigma$ on to $\set{M}^\sigma$<!-- .element: class="fragment fade-in" data-fragment-index="2" -->
 
 $$
-  \bar{\pi}^\sigma(\dr\vct{\theta}, \dr\vct{\eta}) =
+  \bar{\pi}^\sigma(\dr\vct{\theta}, \dr\vct{\eta}) \propto
   \frac{
     \exp(-{\textstyle\frac{1}{2}\Vert\vct{\eta}\Vert^2})
-    \frac{\dr\rho}{\dr\lambda^{d_\Theta}}(\vct{\theta})
+    \rho(\vct{\theta}) \mathbb{1}_{\mathcal{M}^\sigma}(\dr\boldsymbol{\theta})
   }{
   |\mathbf{D} F(\vct{\theta}) \mathbf{D} F(\vct{\theta})\tr + \sigma^2\mathbf{I}_{d_{\set{Y}}}|^{\frac{1}{2}}
   }
-  \,\set{H}^{d_\Theta}_{\set{M}^\sigma}(\dr\vct{\theta}, \dr\vct{\eta}).
+  \,\set{H}_{d_\Theta}(\dr\vct{\theta}, \dr\vct{\eta}).
 $$
-<!-- .element: class="fragment fade-in" data-fragment-index="2" -->
+<!-- .element: class="fragment fade-in" style="font-size: 85%;" data-fragment-index="2" -->
 
 ----
 
@@ -186,16 +186,16 @@ Lifted distribution $\bar{\pi}^
 MCMC method based on simulating constrained Hamiltonian dynamics defined by DAEs <!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="1" -->
 
 $$
-  \td{\vct{q}}{t} = \vct{p},
+  \dot{\vct{q}} = \vct{p},
   ~~
-  \td{\vct{p}}{t} = -\nabla\phi(\vct{q}) + \mathbf{D} C(\vct{q})\tr\vct{\lambda},
+  \dot{\vct{p}} = -\nabla U(\vct{q}) + \mathbf{D} C(\vct{q})\tr\vct{\lambda},
   ~~
   C(\vct{q}) = \vct{0},
 $$ <!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="1" -->
 
 <div style="position:relative; width:100%; height:120px;">
   <p class="fragment fade-in-then-out" data-fragment-index="2" style="width:100%; height: 100%; position:absolute;top:0;left:0;" >
-    In our case: $\vct{q} = (\vct{\theta}, \vct{\eta})$, $C(\vct{\theta},\vct{\eta}) = F(\vct{\theta}) + \sigma\vct{\eta} - \vct{y}$ and <span style='font-size: 87%;'>$\phi(\vct{\theta},\vct{\eta}) = -\log\rho(\vct{\theta}) + {\textstyle \frac{1}{2}}\Vert\vct{\eta}\Vert^2 +  {\textstyle \frac{1}{2}}\log|\mathbf{D} F(\vct{\theta})\mathbf{D} F(\vct{\theta})\tr + \sigma^2\mathbf{I}|$</span>.
+    In our case: $\vct{q} = (\vct{\theta}, \vct{\eta})$, $C(\vct{\theta},\vct{\eta}) = F(\vct{\theta}) + \sigma\vct{\eta} - \vct{y}$ and <span style='font-size: 87%;'>$U(\vct{\theta},\vct{\eta}) = -\log\rho(\vct{\theta}) + {\textstyle \frac{1}{2}}\Vert\vct{\eta}\Vert^2 +  {\textstyle \frac{1}{2}}\log|\mathbf{D} F(\vct{\theta})\mathbf{D} F(\vct{\theta})\tr + \sigma^2\mathbf{I}|$</span>.
   </p>
   <p class="fragment fade-in-then-out" data-fragment-index="3" style="width:100%; height: 100%; position:absolute;top:0;left:0;" >
     Simulate using a constraint-preserving symplectic integrator such as RATTLE <small>(Andersen, 1983)</small>.
@@ -244,12 +244,13 @@ Available on Github at [git.io/mici.py](https://git.io/mici.py) or
 
 ----
 
-## Conclusion
+## Conclusions
 
   * Propose an MCMC method with efficiency that remains efficient as $\sigma \to 0$. <!-- .element: class="fragment semi-fade-out" data-fragment-index="1" -->
   * Relies on forward function $F$ being differentiable. <!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="1" -->
-  * Can be combined with standard HMC techniques such as dynamic integration times and step size adaptation for fully tuning-free approach. <!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="2" -->
-  * Straightforward to generalise to models with non-isotropic / variable noise $\boldsymbol{y} = F(\boldsymbol{\theta}) + S(\boldsymbol{\theta}) \boldsymbol{\eta}$. <!-- .element: class="fragment fade-in" data-fragment-index="3" -->
+  * Cost scales as $\mathcal{O}(\min(d_\mathcal{Y}^2 d_\Theta, d_\mathcal{Y} d_\Theta^2))$. <!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="2" -->
+  * Combining with dynamic HMC algorithms and step size adaptation gives tuning-free approach. <!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="3" -->
+  * Straightforward to generalise to models with non-isotropic / variable noise: $\boldsymbol{y} = F(\boldsymbol{\theta}) + S(\boldsymbol{\theta}) \boldsymbol{\eta}$. <!-- .element: class="fragment fade-in" data-fragment-index="4" -->
 
 
 ---
