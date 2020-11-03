@@ -1,6 +1,6 @@
 # <small>A brief introduction to</small> <br /> Automatic Differentiation
 
-<img src='images/tracing.svg' height='200' />
+<img src='images/horizontal-comp-graph-neg-log-dens.svg' height='200' />
 
 ## Matt Graham <small>[&lt;matt-graham.github.io&gt;](http://matt-graham.github.io)</small>
 
@@ -33,7 +33,7 @@ For example for a smooth function $f : \reals^N \to \reals^M$ if $\mathbf{e}_i$ 
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
 $$
-  \partial_i\, f(\vct{x}) \approx \frac{f(\vct{x}+h\mathbf{e}_i)-f(\vct{x})}{h}
+  \partial_i\, f(x) \approx \frac{f(x+h\mathbf{e}_i)-f(x)}{h}
 $$
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
@@ -61,7 +61,7 @@ For small $h$ can become numerically instable.
 Implementations of rules of calculus in computer algebra systems (e.g. Mathematica, SymPy).
 <!-- .element: class="fragment semi-fade-out" data-fragment-index="1" -->
 
-Gives human-readable expressions as output but similarly this leads to verbose output for complicated compositions of functions and redundancy between partial derivatives.
+Gives human-readable expressions as output but verbose for complicated compositions of functions and redundancy between partial derivatives.
 <!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="1" -->
 
 AD instead exploits modularity of functions, computing derivatives in terms of intermediate values rather than expanding in terms of inputs.
@@ -75,9 +75,9 @@ AD instead exploits modularity of functions, computing derivatives in terms of i
 For a function $f : \reals^N \to \reals^M$ the Jacobian $\partial f(x)$ at an input $x \in \reals^N$ can be represented as a $M \times N$ matrix of partial derivatives
 
 $$ \partial f(x) = \begin{bmatrix} 
-  \pd{f_0}{x_0} & \dots & \pd{f_0}{x_N} \\\\ 
+  \partial_1{f_1}(x) & \dots & \partial_N f(x) \\\\ 
   \vdots & \ddots & \vdots \\\\
-  \pd{f_M}{x_0} & \dots & \pd{f_M}{x_N}
+  \partial_1 f_M(x) & \dots & \partial_N f_M(x)
   \end{bmatrix}.
 $$
 <!-- .element: class="fragment" data-fragment-index="1" -->
@@ -101,12 +101,12 @@ Cost of $\texttt{JVP}(\,f)(x)(v)$ = $\mathcal{O}(1)\times \,$ cost of  $f(x)$.
 
 ## Vector Jacobian products
 
-<p class="fragment semi-fade-out" data-fragment-index="1">The *transpose* of the Jacobian $\partial f(x)\tr$ is a linear map $\reals^M \to \reals^N$ can be applied to a vector $v \in \reals^M$. We term this a *vector Jacobian product* (`VJP`)</p>
+<p class="fragment semi-fade-out" data-fragment-index="1">The *transpose* of the Jacobian $\partial f(x)\tr$ is a linear map $\reals^M \to \reals^N$ can be applied to a vector $v \in \reals^M$. We term this a *vector Jacobian product* (`VJP`) (cf. adjoint operator)</p>
 
 $$\texttt{VJP}(\,f)(x)(v) := \partial f(x)\tr v = \left( v\tr \partial f(x)\right)\tr$$
 <!-- .element: class="fragment semi-fade-out" data-fragment-index="1" -->
 
-Cost of $\texttt{JVP}(\,f)(x)(v)$ = $\mathcal{O}(1)\times \,$ cost of  $f(x)$.
+Cost of $\texttt{VJP}(\,f)(x)(v)$ = $\mathcal{O}(1)\times \,$ cost of  $f(x)$.
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
 ----
@@ -122,7 +122,7 @@ $$\partial (\,f\circ g) = (\partial f \circ g) \, \partial g$$
 or equivalently if $y = g(x)$ and $z = f(y)$
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
-$$\pd{z}{x} = \partial f(y) \partial g(x).$$
+$$\pd{z}{x} = \pd{z}{y} \pd{y}{x} = \partial f(y) \partial g(x).$$
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
 ----
@@ -159,7 +159,7 @@ Can evaluate $g(x)$ at same time as $\texttt{JVP}(g)(x)$.
 \end{align}
 
 <p class="fragment" data-fragment-index="1">
-Need to evaluate $g(x)$ *before* evaluating $\texttt{JVP}(g)(x)$.
+Need to evaluate $g(x)$ *before* evaluating $\texttt{VJP}(g)(x)$.
 </p>
 
 ----
@@ -181,13 +181,13 @@ In the case of reverse-mode accumulation using `VJP`s we must first compute and 
 
 For a scalar-valued function $f : \reals^N \to \reals$ we can express its gradient as a `VJP`
 
-$$\nabla f(x) \tr = \partial f(x)\tr 1 = \texttt{VJP}(\,f)(x)(1).$$
+$$\nabla f(x) \tr = \partial f(x)\tr [1] = \texttt{VJP}(\,f)(x)([1]).$$
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
 Using reverse-mode accumulation we can therefore compute $\nabla f(x)$ at similar cost to evaluating $f(x)$.
 <!-- .element: class="fragment" data-fragment-index="2" -->
 
-----
+---
 
 ## Normal negative log density example
 
@@ -201,11 +201,11 @@ $$ c = \frac{1}{2}\left(\frac{x-m}{s}\right)^2 + \log (s) + \frac{1}{2}\log (2\p
 ## <a href='https://live.sympy.org/?evaluate=x%2C%20m%2C%20s%20%3D%20symbols(%27x%20m%20s%27)%0Ac%20%3D%20((x-m)%2Fs)**2%20%2F%202%20%2B%20log(s)%20%2B%20log(2%20*%20pi)%20%2F%202%0Asimplify((diff(c%2C%20x)%2C%20diff(c%2C%20m)%2C%20diff(c%2C%20s)))%0A%23--%0A'>Symbolic differentiation: SymPy</a>
 
 ```Python
-from sympy import *
+import sympy as sp
 
-x, m, s = symbols('x m s')
-c = ((x-m)/s)**2 / 2 + log(s) + log(2 * pi) / 2
-simplify((diff(c, x), diff(c, m), diff(c, s)))
+x, m, s = sp.symbols('x m s')
+c = ((x - m) / s)**2 / 2 + sp.log(s) + sp.log(2 * sp.pi) / 2
+sp.simplify((sp.diff(c, x), sp.diff(c, m), sp.diff(c, s)))
 ```
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
@@ -216,19 +216,262 @@ $$\left ( \frac{- m + x}{s^{2}}, \quad \frac{m - x}{s^{2}}, \quad \frac{s^{2} - 
 Each derivative is evaluated separately and no sharing of common subexpressions.
 <!-- .element: class="fragment" data-fragment-index="3" -->
 
+----
+
+## Numerical differentiation: NumPy
+
+```Python
+import numpy as np
+
+def neg_log_dens(x, m, s):
+    return ((x - m) / s)**2 / 2 + np.log(s) + np.log(2 * np.pi) / 2
+
+x, m, s, h = 0.5, 1.2, 1.1, 1e-8
+c = neg_log_dens(x, m, s)
+(
+    (neg_log_dens(x + h, m, s) - c) / h, 
+    (neg_log_dens(x, m + h, s) - c) / h, 
+    (neg_log_dens(x, m, s + h) - c) / h
+)
+
+# Output: (-0.5785124, 0.5785124, 0.5409467)
+```
+<!-- .element: class="fragment small-code" data-fragment-index="1" -->
+
+Four evaluations of function and approximate output.
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+----
+
+## Automatic differentiation: Autograd
+
+
+```python
+import autograd.numpy as np
+from autograd import grad
+
+def neg_log_dens(x, m, s):
+    return ((x - m) / s)**2 / 2 + np.log(s) + np.log(2 * np.pi) / 2
+    
+x, m, s = 0.5, 1.2, 1.1
+grad(neg_log_dens, argnum=(0, 1, 2))(x, m, s)
+
+# Output: (array(-0.5785124), array(0.5785124), array(0.54094666))
+```
+<!-- .element: class="fragment small-code" data-fragment-index="1" -->
+
+One forward and backward pass to evaluate all 3 derivatives and 'exact' output.
+<!-- .element: class="fragment" data-fragment-index="2" -->
 
 ----
 
 ## Computational graph
 
-<img width='800' style='border: none; box-shadow: none;' src='http://matt-graham.github.io/slides/dgm/images/normal-log-density-computation-graph.svg' />
+```python
+t0 = x - m
+t1 = t0 / s
+t2 = np.log(s)
+t3 = t1**2
+t4 = t2 + 0.5 * np.log(2 * np.pi)
+t5 = 0.5 * t3
+c = t4 + t5
+```
+<!-- .element: class="fragment" data-fragment-index="1" -->
 
+<img src='images/horizontal-comp-graph-neg-log-dens.svg' class="fragment" data-fragment-index="2" height='250' />
+
+<!--
+```graphviz
+
+digraph G
+{
+    rankdir = "LR"; 
+    bgcolor="transparent";
+    graph [pad="0.3", ranksep="0.3", nodesep="0.3"];
+    subgraph vars {
+        node [color=DarkGreen fontname=Courier shape=circle width=0.6];
+        x; m; s; t0; t1; t2; t3; t4; t5; c
+    }
+    subgraph consts {
+        node [shape=plaintext fontname=Courier];
+        halflog2pi[label="log(2*pi)/2"];
+        two[label="2"]
+    }
+    subgraph ops {
+        node [shape=box color="#006EAF" fontname=Courier];
+        xm_t0[label="subtract"];
+        t0s_t1[label="divide"];
+        s_t2[label="log"];
+        t1_t3[label="square"];
+        t2halflog2pi_t4[label="add"];
+        t3half_t5[label="divide"];
+        t4t5_c[label="add"]
+    }
+    subgraph edges {
+        {x m} -> xm_t0 -> t0;
+        {t0 s} -> t0s_t1 -> t1;
+        s -> s_t2 -> t2;
+        t1 -> t1_t3 -> t3;
+        {t2 halflog2pi} -> t2halflog2pi_t4 -> t4;
+        {t3 two} -> t3half_t5 -> t5;
+        {t4 t5} -> t4t5_c -> c;
+    }
+}
+```
+-->
 
 ----
 
-## Reverse-mode AD
+## Forward-mode accumulation
 
-<img width='800' style='border: none; box-shadow: none;' src='images/normal-log-density-computation-graph-reverse-mode-ad.svg' />
+<img src='images/vertical-comp-graph-neg-log-dens.svg' class="fragment" data-fragment-index="1" height='500' />
+<img src='images/forward-mode-neg-log-dens.svg' class="fragment" data-fragment-index="2" height='500' />
+
+<!--
+```graphviz
+
+digraph G
+{
+    rankdir = "TB"; 
+    bgcolor="transparent";
+    graph [pad="0.3", ranksep="0.3", nodesep="0.3"];
+    subgraph vars {
+        node [color=DarkGreen fontname=Courier shape=circle width=0.6];
+        x[label=<<u>x</u>>]; 
+        m[label=<<u>m</u>>];  
+        s[label=<<u>s</u>>];  
+        t0[label=<<u>t0</u>>];  
+        t1[label=<<u>t1</u>>];  
+        t2[label=<<u>t2</u>>];  
+        t3[label=<<u>t3</u>>];  
+        t4[label=<<u>t4</u>>];  
+        t5[label=<<u>t5</u>>];  
+        c[label=<<u>c</u>>]; 
+    }
+
+    subgraph ops {
+        node [shape=box color="#006EAF" fontname=Courier];
+        xm_t0[label="JVP(subtract)(x, m)"];
+        t0s_t1[label="JVP(divide)(t0, s)"];
+        s_t2[label="JVP(log)(s)"];
+        t1_t3[label="JVP(square)(t1)"];
+        t2halflog2pi_t4[label="JVP(add)(t2, log(2*pi)/2)"];
+        t3half_t5[label="JVP(divide)(t3, 2)"];
+        t4t5_c[label="JVP(add)(t4, t5)"]
+    }
+    subgraph edges {
+        {x m} -> xm_t0 -> t0;
+        {t0 s} -> t0s_t1 -> t1;
+        s -> s_t2 -> t2;
+        t1 -> t1_t3 -> t3;
+        {t2} -> t2halflog2pi_t4 -> t4;
+        {t3} -> t3half_t5 -> t5;
+        {t4 t5} -> t4t5_c -> c;
+    }
+}
+```
+-->
+
+<!--
+```Python
+dt0_dx, dt0_dm, dt0_ds = 1, -1, 0
+dt1_dx, dt1_dm, dt1_ds = (1 / s) * dt0_dx, (1 / s) * dt0_dm, -t0 / s**2
+dt2_dx, dt2_dm, dt2_ds = 0, 0, 1 / s
+dt3_dx, dt3_dm, dt3_ds = (2 * t1) * dt1_dx, (2 * t1) * dt1_dm , (2 * t1) * dt1_ds
+dt4_dx, dt4_dm, dt4_ds = dt2_dx, dt2_dm, dt2_ds
+dt5_dx, dt5_dm, dt5_ds = (1 / 2) * dt3_dx, (1 / 2) * dt3_dm, (1 / 2) * dt3_ds
+dc_dx, dc_dm, dc_ds = dt4_dx + dt5_dx, dt4_dm + dt5_dm, dt4_ds + dt5_ds
+```
+
+
+```Python
+dt0_dx, dt0_dm = 1, -1
+dt1_dx, dt1_dm, dt1_ds = (1 / s) * dt0_dx, (1 / s) * dt0_dm, -t0 / s**2
+dt2_ds = 1 / s
+dt3_dx, dt3_dm, dt3_ds = dt1_dx * (2 * t1), dt1_dm * (2 * t1), dt1_ds * (2 * t1)
+dt4_ds = dt2_ds
+dt5_dx, dt5_dm, dt5_ds = dt3_dx * 0.5, dt3_dm * 0.5, dt3_ds * 0.5
+dc_dx, dc_dm, dc_ds = dt5_dx, dt5_dm, dt4_ds + dt5_ds
+```
+-->
+
+----
+
+## Reverse-mode accumulation
+
+<img src='images/vertical-comp-graph-neg-log-dens.svg' class="fragment" data-fragment-index="1" height='500' />
+<img src='images/reverse-mode-neg-log-dens.svg' class="fragment" data-fragment-index="2" height='500' />
+
+<!--
+
+```graphviz
+
+digraph G
+{
+    rankdir = "BT"; 
+    bgcolor="transparent";
+    graph [pad="0.3", ranksep="0.3", nodesep="0.3"];
+    subgraph vars {
+        node [color=DarkGreen fontname=Courier shape=circle width=0.6];
+        x[label=<<o>x</o>>]; 
+        m[label=<<o>m</o>>];  
+        s[label=<<o>s</o>>];  
+        t0[label=<<o>t0</o>>];  
+        t1[label=<<o>t1</o>>];  
+        t2[label=<<o>t2</o>>];  
+        t3[label=<<o>t3</o>>];  
+        t4[label=<<o>t4</o>>];  
+        t5[label=<<o>t5</o>>];  
+        c[label=<<o>c</o>>]; 
+    }
+    subgraph ops {
+        node [shape=box color="#006EAF" fontname=Courier];
+        xm_t0[label="VJP(subtract)(x, m)"];
+        t0s_t1[label="VJP(divide)(t0, s)"];
+        s_t2[label="VJP(log)(s)"];
+        t1_t3[label="VJP(square)(t1)"];
+        t2_t4[label="VJP(add)(t2, log(2*pi)/2)"];
+        t3_t5[label="VJP(divide)(t3, 2)"];
+        t4t5_c[label="VJP(add)(t5, t4)"]
+    }
+    subgraph edges {
+        t0 -> xm_t0 -> {x m};
+        t1 -> t0s_t1 -> {t0 s};
+        t2 -> s_t2 -> s;
+        t3 -> t1_t3 -> t1;
+        t4 -> t2_t4 -> t2;
+        t5 -> t3_t5 -> t3;
+        c -> t4t5_c -> {t4 t5};
+    }
+}
+```
+-->
+
+<!--
+
+```Python
+dc_dt4, dc_dt5 = 1, 1
+dc_dt3 = dc_dt5 * (1 / 2)
+dc_dt2 = dc_dt4
+dc_dt1 = dc_dt3 * (2 * t1)
+dc_ds = dc_dt2 * (1 / s)
+dc_dt0, dc_ds = dc_dt1 * (1 / s), dc_ds + dc_dt1 * (-t0 / s**2)
+dc_dx, dc_dm = dc_dt0, -dc_dt0
+```
+
+```Python
+dc_dc = 1
+dc_dt4, dc_dt5 = dc_dc, dc_dc
+dc_dt3 = dc_dt5 * 0.5
+dc_dt2 = dc_dt4
+dc_dt1 = dc_dt3 * (2 * t1)
+dc_dt0 = dc_dt1 * (1 / s)
+dc_ds = dc_dt2 * (1 / s) + dc_dt1  * (-t1 / s**2)
+dc_dx = dc_dt0
+dc_dm = -dc_dt0
+```
+
+-->
 
 ---
 
@@ -465,12 +708,11 @@ Normal negative log density example in Autograd
 import autograd.numpy as np
 
 def normal_neg_log_dens(x, m, s):
-    return (0.5 * ((x - m) / s)**2 + np.log(s) + 
-            0.5 * np.log(2 * pi))
+    return ((x - m) / s)**2 / 2 + np.log(s) + np.log(2 * pi) / 2
 ```
 <!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="1" -->
 
-The above could be expanded as
+Can be expanded as
 <!-- .element: class="fragment" data-fragment-index="2" -->
 
 ```python
@@ -479,8 +721,8 @@ def normal_neg_log_dens(x, m, s):
     t1 = t0 / s
     t2 = np.log(s)
     t3 = t1**2
-    t4 = t2 + 0.5 * np.log(2 * pi)
-    t5 = 0.5 * t3
+    t4 = t2 + np.log(2 * pi) / 2
+    t5 = t3 / 2
     return t4 + t5
 ```
 <!-- .element: class="fragment" data-fragment-index="2" -->
@@ -491,7 +733,7 @@ def normal_neg_log_dens(x, m, s):
 
 Calling `trace` on this `normal_neg_log_dens` function would construct a graph of `Node` objects and `primitive` functions.
 
-<img src='images/tracing.svg' class="fragment" data-fragment-index="1" height='250' />
+<img src='images/horizontal-comp-graph-neg-log-dens.svg' class="fragment" data-fragment-index="1" height='250' />
 
 <!--
 
@@ -506,8 +748,8 @@ digraph G
     }
     subgraph consts {
         node [shape=plaintext fontname=Courier];
-        halflog2pi[label="0.5*log(2*pi)"];
-        half[label="0.5"]
+        halflog2pi[label="log(2*pi)/2"];
+        two[label="2"]
     }
     subgraph ops {
         node [shape=box color="#006EAF" fontname=Courier];
@@ -516,7 +758,7 @@ digraph G
         s_t2[label="log"];
         t1_t3[label="square"];
         t2halflog2pi_t4[label="add"];
-        t3half_t5[label="multiply"];
+        t3half_t5[label="divide"];
         t4t5_c[label="add"]
     }
     subgraph edges {
@@ -525,7 +767,7 @@ digraph G
         s -> s_t2 -> t2;
         t1 -> t1_t3 -> t3;
         {t2 halflog2pi} -> t2halflog2pi_t4 -> t4;
-        {t3 half} -> t3half_t5 -> t5;
+        {t3 two} -> t3half_t5 -> t5;
         {t4 t5} -> t4t5_c -> c;
     }
 }
@@ -541,7 +783,7 @@ Provides an ordering of the nodes in a graph so that the ancestors of a node alw
 When iterating over a graph ensures child nodes are always processed before their parents.
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
-<img src='images/topo-sort.svg' class='fragment' data-fragment-index='2' height='250' />
+<img src='images/horizontal-comp-graph-toposort-neg-log-dens.svg' class='fragment' data-fragment-index='2' height='250' />
 
 <!--
 
@@ -552,21 +794,21 @@ digraph G
     graph [pad="0.3", ranksep="0.3", nodesep="0.3"];
     subgraph vars {
         node [color=DarkGreen fontname=Courier shape=circle width=0.6];
-        x[label="9"]; 
-        m[label="8"]; 
-        s[label="7"]; 
-        t0[label="6"]; 
-        t1[label="5"]; 
-        t2[label="4"]; 
-        t3[label="3"]; 
-        t4[label="2"]; 
-        t5[label="1"]; 
-        c[label="0"]
+        x[label=9]; 
+        m[label=8]; 
+        s[label=7]; 
+        t0[label=6]; 
+        t1[label=5]; 
+        t2[label=4]; 
+        t3[label=3]; 
+        t4[label=2]; 
+        t5[label=1]; 
+        c[label=0]
     }
     subgraph consts {
         node [shape=plaintext fontname=Courier];
-        halflog2pi[label="0.5*log(2*pi)"];
-        half[label="0.5"]
+        halflog2pi[label="log(2*pi)/2"];
+        two[label="2"]
     }
     subgraph ops {
         node [shape=box color="#006EAF" fontname=Courier];
@@ -575,7 +817,7 @@ digraph G
         s_t2[label="log"];
         t1_t3[label="square"];
         t2halflog2pi_t4[label="add"];
-        t3half_t5[label="multiply"];
+        t3half_t5[label="divide"];
         t4t5_c[label="add"]
     }
     subgraph edges {
@@ -584,7 +826,7 @@ digraph G
         s -> s_t2 -> t2;
         t1 -> t1_t3 -> t3;
         {t2 halflog2pi} -> t2halflog2pi_t4 -> t4;
-        {t3 half} -> t3half_t5 -> t5;
+        {t3 two} -> t3half_t5 -> t5;
         {t4 t5} -> t4t5_c -> c;
     }
 }
