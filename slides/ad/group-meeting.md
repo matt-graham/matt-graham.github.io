@@ -23,9 +23,9 @@ AD has a long history dating back to the 1960s.
 CACM 7(8):463&ndash;4, 1964.</span>
 
 > <!-- .element: class="fragment" data-fragment-index="2" -->
-> A procedure for automatic evaluation of total  / partial derivatives of 
-> arbitrary algebraic functions is presented ... 
-> The key to the method is the decomposition of the given function, by 
+> A procedure for automatic evaluation of total  / partial derivatives of
+> arbitrary algebraic functions is presented ...
+> The key to the method is the decomposition of the given function, by
 > introduction of intermediate variables, into a series of elementary
 > functional steps.
 
@@ -69,7 +69,7 @@ To approximate the full $M\times N$ Jacobian matrix $\partial f$ need to compute
 This is particularly burdensome for calculating the gradient of scalar functions of a large number of variables ($M=1$, $N \gg 1$).
 <!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="1" -->
 
-For small $h$ can become numerically instable. 
+For small $h$ can become numerically instable.
 <!-- .element: class="fragment" data-fragment-index="2" -->
 
 
@@ -93,8 +93,8 @@ AD instead exploits modularity of functions, computing derivatives in terms of i
 
 For a function $f : \reals^N \to \reals^M$ the Jacobian $\partial f(x)$ at an input $x \in \reals^N$ can be represented as a $M \times N$ matrix of partial derivatives
 
-$$ \partial f(x) = \begin{bmatrix} 
-  \partial_1{f_1}(x) & \dots & \partial_N f(x) \\\\ 
+$$ \partial f(x) = \begin{bmatrix}
+  \partial_1{f_1}(x) & \dots & \partial_N f(x) \\\\
   \vdots & \ddots & \vdots \\\\
   \partial_1 f_M(x) & \dots & \partial_N f_M(x)
   \end{bmatrix}.
@@ -149,7 +149,7 @@ $$\pd{z}{x} = \pd{z}{y} \pd{y}{x} = \partial f(y) \partial g(x).$$
 ## Forward-mode accumulation
 
 \begin{align}
-  \texttt{JVP}(\,f\circ g)(x)(v) 
+  \texttt{JVP}(\,f\circ g)(x)(v)
   &= \partial (\,f\circ g)(x) \, v
   \\\\
   &= (\partial f \circ \underbrace{g(x)}_{y=g(x)}) \, \partial g(x) \, v
@@ -167,7 +167,7 @@ Can evaluate $g(x)$ at same time as $\texttt{JVP}(g)(x)$.
 ## Reverse-mode accumulation
 
 \begin{align}
-  \texttt{VJP}(\,f\circ g)(x)(v) 
+  \texttt{VJP}(\,f\circ g)(x)(v)
   &=  \partial (\,f\circ g)(x)\tr v
   \\\\
   &= \partial g(x) \tr (\partial f \circ \underbrace{g(x)}_{y=g(x)}) \tr v
@@ -248,8 +248,8 @@ def neg_log_dens(x, m, s):
 x, m, s, h = 0.5, 1.2, 1.1, 1e-8
 c = neg_log_dens(x, m, s)
 (
-    (neg_log_dens(x + h, m, s) - c) / h, 
-    (neg_log_dens(x, m + h, s) - c) / h, 
+    (neg_log_dens(x + h, m, s) - c) / h,
+    (neg_log_dens(x, m + h, s) - c) / h,
     (neg_log_dens(x, m, s + h) - c) / h
 )
 
@@ -271,7 +271,7 @@ from autograd import grad
 
 def neg_log_dens(x, m, s):
     return ((x - m) / s)**2 / 2 + np.log(s) + np.log(2 * np.pi) / 2
-    
+
 x, m, s = 0.5, 1.2, 1.1
 grad(neg_log_dens, argnum=(0, 1, 2))(x, m, s)
 
@@ -304,7 +304,7 @@ c = t4 + t5
 
 digraph G
 {
-    rankdir = "LR"; 
+    rankdir = "LR";
     bgcolor="transparent";
     graph [pad="0.3", ranksep="0.3", nodesep="0.3"];
     subgraph vars {
@@ -351,21 +351,21 @@ digraph G
 
 digraph G
 {
-    rankdir = "TB"; 
+    rankdir = "TB";
     bgcolor="transparent";
     graph [pad="0.3", ranksep="0.3", nodesep="0.3"];
     subgraph vars {
         node [color=DarkGreen fontname=Courier shape=circle width=0.6];
-        x[label=<<u>x</u>>]; 
-        m[label=<<u>m</u>>];  
-        s[label=<<u>s</u>>];  
-        t0[label=<<u>t0</u>>];  
-        t1[label=<<u>t1</u>>];  
-        t2[label=<<u>t2</u>>];  
-        t3[label=<<u>t3</u>>];  
-        t4[label=<<u>t4</u>>];  
-        t5[label=<<u>t5</u>>];  
-        c[label=<<u>c</u>>]; 
+        x[label=<<u>x</u>>];
+        m[label=<<u>m</u>>];
+        s[label=<<u>s</u>>];
+        t0[label=<<u>t0</u>>];
+        t1[label=<<u>t1</u>>];
+        t2[label=<<u>t2</u>>];
+        t3[label=<<u>t3</u>>];
+        t4[label=<<u>t4</u>>];
+        t5[label=<<u>t5</u>>];
+        c[label=<<u>c</u>>];
     }
 
     subgraph ops {
@@ -427,21 +427,21 @@ dc_dx, dc_dm, dc_ds = dt5_dx, dt5_dm, dt4_ds + dt5_ds
 
 digraph G
 {
-    rankdir = "BT"; 
+    rankdir = "BT";
     bgcolor="transparent";
     graph [pad="0.3", ranksep="0.3", nodesep="0.3"];
     subgraph vars {
         node [color=DarkGreen fontname=Courier shape=circle width=0.6];
-        x[label=<<o>x</o>>]; 
-        m[label=<<o>m</o>>];  
-        s[label=<<o>s</o>>];  
-        t0[label=<<o>t0</o>>];  
-        t1[label=<<o>t1</o>>];  
-        t2[label=<<o>t2</o>>];  
-        t3[label=<<o>t3</o>>];  
-        t4[label=<<o>t4</o>>];  
-        t5[label=<<o>t5</o>>];  
-        c[label=<<o>c</o>>]; 
+        x[label=<<o>x</o>>];
+        m[label=<<o>m</o>>];
+        s[label=<<o>s</o>>];
+        t0[label=<<o>t0</o>>];
+        t1[label=<<o>t1</o>>];
+        t2[label=<<o>t2</o>>];
+        t3[label=<<o>t3</o>>];
+        t4[label=<<o>t4</o>>];
+        t5[label=<<o>t5</o>>];
+        c[label=<<o>c</o>>];
     }
     subgraph ops {
         node [shape=box color="#006EAF" fontname=Courier];
@@ -504,7 +504,7 @@ Increasing number of numerical computing frameworks with AD functionality, e.g.
 <img width='200' style='padding: 10px; border: none; box-shadow: none;' src='images/theano-logo.svg' />
 </td>
 <td>
-<img width='100' style='padding: 10px; border: none; box-shadow: none;' src='images/stan-logo.svg' /> 
+<img width='100' style='padding: 10px; border: none; box-shadow: none;' src='images/stan-logo.svg' />
 </td>
 <td>
 <img width='150' style='padding: 10px; border: none; box-shadow: none;' src='images/tensorflow-logo.svg' />
@@ -528,457 +528,66 @@ Increasing number of numerical computing frameworks with AD functionality, e.g.
 
 ---
 
-## Autograd
+## AD in computational statistics
 
-Python library which can automatically differentiate native Python and NumPy code.
-
-<!-- .element: class="fragment" data-fragment-index="1" -->Originally developed by Dougal Maclaurin as part of PhD thesis and subsequently made an open source project at https://github.com/HIPS/autograd.
-
-----
-
-## Autograd
-
-Can handle arbitrary control flow and use of Python data structures such as lists and dictionaries.
-
-<p class="fragment" data-fragment-index="1">In many cases can reuse existing NumPy based code by replacing <code class=' hljs' style='display: inline;'>import numpy as np</code> with <code class='hljs' style='display: inline;'>import autograd.numpy as np</code></p>
-
-----
-
-## Autodidact
-
-A simplified Autograd implementation for pedagogical purposes by Matt Johnson
-
-https://github.com/mattjj/autodidact
-
-General purpose reverse-mode AD implementation in ~ 350 lines of Python.
+AD an increasingly important tool in many computational methods in statistics.
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
-----
-
-## Autodidact
-
-Not covered: *VSpaces* (complex support, Python containers), *forward mode*, sparse operations, SciPy functions + subset of NumPy functionality.
-
-Example code in slides taken from Autodidact (with some minor edits for brevity and  clarity).
-<!-- .element: class="fragment" data-fragment-index="1" -->
-
-
-----
-
-## Autograd - wrapped NumPy function
-
-<img width='650' src='images/autograd-internals-original-numpy-2.svg' />
-
-
-----
-
-## Autograd - boxes and primitives
-
-<img width='650'  src='images/autograd-internals-boxes-and-primitives.svg' />
-
-----
-
-## Autograd - nodes
-
-<img width='650'  src='images/autograd-internals-nodes.svg' />
-
-----
-
-## Autograd - parents
-
-<img width='650'  src='images/autograd-internals-parents.svg' />
-
-----
-
-## Autograd - recipes
-
-<img width='650'  src='images/autograd-internals-recipe.svg' />
-
-----
-
-## Primitives
-
-```python
-def primitive(f_raw):
-    def f_wrapped(*args, **kwargs):
-        boxed_args, trace_id = find_top_boxed_args(args)
-        if boxed_args:
-            argvals = unbox(args, boxed_args)
-            ans = f_wrapped(*argvals, **kwargs)
-            parents = tuple(box._node for _, box in boxed_args)
-            argnums = tuple(argnum for argnum, _ in boxed_args)
-            recipe = (f_wrapped, ans, argvals, kwargs, argnums)
-            node = Node(parents, *recipe)
-            return new_box(ans, trace_id, node)
-        else:
-            return f_raw(*args, **kwargs)
-    return f_wrapped
-```
-<!-- .element: class="small-code" -->
-
-
-----
-
-## Vector Jacobian products
-
-Each differentiable primitive needs to have function(s) defining its
-`VJP`(s) registered
-
-```python
-defvjp(anp.negative, lambda g, ans, x: -g)
-defvjp(anp.exp, lambda g, ans, x: ans * g)
-defvjp(anp.log, lambda g, ans, x: g / x)
-defvjp(anp.tanh, lambda g, ans, x: g / anp.cosh(x)**2)
-defvjp(anp.sinh, lambda g, ans, x: g * anp.cosh(x))
-defvjp(anp.cosh, lambda g, ans, x: g * anp.sinh(x))
-defvjp(anp.add, 
-       lambda g, ans, x, y : unbroadcast(x, g),
-       lambda g, ans, x, y : unbroadcast(y, g))
-defvjp(anp.multiply, 
-       lambda g, ans, x, y : unbroadcast(x, y * g),
-       lambda g, ans, x, y : unbroadcast(y, x * g))
-```
-<!-- .element: class="fragment" data-fragment-index="1" -->
-
-----
-
-## Box subclasses
-
-<!-- .element: class="fragment semi-fade-out" data-fragment-index="1" --> Key attraction of NumPy is its object-oriented design with the methods and operator overloads available for the `ndarray` class.
-
-
-<!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="1" --> Alows compact and readable syntax like  
-`y = W @ x + b` rather than  
-`y = np.add(np.matmul(W, x), b)`.
-
-<!-- .element: class="fragment" data-fragment-index="2" --> As Autograd wraps arrays in boxes, it needs to also wrap the operators and methods of `ndarray` which is done via a specific `ArrayBox` subclass.
-
-----
-
-## Box subclasses
-
-```Python
-class ArrayBox(Box):
-    @primitive
-    def __getitem__(A, idx): return A[idx]
-    # Constants w.r.t float data just pass though
-    shape = property(lambda self: self._value.shape)
-    ndim  = property(lambda self: self._value.ndim)
-    size  = property(lambda self: self._value.size)
-    # ...
-    # Operator overloads - call Autograd wrapper functions
-    def __neg__(self): return anp.negative(self)
-    def __add__(self, other): return anp.add(self, other)
-    def __sub__(self, other): return anp.subtract(self, other)
-    def __mul__(self, other): return anp.multiply(self, other)
-    # ...
-```
-<!-- .element: class="small-code" -->
-
-----
-
-## Tracing
-
-By wrapping Python data structures in boxes and wrapping library functions as primitives Autograd can then trace the computational graphs of arbitrary compositions of the wrapped primitives.
-
-```Python
-def trace(start_node, fun, x):
-    with trace_stack.new_trace() as trace_id:
-        start_box = new_box(x, trace_id, start_node)
-        end_box = fun(start_box)
-        if (isbox(end_box) and 
-               end_box._trace_id == start_box._trace_id):
-            return end_box._value, end_box._node
-        else:
-            # Output seems independent of input
-            return end_box, None
-```
-<!-- .element: class="fragment" data-fragment-index="1" -->
-
-
-----
-
-## Tracing
-
-Normal negative log density example in Autograd
-<!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="1" -->
-
-```python
-import autograd.numpy as np
-
-def normal_neg_log_dens(x, m, s):
-    return ((x - m) / s)**2 / 2 + np.log(s) + np.log(2 * pi) / 2
-```
-<!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="1" -->
-
-Can be expanded as
+Enabled advances in both modelling and inference.
 <!-- .element: class="fragment" data-fragment-index="2" -->
 
-```python
-def normal_neg_log_dens(x, m, s):
-    t0 = x - m
-    t1 = t0 / s
-    t2 = np.log(s)
-    t3 = t1**2
-    t4 = t2 + np.log(2 * pi) / 2
-    t5 = t3 / 2
-    return t4 + t5
-```
-<!-- .element: class="fragment" data-fragment-index="2" -->
+Computational statistic use cases often require 'advanced' AD functionality - e.g. higher order derivatives, differentiating through control flow / equation solvers.
+<!-- .element: class="fragment" data-fragment-index="3" -->
 
 ----
 
-## Tracing
+## Probabilistic programming
 
-Calling `trace` on this `normal_neg_log_dens` function would construct a graph of `Node` objects and `primitive` functions.
+<table class='image-table align-table'>
+<tr>
+<td>
+<img width='150' style='padding: 10px; border: none; box-shadow: none;' src='images/stan-logo.svg' />
+<p style='text-align: center; margin: 0;'>Stan</p>
+</td>
+<td>
+<img width='200' style='padding: 10px; border: none; box-shadow: none;' src='images/pymc3-logo.svg' />
+</td>
+<td>
+</td>
+<td>
+<img width='150' style='padding: 10px; border: none; box-shadow: none;' src='images/pyro-logo.svg' />
+<p style='text-align: center; margin: 0;'>Pyro</p>
+</td>
+<td>
+<img width='200' style='padding: 10px; border: none; box-shadow: none;' src='images/turing-logo.svg' />
+<p style='text-align: center; margin: 0;'>Turing.jl</p>
+</td>
+</tr>
+</table>
 
-<img src='images/horizontal-comp-graph-neg-log-dens.svg' class="fragment" data-fragment-index="1" height='250' />
-
-<!--
-
-digraph G
-{
-    rankdir = "LR"; 
-    bgcolor="transparent";
-    graph [pad="0.3", ranksep="0.3", nodesep="0.3"];
-    subgraph vars {
-        node [color=DarkGreen fontname=Courier shape=circle width=0.6];
-        x; m; s; t0; t1; t2; t3; t4; t5; c
-    }
-    subgraph consts {
-        node [shape=plaintext fontname=Courier];
-        halflog2pi[label="log(2*pi)/2"];
-        two[label="2"]
-    }
-    subgraph ops {
-        node [shape=box color="#006EAF" fontname=Courier];
-        xm_t0[label="subtract"];
-        t0s_t1[label="divide"];
-        s_t2[label="log"];
-        t1_t3[label="square"];
-        t2halflog2pi_t4[label="add"];
-        t3half_t5[label="divide"];
-        t4t5_c[label="add"]
-    }
-    subgraph edges {
-        {x m} -> xm_t0 -> t0;
-        {t0 s} -> t0s_t1 -> t1;
-        s -> s_t2 -> t2;
-        t1 -> t1_t3 -> t3;
-        {t2 halflog2pi} -> t2halflog2pi_t4 -> t4;
-        {t3 two} -> t3half_t5 -> t5;
-        {t4 t5} -> t4t5_c -> c;
-    }
-}
-
--->
+  * Programmatic definition of probabilistic models.
+  * Syntax for sampling and observing random variables. <!-- .element: class="fragment" data-fragment-index="1" -->
+  * Constructs function to evaluate unnormalised (log) density for posterior distribution. <!-- .element: class="fragment" data-fragment-index="2" -->
+  * AD used to compute gradient of log density $\rightarrow$ gradient-based inference methods - e.g. MALA, HMC, ADVI. <!-- .element: class="fragment" data-fragment-index="3" -->
 
 ----
 
-## Topological sorting
+## Measure transport and normalizing flows
 
-Provides an ordering of the nodes in a graph so that the ancestors of a node always have a higher sort index than the node itself.
+<img width='600' style='border: none; box-shadow: none;' src='images/measure-transport-sketch.svg' />
 
-When iterating over a graph ensures child nodes are always processed before their parents.
-<!-- .element: class="fragment" data-fragment-index="1" -->
-
-<img src='images/horizontal-comp-graph-toposort-neg-log-dens.svg' class='fragment' data-fragment-index='2' height='250' />
-
-<!--
-
-digraph G
-{
-    rankdir = "LR"; 
-    bgcolor="transparent";
-    graph [pad="0.3", ranksep="0.3", nodesep="0.3"];
-    subgraph vars {
-        node [color=DarkGreen fontname=Courier shape=circle width=0.6];
-        x[label=9]; 
-        m[label=8]; 
-        s[label=7]; 
-        t0[label=6]; 
-        t1[label=5]; 
-        t2[label=4]; 
-        t3[label=3]; 
-        t4[label=2]; 
-        t5[label=1]; 
-        c[label=0]
-    }
-    subgraph consts {
-        node [shape=plaintext fontname=Courier];
-        halflog2pi[label="log(2*pi)/2"];
-        two[label="2"]
-    }
-    subgraph ops {
-        node [shape=box color="#006EAF" fontname=Courier];
-        xm_t0[label="subtract"];
-        t0s_t1[label="divide"];
-        s_t2[label="log"];
-        t1_t3[label="square"];
-        t2halflog2pi_t4[label="add"];
-        t3half_t5[label="divide"];
-        t4t5_c[label="add"]
-    }
-    subgraph edges {
-        {x m} -> xm_t0 -> t0;
-        {t0 s} -> t0s_t1 -> t1;
-        s -> s_t2 -> t2;
-        t1 -> t1_t3 -> t3;
-        {t2 halflog2pi} -> t2halflog2pi_t4 -> t4;
-        {t3 two} -> t3half_t5 -> t5;
-        {t4 t5} -> t4t5_c -> c;
-    }
-}
-
--->
+  * Distribution constructed mapping samples from reference distribution through a differentiable function. 
+  * Aim: pushforward distribution to approximate a target specified by unnormalised density or samples. <!-- .element: class="fragment" data-fragment-index="1" -->
+  * Typically trained by stochastic gradient descent on divergence between target and approximation. <!-- .element: class="fragment" data-fragment-index="2" -->
 
 ----
 
-## Topological sorting
+## Geometric MCMC methods
 
-```Python
-def toposort(end_node):
-    child_counts, stack, childless = {}, [end_node], [end_node]
-    while stack:
-        node = stack.pop()
-        if node in child_counts: child_counts[node] += 1
-        else:
-            child_counts[node] = 1
-            stack.extend(node.parents)
-    while childless:
-        node = childless.pop()
-        yield node
-        for parent in node.parents:
-            if child_counts[parent] == 1:
-                childless.append(parent)
-            else: child_counts[parent] -= 1
-```
-<!-- .element: class="small-code" -->
-
-----
-
-## Backwards pass
-
-Given a topologically sorted computation graph can propagate derivatives backwards from outputs
-to inputs by iteratively applying primitive `VJP`s
-
-```python
-def backward_pass(g, end_node):
-    outgrads = {end_node: g}
-    for node in toposort(end_node):
-        outgrad = outgrads.pop(node)
-        fun, value, args, kwargs, argnums = node.recipe
-        for argnum, parent in zip(argnums, node.parents):
-            vjp = primitive_vjps[fun][argnum]
-            parent_grad = vjp(outgrad, value, *args, **kwargs)
-            if parent in outgrads:
-                outgrads[parent] = outgrads[parent] + parent_grad
-            else:
-                outgrads[parent] = parent_grad
-    return outgrad
-```
-<!-- .element: class="fragment small-code" data-fragment-index="1" -->
-
-----
-
-## Reverse-mode AD - `make_vjp`<!-- .element: style="font-size: 90%" -->
-
-The key function in the Autograd API for performing reverse-mode AD is the `make_vjp` function. 
-
-Traces a function's forward pass and returns a function which calculates a VJP in backwards pass
-<!-- .element: class="fragment" data-fragment-index="1" -->
-
-```python
-def make_vjp(fun, x):
-    start_node = Node.new_root()
-    end_value, end_node = trace(start_node, fun, x)
-    if end_node is None:
-        def vjp(g): return np.zeros_like(x)
-    else:
-        def vjp(g): return backward_pass(g, end_node)
-    return vjp, end_value
-```
-<!-- .element: class="fragment" data-fragment-index="1" -->
-
-
-----
-
-## Differential operators - `grad`<!-- .element: style="font-size: 90%" -->
-
-Autograd also offers a series of convenience functions which work on top of `make_vjp` corresponding to various differential operators. 
-
-<span class="fragment" data-fragment-index="1">The most commonly used is the `grad` function</span>
-
-
-```Python
-def grad(fun, argnum=0):
-    def gradfun(*args, **kwargs):
-        unary_fun = lambda x: fun(
-            *subval(args, argnum, x), **kwargs)
-        vjp, ans = make_vjp(unary_fun, args[argnum])
-        return vjp(np.ones_like(ans))
-    return gradfun
-```
-<!-- .element: class="fragment" data-fragment-index="1" -->
-
-----
-
-## Differential operators - `jacobian`<!-- .element: style="font-size: 90%" -->
-
-
-Autograd can also compute the $M\times N$ Jacobian of a function $\in \reals^N \to \reals^M$ by iteratively
-computing VJPs for vectors $\mathbf{e}_1 ... \mathbf{e}_M$ $\implies \mathcal{O}(M)$ cost
-```Python
-def jacobian(fun, argnum=0):
-    def jacobfun(*args, **kwargs):
-        unary_fun = lambda x: fun(
-            *subval(args, argnum, x), **kwargs)
-        vjp, ans = make_vjp(unary_fun, args[argnum])
-        jacobian_shape = ans.shape + args[argnum].shape
-        basis = np.eye(ans.size).reshape(
-            (ans.size,) + ans.shape)
-        grads = map(vjp, basis)
-        return np.reshape(np.stack(grads), jacobian_shape)
-    return jacobfun
-```
-
----
-
-## JAX
-
-JAX is a recently released Python library which is in some senses a successor to Autograd.
-
-Started as a research project in Google by a group including two of the key Autograd contributors, Matt Johnson and Dougal Maclaurin. <!-- .element: class="fragment" data-fragment-index="1" -->
-
-<!-- .element: class="fragment" data-fragment-index="2" --> Now an open source project at https://github.com/google/jax 
-
-----
-
-## JAX
-
-JAX extends the tracing logic of Autograd to allow Python code to be translated to a representation (~ computational graph) that allows transformations before translating back to Python code.
-
-<!-- .element: class="fragment" data-fragment-index="1" -->Tracing is implemented by calling functions with abstract arguments which represent the *set* of possible values.
-
-
-----
-
-## JAX
-
-Key transformations include:
-
-  * <!-- .element: class="fragment" data-fragment-index="1" -->reverse- and forward-mode AD via `vjp` and `jvp`  (and convenience functions such as `grad`),
-  * <!-- .element: class="fragment" data-fragment-index="2" -->just-in-time compilation using XLA (backend compiler in TensorFlow) via `jit` allowing running on accelarators such as GPUs and TPUs,   
-  * <!-- .element: class="fragment" data-fragment-index="3" -->automatic vectorisation / batching via `vmap`.
-
-
-----
-
-## JAX
-
-Importantly the transformations are *composable*.
-
-This allows for example gradient functions to be compiled to improve efficiency and efficient Jacobian calculation using vectorisation rather than sequential iteration.<!-- .element: class="fragment" data-fragment-index="1" -->
+<video width="540" height="540" autoplay loop>
+  <source src="images/constrained-hmc-on-lifted-distribution.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 ---
 
@@ -986,4 +595,3 @@ This allows for example gradient functions to be compiled to improve efficiency 
 
   1. Griewank, A., 2012. Who Invented the Reverse Mode of Differentiation?. *Documenta Mathematica*, Extra Volume ISMP, pp.389-400.
   2. Baydin, A.G., Pearlmutter, B.A., Radul, A.A. and Siskind, J.M., 2018. Automatic differentiation in machine learning: a survey. *Journal of Machine Learning Research*, 18, pp.1-43.
-    
