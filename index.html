@@ -97,7 +97,7 @@
             </div>
           </div> <!--/.profile-photo-and-social-col-->
           <div class="col-md-9" id="intro-text-col">
-            <p class="lead">I am a research associate jointly affiliated with the <a href="https://www.ncl.ac.uk/maths-physics/">School of Mathematics, Statistics and Physics</a> at Newcastle University and the <a href="https://www.turing.ac.uk/research/research-programmes/data-centric-engineering">data-centric engineering programme</a> in the Alan Turing Institute, where I am a member of <a href="https://oates.work/">Chris Oates'</a> research group. My <a href='#publications'>research</a> is focused on developing methods for performing efficient approximate inference in complex probabilistic models.
+            <p class="lead">I am a research software engineer (RSE) in the <a href="https://www.ucl.ac.uk/research-it-services/research-software-development">research software development group at UCL</a>. Prior to starting as a RSE I did postdocs with <a href="https://oates.work/">Chris Oates</a> at the <a href="https://www.ncl.ac.uk/maths-physics/">School of Mathematics, Statistics and Physics</a> at Newcastle University and <a href="http://www.normalesup.org/~athiery/index.html">Alex Thiery</a> at the <a href="https://www.stat.nus.edu.sg/">Department of Statistics and Applied Probability</a> in the National University of Singapore. My primary research area is computational statistics and in particular developing methods for performing efficient approximate inference in complex probabilistic models.
             </p>
             <p class="lead">
               <span class="text-muted">Research interests:</span> Markov chain Monte Carlo methods, Hamiltonian Monte Carlo, approximate Bayesian computation, data assimilation, inverse problems.
@@ -125,13 +125,13 @@
           <div class="col-md-4" id='contact-email-col'>
             <div class="panel panel-default">
               <div class="panel-heading"><i class="fa fa-envelope fa-fw"></i> Email</div>
-              <div class="panel-body"><a href="mailto:m[dot]graham[at]turing[dot]ac[dot]uk">m&#46;graham&#8203;&#64;&#8203;turing&#46;ac&#46;uk</a></div>
+              <div class="panel-body"><a href="mailto:m[dot]graham[at]ucl[dot]ac[dot]uk">m&#46;graham&#8203;&#64;&#8203;ucl&#46;ac&#46;uk</a></div>
             </div><!--./contact-email-col-->
           </div>
           <div class="col-md-8" id="contact-address-col">
             <div class="panel panel-default">
               <div class="panel-heading"><i class="fa fa-building fa-fw"></i> Address</div>
-              <div class="panel-body">The Alan Turing Institute, British Library, 96 Euston Road, London NW1 2DB</div>
+              <div class="panel-body">UCL Research IT Services, 1&ndash;19 Torrington Place, London, WC1E 7HB</div>
             </div>
           </div><!--./contact-address-col-->
         </div>
@@ -164,26 +164,6 @@
             </div>
             <div id="calibration-abs" class="collapse abstract">
                 A learning procedure takes as input a dataset and performs inference for the parameters θ of a model that is assumed to have given rise to the dataset. Here we consider learning procedures whose output is a probability distribution, representing uncertainty about θ after seeing the dataset. Bayesian inference is a prime example of such a procedure but one can also construct other learning procedures that return distributional output. This paper studies conditions for a learning procedure to be considered calibrated, in the sense that the true data-generating parameters are plausible as samples from its distributional output. A learning procedure that is calibrated need not be statistically efficient and vice versa. A hypothesis-testing framework is developed in order to assess, using simulation, whether a learning procedure is calibrated. Finally, we exploit our framework to test the calibration of some learning procedures that are motivated as being approximations to Bayesian inference but are nevertheless widely used.
-            </div>
-          </li>
-          <li class="publication">
-            <h4>
-              <small>2020/10</small>
-              Measure transport with kernel Stein discrepancy
-            </h4>
-            <p>
-              <a href="https://www.ncl.ac.uk/bigdata/people/people/fishermatthew.html">Matthew A. Fisher</a>, <a href="https://www.uts.edu.au/staff/tui.nolan">Tui Nolan</a>, <i>Matthew M. Graham</i>, <a href="https://dennisprangle.github.io/">Dennis Prangle</a> and <a href="https://oates.work/">Chris Oates</a>
-            </p>
-            <div class="btn-group" role="group">
-              <a href="https://arxiv.org/abs/2010.11779" class="btn btn-default">
-                <i class="ai ai-arxiv fa-fw"></i> arXiv
-              </a>
-              <button class="btn btn-default btn-abs collapsed" data-toggle="collapse" data-target="#ksd-measure-transport-abs">
-                Abstract
-              </button>
-            </div>
-            <div id="ksd-measure-transport-abs" class="collapse abstract">
-                Measure transport underpins several recent algorithms for posterior approximation in the Bayesian context, wherein a transport map is sought to minimise the Kullback-Leibler divergence (KLD) from the posterior to the approximation. The KLD is a strong mode of convergence, requiring absolute continuity of measures and placing restrictions on which transport maps can be permitted. Here we propose to minimise a kernel Stein discrepancy (KSD) instead, requiring only that the set of transport maps is dense in an L2 sense and demonstrating how this condition can be validated. The consistency of the associated posterior approximation is established and empirical results suggest that KSD is competitive and more flexible alternative to KLD for measure transport.
             </div>
           </li>
           <li class="publication">
@@ -305,6 +285,35 @@
           </ul>
           <h2 class='sub-heading'>Conference proceedings</h2>
           <ul class="publications-list">
+          <li class="publication">
+            <h4>
+              <small>2021/04</small>
+              Measure transport with kernel Stein discrepancy
+            </h4>
+            <p>
+              <a href="https://www.ncl.ac.uk/bigdata/people/people/fishermatthew.html">Matthew A. Fisher</a>, <a href="https://www.uts.edu.au/staff/tui.nolan">Tui Nolan</a>, <i>Matthew M. Graham</i>, <a href="https://dennisprangle.github.io/">Dennis Prangle</a> and <a href="https://oates.work/">Chris Oates</a>
+            </p>
+            <p class='published-in'>
+              Proceedings of the 24th International Conference on Artificial Intelligence and Statistics
+            </p>
+            <div class="btn-group" role="group">
+              <a href="http://proceedings.mlr.press/v130/fisher21a.html" class="btn btn-default">
+                <i class="fa fa-file-o fa-fw"></i> Proceedings
+              </a>
+              <a href="https://arxiv.org/abs/2010.11779" class="btn btn-default">
+                <i class="ai ai-arxiv fa-fw"></i> arXiv
+              </a>
+              <a href="https://github.com/MatthewAlexanderFisher/MTKSD" class="btn btn-default">
+                <i class="fa fa-code fa-fw"></i> Code
+              </a>
+              <button class="btn btn-default btn-abs collapsed" data-toggle="collapse" data-target="#ksd-measure-transport-abs">
+                Abstract
+              </button>
+            </div>
+            <div id="ksd-measure-transport-abs" class="collapse abstract">
+                Measure transport underpins several recent algorithms for posterior approximation in the Bayesian context, wherein a transport map is sought to minimise the Kullback-Leibler divergence (KLD) from the posterior to the approximation. The KLD is a strong mode of convergence, requiring absolute continuity of measures and placing restrictions on which transport maps can be permitted. Here we propose to minimise a kernel Stein discrepancy (KSD) instead, requiring only that the set of transport maps is dense in an L2 sense and demonstrating how this condition can be validated. The consistency of the associated posterior approximation is established and empirical results suggest that KSD is competitive and more flexible alternative to KLD for measure transport.
+            </div>
+          </li>
             <li class="publication">
               <h4>
                 <small>2017/08</small>
