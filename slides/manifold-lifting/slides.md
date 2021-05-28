@@ -14,7 +14,7 @@
 
 <div style="margin-top: 0.5em; width: 45%; float: left; text-align: right;">
   <img src='images/khai.jpg' height='200' />
-  <p>Khai Xiang Au</p>
+  <p>Au Khai Xiang</p>
 </div>
 <div style="margin-top: 2.25em; width: 10%; float: left; text-align: center;">
   &amp;
