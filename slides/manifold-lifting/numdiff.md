@@ -200,7 +200,7 @@ In the small noise limit posterior concentrates on $\set{S} = \lbrace \vct{\thet
   <p class="fragment fade-out" data-fragment-index="0" style="width:100%; height: 100%; position:absolute;top:0;left:0;" >
     MCMC methods generate a sequence of *dependent* samples that asymptotically are distributed according to target distribution $\pi^\sigma$.
   </p>
-  <p class="fragment fade-in" data-fragment-index="0" style="width:100%; height: 100%; position:absolute;top:0;left:0;" >
+  <p class="fragment fade-in" data-fragment-index="0" style="width:100%; height: 100%; position:absolute;top:0;left:0; font-size: 90%;" >
     MCMC algorithms on $\mathbb{R}^{d_\Theta}$ include *random-walk Metropolis* (RWM), *Metropolis-adjusted Langevin algorithm* (MALA) &amp; *Hamiltonian Monte Carlo* (HMC)
   </p>
 </div>
