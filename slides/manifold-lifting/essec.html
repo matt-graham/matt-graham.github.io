@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Lift and flow: manifold MCMC methods for efficient inference in stiff posteriors</title>
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/white.css">
+        <link rel="stylesheet" href="css/custom.css">
+
+            <!-- Google Web Fonts -->
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+            <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,400;0,700;1,400;1,700&family=Roboto:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+            <!-- Theme used for syntax highlighting of code -->
+            <link rel="stylesheet" href="lib/css/github-gist.css">
+
+            <!-- FontAwesomeCSS -->
+            <link rel="stylesheet" href="../../css/font-awesome.min.css">
+
+            <!-- Academicons CSS -->
+            <link rel="stylesheet" href="../../css/academicons.min.css"/>
+
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+    </head>
+    <body>
+
+        <div class="reveal">
+            <div class="slides">
+                <section data-markdown="essec.md"
+                     data-separator="^\n---\n"
+                     data-separator-vertical="^\n----\n"
+                     data-separator-notes="^Note:"
+                     data-charset="iso-8859-15">
+                </section>
+            </div>
+        </div>
+
+        <!-- Loading mathjax macro -->
+        <!-- Load mathjax -->
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+        </script>
+
+        <!-- MathJax configuration -->
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+        TeX: {
+        Macros: {
+                        vct: ["\\boldsymbol{#1}", 1],
+                        mtx: ["\\boldsymbol{#1}", 1],
+                        idmtx: "\\mathbf{I}",
+                        rvar: ["\\mathsf{#1}", 1],
+                        rvct: ["\\vct{\\rvar{#1}}", 1],
+                        rmtx: ["\\mtx{\\rvar{#1}}", 1],
+                        dr: "\\mathrm{d}",
+                        pd: ["\\frac{\\partial #1}{\\partial #2}", 2],
+                        pdd: ["\\frac{\\partial^2 #1}{\\partial #2^2}", 2],
+                        td: ["\\frac{\\dr #1}{\\dr #2}", 2],
+                        set: ["\\mathcal{#1}", 1],
+                        lpa: "\\left(",
+                        rpa: "\\right)",
+                        lsb: "\\left[",
+                        rsb: "\\right]",
+                        lbr: "\\left\\\\lbrace",
+                        rbr: "\\right\\\\rbrace",
+                        reals: "\\mathbb{R}",
+                        tr: "^{\\mkern-1.5mu\\mathsf{T}}",
+                        gvn: "\\,|\\,",
+                        prob: "\\mathbb{P}",
+                        nrm: "\\mathcal{N}",
+                        expc: "\\mathbb{E}",
+                        plch: "\\,\\cdot\\,",
+                        range: ["#1\\colon\\mkern-2mu#2", 2],
+        ind: "\\mathbb{1}",
+        latent: ["\\color{steelblue}{#1}",1],
+        observed: ["\\color{red}{#1}",1],
+        input: ["\\color{green}{#1}",1],
+                        faded: ["\\color{lightgray}{#1}",1],
+                        op: ["#1", 1],
+                        cns: ["\\mathtt{#1}", 1],
+                        sumrange: ["\\sum_{#1\\in #2\\mkern-1mu:#3}", 3],
+                        dim: "\\mathrm{dim}",
+        }
+
+        },
+        tex2jax: {
+        inlineMath: [ ['$','$'] ],
+        displayMath: [ ['$$','$$'], ["\[","\]"] ],
+        processEscapes: true,
+        processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+        styles: {'.MathJax_Display': {
+        "margin-top": "0.5em",
+        "margin-bottom": "0.5em"
+        }},
+                    availableFonts: ['STIX'],
+        preferredFont: 'STIX',
+                    webFont: "STIX-Web",
+                    scale: 90,
+                    mtextFontInherit: true,
+                    matchFontHeight: true
+        }
+        });
+        </script>
+        <!-- End of mathjax configuration -->
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.js"></script>
+
+        <script>
+        // More info https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+        history: true,
+        controls: false,
+                    controlsTutorial: false,
+                    controlsLayout: 'edges',
+                    fragmentInURL: true,
+        progress: true,
+        mouseWheel: true,
+        transition: 'none',
+                    backgroundTransition: 'none',
+                    pdfSeparateFragments: false,
+                    pdfMaxPagesPerSlide: 1,
+                    slideNumber: 'c/t',
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+        { src: 'plugin/markdown/marked.js' },
+        { src: 'plugin/markdown/markdown.js' },
+        { src: 'plugin/notes/notes.js', async: true },
+                        { src: 'plugin/mouse-pointer/mouse-pointer.js', async: true },
+        { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        // { src: 'plugin/math/math.js', async: true }
+        ]
+        });
+
+        </script>
+
+    </body>
+</html>
