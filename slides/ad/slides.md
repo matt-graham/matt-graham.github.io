@@ -19,8 +19,8 @@
 
 AD has a long history dating back to the 1960s.
 
-<span class="fragment" data-fragment-index="1">R.E. Wengert. *A simple automatic derivative evaluation program*.
-CACM 7(8):463&ndash;4, 1964.</span>
+<span class="fragment" data-fragment-index="1">R.E. Wengert (1964). *A simple automatic derivative evaluation program*.
+CACM 7(8), pp. 463&ndash;4.</span>
 
 > <!-- .element: class="fragment" data-fragment-index="2" -->
 > A procedure for automatic evaluation of total  / partial derivatives of 
@@ -30,8 +30,9 @@ CACM 7(8):463&ndash;4, 1964.</span>
 > functional steps.
 
 
-In machine learning reverse-mode AD was historically known as backpropagation.
-<!-- .element: class="fragment" data-fragment-index="3" -->
+<p class="fragment" data-fragment-index="3">
+In machine learning *reverse-mode* AD was historically known as *backpropagation*.
+</p>
 
 ----
 
@@ -72,12 +73,33 @@ This is particularly burdensome for calculating the gradient of scalar functions
 For small $h$ can become numerically instable. 
 <!-- .element: class="fragment" data-fragment-index="2" -->
 
+----
+
+## *Aside*: Complex step method
+
+For *analytic* $f : \reals^N \to \reals^M$, expanding as a Taylor series:
+
+$$
+  f(x + jh\mathbf{e}_i) = f(x) + jh \partial_i\,f(x) + \mathcal{O}(h^2)
+$$
+<!-- .element: class="fragment" data-fragment-index="1" -->
+
+Taking the imaginary component of both sides
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+$$
+  \partial_i\,f(x) = \text{Im}\big(f(x + jh\mathbf{e}_i)\big) / h + \mathcal{O}(h^2)
+$$
+<!-- .element: class="fragment" data-fragment-index="3" -->
+
+Avoids floating point errors in computation of difference - $\mathcal{O}(h^2)$ accuracy even for very small $h$.
+<!-- .element: class="fragment" data-fragment-index="4" -->
 
 ----
 
 ## Symbolic differentiation
 
-Implementations of rules of calculus in computer algebra systems (e.g. Mathematica, SymPy).
+Implementations of rules of calculus in computer algebra systems (e.g. Mathematica, SymPy, Deriv in R).
 <!-- .element: class="fragment semi-fade-out" data-fragment-index="1" -->
 
 Gives human-readable expressions as output but verbose for complicated compositions of functions and redundancy between partial derivatives.
@@ -113,7 +135,7 @@ More generally the Jacobian is a linear map from the domain to the codomain of a
 $$\texttt{JVP}(\,f)(x)(v) := \partial f(x) v$$
 <!-- .element: class="fragment semi-fade-out" data-fragment-index="1" -->
 
-Cost of $\texttt{JVP}(\,f)(x)(v)$ = $\mathcal{O}(1)\times \,$ cost of  $f(x)$.
+Operation cost of $\texttt{JVP}(\,f)(x)(v)$ = $\mathcal{O}(1)\times \,$ cost of  $f(x)$.
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
 ----
@@ -125,7 +147,7 @@ Cost of $\texttt{JVP}(\,f)(x)(v)$ = $\mathcal{O}(1)\times \,$ cost of  $f(x)$.
 $$\texttt{VJP}(\,f)(x)(v) := \partial f(x)\tr v = \left( v\tr \partial f(x)\right)\tr$$
 <!-- .element: class="fragment semi-fade-out" data-fragment-index="1" -->
 
-Cost of $\texttt{VJP}(\,f)(x)(v)$ = $\mathcal{O}(1)\times \,$ cost of  $f(x)$.
+Operation cost of $\texttt{VJP}(\,f)(x)(v)$ = $\mathcal{O}(1)\times \,$ cost of  $f(x)$.
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
 ----
@@ -180,6 +202,9 @@ Can evaluate $g(x)$ at same time as $\texttt{JVP}(g)(x)$.
 <p class="fragment" data-fragment-index="1">
 Need to evaluate $g(x)$ *before* evaluating $\texttt{VJP}(g)(x)$.
 </p>
+
+Memory costs of reverse-mode accumulation scales with number intermediate variables. <!-- .element: class="fragment" data-fragment-index="2" -->
+
 
 ----
 
@@ -257,7 +282,32 @@ c = neg_log_dens(x, m, s)
 ```
 <!-- .element: class="fragment small-code" data-fragment-index="1" -->
 
-Four evaluations of function and approximate output.
+Four evaluations of function, $\mathcal{O}(h)$ approximate output.
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+
+----
+
+## Complex step: NumPy
+
+```Python
+import numpy as np
+
+def neg_log_dens(x, m, s):
+    return ((x - m) / s)**2 / 2 + np.log(s) + np.log(2 * np.pi) / 2
+
+x, m, s, h = 0.5, 1.2, 1.1, 1e-16
+(
+    neg_log_dens(x + 1j * h, m, s).imag / h,
+    neg_log_dens(x, m + 1j * h, s).imag / h,
+    neg_log_dens(x, m, s + 1j * h).imag / h
+)
+
+# Output: (-0.5785124, 0.5785124, 0.5409467)
+```
+<!-- .element: class="fragment small-code" data-fragment-index="1" -->
+
+Three evaluations of function, $\mathcal{O}(h^2)$ approximate output.
 <!-- .element: class="fragment" data-fragment-index="2" -->
 
 ----
@@ -284,14 +334,26 @@ One forward and backward pass to evaluate all 3 derivatives and 'exact' output.
 
 ----
 
-## Computational graph
+## Computational graphs
 
-```python
+Directed acyclic graph representation of function evaluation.
+
+<img src='images/computational-graph-example.svg' height='200' />
+
+Node types: *variables* (circles) and *primitives* (rectangles).  
+*Root variables*: Input argument(s) to function.  
+*Leaf variables*: Value(s) returned by function. 
+
+----
+
+## Normal negative log density example
+
+```Python
 t0 = x - m
 t1 = t0 / s
-t2 = np.log(s)
+t2 = log(s)
 t3 = t1**2
-t4 = t2 + np.log(2 * np.pi) / 2
+t4 = t2 + log(2 * pi) / 2
 t5 = t3 / 2
 c = t4 + t5
 ```
@@ -492,19 +554,35 @@ dc_dm = -dc_dt0
 
 -->
 
+
+----
+
+## Higher-order derivatives
+
+We can iteratively apply combinations of forward- and reverse-mode AD to compute higher-order derivatives.
+
+For example for $f: \reals^N \to \reals$, Hessian vector product:<!-- .element: class="fragment" data-fragment-index="1" -->
+
+$$\nabla^2 f(x) v = \texttt{JVP}\big(x' \to \texttt{VJP}(f)(x')([1])\big)(x)(v).$$
+<!-- .element: class="fragment" data-fragment-index="2" -->
+
+<p class="fragment" data-fragment-index="3">
+More efficient alternatives exist based on propagating Taylor polynomials *(Bischof Corliss, & Griewank, 1993)*.
+</p>
+
 ----
 
 ## Computational frameworks
 
-Increasing number of numerical computing frameworks with AD functionality, e.g.
+Increasing number of numerical computing frameworks with AD functionality, for example
 
 <table class='image-table align-table fragment' data-fragment-index="2">
 <tr>
 <td>
-<img width='200' style='padding: 10px; border: none; box-shadow: none;' src='images/theano-logo.svg' />
+<img width='200' style='padding: 10px; border: none; box-shadow: none;' src='images/aesara_logo_2400.png' />
 </td>
 <td>
-<img width='100' style='padding: 10px; border: none; box-shadow: none;' src='images/stan-logo.svg' /> 
+<a href="https://www.jchau.org/2022/01/24/automatic-differentiation-in-r-with-stan-math/"><img width='100' style='padding: 10px; border: none; box-shadow: none;' src='images/stan-logo.svg' /></a>
 </td>
 <td>
 <img width='150' style='padding: 10px; border: none; box-shadow: none;' src='images/tensorflow-logo.svg' />
@@ -514,7 +592,7 @@ Increasing number of numerical computing frameworks with AD functionality, e.g.
 </tr>
 <tr>
 <td>
-<span style='font-size: 150%;'>Autograd</span>
+<img width='200' style='padding: 10px; border: none; box-shadow: none;' src='images/zygote.png' />
 </td>
 <td>
 <img width='200' style='padding: 10px; border: none; box-shadow: none;' src='images/pytorch-logo.svg' />
@@ -946,7 +1024,7 @@ def jacobian(fun, argnum=0):
 
 ## JAX
 
-JAX is a recently released Python library which is in some senses a successor to Autograd.
+JAX is a (relatively) recently released Python library which is in some senses a successor to Autograd.
 
 Started as a research project in Google by a group including two of the key Autograd contributors, Matt Johnson and Dougal Maclaurin. <!-- .element: class="fragment" data-fragment-index="1" -->
 
@@ -956,7 +1034,7 @@ Started as a research project in Google by a group including two of the key Auto
 
 ## JAX
 
-JAX extends the tracing logic of Autograd to allow Python code to be translated to a representation (~ computational graph) that allows transformations before translating back to Python code.
+JAX extends the tracing logic of Autograd to allow Python code to be translated to a representation that allows transformations before translating back to Python code.
 
 <!-- .element: class="fragment" data-fragment-index="1" -->Tracing is implemented by calling functions with abstract arguments which represent the *set* of possible values.
 
@@ -984,6 +1062,12 @@ This allows for example gradient functions to be compiled to improve efficiency 
 
 ## References and further reading
 
-  1. Griewank, A., 2012. Who Invented the Reverse Mode of Differentiation?. *Documenta Mathematica*, Extra Volume ISMP, pp.389-400.
-  2. Baydin, A.G., Pearlmutter, B.A., Radul, A.A. and Siskind, J.M., 2018. Automatic differentiation in machine learning: a survey. *Journal of Machine Learning Research*, 18, pp.1-43.
-    
+<ol style="font-size: 60%">
+  <li>Bischof, C., Corliss, G. and Griewank, A. (1993). Structured second- and higher-order derivatives through univariate Taylor series. *Optimization Methods and Software*, 2, pp.211-232.</li>
+  <li>Griewank, A. and  Walther, A. (2008). Evaluating derivatives: Principles and techniques of algorithmic differentiation. *SIAM*.</li>
+  <li>Griewank, A. (2012). Who Invented the reverse mode of differentiation?. *Documenta Mathematica*, pp.389-400.</li>
+  <li>Baydin, A.G., Pearlmutter, B.A., Radul, A.A. and Siskind, J.M. (2018). Automatic differentiation in machine learning: a survey. *Journal of Machine Learning Research*, 18, pp.1-43.</li>
+  <li>Margossian, C. (2018). A review of automatic differentiation and its efficient implementation. *arXiv:1811.05031*.</li>
+  <li>Gebremedhin, A.H and Walther, A (2020). An introduction to algorithmic differentiation. *WIREs Data mining &amp; knowledge discovery*.</li>
+  <li>Margossian, C. and Betancourt, M. (2021). Efficient automatic differentiation of implicit functions. *arXiv:2112.14217*.</li>
+</ol>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="75.565102mm"
+   height="38.454838mm"
+   viewBox="0 0 75.565102 38.454838"
+   version="1.1"
+   id="svg1122"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
+   sodipodi:docname="computational-graph-example.svg">
+  <defs
+     id="defs1116" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="-691.48553"
+     inkscape:cy="-38.758005"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1080"
+     inkscape:window-height="1896"
+     inkscape:window-x="0"
+     inkscape:window-y="60"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata1119">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-83.925784,-100.12377)">
+    <g
+       transform="matrix(0.35279669,0,0,0.35279669,84.102182,170.68311)"
+       id="node1"
+       class="node">
+      <title
+         id="title4">x</title>
+      <circle
+         cx="21.5"
+         cy="-178"
+         id="ellipse6"
+         r="21.5"
+         style="fill:none;stroke:#006400" />
+      <text
+         x="21.5"
+         y="-173.8"
+         font-size="14.00"
+         id="text8"
+         style="font-size:14px;font-family:Courier, monospace;text-anchor:middle;fill:#000000">x</text>
+    </g>
+    <g
+       transform="matrix(0.35279669,0,0,0.35279669,84.102182,170.68311)"
+       id="node13"
+       class="node">
+      <title
+         id="title11">xm_t0</title>
+      <polygon
+         points="148.2834,-127 148.2834,-163 64.9054,-163 64.9054,-127 "
+         id="polygon13"
+         style="fill:none;stroke:#006eaf" />
+      <text
+         x="106.5944"
+         y="-140.8"
+         font-size="14.00"
+         id="text15"
+         style="font-size:14px;font-family:Courier, monospace;text-anchor:middle;fill:#000000">subtract</text>
+    </g>
+    <g
+       transform="matrix(0.35279669,0,0,0.35279669,84.102182,170.68311)"
+       id="edge1"
+       class="edge">
+      <title
+         id="title18">x-&gt;xm_t0</title>
+      <path
+         d="m 41.6662,-170.1795 c 4.2528,1.6493 8.9226,3.4603 13.7471,5.3312"
+         id="path20"
+         inkscape:connector-curvature="0"
+         style="fill:none;stroke:#000000" />
+      <polygon
+         points="64.8126,-161.2032 54.2236,-161.5557 56.7546,-168.0821 "
+         id="polygon22"
+         style="fill:#000000;stroke:#000000" />
+    </g>
+    <g
+       transform="matrix(0.35279669,0,0,0.35279669,84.102182,170.68311)"
+       id="node2"
+       class="node">
+      <title
+         id="title25">m</title>
+      <circle
+         cx="21.5"
+         cy="-113"
+         id="ellipse27"
+         r="21.5"
+         style="fill:none;stroke:#006400" />
+      <text
+         x="21.5"
+         y="-108.8"
+         font-size="14.00"
+         id="text29"
+         style="font-size:14px;font-family:Courier, monospace;text-anchor:middle;fill:#000000">m</text>
+    </g>
+    <g
+       transform="matrix(0.35279669,0,0,0.35279669,84.102182,170.68311)"
+       id="edge2"
+       class="edge">
+      <title
+         id="title32">m-&gt;xm_t0</title>
+      <path
+         d="m 41.6662,-120.5836 c 4.2528,-1.5992 8.9226,-3.3553 13.7471,-5.1696"
+         id="path34"
+         inkscape:connector-curvature="0"
+         style="fill:none;stroke:#000000" />
+      <polygon
+         points="56.6845,-122.4919 54.2206,-129.0439 64.8126,-129.2878 "
+         id="polygon36"
+         style="fill:#000000;stroke:#000000" />
+    </g>
+    <g
+       transform="matrix(0.35279669,0,0,0.35279669,84.102182,170.68311)"
+       id="node4"
+       class="node">
+      <title
+         id="title74">t0</title>
+      <circle
+         cx="191.6888"
+         cy="-145"
+         id="ellipse76"
+         r="21.5"
+         style="fill:none;stroke:#006400" />
+      <text
+         x="191.6888"
+         y="-140.8"
+         font-size="14.00"
+         id="text78"
+         style="font-size:14px;font-family:Courier, monospace;text-anchor:middle;fill:#000000">z</text>
+    </g>
+    <g
+       transform="matrix(0.35279669,0,0,0.35279669,84.102182,170.68311)"
+       id="edge3"
+       class="edge">
+      <title
+         id="title217">xm_t0-&gt;t0</title>
+      <path
+         d="m 148.643,-145 c 3.6848,0 7.3745,0 10.9586,0"
+         id="path219"
+         inkscape:connector-curvature="0"
+         style="fill:none;stroke:#000000" />
+      <polygon
+         points="169.9268,-145 159.9267,-141.5001 159.9268,-148.5001 "
+         id="polygon221"
+         style="fill:#000000;stroke:#000000" />
+    </g>
+  </g>
+</svg>
