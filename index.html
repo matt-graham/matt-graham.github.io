@@ -77,9 +77,6 @@
                 <a href="https://github.com/matt-graham" class="btn btn-social-icon btn-github">
                   <i class="fa fa-github fa-fw"></i>
                 </a>
-                <a href="https://uk.linkedin.com/in/matt-graham-460217130" class="btn btn-social-icon btn-linkedin">
-                  <i class="fa fa-linkedin fa-fw"></i>
-                </a>
                 <a href="https://orcid.org/0000-0001-9104-7960" class="btn btn-social-icon btn-orcid-green">
                   <i class="ai ai-orcid fa-fw ai-3x"></i>
                 </a>
@@ -93,10 +90,10 @@
             </div>
           </div> <!--/.profile-photo-and-social-col-->
           <div class="col-md-9" id="intro-text-col">
-            <p class="lead">I am a research software engineer in the <a href="https://www.ucl.ac.uk/research-it-services/research-software-development">research software development group at UCL</a>. Prior to my current role, I did postdocs with <a href="https://oates.work/">Chris Oates</a> at the <a href="https://www.ncl.ac.uk/maths-physics/">School of Mathematics, Statistics and Physics</a> at Newcastle University and <a href="http://www.normalesup.org/~athiery/index.html">Alex Thiery</a> at the <a href="https://www.stat.nus.edu.sg/">Department of Statistics and Applied Probability</a> in the National University of Singapore. I completed my PhD at the <a href="https://www.ed.ac.uk/informatics">School of Informatics</a> in the University of Edinburgh, where I was supervised by <a href="https://homepages.inf.ed.ac.uk/amos/">Amos Storkey</a>.
+            <p class="lead">I am a research software engineer in the <a href="https://www.ucl.ac.uk/advanced-research-computing/advanced-research-computing-centre">Advanced Research Computing Centre</a> at University College London. Prior to my current role, I did postdocs with <a href="https://oates.work/">Chris Oates</a> at the <a href="https://www.ncl.ac.uk/maths-physics/">School of Mathematics, Statistics and Physics</a> at Newcastle University and <a href="http://www.normalesup.org/~athiery/index.html">Alex Thiery</a> at the <a href="https://www.stat.nus.edu.sg/">Department of Statistics and Applied Probability</a> in the National University of Singapore. I completed my PhD at the <a href="https://www.ed.ac.uk/informatics">School of Informatics</a> in the University of Edinburgh, where I was supervised by <a href="https://homepages.inf.ed.ac.uk/amos/">Amos Storkey</a>.
             </p>
             <p class="lead">
-              <span class="text-muted">Research interests:</span> Markov chain Monte Carlo methods, Hamiltonian Monte Carlo, approximate Bayesian computation, data assimilation, inverse problems.
+              <span class="text-muted">Research interests:</span> Markov chain Monte Carlo methods, Hamiltonian Monte Carlo, data assimilation, inverse problems, probabilistic programming.
             </p>
           </div><!--./intro-text-col-->
         </div>
@@ -118,7 +115,7 @@
           <div class="col-md-8" id="contact-address-col">
             <div class="panel panel-default">
               <div class="panel-heading"><i class="fa fa-building fa-fw"></i> Address</div>
-              <div class="panel-body">UCL Research IT Services, 1&ndash;19 Torrington Place, London, WC1E 7HB</div>
+              <div class="panel-body">UCL Advanced Research Computing Centre, 105 Judd St, London, WC1H 9RN.</div>
             </div>
           </div><!--./contact-address-col-->
         </div>
@@ -143,7 +140,7 @@
             </p>
             <div class="btn-group" role="group">
               <a href="https://arxiv.org/abs/2012.12670" class="btn btn-default">
-                <i class="ai ai-arxiv fa-fw"></i> arXiv
+                <i class="ai ai-arxiv fa-fw"></i> Pre-print
               </a>
               <button class="btn btn-default btn-abs collapsed" data-toggle="collapse" data-target="#calibration-abs">
                 Abstract
@@ -163,7 +160,7 @@
             </p>
             <div class="btn-group" role="group">
               <a href="https://arxiv.org/abs/2003.03950" class="btn btn-default">
-                <i class="ai ai-arxiv fa-fw"></i> arXiv
+                <i class="ai ai-arxiv fa-fw"></i> Pre-print
               </a>
               <a href="slides/manifold-lifting" class="btn btn-default">
                 <i class="fa fa-television fa-fw"></i> Slides
@@ -181,32 +178,6 @@
           </li>
           <li class="publication">
             <h4>
-              <small>2019/12</small>
-              Manifold Markov chain Monte Carlo methods for Bayesian inference in a wide class of diffusion models
-            </h4>
-            <p>
-              <i>Matthew M. Graham</i>, <a href="http://www.normalesup.org/~athiery/index.html">Alexandre H. Thiery</a> and <a href="http://www.homepages.ucl.ac.uk/~ucakabe/">Alexandros Beskos</a>
-            </p>
-            <div class="btn-group" role="group">
-              <a href="https://arxiv.org/abs/1912.02982" class="btn btn-default">
-                <i class="ai ai-arxiv fa-fw"></i> arXiv
-              </a>
-              <a href="slides/sde" class="btn btn-default">
-                <i class="fa fa-television fa-fw"></i> Slides
-              </a>
-              <a href="https://github.com/thiery-lab/manifold-mcmc-for-diffusions" class="btn btn-default">
-                <i class="fa fa-code fa-fw"></i> Code
-              </a>
-              <button class="btn btn-default btn-abs collapsed" data-toggle="collapse" data-target="#sde-mcmc-abs">
-                Abstract
-              </button>
-            </div>
-            <div id="sde-mcmc-abs" class="collapse abstract">
-                Bayesian inference for partially observed, nonlinear diffusion models is a challenging task that has led to the development of several important methodological advances. We propose a novel framework for inferring the posterior distribution on both a time discretisation of the diffusion process and any unknown model parameters, given partial observations of the process. The set of joint configurations of the noise increments and parameters which map to diffusion paths consistent with the observations form an implicitly defined manifold. By using a constrained Hamiltonian Monte Carlo algorithm for constructing Markov kernels on embedded manifolds, we are able to perform computationally efficient inference in a wide class of partially observed diffusions. Unlike other approaches in the literature, that are often limited to specific model classes, our approach allows full generality in the choice of observation and diffusion models, including complex cases such as hypoelliptic systems with degenerate diffusion coefficients. By exploiting the Markovian structure of diffusions, we propose a variant of the approach with a complexity that scales linearly in the time resolution of the discretisation and quasi-linearly in the number of observation times.
-            </div>
-          </li>
-          <li class="publication">
-            <h4>
               <small>2019/06</small>
               A scalable optimal-transport based local particle filter
             </h4>
@@ -215,7 +186,7 @@
             </p>
             <div class="btn-group" role="group">
               <a href="https://arxiv.org/abs/1906.00507" class="btn btn-default">
-                <i class="ai ai-arxiv fa-fw"></i> arXiv
+                <i class="ai ai-arxiv fa-fw"></i> Pre-print
               </a>
               <a href="files/sletpf-poster-isba.pdf" class="btn btn-default">
                 <i class="fa fa-file-pdf-o fa-fw"></i> Poster
@@ -237,6 +208,38 @@
           </ul>
           <h2 class='sub-heading'> Journal articles</h2>
           <ul class="publications-list">
+          <li class="publication">
+            <h4>
+              <small>2022/04</small>
+              Manifold Markov chain Monte Carlo methods for Bayesian inference in diffusion models
+            </h4>
+            <p>
+              <i>Matthew M. Graham</i>, <a href="http://www.normalesup.org/~athiery/index.html">Alexandre H. Thiery</a> and <a href="http://www.homepages.ucl.ac.uk/~ucakabe/">Alexandros Beskos</a>
+            </p>
+            <p class='published-in'>
+              Journal of the Royal Statistical Society: Series B (Statistical Methodology)
+            </p>
+            <div class="btn-group" role="group">
+              <a href="https://doi.org/10.1111/rssb.12497" class="btn btn-default">
+                <i class="fa fa-file-o fa-fw"></i> Article
+              </a>
+              <a href="https://arxiv.org/abs/1912.02982" class="btn btn-default">
+                <i class="ai ai-arxiv fa-fw"></i> Pre-print
+              </a>
+              <a href="slides/sde" class="btn btn-default">
+                <i class="fa fa-television fa-fw"></i> Slides
+              </a>
+              <a href="https://github.com/thiery-lab/manifold-mcmc-for-diffusions" class="btn btn-default">
+                <i class="fa fa-code fa-fw"></i> Code
+              </a>
+              <button class="btn btn-default btn-abs collapsed" data-toggle="collapse" data-target="#sde-mcmc-abs">
+                Abstract
+              </button>
+            </div>
+            <div id="sde-mcmc-abs" class="collapse abstract">
+                Bayesian inference for nonlinear diffusions, observed at discrete times, is a challenging task that has prompted the development of a number of algorithms, mainly within the computational statistics community. We propose a new direction, and accompanying methodology—borrowing ideas from statistical physics and computational chemistry—for inferring the posterior distribution of latent diffusion paths and model parameters, given observations of the process. Joint configurations of the underlying process noise and of parameters, mapping onto diffusion paths consistent with observations, form an implicitly defined manifold. Then, by making use of a constrained Hamiltonian Monte Carlo algorithm on the embedded manifold, we are able to perform computationally efficient inference for a class of discretely observed diffusion models. Critically, in contrast with other approaches proposed in the literature, our methodology is highly automated, requiring minimal user intervention and applying alike in a range of settings, including: elliptic or hypo-elliptic systems; observations with or without noise; linear or non-linear observation operators. Exploiting Markovianity, we propose a variant of the method with complexity that scales linearly in the resolution of path discretisation and the number of observation times. Python code reproducing the results is available at http://doi.org/10.5281/zenodo.5796148.
+            </div>
+          </li>
           <li class="publication">
             <h4>
               <small>2017/12</small>
@@ -549,6 +552,32 @@
         </div>
         <div class="row">
           <ul class="publications-list">
+            <li class="publication">
+              <h4>
+                <small>2022/04</small> A brief introduction to automatic differentiation
+              </h4>
+              <p class='published-in'>
+                Monte Carlo reading group @ UCL Statistical Science
+              </p>
+              <div class="btn-group" role="group">
+                <a href="slides/ad/index.html" class="btn btn-default">
+                  <i class="fa fa-television fa-fw"></i> Slides
+                </a>
+              </div>
+            </li>
+            <li class="publication">
+              <h4>
+                <small>2022/03</small> Lift and flow: manifold MCMC methods for efficient inference in stiff posteriors
+              </h4>
+              <p class='published-in'>
+                <a href='https://isds-department.essec.edu/research/research-seminars/data-analytics'>ESSEC Econometrics and Statistics Seminar</a>
+              </p>
+              <div class="btn-group" role="group">
+                <a href="slides/manifold-lifting/essec.html" class="btn btn-default">
+                  <i class="fa fa-television fa-fw"></i> Slides
+                </a>
+              </div>
+            </li>
             <li class="publication">
               <h4>
                 <small>2021/05</small> Lift and flow: manifold MCMC methods for efficient inference in stiff posteriors
