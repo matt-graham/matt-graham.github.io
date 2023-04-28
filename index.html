@@ -90,7 +90,7 @@
             </div>
           </div> <!--/.profile-photo-and-social-col-->
           <div class="col-md-9" id="intro-text-col">
-            <p class="lead">I am a research software engineer in the <a href="https://www.ucl.ac.uk/advanced-research-computing/advanced-research-computing-centre">Advanced Research Computing Centre</a> at University College London. Prior to my current role, I did postdocs with <a href="https://oates.work/">Chris Oates</a> at the <a href="https://www.ncl.ac.uk/maths-physics/">School of Mathematics, Statistics and Physics</a> at Newcastle University and <a href="http://www.normalesup.org/~athiery/index.html">Alex Thiery</a> at the <a href="https://www.stat.nus.edu.sg/">Department of Statistics and Applied Probability</a> in the National University of Singapore. I completed my PhD at the <a href="https://www.ed.ac.uk/informatics">School of Informatics</a> in the University of Edinburgh, where I was supervised by <a href="https://homepages.inf.ed.ac.uk/amos/">Amos Storkey</a>.
+            <p class="lead">I am a research data scientist in the <a href="https://www.ucl.ac.uk/advanced-research-computing/advanced-research-computing-centre">Advanced Research Computing Centre</a> at University College London. Prior to my current role, I did postdocs with <a href="https://oates.work/">Chris Oates</a> at the <a href="https://www.ncl.ac.uk/maths-physics/">School of Mathematics, Statistics and Physics</a> at Newcastle University and <a href="http://www.normalesup.org/~athiery/index.html">Alex Thiery</a> at the <a href="https://www.stat.nus.edu.sg/">Department of Statistics and Applied Probability</a> in the National University of Singapore. I completed my PhD at the <a href="https://www.ed.ac.uk/informatics">School of Informatics</a> in the University of Edinburgh, where I was supervised by <a href="https://homepages.inf.ed.ac.uk/amos/">Amos Storkey</a>.
             </p>
             <p class="lead">
               <span class="text-muted">Research interests:</span> Markov chain Monte Carlo methods, Hamiltonian Monte Carlo, data assimilation, inverse problems, probabilistic programming.
@@ -115,7 +115,7 @@
           <div class="col-md-8" id="contact-address-col">
             <div class="panel panel-default">
               <div class="panel-heading"><i class="fa fa-building fa-fw"></i> Address</div>
-              <div class="panel-body">UCL Advanced Research Computing Centre, 105 Judd St, London, WC1H 9RN.</div>
+              <div class="panel-body">UCL Advanced Research Computing Centre, Bidborough House, London, WC1H 9BT.</div>
             </div>
           </div><!--./contact-address-col-->
         </div>
@@ -130,64 +130,117 @@
         <div class="row">
           <h2 class='sub-heading'>Pre-prints</h2>
           <ul class="publications-list">
-          <li class="publication">
-            <h4>
-              <small>2020/03</small>
-              Manifold lifting: scaling MCMC to the vanishing noise regime
-            </h4>
-            <p>
-              <a href="https://kx-au.github.io">Khai Xiang Au</a>, <i>Matthew M. Graham</i> and <a href="http://www.normalesup.org/~athiery/index.html">Alexandre H. Thiery</a>
-            </p>
-            <div class="btn-group" role="group">
-              <a href="https://arxiv.org/abs/2003.03950" class="btn btn-default">
-                <i class="ai ai-arxiv fa-fw"></i> Pre-print
-              </a>
-              <a href="slides/manifold-lifting" class="btn btn-default">
-                <i class="fa fa-television fa-fw"></i> Slides
-              </a>
-              <a href="https://github.com/thiery-lab/manifold_lifting" class="btn btn-default">
-                <i class="fa fa-code fa-fw"></i> Code
-              </a>
-              <button class="btn btn-default btn-abs collapsed" data-toggle="collapse" data-target="#manifold-lifting-abs">
-                Abstract
-              </button>
-            </div>
-            <div id="manifold-lifting-abs" class="collapse abstract">
-                Standard Markov chain Monte Carlo methods struggle to explore distributions that are concentrated in the neighbourhood of low-dimensional structures. These pathologies naturally occur in a number of situations. For example, they are common to Bayesian inverse problem modelling and Bayesian neural networks, when observational data are highly informative, or when a subset of the statistical parameters of interest are non-identifiable. In this paper, we propose a strategy that transforms the original sampling problem into the task of exploring a distribution supported on a manifold embedded in a higher dimensional space; in contrast to the original posterior this lifted distribution remains diffuse in the vanishing noise limit. We employ a constrained Hamiltonian Monte Carlo method which exploits the manifold geometry of this lifted distribution, to perform efficient approximate inference. We demonstrate in several numerical experiments that, contrarily to competing approaches, the sampling efficiency of our proposed methodology does not degenerate as the target distribution to be explored concentrates near low dimensional structures.
-            </div>
-          </li>
-          <li class="publication">
-            <h4>
-              <small>2019/06</small>
-              A scalable optimal-transport based local particle filter
-            </h4>
-            <p>
-              <i>Matthew M. Graham</i> and <a href="http://www.normalesup.org/~athiery/index.html">Alexandre H. Thiery</a>
-            </p>
-            <div class="btn-group" role="group">
-              <a href="https://arxiv.org/abs/1906.00507" class="btn btn-default">
-                <i class="ai ai-arxiv fa-fw"></i> Pre-print
-              </a>
-              <a href="files/sletpf-poster-isba.pdf" class="btn btn-default">
-                <i class="fa fa-file-pdf-o fa-fw"></i> Poster
-              </a>
-              <a href="slides/sletpf/nus.html" class="btn btn-default">
-                <i class="fa fa-television fa-fw"></i> Slides
-              </a>
-              <a href="https://github.com/thiery-lab/data-assimilation" class="btn btn-default">
-                <i class="fa fa-code fa-fw"></i> Code
-              </a>
-              <button class="btn btn-default btn-abs collapsed" data-toggle="collapse" data-target="#sletpf-abs">
-                Abstract
-              </button>
-            </div>
-            <div id="sletpf-abs" class="collapse abstract">
-                Filtering in spatially-extended dynamical systems is a challenging problem with significant practical applications such as numerical weather prediction. Particle filters allow asymptotically consistent inference but require infeasibly large ensemble sizes for accurate estimates in complex spatial models. Localisation approaches, which perform local state updates by exploiting low dependence between variables at distant points, have been suggested as a potential resolution to this issue. Naively applying the resampling step of the particle filter locally however produces implausible spatially discontinuous states. The ensemble transform particle filter replaces resampling with an optimal-transport map and can be localised by computing maps for every spatial mesh node. The resulting local ensemble transport particle filter is however computationally intensive for dense meshes. We propose a new optimal-transport based local particle filter which computes a fixed number of maps independent of the mesh resolution and interpolates these maps across space, reducing the computation required and allowing it to be ensured particles remain spatially smooth. We numerically illustrate that, at a reduced computational cost, we are able to achieve the same accuracy as the local ensemble transport particle filter, and retain its improved robustness to non-Gaussianity and ability to quantify uncertainty when compared to local ensemble Kalman filters.
-            </div>
-          </li>
+            <li class="publication">
+              <h4>
+                <small>2023/03</small>
+                ParticleDA.jl v.1.0: A real-time data assimilation software platform
+              </h4>
+              <p>
+                <a href="https://www.ucl.ac.uk/statistics/daniel-giles">Daniel Giles</a>, <i>Matthew M. Graham</i>, <a href="https://giordano.github.io/">Mosè Giordano</a>, <a href="https://iris.ucl.ac.uk/iris/browse/profile?upi=TKOSK42">Tuomas Koskela</a>, <a href="http://www.homepages.ucl.ac.uk/~ucakabe/">Alexandros Beskos</a> and <a href="https://www.ucl.ac.uk/statistics/people/sergeguillas">Serge Guillas</a>
+              </p>
+              <div class="btn-group" role="group">
+                <a href="https://gmd.copernicus.org/preprints/gmd-2023-38/" class="btn btn-default">
+                  <i class="fa fa-file-o fa-fw"></i> Pre-print
+                </a>
+                <a href="https://github.com/Team-RADDISH/ParticleDA.jl" class="btn btn-default">
+                  <i class="fa fa-code fa-fw"></i> Code
+                </a>
+                <button class="btn btn-default btn-abs collapsed" data-toggle="collapse" data-target="#hypodiff-abs">
+                  Abstract
+                </button>
+              </div>
+              <div id="hypodiff-abs" class="collapse abstract">
+                Digital twins of physical and human systems informed by real-time data, are becoming ubiquitous across weather forecasting, disaster preparedness, and urban planning, but researchers lack the tools to run these models effectively and efficiently, limiting progress. One of the current challenges is to assimilate observations in highly nonlinear dynamical systems, as the practical need is often to detect abrupt changes. We developed a software platform to improve the use of real-time data in highly nonlinear system representations where non-Gaussianity prevents the use of more standard Data Assimilation. Optimal Particle filtering data assimilation (DA) techniques have been implemented within an user-friendly open source software platform in Julia – ParticleDA.jl. To ensure the applicability of the developed platform in realistic scenarios, emphasis has been placed on numerical efficiency, scalability and optimisation for high performance computing frameworks. Furthermore, the platform has been developed to be forward model agnostic, ensuring that it is applicable to a wide range of modelling settings, for instance unstructured and non-uniform meshes in the spatial domain or even state spaces that are not spatially organised. Applications to tsunami and numerical weather prediction demonstrate the computational benefits in terms of lower errors, lower computational costs (due to ensemble size and the algorithm's overheads being minimised) and versatility thanks to flexible I/O in a high level language Julia.
+              </div>
+            </li>
+            <li class="publication">
+              <h4>
+                <small>2022/11</small>
+                Parameter estimation with increased precision for elliptic and hypo-elliptic diffusions
+              </h4>
+              <p>
+                <a href="https://iris.ucl.ac.uk/iris/browse/profile?upi=YIGUC90">Yuga Iguchi</a>, <a href="http://www.homepages.ucl.ac.uk/~ucakabe/">Alexandros Beskos</a> and <i>Matthew M. Graham</i>
+              </p>
+              <div class="btn-group" role="group">
+                <a href="https://arxiv.org/abs/2211.16384" class="btn btn-default">
+                  <i class="ai ai-arxiv fa-fw"></i> Pre-print
+                </a>
+                <a href="https://github.com/matt-graham/simsde" class="btn btn-default">
+                  <i class="fa fa-code fa-fw"></i> Code
+                </a>
+                <button class="btn btn-default btn-abs collapsed" data-toggle="collapse" data-target="#hypodiff-abs">
+                  Abstract
+                </button>
+              </div>
+              <div id="hypodiff-abs" class="collapse abstract">
+                This work aims at making a comprehensive contribution in the general area of parametric inference for partially observed diffusion processes. Established approaches for likelihood-based estimation invoke a numerical time-discretisation scheme for the approximation of the (typically intractable) transition dynamics of the Stochastic Differential Equation (SDE) model over finite time periods. The scheme is applied for a step-size that is either a user-selected tuning parameter or determined by the data. Recent research has highlighted the critical effect of the choice of numerical scheme on the behaviour of derived parameter estimates in the setting of hypo-elliptic SDEs. In brief, in our work, first, we develop two weak second order `sampling schemes' (to cover both the hypo-elliptic and elliptic SDE classes) and generate accompanying `transition density schemes' of the SDE (i.e., approximations of the SDE transition density). Then, we produce a collection of analytic results, providing a complete theoretical framework that solidifies the proposed schemes and showcases advantages from their incorporation within SDE calibration methods. We present numerical results from carrying out classical or Bayesian inference, for both elliptic and hypo-elliptic SDE models.
+              </div>
+            </li>
+            <li class="publication">
+              <h4>
+                <small>2019/06</small>
+                A scalable optimal-transport based local particle filter
+              </h4>
+              <p>
+                <i>Matthew M. Graham</i> and <a href="http://www.normalesup.org/~athiery/index.html">Alexandre H. Thiery</a>
+              </p>
+              <div class="btn-group" role="group">
+                <a href="https://arxiv.org/abs/1906.00507" class="btn btn-default">
+                  <i class="ai ai-arxiv fa-fw"></i> Pre-print
+                </a>
+                <a href="files/sletpf-poster-isba.pdf" class="btn btn-default">
+                  <i class="fa fa-file-pdf-o fa-fw"></i> Poster
+                </a>
+                <a href="slides/sletpf/nus.html" class="btn btn-default">
+                  <i class="fa fa-television fa-fw"></i> Slides
+                </a>
+                <a href="https://github.com/thiery-lab/data-assimilation" class="btn btn-default">
+                  <i class="fa fa-code fa-fw"></i> Code
+                </a>
+                <button class="btn btn-default btn-abs collapsed" data-toggle="collapse" data-target="#sletpf-abs">
+                  Abstract
+                </button>
+              </div>
+              <div id="sletpf-abs" class="collapse abstract">
+                  Filtering in spatially-extended dynamical systems is a challenging problem with significant practical applications such as numerical weather prediction. Particle filters allow asymptotically consistent inference but require infeasibly large ensemble sizes for accurate estimates in complex spatial models. Localisation approaches, which perform local state updates by exploiting low dependence between variables at distant points, have been suggested as a potential resolution to this issue. Naively applying the resampling step of the particle filter locally however produces implausible spatially discontinuous states. The ensemble transform particle filter replaces resampling with an optimal-transport map and can be localised by computing maps for every spatial mesh node. The resulting local ensemble transport particle filter is however computationally intensive for dense meshes. We propose a new optimal-transport based local particle filter which computes a fixed number of maps independent of the mesh resolution and interpolates these maps across space, reducing the computation required and allowing it to be ensured particles remain spatially smooth. We numerically illustrate that, at a reduced computational cost, we are able to achieve the same accuracy as the local ensemble transport particle filter, and retain its improved robustness to non-Gaussianity and ability to quantify uncertainty when compared to local ensemble Kalman filters.
+              </div>
+            </li>
           </ul>
           <h2 class='sub-heading'> Journal articles</h2>
           <ul class="publications-list">
+            <li class="publication">
+              <h4>
+                <small>2023/04
+                </small>
+                Manifold lifting: scaling Markov chain Monte Carlo to the vanishing noise regime
+              </h4>
+              <p>
+                <a href="https://kx-au.github.io">Khai Xiang Au</a>, <i>Matthew M. Graham</i> and <a href="http://www.normalesup.org/~athiery/index.html">Alexandre H. Thiery</a>
+              </p>
+              <p class='published-in'>
+                Journal of the Royal Statistical Society: Series B (Statistical Methodology)
+              </p>
+              <div class="btn-group" role="group">
+                <a href="https://doi.org/10.1093/jrsssb/qkad023" class="btn btn-default">
+                  <i class="fa fa-file-o fa-fw"></i> Article
+                </a>
+                <a href="https://arxiv.org/abs/2003.03950" class="btn btn-default">
+                  <i class="ai ai-arxiv fa-fw"></i> Pre-print
+                </a>
+                <a href="slides/manifold-lifting" class="btn btn-default">
+                  <i class="fa fa-television fa-fw"></i> Slides
+                </a>
+                <a href="https://github.com/thiery-lab/manifold_lifting" class="btn btn-default">
+                  <i class="fa fa-code fa-fw"></i> Code
+                </a>
+                <button class="btn btn-default btn-abs collapsed" data-toggle="collapse" data-target="#manifold-lifting-abs">
+                  Abstract
+                </button>
+              </div>
+              <div id="manifold-lifting-abs" class="collapse abstract">
+                Standard Markov chain Monte Carlo methods struggle to explore distributions that concentrate in the neighbourhood of low-dimensional submanifolds. This pathology naturally occurs in Bayesian inference settings when there is a high signal-to-noise ratio in the observational data but the model is inherently over-parametrised or nonidentifiable. In this paper, we propose a strategy that transforms the original sampling problem into the task of exploring a distribution supported on a manifold embedded in a higher-dimensional space; in contrast to the original posterior this lifted distribution remains diffuse in the limit of vanishing observation noise. We employ a constrained Hamiltonian Monte Carlo method, which exploits the geometry of this lifted distribution, to perform efficient approximate inference. We demonstrate in numerical experiments that, contrarily to competing approaches, the sampling efficiency of our proposed methodology does not degenerate as the target distribution to be explored concentrates near low-dimensional submanifolds.
+              </div>
+            </li>
             <li class="publication">
               <h4>
                 <small>2022/08</small>
@@ -214,70 +267,70 @@
                 A learning procedure takes as input a dataset and performs inference for the parameters θ of a model that is assumed to have given rise to the dataset. Here we consider learning procedures whose output is a probability distribution, representing uncertainty about θ after seeing the dataset. Bayesian inference is a prime example of such a procedure, but one can also construct other learning procedures that return distributional output. This paper studies conditions for a learning procedure to be considered calibrated, in the sense that the true data-generating parameters are plausible as samples from its distributional output. A learning procedure whose inferences and predictions are systematically over- or under-confident will fail to be calibrated. On the other hand, a learning procedure that is calibrated need not be statistically efficient. A hypothesis-testing framework is developed in order to assess, using simulation, whether a learning procedure is calibrated. Several vignettes are presented to illustrate different aspects of the framework
               </div>
             </li>
-          <li class="publication">
-            <h4>
-              <small>2022/04</small>
-              Manifold Markov chain Monte Carlo methods for Bayesian inference in diffusion models
-            </h4>
-            <p>
-              <i>Matthew M. Graham</i>, <a href="http://www.normalesup.org/~athiery/index.html">Alexandre H. Thiery</a> and <a href="http://www.homepages.ucl.ac.uk/~ucakabe/">Alexandros Beskos</a>
-            </p>
-            <p class='published-in'>
-              Journal of the Royal Statistical Society: Series B (Statistical Methodology)
-            </p>
-            <div class="btn-group" role="group">
-              <a href="https://doi.org/10.1111/rssb.12497" class="btn btn-default">
-                <i class="fa fa-file-o fa-fw"></i> Article
-              </a>
-              <a href="https://arxiv.org/abs/1912.02982" class="btn btn-default">
-                <i class="ai ai-arxiv fa-fw"></i> Pre-print
-              </a>
-              <a href="slides/sde" class="btn btn-default">
-                <i class="fa fa-television fa-fw"></i> Slides
-              </a>
-              <a href="https://github.com/thiery-lab/manifold-mcmc-for-diffusions" class="btn btn-default">
-                <i class="fa fa-code fa-fw"></i> Code
-              </a>
-              <button class="btn btn-default btn-abs collapsed" data-toggle="collapse" data-target="#sde-mcmc-abs">
-                Abstract
-              </button>
-            </div>
-            <div id="sde-mcmc-abs" class="collapse abstract">
-                Bayesian inference for nonlinear diffusions, observed at discrete times, is a challenging task that has prompted the development of a number of algorithms, mainly within the computational statistics community. We propose a new direction, and accompanying methodology—borrowing ideas from statistical physics and computational chemistry—for inferring the posterior distribution of latent diffusion paths and model parameters, given observations of the process. Joint configurations of the underlying process noise and of parameters, mapping onto diffusion paths consistent with observations, form an implicitly defined manifold. Then, by making use of a constrained Hamiltonian Monte Carlo algorithm on the embedded manifold, we are able to perform computationally efficient inference for a class of discretely observed diffusion models. Critically, in contrast with other approaches proposed in the literature, our methodology is highly automated, requiring minimal user intervention and applying alike in a range of settings, including: elliptic or hypo-elliptic systems; observations with or without noise; linear or non-linear observation operators. Exploiting Markovianity, we propose a variant of the method with complexity that scales linearly in the resolution of path discretisation and the number of observation times. Python code reproducing the results is available at http://doi.org/10.5281/zenodo.5796148.
-            </div>
-          </li>
-          <li class="publication">
-            <h4>
-              <small>2017/12</small>
-              Asymptotically exact inference in differentiable generative models
-            </h4>
-            <p>
-              <i>Matthew M. Graham</i> and <a href="http://homepages.inf.ed.ac.uk/amos">Amos J. Storkey</a>
-            </p>
-            <p class='published-in'>
-              Electronic Journal of Statistics
-            </p>
-            <div class="btn-group" role="group">
-              <a href="http://dx.doi.org/10.1214/17-EJS1340SI" class="btn btn-default">
-                <i class="fa fa-file-o fa-fw"></i> Article
-              </a>
-              <a href="files/dgm-poster-bayescomp.pdf" class="btn btn-default">
-                <i class="fa fa-file-pdf-o fa-fw"></i> Poster
-              </a>
-              <a href="slides/dgm/nus.html" class="btn btn-default">
-                <i class="fa fa-television fa-fw"></i> Slides
-              </a>
-              <a href="https://github.com/matt-graham/differentiable-generative-models" class="btn btn-default">
-                <i class="fa fa-code fa-fw"></i> Code
-              </a>
-              <button class="btn btn-default btn-abs collapsed" data-toggle="collapse" data-target="#dgm-ejs-abs">
-                Abstract
-              </button>
-            </div>
-            <div id="dgm-ejs-abs" class="collapse abstract">
-              Many generative models can be expressed as a differentiable function applied to input variables sampled from a known probability distribution. This framework includes both the generative component of learned parametric models such as variational autoencoders and generative adversarial networks, and also procedurally defined simulator models which involve only differentiable operations. Though the distribution on the input variables to such models is known, often the distribution on the output variables is only implicitly defined. We present a method for performing efficient Markov chain Monte Carlo inference in such models when conditioning on observations of the model output. For some models this offers an asymptotically exact inference method where approximate Bayesian computation might otherwise be employed. We use the intuition that computing conditional expectations is equivalent to integrating over a density defined on the manifold corresponding to the set of inputs consistent with the observed outputs. This motivates the use of a constrained variant of Hamiltonian Monte Carlo which leverages the smooth geometry of the manifold to move between inputs exactly consistent with observations. We validate the method by performing inference experiments in a diverse set of models.
-            </div>
-          </li>
+            <li class="publication">
+              <h4>
+                <small>2022/04</small>
+                Manifold Markov chain Monte Carlo methods for Bayesian inference in diffusion models
+              </h4>
+              <p>
+                <i>Matthew M. Graham</i>, <a href="http://www.normalesup.org/~athiery/index.html">Alexandre H. Thiery</a> and <a href="http://www.homepages.ucl.ac.uk/~ucakabe/">Alexandros Beskos</a>
+              </p>
+              <p class='published-in'>
+                Journal of the Royal Statistical Society: Series B (Statistical Methodology)
+              </p>
+              <div class="btn-group" role="group">
+                <a href="https://doi.org/10.1111/rssb.12497" class="btn btn-default">
+                  <i class="fa fa-file-o fa-fw"></i> Article
+                </a>
+                <a href="https://arxiv.org/abs/1912.02982" class="btn btn-default">
+                  <i class="ai ai-arxiv fa-fw"></i> Pre-print
+                </a>
+                <a href="slides/sde" class="btn btn-default">
+                  <i class="fa fa-television fa-fw"></i> Slides
+                </a>
+                <a href="https://github.com/thiery-lab/manifold-mcmc-for-diffusions" class="btn btn-default">
+                  <i class="fa fa-code fa-fw"></i> Code
+                </a>
+                <button class="btn btn-default btn-abs collapsed" data-toggle="collapse" data-target="#sde-mcmc-abs">
+                  Abstract
+                </button>
+              </div>
+              <div id="sde-mcmc-abs" class="collapse abstract">
+                  Bayesian inference for nonlinear diffusions, observed at discrete times, is a challenging task that has prompted the development of a number of algorithms, mainly within the computational statistics community. We propose a new direction, and accompanying methodology—borrowing ideas from statistical physics and computational chemistry—for inferring the posterior distribution of latent diffusion paths and model parameters, given observations of the process. Joint configurations of the underlying process noise and of parameters, mapping onto diffusion paths consistent with observations, form an implicitly defined manifold. Then, by making use of a constrained Hamiltonian Monte Carlo algorithm on the embedded manifold, we are able to perform computationally efficient inference for a class of discretely observed diffusion models. Critically, in contrast with other approaches proposed in the literature, our methodology is highly automated, requiring minimal user intervention and applying alike in a range of settings, including: elliptic or hypo-elliptic systems; observations with or without noise; linear or non-linear observation operators. Exploiting Markovianity, we propose a variant of the method with complexity that scales linearly in the resolution of path discretisation and the number of observation times. Python code reproducing the results is available at http://doi.org/10.5281/zenodo.5796148.
+              </div>
+            </li>
+            <li class="publication">
+              <h4>
+                <small>2017/12</small>
+                Asymptotically exact inference in differentiable generative models
+              </h4>
+              <p>
+                <i>Matthew M. Graham</i> and <a href="http://homepages.inf.ed.ac.uk/amos">Amos J. Storkey</a>
+              </p>
+              <p class='published-in'>
+                Electronic Journal of Statistics
+              </p>
+              <div class="btn-group" role="group">
+                <a href="http://dx.doi.org/10.1214/17-EJS1340SI" class="btn btn-default">
+                  <i class="fa fa-file-o fa-fw"></i> Article
+                </a>
+                <a href="files/dgm-poster-bayescomp.pdf" class="btn btn-default">
+                  <i class="fa fa-file-pdf-o fa-fw"></i> Poster
+                </a>
+                <a href="slides/dgm/nus.html" class="btn btn-default">
+                  <i class="fa fa-television fa-fw"></i> Slides
+                </a>
+                <a href="https://github.com/matt-graham/differentiable-generative-models" class="btn btn-default">
+                  <i class="fa fa-code fa-fw"></i> Code
+                </a>
+                <button class="btn btn-default btn-abs collapsed" data-toggle="collapse" data-target="#dgm-ejs-abs">
+                  Abstract
+                </button>
+              </div>
+              <div id="dgm-ejs-abs" class="collapse abstract">
+                Many generative models can be expressed as a differentiable function applied to input variables sampled from a known probability distribution. This framework includes both the generative component of learned parametric models such as variational autoencoders and generative adversarial networks, and also procedurally defined simulator models which involve only differentiable operations. Though the distribution on the input variables to such models is known, often the distribution on the output variables is only implicitly defined. We present a method for performing efficient Markov chain Monte Carlo inference in such models when conditioning on observations of the model output. For some models this offers an asymptotically exact inference method where approximate Bayesian computation might otherwise be employed. We use the intuition that computing conditional expectations is equivalent to integrating over a density defined on the manifold corresponding to the set of inputs consistent with the observed outputs. This motivates the use of a constrained variant of Hamiltonian Monte Carlo which leverages the smooth geometry of the manifold to move between inputs exactly consistent with observations. We validate the method by performing inference experiments in a diverse set of models.
+              </div>
+            </li>
           </ul>
           <h2 class='sub-heading'>Conference proceedings</h2>
           <ul class="publications-list">
