@@ -132,48 +132,25 @@
           <ul class="publications-list">
             <li class="publication">
               <h4>
-                <small>2023/03</small>
-                ParticleDA.jl v.1.0: A real-time data assimilation software platform
+                <small>2023/07</small>
+                Parameter inference for degenerate diffusion processes
               </h4>
               <p>
-                <a href="https://www.ucl.ac.uk/statistics/daniel-giles">Daniel Giles</a>, <i>Matthew M. Graham</i>, <a href="https://giordano.github.io/">Mosè Giordano</a>, <a href="https://iris.ucl.ac.uk/iris/browse/profile?upi=TKOSK42">Tuomas Koskela</a>, <a href="http://www.homepages.ucl.ac.uk/~ucakabe/">Alexandros Beskos</a> and <a href="https://www.ucl.ac.uk/statistics/people/sergeguillas">Serge Guillas</a>
+                <a href="https://www.yugaiguchi.com/">Yuga Iguchi</a>, <a href="http://www.homepages.ucl.ac.uk/~ucakabe/">Alexandros Beskos</a> and <i>Matthew M. Graham</i>
               </p>
               <div class="btn-group" role="group">
-                <a href="https://gmd.copernicus.org/preprints/gmd-2023-38/" class="btn btn-default">
-                  <i class="fa fa-file-o fa-fw"></i> Pre-print
-                </a>
-                <a href="https://github.com/Team-RADDISH/ParticleDA.jl" class="btn btn-default">
-                  <i class="fa fa-code fa-fw"></i> Code
-                </a>
-                <button class="btn btn-default btn-abs collapsed" data-toggle="collapse" data-target="#particleda-abs">
-                  Abstract
-                </button>
-              </div>
-              <div id="particleda-abs" class="collapse abstract">
-                Digital twins of physical and human systems informed by real-time data, are becoming ubiquitous across weather forecasting, disaster preparedness, and urban planning, but researchers lack the tools to run these models effectively and efficiently, limiting progress. One of the current challenges is to assimilate observations in highly nonlinear dynamical systems, as the practical need is often to detect abrupt changes. We developed a software platform to improve the use of real-time data in highly nonlinear system representations where non-Gaussianity prevents the use of more standard Data Assimilation. Optimal Particle filtering data assimilation (DA) techniques have been implemented within an user-friendly open source software platform in Julia – ParticleDA.jl. To ensure the applicability of the developed platform in realistic scenarios, emphasis has been placed on numerical efficiency, scalability and optimisation for high performance computing frameworks. Furthermore, the platform has been developed to be forward model agnostic, ensuring that it is applicable to a wide range of modelling settings, for instance unstructured and non-uniform meshes in the spatial domain or even state spaces that are not spatially organised. Applications to tsunami and numerical weather prediction demonstrate the computational benefits in terms of lower errors, lower computational costs (due to ensemble size and the algorithm's overheads being minimised) and versatility thanks to flexible I/O in a high level language Julia.
-              </div>
-            </li>
-            <li class="publication">
-              <h4>
-                <small>2022/11</small>
-                Parameter estimation with increased precision for elliptic and hypo-elliptic diffusions
-              </h4>
-              <p>
-                <a href="https://iris.ucl.ac.uk/iris/browse/profile?upi=YIGUC90">Yuga Iguchi</a>, <a href="http://www.homepages.ucl.ac.uk/~ucakabe/">Alexandros Beskos</a> and <i>Matthew M. Graham</i>
-              </p>
-              <div class="btn-group" role="group">
-                <a href="https://arxiv.org/abs/2211.16384" class="btn btn-default">
+                <a href="https://arxiv.org/abs/2307.16485" class="btn btn-default">
                   <i class="ai ai-arxiv fa-fw"></i> Pre-print
                 </a>
                 <a href="https://github.com/matt-graham/simsde" class="btn btn-default">
                   <i class="fa fa-code fa-fw"></i> Code
                 </a>
-                <button class="btn btn-default btn-abs collapsed" data-toggle="collapse" data-target="#hypodiff-abs">
+                <button class="btn btn-default btn-abs collapsed" data-toggle="collapse" data-target="#degendiff-abs">
                   Abstract
                 </button>
               </div>
-              <div id="hypodiff-abs" class="collapse abstract">
-                This work aims at making a comprehensive contribution in the general area of parametric inference for partially observed diffusion processes. Established approaches for likelihood-based estimation invoke a numerical time-discretisation scheme for the approximation of the (typically intractable) transition dynamics of the Stochastic Differential Equation (SDE) model over finite time periods. The scheme is applied for a step-size that is either a user-selected tuning parameter or determined by the data. Recent research has highlighted the critical effect of the choice of numerical scheme on the behaviour of derived parameter estimates in the setting of hypo-elliptic SDEs. In brief, in our work, first, we develop two weak second order `sampling schemes' (to cover both the hypo-elliptic and elliptic SDE classes) and generate accompanying `transition density schemes' of the SDE (i.e., approximations of the SDE transition density). Then, we produce a collection of analytic results, providing a complete theoretical framework that solidifies the proposed schemes and showcases advantages from their incorporation within SDE calibration methods. We present numerical results from carrying out classical or Bayesian inference, for both elliptic and hypo-elliptic SDE models.
+              <div id="degendiff-abs" class="collapse abstract">
+                We study parametric inference for ergodic diffusion processes with a degenerate diffusion matrix. Existing research focuses on a particular class of hypo-elliptic SDEs, with components split into `rough'/`smooth' and noise from rough components propagating directly onto smooth ones, but some critical model classes arising in applications have yet to be explored. We aim to cover this gap, thus analyse the highly degenerate class of SDEs, where components split into further sub-groups. Such models include e.g. the notable case of generalised Langevin equations. We propose a tailored time-discretisation scheme and provide asymptotic results supporting our scheme in the context of high-frequency, full observations. The proposed discretisation scheme is applicable in much more general data regimes and is shown to overcome biases via simulation studies also in the practical case when only a smooth component is observed. Joint consideration of our study for highly degenerate SDEs and existing research provides a general `recipe' for the development of time-discretisation schemes to be used within statistical methods for general classes of hypo-elliptic SDEs. 
               </div>
             </li>
             <li class="publication">
@@ -206,8 +183,63 @@
               </div>
             </li>
           </ul>
-          <h2 class='sub-heading'> Journal articles</h2>
+          <h2 class='sub-heading'>Journal articles</h2>
           <ul class="publications-list">
+            <li class="publication">
+              <h4>
+                <small>(in-press)</small>
+                Parameter estimation with increased precision for elliptic and hypo-elliptic diffusions
+              </h4>
+              <p>
+                <a href="https://www.yugaiguchi.com/">Yuga Iguchi</a>, <a href="http://www.homepages.ucl.ac.uk/~ucakabe/">Alexandros Beskos</a> and <i>Matthew M. Graham</i>
+              </p>
+              <p class='published-in'>
+                Bernoulli
+              </p>
+              <div class="btn-group" role="group">
+                <a href="https://www.e-publications.org/ims/submission/BEJ/user/submissionFile/61687?confirm=7f7bcc4c" class="btn btn-default">
+                  <i class="fa fa-file-pdf-o fa-fw"></i> Article
+                </a>
+                <a href="https://arxiv.org/abs/2211.16384" class="btn btn-default">
+                  <i class="ai ai-arxiv fa-fw"></i> Pre-print
+                </a>
+                <a href="https://github.com/matt-graham/simsde" class="btn btn-default">
+                  <i class="fa fa-code fa-fw"></i> Code
+                </a>
+                <button class="btn btn-default btn-abs collapsed" data-toggle="collapse" data-target="#hypodiff-abs">
+                  Abstract
+                </button>
+              </div>
+              <div id="hypodiff-abs" class="collapse abstract">
+                This work aims at making a comprehensive contribution in the general area of parametric inference for discretely observed diffusion processes. Established approaches for likelihood-based estimation invoke a time-discretisation scheme for the approximation of the intractable transition dynamics of the Stochastic Differential Equation (SDE) model over finite time periods. The scheme is applied for a step-size that is either user-selected or determined by the data. Recent research has highlighted the critical ef-fect of the choice of numerical scheme on the behaviour of derived parameter estimates in the setting of hypo-elliptic SDEs. In brief, in our work, first, we develop two weak second order sampling schemes (to cover both hypo-elliptic and elliptic SDEs) and produce a small time expansion for the density of the schemes to form a proxy for the true intractable SDE transition density. Then, we establish a collection of analytic results for likelihood-based parameter estimates obtained via the formed proxies, thus providing a theoretical framework that showcases advantages from the use of the developed methodology for SDE calibration. We present numerical results from carrying out classical or Bayesian inference, for both elliptic and hypo-elliptic SDEs. 
+              </div>
+            </li>
+            <li class="publication">
+              <h4>
+                <small>2024/04</small>
+                ParticleDA.jl v.1.0: a distributed particle-filtering data assimilation package
+              </h4>
+              <p>
+                <a href="https://www.ucl.ac.uk/statistics/daniel-giles">Daniel Giles</a>, <i>Matthew M. Graham</i>, <a href="https://giordano.github.io/">Mosè Giordano</a>, <a href="https://iris.ucl.ac.uk/iris/browse/profile?upi=TKOSK42">Tuomas Koskela</a>, <a href="http://www.homepages.ucl.ac.uk/~ucakabe/">Alexandros Beskos</a> and <a href="https://www.ucl.ac.uk/statistics/people/sergeguillas">Serge Guillas</a>
+              </p>
+              <p class='published-in'>
+                Geoscientific Model Development
+              </p>
+              <div class="btn-group" role="group">
+                <a href="https://doi.org/10.5194/gmd-17-2427-2024" class="btn btn-default">
+                  <i class="fa fa-file-o fa-fw"></i> Article
+                </a>
+                <a href="https://github.com/Team-RADDISH/ParticleDA.jl" class="btn btn-default">
+                  <i class="fa fa-code fa-fw"></i> Code
+                </a>
+                <button class="btn btn-default btn-abs collapsed" data-toggle="collapse" data-target="#particleda-abs">
+                  Abstract
+                </button>
+              </div>
+              <div id="particleda-abs" class="collapse abstract">
+                Digital twins of physical and human systems informed by real-time data are becoming ubiquitous across weather forecasting, disaster preparedness, and urban planning, but researchers lack the tools to run these models effectively and efficiently, limiting progress. One of the current challenges is to assimilate observations in highly non-linear dynamical systems, as the practical need is often to detect abrupt changes. We have developed a software platform to improve the use of real-time data in non-linear system representations where non-Gaussianity limits the applicability of data assimilation algorithms such as the ensemble Kalman filter and variational methods. Particle-filter-based data assimilation algorithms have been implemented within a user-friendly open-source software platform in Julia – ParticleDA.jl. To ensure the applicability of the developed platform in realistic scenarios, emphasis has been placed on numerical efficiency and scalability on high-performance computing systems. Furthermore, the platform has been developed to be forward-model agnostic, ensuring that it is applicable to a wide range of modelling settings, for instance unstructured and non-uniform meshes in the spatial domain or even state spaces that are not spatially organized. Applications to tsunami and numerical weather prediction demonstrate the computational benefits and ease of using the high-level Julia interface with the package to perform filtering in a variety of complex models.
+              </div>
+            </li>
             <li class="publication">
               <h4>
                 <small>2023/04
@@ -247,7 +279,7 @@
                 Testing whether a learning procedure is calibrated
               </h4>
               <p>
-                <a href="http://www.joncockayne.com/">Jon Cockayne</a>, <i>Matthew M. Graham</i>, <a href="https://oates.work/">Chris Oates</a>, <a href="http://www.tjsullivan.org.uk//">Tim J. Sullivan</a> and <a href="http://teymur.uk/">Onyur Teymur</a>
+                <a href="https://joncockayne.me/">Jon Cockayne</a>, <i>Matthew M. Graham</i>, <a href="https://oates.work/">Chris Oates</a>, <a href="http://www.tjsullivan.org.uk//">Tim J. Sullivan</a> and <a href="http://teymur.uk/">Onyur Teymur</a>
               </p>
               <p class='published-in'>
                 Journal of Machine Learning Research
