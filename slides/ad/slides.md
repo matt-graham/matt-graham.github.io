@@ -6,12 +6,13 @@
 
 ---
 
-## What is automatic <br />differentiation (AD)?
+## What is automatic differentiation (AD)?
 
 <!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="1" --> An approach for computing the derivatives of a function composed of *primitive operations* with known derivatives by algorithmically applying the rules of differentiation.
 
+<!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="2" --> Also known as *algorithmic differentiation*.
 
-<!-- .element: class="fragment" data-fragment-index="2" --> Distinct from but related to both *numerical differentiation* and *symbolic differentiation*.
+<!-- .element: class="fragment" data-fragment-index="3" --> Distinct from but related to both *numerical differentiation* and *symbolic differentiation*.
 
 ----
 
@@ -31,7 +32,8 @@ CACM 7(8), pp. 463&ndash;4.</span>
 
 
 <p class="fragment" data-fragment-index="3">
-In machine learning *reverse-mode* AD was historically known as *backpropagation*.
+In machine learning *reverse-mode* AD historically known as *backpropagation*.
+*Adjoint method* also closely related.
 </p>
 
 ----
@@ -42,6 +44,28 @@ In machine learning *reverse-mode* AD was historically known as *backpropagation
   * <!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="2" --> **Expressive**: applicable to any differentiable function which can be expressed algorithmically including use of control flow.
   * <!-- .element: class="fragment" data-fragment-index="3" --> **Exact**: provides exact derivatives of a function (modulo usual errors from using floating-point arithmetic).
 
+
+---
+
+## Notation
+
+For a differentiable function $f : \reals^N \to \reals^M$ 
+
+- <!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="1" --> $f_m : \reals^N \to \reals$ is the *component function* giving the value of the $m$th output of $f$,
+- <!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="2" -->$\partial_n f : \reals^N \to \reals^M$ is the derivative of $f$ with respect to $n$th dimension in argument,
+- <!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="3" --> $\partial f : \reals^N \to \reals^{M\times N}$ is the function computing the *Jacobian* (matrix of partial derivatives) of $f$.
+  
+
+----
+
+## Notation
+
+$\partial$ is a *high-precedence operator*
+
+- <!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="1" --> $\partial f(x)$ is equivalent to $(\partial f)(x)$,
+- <!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="2" --> exponentiation of $\partial$ indicates composition - $\partial^2 f$ is equivalent to $\partial(\partial f)$, that is the second derivatives of $f$.
+
+
 ---
 
 ## Numerical differentiation
@@ -49,11 +73,11 @@ In machine learning *reverse-mode* AD was historically known as *backpropagation
 Finite difference methods based on limit definitions of (partial) derivatives.
 <!-- .element: class="fragment semi-fade-out" data-fragment-index="1" -->
 
-For example for a smooth function $f : \reals^N \to \reals^M$ if $\mathbf{e}_i$ is the length $N$ vector with 1 at the $i$th entry and zeros elsewhere then for a small positive $h$
+For example for a differentiable function $f : \reals^N \to \reals^M$ if $\mathbf{e}_n$ is the length $N$ vector with 1 at the $n$th entry and zeros elsewhere then for a small positive $h$
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
 $$
-  \partial_i\, f(x) \approx \frac{f(x+h\mathbf{e}_i)-f(x)}{h}
+  \partial_n\, f(x) \approx \frac{f(x+h\mathbf{e}_n)-f(x)}{h}
 $$
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
@@ -75,12 +99,20 @@ For small $h$ can become numerically instable.
 
 ----
 
+## Numerical stability in finite differences
+
+<img src="https://www.researchgate.net/profile/Jongrae_Kim/publication/267216155/figure/fig1/AS:651888458493955@1532433728729/Finite-Difference-Error-Versus-Step-Size.png" width="500" />
+
+<small>Image credit: Chris Rackauckas</small>
+
+----
+
 ## *Aside*: Complex step method
 
 For *analytic* $f : \reals^N \to \reals^M$, expanding as a Taylor series:
 
 $$
-  f(x + jh\mathbf{e}_i) = f(x) + jh \partial_i\,f(x) + \mathcal{O}(h^2)
+  f(x + jh\mathbf{e}_n) = f(x) + jh \partial_n\,f(x) + \mathcal{O}(h^2)
 $$
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
@@ -88,7 +120,7 @@ Taking the imaginary component of both sides
 <!-- .element: class="fragment" data-fragment-index="2" -->
 
 $$
-  \partial_i\,f(x) = \text{Im}\big(f(x + jh\mathbf{e}_i)\big) / h + \mathcal{O}(h^2)
+  \partial_n\,f(x) = \text{Im}\big(f(x + jh\mathbf{e}_n)\big) / h + \mathcal{O}(h^2)
 $$
 <!-- .element: class="fragment" data-fragment-index="3" -->
 
@@ -99,15 +131,11 @@ Avoids floating point errors in computation of difference - $\mathcal{O}(h^2)$ a
 
 ## Symbolic differentiation
 
-Implementations of rules of calculus in computer algebra systems (e.g. Mathematica, SymPy, Deriv in R).
-<!-- .element: class="fragment semi-fade-out" data-fragment-index="1" -->
+<!-- .element: class="fragment semi-fade-out" data-fragment-index="1" --> Implementations of rules of calculus in computer algebra systems (e.g. SymPy, Deriv in R, Symbolics.jl).
 
-Gives human-readable expressions as output but verbose for complicated compositions of functions and redundancy between partial derivatives.
-<!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="1" -->
+<!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="1" --> Gives human-readable expressions as output but verbose for complicated compositions of functions and redundancy between partial derivatives.
 
-AD instead exploits modularity of functions, computing derivatives in terms of intermediate values rather than expanding in terms of inputs.
-<!-- .element: class="fragment" data-fragment-index="2" -->
-
+<!-- .element: class="fragment" data-fragment-index="2" --> AD instead exploits *modularity of functions*, computing derivatives in terms of intermediate values rather than expanding in terms of inputs.
 
 ---
 
@@ -123,8 +151,7 @@ $$ \partial f(x) = \begin{bmatrix}
 $$
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
-More generally the Jacobian is a linear map from the domain to the codomain of a function.
-<!-- .element: class="fragment" data-fragment-index="2" -->
+<!-- .element: class="fragment" data-fragment-index="2" --> More generally the Jacobian is a linear map from the *domain* to the *codomain* of a function.
 
 ----
 
@@ -210,12 +237,14 @@ Memory costs of reverse-mode accumulation scales with number intermediate variab
 
 ## Forward- and reverse-mode AD
 
-<p class="fragment semi-fade-out" data-fragment-index="1">
-For a function which is an arbitrary composition of primitives which we can evaluate `JVP`s or
-`VJP`s for, by iteratively applying the chain rule we can compute a `JVP` or `VJP` for the whole function.
+<p class="fragment fade-in-then-semi-out" data-fragment-index="1">
+Define function as an arbitrary composition of *primitives* which we can evaluate `JVP`s or `VJP`s for.
 </p>
 
-<p class="fragment" data-fragment-index="1">
+<p class="fragment fade-in-then-semi-out" data-fragment-index="2"> By recursively applying the chain rule we can compute a `JVP` or `VJP` for the whole function.
+</p>
+
+<p class="fragment" data-fragment-index="3">
 In the case of reverse-mode accumulation using `VJP`s we must first compute and store all intermediate values in a *forward pass* before propagating the derivatives from the outputs to inputs in a *backwards pass*.
 </p>
 
@@ -223,9 +252,9 @@ In the case of reverse-mode accumulation using `VJP`s we must first compute and 
 
 ## Computing gradients
 
-For a scalar-valued function $f : \reals^N \to \reals$ we can express its gradient as a `VJP`
+For a scalar-valued function $f : \reals^N \to \reals$ we can express its gradient $\nabla f: \reals^N \to \reals^N$ as a `VJP`
 
-$$\nabla f(x) \tr = \partial f(x)\tr [1] = \texttt{VJP}(\,f)(x)([1]).$$
+$$\nabla f(x) = \partial f(x)\tr [1] = \texttt{VJP}(\,f)(x)([1]).$$
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
 Using reverse-mode accumulation we can therefore compute $\nabla f(x)$ at similar cost to evaluating $f(x)$.
@@ -237,7 +266,7 @@ Using reverse-mode accumulation we can therefore compute $\nabla f(x)$ at simila
 
 Consider computing the derivatives negative log density of a univariate normal distribution with mean $m$ and standard deviation $s$ at a point $x$
 
-$$ c = \frac{1}{2}\left(\frac{x-m}{s}\right)^2 + \log (s) + \frac{1}{2}\log (2\pi) $$
+$$ c = f(x, m, s) = \frac{1}{2}\left(\frac{x-m}{s}\right)^2 + \log (s) + \frac{1}{2}\log (2\pi) $$
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
 ----
@@ -334,6 +363,28 @@ One forward and backward pass to evaluate all 3 derivatives and 'exact' output.
 
 ----
 
+## Automatic differentiation: JAX
+
+
+```python
+import jax.numpy as np
+from jax import grad
+
+def neg_log_dens(x, m, s):
+    return ((x - m) / s)**2 / 2 + np.log(s) + np.log(2 * np.pi) / 2
+    
+x, m, s = 0.5, 1.2, 1.1
+grad(neg_log_dens, argnums=(0, 1, 2))(x, m, s)
+
+# Output: 
+# (DeviceArray(-0.57851243, dtype=float32, weak_type=True),
+#  DeviceArray(0.57851243, dtype=float32, weak_type=True),
+#  DeviceArray(0.5409466, dtype=float32, weak_type=True))
+```
+<!-- .element: class="small-code" -->
+
+---
+
 ## Computational graphs
 
 Directed acyclic graph representation of function evaluation.
@@ -400,6 +451,17 @@ digraph G
 }
 ```
 -->
+
+---
+
+## Forward and reverse sensitivities
+
+For a variable `z` then
+
+- <u>`z`</u> represents the derivative of `z` wrt an input variable,
+- &#862;`z` represents the derivative of an output variable wrt `z`,
+
+<!-- .element: class="fragment" data-fragment-index="1" --> If the input variable is `z` then <u>`z`</u> = 1 and likewise if the output variable is `z` then &#862;`z` = 1.
 
 ----
 
@@ -563,7 +625,7 @@ We can iteratively apply combinations of forward- and reverse-mode AD to compute
 
 For example for $f: \reals^N \to \reals$, Hessian vector product:<!-- .element: class="fragment" data-fragment-index="1" -->
 
-$$\nabla^2 f(x) v = \texttt{JVP}\big(x' \to \texttt{VJP}(f)(x')([1])\big)(x)(v).$$
+$$\partial^2 f(x) v = \texttt{JVP}\big(x' \to \texttt{VJP}(f)(x')([1])\big)(x)(v).$$
 <!-- .element: class="fragment" data-fragment-index="2" -->
 
 <p class="fragment" data-fragment-index="3">
@@ -583,6 +645,7 @@ Increasing number of numerical computing frameworks with AD functionality, for e
 </td>
 <td>
 <a href="https://www.jchau.org/2022/01/24/automatic-differentiation-in-r-with-stan-math/"><img width='100' style='padding: 10px; border: none; box-shadow: none;' src='images/stan-logo.svg' /></a>
+<img width='90' style='padding: 10px; border: none; box-shadow: none;' src='https://enzyme.mit.edu/julia/stable/assets/logo.svg' />
 </td>
 <td>
 <img width='150' style='padding: 10px; border: none; box-shadow: none;' src='images/tensorflow-logo.svg' />
@@ -637,8 +700,9 @@ General purpose reverse-mode AD implementation in ~ 350 lines of Python.
 
 Not covered: *VSpaces* (complex support, Python containers), *forward mode*, sparse operations, SciPy functions + subset of NumPy functionality.
 
-Example code in slides taken from Autodidact (with some minor edits for brevity and  clarity).
-<!-- .element: class="fragment" data-fragment-index="1" -->
+<!-- .element: class="fragment" data-fragment-index="1" --> Example code in slides taken from Autodidact (with some minor edits for brevity and  clarity).
+
+<!-- .element: class="fragment" data-fragment-index="2" --> An analogous *Autodidax* tutorial for JAX is available: https://jax.readthedocs.io/en/latest/autodidax.html
 
 
 ----
@@ -725,7 +789,7 @@ defvjp(anp.multiply,
 <!-- .element: class="fragment semi-fade-out" data-fragment-index="1" --> Key attraction of NumPy is its object-oriented design with the methods and operator overloads available for the `ndarray` class.
 
 
-<!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="1" --> Alows compact and readable syntax like  
+<!-- .element: class="fragment fade-in-then-semi-out" data-fragment-index="1" --> Allows compact and readable syntax like  
 `y = W @ x + b` rather than  
 `y = np.add(np.matmul(W, x), b)`.
 
@@ -931,7 +995,7 @@ def toposort(end_node):
                 childless.append(parent)
             else: child_counts[parent] -= 1
 ```
-<!-- .element: class="small-code" -->
+<!-- .element: class="small-code" style="font-size: 50%" -->
 
 ----
 
@@ -1046,7 +1110,7 @@ JAX extends the tracing logic of Autograd to allow Python code to be translated 
 Key transformations include:
 
   * <!-- .element: class="fragment" data-fragment-index="1" -->reverse- and forward-mode AD via `vjp` and `jvp`  (and convenience functions such as `grad`),
-  * <!-- .element: class="fragment" data-fragment-index="2" -->just-in-time compilation using XLA (backend compiler in TensorFlow) via `jit` allowing running on accelarators such as GPUs and TPUs,   
+  * <!-- .element: class="fragment" data-fragment-index="2" -->just-in-time compilation using XLA (Accelerated Linear Algebra) via `jit` allowing efficient execution on both CPUs and accelarators such as GPUs and TPUs,   
   * <!-- .element: class="fragment" data-fragment-index="3" -->automatic vectorisation / batching via `vmap`.
 
 
@@ -1059,6 +1123,16 @@ Importantly the transformations are *composable*.
 This allows for example gradient functions to be compiled to improve efficiency and efficient Jacobian calculation using vectorisation rather than sequential iteration.<!-- .element: class="fragment" data-fragment-index="1" -->
 
 ---
+
+## References and further reading
+
+- Autodidax: JAX core from scratch <https://jax.readthedocs.io/en/latest/autodidax.html>
+- JAX Autodiff cookbook <https://jax.readthedocs.io/en/latest/notebooks/autodiff_cookbook.html>
+- diff-zoo - *Differentiation for Hackers* <https://github.com/MikeInnes/diff-zoo>
+- SciML book (chapters on forward and reverse AD) <https://book.sciml.ai/>
+- Automatic differentiation for dummies tutorial <https://www.youtube.com/watch?v=FtnkqIsfNQc>
+
+----
 
 ## References and further reading
 
