@@ -26,6 +26,10 @@
   list-style-type: none;
 }
 
+.reveal .slides section .no-bullet ul {
+  margin-left: 0;
+}
+
 .reveal div.backgrounds {
   background-repeat: no-repeat;
   background-size: 100.3%;
