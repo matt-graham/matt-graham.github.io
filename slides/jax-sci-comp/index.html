@@ -1,0 +1,3271 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/tabby.min.js"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.6.42">
+
+  <meta name="author" content="Matt Graham">
+  <title>Scientific computing and   inference with JAX</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-2f366650f320edcfcf53d73c80250a32.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+  
+  <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="center">
+    <h1 class="title">Scientific computing and <br> inference with JAX</h1>
+        <figure>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Google_JAX_logo.svg" width="40%">
+      </figure>
+        <p class="author">Matt Graham</p>
+        <p class="institute" style="color: #999;">UCL Centre for Advanced Research Computing</p>
+    </section>
+<section id="what-is-jax" class="slide level2">
+<h2>🤔 What is JAX?</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://upload.wikimedia.org/wikipedia/commons/8/86/Google_JAX_logo.svg" class="quarto-figure quarto-figure-center" style="width:25.0%" alt="JAX logo"></p>
+</figure>
+</div>
+<blockquote>
+<p>JAX is a Python library for accelerator-oriented array computation and program transformation, designed for <strong>high-performance numerical computing</strong> and large-scale machine learning.</p>
+</blockquote>
+
+<aside><div>
+<p>Source: https://docs.jax.dev</p>
+</div></aside></section>
+<section id="key-features" class="slide level2">
+<h2>✨ Key features</h2>
+<div class="no-bullet">
+<ul>
+<li class="fragment">🙌 <strong>Ease of use</strong>: Offers a NumPy-like API make it accessible to those already familiar with scientific Python ecosystem.</li>
+<li class="fragment">🪄 <strong>Transformations</strong>: Provides <em>composable</em> function transformations for just-in-time compilation, batching, autodiff and parallelization.</li>
+<li class="fragment">🚀 <strong>Acceleration</strong>: Allows easily executing the same code on CPUs and accelerator devices such as GPUs and TPUs.</li>
+</ul>
+</div>
+</section>
+<section id="jax-and-xla" class="slide level2">
+<h2>🏗️ JAX and XLA</h2>
+<p>JAX builds on <a href="https://github.com/openxla/xla">XLA (accelerated linear algebra)</a>.</p>
+
+<img data-src="https://github.com/openxla/xla/raw/main/docs/images/openxla.svg" class="r-stretch quarto-figure-center"><p class="caption">Image credit: OpenXLA documentation</p></section>
+<section id="history" class="slide level2">
+<h2>🕰️ History</h2>
+<ul>
+<li class="fragment">JAX started as an research project in Google by a group including key contributors to <a href="https://github.com/HIPS/autograd">Autograd</a> and XLA.</li>
+<li class="fragment">Early version of JAX was described in a <a href="https://mlsys.org/Conferences/2019/doc/2018/146.pdf">SysML 2018 conference paper</a>.</li>
+<li class="fragment">Initial open-source release on GitHub was in October 2018.</li>
+<li class="fragment">Since then has seen widespread adoption and developed a large open-source community.</li>
+</ul>
+</section>
+<section id="python-array-libraries" class="slide level2">
+<h2>🔢 Python array libraries</h2>
+<div class="columns image-grid">
+<div class="column" style="width:25%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://raw.githubusercontent.com/numpy/numpy/refs/heads/main/branding/logo/logomark/numpylogoicon.svg"></p>
+<figcaption>NumPy</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:25%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://upload.wikimedia.org/wikipedia/commons/8/86/Google_JAX_logo.svg"></p>
+<figcaption>JAX</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:25%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://upload.wikimedia.org/wikipedia/commons/1/10/PyTorch_logo_icon.svg"></p>
+<figcaption>PyTorch</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:25%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://icon.icepanel.io/Technology/svg/TensorFlow.svg"></p>
+<figcaption>TensorFlow</figcaption>
+</figure>
+</div>
+</div></div>
+<div class="columns image-grid">
+<div class="column" style="width:25%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://raw.githubusercontent.com/cupy/cupy/refs/heads/main/docs/image/cupy_logo.svg"></p>
+<figcaption>CuPy</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:25%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://docs.dask.org/en/stable/_images/dask_icon.svg"></p>
+<figcaption>Dask</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:25%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://raw.githubusercontent.com/pydata/xarray/refs/heads/main/doc/_static/logos/Xarray_Icon_Final.svg"></p>
+<figcaption>Xarray</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:25%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://sparse.pydata.org/en/stable/assets/images/logo.svg"></p>
+<figcaption>Sparse</figcaption>
+</figure>
+</div>
+</div></div>
+</section>
+<section id="numpy-api-substitutes" class="slide level2">
+<h2>🔀 NumPy API substitutes</h2>
+<p>The wide user familiarity with NumPy’s API and large amount of existing code using NumPy has led some libraries to providing NumPy ‘like’ APIs</p>
+<div class="sourceCode" id="cb1" data-code-line-numbers="1|2|3|4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href=""></a><span class="im">import</span> autograd.numpy <span class="im">as</span> anp</span>
+<span id="cb1-3"><a href=""></a><span class="im">import</span> jax.numpy <span class="im">as</span> jnp</span>
+<span id="cb1-4"><a href=""></a><span class="im">import</span> cupy <span class="im">as</span> cp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="numpy-api-as-common-standard" class="slide level2">
+<h2>⚠️ NumPy API as common standard?</h2>
+<p><em>However</em> NumPy API not designed for this purpose and has some shortcomings:</p>
+<ul>
+<li class="fragment">Complex datatype promotion semantics.</li>
+<li class="fragment">Copy-view behaviour.</li>
+<li class="fragment">Not designed for use with non-CPU devices.</li>
+<li class="fragment">Operations produce arrays with data-dependent shapes.</li>
+</ul>
+</section>
+<section id="python-data-api-standards" class="slide level2">
+<h2>📐 Python data API standards</h2>
+
+<img data-src="https://quansight.com/wp-content/uploads/2024/05/DataAPIs-name-under-symbol-V2-01.svg" class="quarto-figure quarto-figure-center r-stretch" alt="Python Data APIs logo"><p><a href="https://data-apis.org/array-api">Array API standard</a> defined by <em>Consortium for Python Data API Standards</em> (<a href="https://data-apis.org/" class="uri">https://data-apis.org/</a>).</p>
+<p><a href="https://data-apis.org/dataframe-api/draft/">DataFrame API standard</a> also in development.</p>
+</section>
+<section id="python-array-api-standard" class="slide level2">
+<h2>📏 Python array API standard</h2>
+<blockquote>
+<p>Python users have a wealth of choice for libraries and frameworks for numerical computing, data science, machine learning, and deep learning…</p>
+<p>The APIs of each of these libraries are largely similar, but with enough differences that it’s quite difficult to write code that works with multiple (or all) of these libraries. This array API standard aims to address that issue, by specifying an API for the most common ways arrays are constructed and used.</p>
+</blockquote>
+
+<aside><div>
+<p>Source: https://data-apis.org/array-api</p>
+</div></aside></section>
+<section id="array-api-components" class="slide level2 no-stretch">
+<h2>💠Array API components</h2>
+
+<img data-src="images/array-api-components.svg" alt="Array API components" class="r-stretch"></section>
+<section id="array-api-example" class="slide level2">
+<h2>💡 Array API example</h2>
+<p>Consider following implementation of</p>
+<p><span class="math display">\[\text{LogSumExp}(x_{1:N}) = x^* + \log \sum_{n=1}^N \exp(x_n - x^*), \\ x^* = \max x_{1:N}\]</span></p>
+<div class="sourceCode" id="cb2" data-code-line-numbers="1,2|3,4|1-4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="kw">def</span> log_sum_exp(x):</span>
+<span id="cb2-2"><a href=""></a>    xp <span class="op">=</span> x.__array_namespace__()</span>
+<span id="cb2-3"><a href=""></a>    max_x <span class="op">=</span> xp.<span class="bu">max</span>(x)</span>
+<span id="cb2-4"><a href=""></a>    <span class="cf">return</span> max_x <span class="op">+</span> xp.log(xp.<span class="bu">sum</span>(xp.exp(x <span class="op">-</span> max_x)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<p><code>log_sum_exp</code> can then be called with array objects from any library supporting array API.</p>
+</div>
+</section>
+<section id="array-api-compatibility-library" class="slide level2">
+<h2>🧩 Array API compatibility library</h2>
+<p><code>array_api_compat</code> acts a small wrapper around common array libraries to provide compatibility with array API standard.</p>
+<p>Useful for libraries with only partial support for array API.</p>
+<div class="fragment">
+<div class="sourceCode" id="cb3" data-code-line-numbers="1,4|1-6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="im">import</span> array_api_compat</span>
+<span id="cb3-2"><a href=""></a></span>
+<span id="cb3-3"><a href=""></a><span class="kw">def</span> log_sum_exp(x):</span>
+<span id="cb3-4"><a href=""></a>    xp <span class="op">=</span> array_api_compat.array_namespace(x)</span>
+<span id="cb3-5"><a href=""></a>    max_x <span class="op">=</span> xp.<span class="bu">max</span>(x)</span>
+<span id="cb3-6"><a href=""></a>    <span class="cf">return</span> max_x <span class="op">+</span> xp.log(xp.<span class="bu">sum</span>(xp.exp(x <span class="op">-</span> max_x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p>NumPy v2.1+ and JAX v0.4.32+ fully support array API so using <code>array_api_compat</code> not strictly necessary.</p>
+</div>
+</section>
+<section>
+<section id="demo-simulation-and-inference-with-jax" class="title-slide slide level1 center">
+<h1>▶️ <em>Demo</em>: simulation and inference with JAX</h1>
+<p>We will now demonstrate some of JAX and the Array API’s key features in an applied example.</p>
+<div class="fragment">
+<p>All the code shown here can be run from the accompanying Jupyter notebook.</p>
+</div>
+</section>
+<section id="hodgkin-huxley-model" class="slide level2">
+<h2>Hodgkin-Huxley model</h2>
+
+<img data-src="https://upload.wikimedia.org/wikipedia/commons/9/98/Hodgkin-Huxley.svg" class="quarto-figure quarto-figure-center r-stretch" alt="Schematic of the basic Hodgkin-Huxley model of a neuron." width="300"><div class="footer">
+<p>Image source: Wikipedia, by <a href="https://commons.wikimedia.org/wiki/User:Krishnavedala">Krishnavedala</a>, CC0 1.0</p>
+</div>
+<div class="incremental-stack r-stack top-align">
+<div class="fragment fade-out" data-fragment-index="1">
+<p>As an example of a scientific computing task, we will consider <a href="https://en.wikipedia.org/wiki/Hodgkin%E2%80%93Huxley_model">a model describing how action potentials in neurons are generated</a> and how we might fit this to model to data.</p>
+</div>
+<div class="fragment  fade-in-then-out" data-fragment-index="1">
+<p>The model of interest was described by <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1392213/">Hodgkin and Huxley in 1952</a> based on experiments with <a href="https://en.wikipedia.org/wiki/Squid_giant_axon">squid giant axons</a>, and they received a Nobel Prize for their work in 1963.</p>
+</div>
+<div class="fragment fade-in" data-fragment-index="2">
+<p>The <a href="https://en.wikipedia.org/wiki/Membrane_potential">cell membrane voltage <span class="math inline">\(V_m\)</span></a> is modelled as being controlled by <a href="https://en.wikipedia.org/wiki/Voltage-gated_ion_channel">voltage-gated ion channels</a>, with governing <a href="https://en.wikipedia.org/wiki/Ordinary_differential_equation"><em>ordinary differential equation</em> (ODE)</a></p>
+</div>
+</div>
+<div class="fragment">
+<div class="smaller">
+<p><span class="math display">\[
+C_m \frac{\mathrm{d}V_m}{\mathrm{d}t} = \sum_{n\in\lbrace\text{K, Na, L}\rbrace} g_n (E_n - V_m) - I.
+\]</span></p>
+</div>
+<aside class="notes">
+<p>where</p>
+<ul>
+<li><span class="math inline">\(C_m\)</span> is the membrane capacitance per unit area,</li>
+<li><span class="math inline">\(g_K\)</span> is the potassium channel conductance,</li>
+<li><span class="math inline">\(E_k\)</span> the potassium channel reversal potential,</li>
+<li><span class="math inline">\(g_{Na}\)</span> is the sodium channel conductance,</li>
+<li><span class="math inline">\(E_{Na}\)</span> is the sodium channel reversal potential,</li>
+<li><span class="math inline">\(g_L\)</span> is the leakage conductance,</li>
+<li><span class="math inline">\(E_L\)</span> is the leakage reversal potential,</li>
+<li>and <span class="math inline">\(I\)</span> is the membrane current per unit area.</li>
+</ul>
+<p>Importantly the potassium and sodium channel conductances, <span class="math inline">\(g_K\)</span> and <span class="math inline">\(g_{Na}\)</span>, are themselves time and voltage dependent variables.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="voltage-clamp" class="slide level2">
+<h2>🗜️ Voltage clamp</h2>
+
+<img data-src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Voltage_clamp_setup.svg" class="quarto-figure quarto-figure-center r-stretch"><div class="footer">
+<p><a href="https://commons.wikimedia.org/w/index.php?curid=76499842">Image source: Wikipedia, by smonsays - CC BY-SA 4.0</a></p>
+</div>
+<div class="incremental-stack r-stack top-align">
+<div class="fragment fade-out" data-fragment-index="1">
+<p>In Hodgkin and Huxley’s experiments they used an ingenious <a href="https://en.wikipedia.org/wiki/Voltage_clamp">experimental protocol</a> to allow measuring the evolution of the cell membrane’s conductance over time for specific ion channels while clamped to a specific depolarization voltage.</p>
+</div>
+<div class="fragment fade-in" data-fragment-index="1">
+<p>By varying the extracellular ion concentrations, they were able to isolate the effects of the potassium and sodium channels. Here we will concentrate on the model and data specifically for <span class="math inline">\(g_{K}\)</span>, the potassium channel conductance.</p>
+</div>
+</div>
+</section>
+<section id="potassium-channel-conductance" class="slide level2">
+<h2>Potassium channel conductance</h2>
+<p>The potassium channel conductance is modelled as</p>
+<p><span class="math display">\[g_{\textrm{K}}(t, v, \theta) = \bar{g}_{\textrm{K}} n(t, v, \theta)^4\]</span></p>
+<aside class="notes">
+<p>where <span class="math inline">\(\bar{g}_K\)</span> is the maximum potassium channel conductance, <span class="math inline">\(n\)</span> is a time and voltage dependent subunit activation probability in <span class="math inline">\([0, 1]\)</span>, <span class="math inline">\(v = V_{\text{rest}} - V_m\)</span> is the depolarization from the resting potential <span class="math inline">\(V_{\text{rest}}\)</span> in mV and <span class="math inline">\(\theta = (\bar{g}_K, k_{\alpha,1}, k_{\alpha, 2}, k_{\alpha, 3}, k_{\beta, 1}, k_{\beta,2})\)</span> are a set of model parameters.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<div id="f5b203a5" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="kw">def</span> solve_for_potassium_conductance(t, v, parameters):</span>
+<span id="cb4-2"><a href=""></a>    n <span class="op">=</span> solve_for_potassium_channel_subunit_activation(t, v, parameters)</span>
+<span id="cb4-3"><a href=""></a>    <span class="cf">return</span> parameters[<span class="st">"g_bar_k"</span>] <span class="op">*</span> n<span class="op">**</span><span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="potassium-channel-subunit-activation" class="slide level2">
+<h2>Potassium channel subunit activation</h2>
+<p>The <em>subunit activation</em> <span class="math inline">\(n\)</span> is governed by a linear ODE</p>
+<p><span class="math display">\[\frac{\mathrm{d} n(t, v, \theta)}{\mathrm{d} t} = \frac{n_\infty(v, \theta) - n(t, v, \theta)}{\tau(v, \theta)}\]</span></p>
+<p>which has the analytic solution</p>
+<div class="smaller">
+<p><span class="math display">\[
+  n(t, v, \theta) = n(0, v, \theta) + \left(n_\infty(v, \theta) - n(0, v, \theta)\right) \left(1 - \mathrm{e}^{-t / \tau(v, \theta)} \right).
+\]</span></p>
+</div>
+<div id="9bd1458d" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="kw">def</span> solve_for_potassium_channel_subunit_activation(t, v, parameters):</span>
+<span id="cb5-2"><a href=""></a>    xp <span class="op">=</span> array_api_compat.array_namespace(t, v)</span>
+<span id="cb5-3"><a href=""></a>    n_0 <span class="op">=</span> n_infty(xp.array(<span class="dv">0</span>), parameters)  <span class="co"># Start from equilibrium at V_rest</span></span>
+<span id="cb5-4"><a href=""></a>    <span class="cf">return</span> n_0 <span class="op">+</span> (n_infty(v, parameters) <span class="op">-</span> n_0) <span class="op">*</span> (</span>
+<span id="cb5-5"><a href=""></a>        <span class="dv">1</span> <span class="op">-</span> xp.exp(<span class="op">-</span>t <span class="op">/</span> tau(v, parameters)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="time-constant-and-equilibrium-value" class="slide level2">
+<h2>Time constant and equilibrium value</h2>
+<p>The time constant <span class="math inline">\(\tau\)</span> and equilibrium value <span class="math inline">\(n_\infty\)</span> are defined in terms of rate constant functions <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> as</p>
+<p><span class="math display">\[
+  \tau(v, \theta) = \frac{1}{\alpha(v, \theta) + \beta(v, \theta)},\quad
+  n_\infty(v, \theta) = \frac{\alpha(v, \theta)}{\alpha(v, \theta) + \beta(v, \theta)}.
+\]</span></p>
+<div id="d9135496" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="kw">def</span> n_infty(v, parameters):</span>
+<span id="cb6-2"><a href=""></a>    <span class="cf">return</span> alpha(v, parameters) <span class="op">/</span> (alpha(v, parameters) <span class="op">+</span> beta(v, parameters))</span>
+<span id="cb6-3"><a href=""></a></span>
+<span id="cb6-4"><a href=""></a></span>
+<span id="cb6-5"><a href=""></a><span class="kw">def</span> tau(v, parameters):</span>
+<span id="cb6-6"><a href=""></a>    <span class="cf">return</span> <span class="dv">1</span> <span class="op">/</span> (alpha(v, parameters) <span class="op">+</span> beta(v, parameters))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="rate-constants" class="slide level2">
+<h2>Rate constants</h2>
+<p>The rate constants <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are themselves defined as</p>
+<p><span class="math display">\[
+  \alpha(v, \theta) =  \frac{k_{\alpha, 1}(v + k_{\alpha, 2})}{\exp((v + k_{\alpha, 2}) / k_{\alpha, 3}) - 1},
+  \quad
+  \beta(v, \theta) = k_{\beta, 1} \exp(v / k_{\beta, 2}).
+\]</span></p>
+<div id="cdfe29f5" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="kw">def</span> alpha(v, parameters):</span>
+<span id="cb7-2"><a href=""></a>    xp <span class="op">=</span> array_api_compat.array_namespace(v)</span>
+<span id="cb7-3"><a href=""></a>    <span class="cf">return</span> (</span>
+<span id="cb7-4"><a href=""></a>        parameters[<span class="st">"k_alpha_1"</span>]</span>
+<span id="cb7-5"><a href=""></a>        <span class="op">*</span> (v <span class="op">+</span> parameters[<span class="st">"k_alpha_2"</span>])</span>
+<span id="cb7-6"><a href=""></a>        <span class="op">/</span> (xp.exp((v <span class="op">+</span> parameters[<span class="st">"k_alpha_2"</span>]) <span class="op">/</span> parameters[<span class="st">"k_alpha_3"</span>]) <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb7-7"><a href=""></a>    )</span>
+<span id="cb7-8"><a href=""></a></span>
+<span id="cb7-9"><a href=""></a></span>
+<span id="cb7-10"><a href=""></a><span class="kw">def</span> beta(v, parameters):</span>
+<span id="cb7-11"><a href=""></a>    xp <span class="op">=</span> array_api_compat.array_namespace(v)</span>
+<span id="cb7-12"><a href=""></a>    <span class="cf">return</span> parameters[<span class="st">"k_beta_1"</span>] <span class="op">*</span> xp.exp(v <span class="op">/</span> parameters[<span class="st">"k_beta_2"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="overall-mathematical-model" class="slide level2">
+<h2>Overall mathematical model</h2>
+<p>Together these equations define a mathematical model <span class="math inline">\(g_K(t, v, \theta)\)</span> for how the potassium conductance <span class="math inline">\(g_K\)</span> varies as a function of the</p>
+<div class="compressed-list">
+<ul>
+<li class="fragment">applied depolarization <span class="math inline">\(v\)</span>,</li>
+<li class="fragment">time <span class="math inline">\(t\)</span>,</li>
+<li class="fragment">model parameters <span class="math inline">\(\theta = (k_{\alpha,1}, k_{\alpha,2}, k_{\alpha,3}, k_{\beta,1}, k_{\beta,2}, \bar{g}_K)\)</span>;</li>
+</ul>
+</div>
+<div class="fragment">
+<p>with corresponding Python implementation <code>solve_for_potassium_conductances</code>.</p>
+</div>
+</section>
+<section id="experimental-data" class="slide level2">
+<h2>Experimental data</h2>
+<p>In Hodgkin and Huxley’s experiments, the potassium conductances were measured at regular time intervals for a series of applied depolarizations.</p>
+<div class="fragment">
+<p>Below we load a digitization of the original potassium conductance time series experimental data for different polarizations analysed by Hodgkin and Huxley (1952).</p>
+<div id="89a51165" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a>data <span class="op">=</span> <span class="bu">dict</span>(np.load(<span class="st">"hodgkin-huxley-potassium-data.npz"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="footer">
+<p>Digitized data taken from <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4807457/">Daly et al.&nbsp;2015</a>.</p>
+</div>
+</div>
+</section>
+<section id="visualizing-the-data" class="slide level2">
+<h2>Visualizing the data</h2>
+<p>We also define a helper function to let us visualize this data as a group of time series.</p>
+<div id="98cbf308" class="cell" data-execution_count="9">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/cell-9-output-1.png" width="942" height="466"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="fixing-the-parameter-values" class="slide level2">
+<h2>Fixing the parameter values</h2>
+<p>We will start off by using fixed parameter values, taking those fitted by Hodgkin and Huxley to experimental data in their 1952 paper.</p>
+<div id="9380d3d8" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a>parameters <span class="op">=</span> {</span>
+<span id="cb9-2"><a href=""></a>    <span class="st">"g_bar_k"</span>: <span class="fl">35.0</span>,</span>
+<span id="cb9-3"><a href=""></a>    <span class="st">"k_alpha_1"</span>: <span class="fl">0.01</span>,</span>
+<span id="cb9-4"><a href=""></a>    <span class="st">"k_alpha_2"</span>: <span class="fl">10.0</span>,</span>
+<span id="cb9-5"><a href=""></a>    <span class="st">"k_alpha_3"</span>: <span class="fl">10.0</span>,</span>
+<span id="cb9-6"><a href=""></a>    <span class="st">"k_beta_1"</span>: <span class="fl">0.125</span>,</span>
+<span id="cb9-7"><a href=""></a>    <span class="st">"k_beta_2"</span>: <span class="fl">80.0</span>,</span>
+<span id="cb9-8"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="creating-arrays-in-numpy-and-jax" class="slide level2">
+<h2>Creating arrays in NumPy and JAX</h2>
+<p>First we create a NumPy array of linearly spaced depolarizations to evaluate the model functions at.</p>
+<div id="1d8d7ed4" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a>depolarizations_numpy <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">200</span>, <span class="dv">200</span>, <span class="dv">200</span>)</span>
+<span id="cb10-2"><a href=""></a><span class="bu">type</span>(depolarizations_numpy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>numpy.ndarray</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p>To create a corresponding JAX array we can straightforwardly use the JAX NumPy API we imported earlier as <code>jnp</code>.</p>
+<div id="25d5903c" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href=""></a>depolarizations_jax <span class="op">=</span> jnp.linspace(<span class="op">-</span><span class="dv">200</span>, <span class="dv">200</span>, <span class="dv">200</span>)</span>
+<span id="cb12-2"><a href=""></a><span class="bu">type</span>(depolarizations_jax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>jaxlib._jax.ArrayImpl</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="calling-with-numpy-and-jax-arrays" class="slide level2">
+<h2>Calling with NumPy and JAX arrays</h2>
+<p>As expected, calling model functions on the NumPy array produces a NumPy array as output:</p>
+<div id="7b125c95" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href=""></a>beta_numpy <span class="op">=</span> beta(depolarizations_numpy, parameters)</span>
+<span id="cb14-2"><a href=""></a><span class="bu">type</span>(beta_numpy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>numpy.ndarray</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p>and calling on a JAX array produces a JAX array as output:</p>
+<div id="99455235" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href=""></a>beta_jax <span class="op">=</span> beta(depolarizations_jax, parameters)</span>
+<span id="cb16-2"><a href=""></a><span class="bu">type</span>(beta_jax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>jaxlib._jax.ArrayImpl</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="equivalence-of-implementations" class="slide level2 nostretch">
+<h2>Equivalence of implementations</h2>
+<p>The two output arrays are equal modulo floating point error differences:</p>
+<div id="283ef5f1" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href=""></a><span class="cf">assert</span> np.allclose(beta_numpy, beta_jax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p>We can also visualize the equivalence of the function outputs</p>
+<div id="2814b84f" class="cell" data-execution_count="16">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/cell-16-output-1.png" width="1170" height="306"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="performance-numpy-vs.-jax" class="slide level2 center">
+<h2>Performance: NumPy vs.&nbsp;JAX</h2>
+<p>How do the functions using NumPy and JAX arrays compare in terms of compute time?</p>
+</section>
+<section id="jaxs-asynchronous-dispatch-model" class="slide level2">
+<h2>JAX’s asynchronous dispatch model</h2>
+<p><a href="https://jax.readthedocs.io/en/latest/async_dispatch.html#async-dispatch">JAX dispatches operations <em>asynchronously</em></a>, only evaluating operations when the output is needed by a downstream operation or inspected by user.</p>
+<div class="fragment">
+<p>To ensure a fair comparison we define a helper function which calls a function and then (optionally) blocks until any asynchronously executed operations are completed:</p>
+<div id="08dd69bc" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href=""></a><span class="kw">def</span> call_and_block(function, block, <span class="op">*</span>args):</span>
+<span id="cb19-2"><a href=""></a>    <span class="cf">return</span> function(<span class="op">*</span>args).block_until_ready() <span class="cf">if</span> block <span class="cf">else</span> function(<span class="op">*</span>args)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="timing-function-calls-with-timeit" class="slide level2">
+<h2>Timing function calls with <code>timeit</code></h2>
+<p>Now we time calling each of the functions with the <a href="https://ipython.readthedocs.io/en/stable/interactive/magics.html#magic-timeit"><code>timeit</code> magic</a> for both NumPy and JAX arrays and record the results</p>
+<div id="96f46f35" class="cell" data-execution_count="18">
+<div class="cell-output cell-output-stdout">
+<pre><code>--------------------------------------------------------------------------------
+numpy
+--------------------------------------------------------------------------------
+alpha: 11.9 μs ± 235 ns per loop (mean ± std. dev. of 7 runs, 100,000 loops each)
+beta: 7.2 μs ± 211 ns per loop (mean ± std. dev. of 7 runs, 100,000 loops each)
+tau: 21.3 μs ± 855 ns per loop (mean ± std. dev. of 7 runs, 10,000 loops each)
+n_infty: 30.9 μs ± 1.09 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)
+--------------------------------------------------------------------------------
+jax
+--------------------------------------------------------------------------------
+alpha: 107 μs ± 6.04 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)
+beta: 48.4 μs ± 3.41 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)
+tau: 188 μs ± 6.51 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)
+n_infty: 301 μs ± 9.99 μs per loop (mean ± std. dev. of 7 runs, 1,000 loops each)</code></pre>
+</div>
+</div>
+</section>
+<section id="visualising-timing-results" class="slide level2">
+<h2>Visualising timing results</h2>
+<p>We can see that when evaluating on JAX arrays the functions are consistently and significantly slower! This can be seen even more clearly by plotting the timing results</p>
+<div id="0be3558b" class="cell" data-execution_count="20">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/cell-20-output-1.png" width="860" height="435"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="jax-and-numpy-dispatch-models" class="slide level2">
+<h2>JAX and NumPy dispatch models</h2>
+<p>This may at first seem surprising as JAX describes itself as a performance-oriented library. However,</p>
+<ul>
+<li class="fragment">NumPy operations are executed <em>eagerly</em> and <em>synchronously</em>.</li>
+<li class="fragment">JAX operations may be executed <em>eagerly</em> or <em>lazily after compilation</em> and they are dispatched <em>asynchronously</em>.</li>
+</ul>
+<div class="footer">
+<p>Text adapted from: https://jax.readthedocs.io/en/latest/faq.html#is-jax-faster-than-numpy</p>
+</div>
+</section>
+<section id="jax-and-numpy-dispatch-priorities" class="slide level2">
+<h2>JAX and NumPy dispatch priorities</h2>
+<p>This has led to different priorities in the packages.</p>
+<div class="fragment">
+<p>NumPy has put significant effort into <strong>decreasing the per-call dispatch overhead</strong> for individual array operations, because in NumPy’s computational model that overhead cannot be avoided.</p>
+</div>
+<div class="fragment">
+<p>JAX, on the other hand, has several ways to avoid dispatch overhead and so <strong>reducing per-call overhead has been less of a priority</strong>.</p>
+<div class="footer">
+<p>Text adapted from: https://jax.readthedocs.io/en/latest/faq.html#is-jax-faster-than-numpy</p>
+</div>
+</div>
+</section>
+<section id="reducing-dispatch-overhead" class="slide level2">
+<h2>Reducing dispatch overhead</h2>
+<p>One particular way of reducing dispatch overhead offered by JAX is <em>just-in-time</em> (JIT) compilation.</p>
+<div class="fragment">
+<p>As mentioned earlier JAX builds on top of the XLA compiler toolchain, which allows compiling code for a variety device backends (CPU, GPU, TPU).</p>
+</div>
+<div class="fragment">
+<p>Before we try out JIT compilation we will first take a look at how JAX’s function transformations work.</p>
+</div>
+</section>
+<section id="jax-tracing-and-jaxprs" class="slide level2">
+<h2>JAX tracing and jaxprs</h2>
+<p>At a high level, JAX’s function transformations, operate by first tracing the Python function to be transformed to an <a href="https://en.wikipedia.org/wiki/Intermediate_representation">intermediate representation (IR)</a>, with this IR then interpreted with a transformation specific <a href="https://en.wikipedia.org/wiki/Interpreter_(computing)">interpreter</a>.</p>
+<div class="fragment">
+<p><em>Jaxprs</em> are JAX’s internal IR of traced programs.</p>
+<aside class="notes">
+<p>Jaxprs are explicitly typed, <a href="https://en.wikipedia.org/wiki/Functional_programming">functional</a>, first-order, and in <a href="https://en.wikipedia.org/wiki/Algebraic_normal_form">algebraic normal form</a>.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<div class="footer">
+<p>Adapted from: https://jax.readthedocs.io/en/latest/jaxpr.html</p>
+</div>
+</div>
+</section>
+<section id="inspecting-a-jaxpr-with-make_jaxpr" class="slide level2">
+<h2>Inspecting a jaxpr with <code>make_jaxpr</code></h2>
+<p>Consider the <code>beta</code> function defined earlier:</p>
+<div id="27a9df51" class="cell" data-execution_count="21">
+<div class="cell-output cell-output-stdout">
+<pre><code>def beta(v, parameters):
+    xp = array_api_compat.array_namespace(v)
+    return parameters["k_beta_1"] * xp.exp(v / parameters["k_beta_2"])
+</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p>JAX provides a special <code>jax.make_jaxpr</code> transformation that allows us to inspect the jaxpr representation of a function.</p>
+</div>
+<div class="fragment">
+<p>Applying to <code>beta</code> and calling with the example arguments:</p>
+<div id="9334ede3" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href=""></a>jax.make_jaxpr(beta)(depolarizations_jax, parameters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<div class="ansi-escaped-output">
+<pre>{ <span class="ansi-blue-fg ansi-bold">lambda </span>; a<span class="ansi-magenta-fg">:f64[200]</span> b<span class="ansi-magenta-fg">:f64[]</span> c<span class="ansi-magenta-fg">:f64[]</span> d<span class="ansi-magenta-fg">:f64[]</span> e<span class="ansi-magenta-fg">:f64[]</span> f<span class="ansi-magenta-fg">:f64[]</span> g<span class="ansi-magenta-fg">:f64[]</span>. <span class="ansi-blue-fg ansi-bold">let
+</span>    h<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] g
+    i<span class="ansi-magenta-fg">:f64[200]</span> = div a h
+    j<span class="ansi-magenta-fg">:f64[200]</span> = exp i
+    k<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] f
+    l<span class="ansi-magenta-fg">:f64[200]</span> = mul k j
+  <span class="ansi-blue-fg ansi-bold">in </span>(l,) }</pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="abstract-values" class="slide level2">
+<h2>Abstract values</h2>
+<p>Internally JAX traces functions with <em>abstract</em> values. For most transformations the abstraction is at the level of the shape and datatype of arguments, but not their values.</p>
+<div class="fragment">
+<p>We can use the <code>jax.ShapedDtypeStruct</code> to create an abstract array with just <code>shape</code> and <code>dtype</code> attributes (plus some additional attributes for JAX bookkeeping such as device layout and sharding).</p>
+<div id="7abf7044" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href=""></a>abstract_depolarizations <span class="op">=</span> jax.ShapeDtypeStruct(</span>
+<span id="cb23-2"><a href=""></a>    depolarizations_jax.shape, depolarizations_jax.dtype</span>
+<span id="cb23-3"><a href=""></a>)</span>
+<span id="cb23-4"><a href=""></a>abstract_depolarizations</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<pre><code>ShapeDtypeStruct(shape=(200,), dtype=float64)</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="tracing-with-abstract-values" class="slide level2">
+<h2>Tracing with abstract values</h2>
+<p>If we now call the <code>jax.make_jaxpr</code> transformed function with this abstract argument we get exactly the same result as before</p>
+<div id="1aa09998" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href=""></a>jax.make_jaxpr(beta)(abstract_depolarizations, parameters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<div class="ansi-escaped-output">
+<pre>{ <span class="ansi-blue-fg ansi-bold">lambda </span>; a<span class="ansi-magenta-fg">:f64[200]</span> b<span class="ansi-magenta-fg">:f64[]</span> c<span class="ansi-magenta-fg">:f64[]</span> d<span class="ansi-magenta-fg">:f64[]</span> e<span class="ansi-magenta-fg">:f64[]</span> f<span class="ansi-magenta-fg">:f64[]</span> g<span class="ansi-magenta-fg">:f64[]</span>. <span class="ansi-blue-fg ansi-bold">let
+</span>    h<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] g
+    i<span class="ansi-magenta-fg">:f64[200]</span> = div a h
+    j<span class="ansi-magenta-fg">:f64[200]</span> = exp i
+    k<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] f
+    l<span class="ansi-magenta-fg">:f64[200]</span> = mul k j
+  <span class="ansi-blue-fg ansi-bold">in </span>(l,) }</pre>
+</div>
+</div>
+</div>
+</section>
+<section id="control-flow-and-tracing" class="slide level2 scrollable">
+<h2>Control flow and tracing</h2>
+<p>Importantly any control flow in the in traced function is transparent to the tracing.</p>
+<p>Consider the <code>n_infty</code> function which calls <code>alpha</code> and <code>beta</code></p>
+<div class="fragment">
+<div id="a8cc8a1e" class="cell" data-execution_count="25">
+<div class="cell-output cell-output-stdout">
+<pre><code>def n_infty(v, parameters):
+    return alpha(v, parameters) / (alpha(v, parameters) + beta(v, parameters))
+</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>The jaxpr for this function corresponds to tracing through the full computation including nested calls.</p>
+<div id="a79dace9" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href=""></a>jax.make_jaxpr(n_infty)(depolarizations_jax, parameters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="25">
+<div class="ansi-escaped-output">
+<pre>{ <span class="ansi-blue-fg ansi-bold">lambda </span>; a<span class="ansi-magenta-fg">:f64[200]</span> b<span class="ansi-magenta-fg">:f64[]</span> c<span class="ansi-magenta-fg">:f64[]</span> d<span class="ansi-magenta-fg">:f64[]</span> e<span class="ansi-magenta-fg">:f64[]</span> f<span class="ansi-magenta-fg">:f64[]</span> g<span class="ansi-magenta-fg">:f64[]</span>. <span class="ansi-blue-fg ansi-bold">let
+</span>    h<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] d
+    i<span class="ansi-magenta-fg">:f64[200]</span> = add a h
+    j<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] c
+    k<span class="ansi-magenta-fg">:f64[200]</span> = mul j i
+    l<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] d
+    m<span class="ansi-magenta-fg">:f64[200]</span> = add a l
+    n<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] e
+    o<span class="ansi-magenta-fg">:f64[200]</span> = div m n
+    p<span class="ansi-magenta-fg">:f64[200]</span> = exp o
+    q<span class="ansi-magenta-fg">:f64[200]</span> = sub p 1.0:f64[]
+    r<span class="ansi-magenta-fg">:f64[200]</span> = div k q
+    s<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] d
+    t<span class="ansi-magenta-fg">:f64[200]</span> = add a s
+    u<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] c
+    v<span class="ansi-magenta-fg">:f64[200]</span> = mul u t
+    w<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] d
+    x<span class="ansi-magenta-fg">:f64[200]</span> = add a w
+    y<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] e
+    z<span class="ansi-magenta-fg">:f64[200]</span> = div x y
+    ba<span class="ansi-magenta-fg">:f64[200]</span> = exp z
+    bb<span class="ansi-magenta-fg">:f64[200]</span> = sub ba 1.0:f64[]
+    bc<span class="ansi-magenta-fg">:f64[200]</span> = div v bb
+    bd<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] g
+    be<span class="ansi-magenta-fg">:f64[200]</span> = div a bd
+    bf<span class="ansi-magenta-fg">:f64[200]</span> = exp be
+    bg<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] f
+    bh<span class="ansi-magenta-fg">:f64[200]</span> = mul bg bf
+    bi<span class="ansi-magenta-fg">:f64[200]</span> = add bc bh
+    bj<span class="ansi-magenta-fg">:f64[200]</span> = div r bi
+  <span class="ansi-blue-fg ansi-bold">in </span>(bj,) }</pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="just-in-time-compilation-with-jax.jit" class="slide level2">
+<h2>Just-in-time compilation with <code>jax.jit</code></h2>
+<p>One of the key JAX transformations is the <code>jax.jit</code> function which allows functions to be JIT compiled with XLA for execution on a particular device (CPU, GPU or TPU).</p>
+<div id="b4423bcf" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href=""></a>jitted_beta <span class="op">=</span> jax.jit(beta)</span>
+<span id="cb28-2"><a href=""></a>jax.make_jaxpr(jitted_beta)(abstract_depolarizations, parameters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<div class="ansi-escaped-output">
+<pre>{ <span class="ansi-blue-fg ansi-bold">lambda </span>; a<span class="ansi-magenta-fg">:f64[200]</span> b<span class="ansi-magenta-fg">:f64[]</span> c<span class="ansi-magenta-fg">:f64[]</span> d<span class="ansi-magenta-fg">:f64[]</span> e<span class="ansi-magenta-fg">:f64[]</span> f<span class="ansi-magenta-fg">:f64[]</span> g<span class="ansi-magenta-fg">:f64[]</span>. <span class="ansi-blue-fg ansi-bold">let
+</span>    h<span class="ansi-magenta-fg">:f64[200]</span> = jit[
+      name=beta
+      jaxpr={ <span class="ansi-blue-fg ansi-bold">lambda </span>; a<span class="ansi-magenta-fg">:f64[200]</span> b<span class="ansi-magenta-fg">:f64[]</span> c<span class="ansi-magenta-fg">:f64[]</span> d<span class="ansi-magenta-fg">:f64[]</span> e<span class="ansi-magenta-fg">:f64[]</span> f<span class="ansi-magenta-fg">:f64[]</span> g<span class="ansi-magenta-fg">:f64[]</span>. <span class="ansi-blue-fg ansi-bold">let
+</span>          i<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] g
+          j<span class="ansi-magenta-fg">:f64[200]</span> = div a i
+          k<span class="ansi-magenta-fg">:f64[200]</span> = exp j
+          l<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] f
+          h<span class="ansi-magenta-fg">:f64[200]</span> = mul l k
+        <span class="ansi-blue-fg ansi-bold">in </span>(h,) }
+    ] a b c d e f g
+  <span class="ansi-blue-fg ansi-bold">in </span>(h,) }</pre>
+</div>
+</div>
+</div>
+</section>
+<section id="behaviour-after-jitting" class="slide level2">
+<h2>Behaviour after jitting</h2>
+<p>The jitted and original functions give equivalent outputs to within floating point error</p>
+<div id="eb021745" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href=""></a><span class="cf">assert</span> np.allclose(</span>
+<span id="cb29-2"><a href=""></a>    jitted_beta(depolarizations_jax, parameters),</span>
+<span id="cb29-3"><a href=""></a>    beta(depolarizations_jax, parameters)</span>
+<span id="cb29-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p>The jitted function however is significantly faster</p>
+<div id="58a2dd29" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href=""></a><span class="bu">print</span>(<span class="st">"Without jit"</span>)</span>
+<span id="cb30-2"><a href=""></a><span class="op">%</span>timeit beta(depolarizations_jax, parameters).block_until_ready()</span>
+<span id="cb30-3"><a href=""></a><span class="bu">print</span>(<span class="st">"With jit"</span>)</span>
+<span id="cb30-4"><a href=""></a><span class="op">%</span>timeit jitted_beta(depolarizations_jax, parameters).block_until_ready()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Without jit
+43.5 μs ± 2.43 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)
+With jit
+15.7 μs ± 249 ns per loop (mean ± std. dev. of 7 runs, 100,000 loops each)</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="jax.jit-under-the-hood" class="slide level2">
+<h2><code>jax.jit</code>: under the hood</h2>
+<p>When calling a jitted function JAX does the following in order:</p>
+<ol type="1">
+<li class="fragment"><strong>Stage out</strong> a specialized version of the original Python callable to an internal representation (jaxpr).</li>
+<li class="fragment"><strong>Lower</strong> this specialized, staged-out computation to the XLA compiler’s input language, StableHLO.</li>
+<li class="fragment"><strong>Compile</strong> the lowered HLO program to produce an optimized executable for the target device (CPU, GPU, or TPU).</li>
+<li class="fragment"><strong>Execute</strong> the compiled executable with the arrays as arguments.</li>
+</ol>
+<div class="footer">
+<p>Text adapted from: https://jax.readthedocs.io/en/latest/aot.html</p>
+</div>
+</section>
+<section id="ahead-of-time-compilation-in-jax" class="slide level2">
+<h2>Ahead-of-time compilation in JAX</h2>
+<p>JAX has an ahead-of-time (AOT) compilation interface which allows us to separate out the steps (1, 2), 3, and 4.</p>
+</section>
+<section class="slide level2">
+
+<h3 id="lowering">Lowering</h3>
+<p>Lowering a function on (potentially abstract) arguments allows us to view the StableHLO representation.</p>
+<div id="7077164a" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href=""></a>lowered_beta <span class="op">=</span> jax.jit(beta).lower(abstract_depolarizations, parameters)</span>
+<span id="cb32-2"><a href=""></a><span class="bu">print</span>(lowered_beta.as_text())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>module @jit_beta attributes {mhlo.num_partitions = 1 : i32, mhlo.num_replicas = 1 : i32} {
+  func.func public @main(%arg0: tensor&lt;200xf64&gt;, %arg1: tensor&lt;f64&gt;, %arg2: tensor&lt;f64&gt;) -&gt; (tensor&lt;200xf64&gt; {jax.result_info = "result"}) {
+    %0 = stablehlo.convert %arg2 : tensor&lt;f64&gt;
+    %1 = stablehlo.broadcast_in_dim %0, dims = [] : (tensor&lt;f64&gt;) -&gt; tensor&lt;200xf64&gt;
+    %2 = stablehlo.divide %arg0, %1 : tensor&lt;200xf64&gt;
+    %3 = stablehlo.exponential %2 : tensor&lt;200xf64&gt;
+    %4 = stablehlo.convert %arg1 : tensor&lt;f64&gt;
+    %5 = stablehlo.broadcast_in_dim %4, dims = [] : (tensor&lt;f64&gt;) -&gt; tensor&lt;200xf64&gt;
+    %6 = stablehlo.multiply %5, %3 : tensor&lt;200xf64&gt;
+    return %6 : tensor&lt;200xf64&gt;
+  }
+}
+</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="compiling">Compiling</h3>
+<div class="incremental-stack r-stack top-align">
+<div class="fragment fade-out" data-fragment-index="1">
+<p>We can then compile a lowered function.</p>
+</div>
+<div class="fragment  fade-in-then-out" data-fragment-index="1">
+<p>This for example allows us to avoid the overhead of compiling on the first execution in timing benchmarks.</p>
+</div>
+<div class="fragment  fade-in-then-out" data-fragment-index="2">
+<p>It also allows us to analyse the cost of the compiled function.</p>
+</div>
+<div class="fragment fade-in" data-fragment-index="3">
+<p>Importantly however this compiled function is specific to the argument shapes and datatypes and cannot be further transformed.</p>
+</div>
+</div>
+<div id="712c55c8" class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href=""></a>compiled_beta <span class="op">=</span> lowered_beta.<span class="bu">compile</span>()</span>
+<span id="cb34-2"><a href=""></a>display(compiled_beta.cost_analysis())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment" data-execution_count="31">
+<div class="cell-output cell-output-display">
+<pre><code>{'bytes accessed0{}': 1600.0,
+ 'flops': 400.0,
+ 'bytes accessed2{}': 8.0,
+ 'transcendentals': 200.0,
+ 'utilization0{}': 1.0,
+ 'utilization1{}': 1.0,
+ 'bytes accessed': 3216.0,
+ 'bytes accessedout{}': 1600.0,
+ 'utilization2{}': 1.0,
+ 'bytes accessed1{}': 8.0}</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="repeating-performance-comparison">Repeating performance comparison</h3>
+<p>We now time jitted versions of each of the functions.</p>
+<div id="fcb0f2e6" class="cell" data-execution_count="32">
+<div class="cell-output cell-output-stdout">
+<pre><code>alpha: 28 μs ± 1.32 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)
+beta: 17.7 μs ± 332 ns per loop (mean ± std. dev. of 7 runs, 100,000 loops each)
+tau: 60.4 μs ± 1.41 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)
+n_infty: 61.2 μs ± 915 ns per loop (mean ± std. dev. of 7 runs, 10,000 loops each)</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/cell-32-output-2.png" width="860" height="435"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="jits-effect-on-performance" class="slide level2">
+<h2><code>jit</code>’s effect on performance</h2>
+<p>We see that jitting</p>
+<ul>
+<li class="fragment">gives a consistent significant performance improvement,</li>
+<li class="fragment">and that improvement is generally larger for the functions with more traced operations (<code>tau</code> and <code>n_infty</code>).</li>
+</ul>
+<div class="fragment">
+<p>However performance is still worse than NumPy in these cases.</p>
+</div>
+</section>
+<section id="going-larger" class="slide level2">
+<h2>Going larger</h2>
+<div class="incremental-stack r-stack top-align">
+<div class="fragment fade-out" data-fragment-index="1">
+In
+
+general
+
+JAX
+
+will
+
+give
+
+greater
+
+speed-ups
+
+when
+
+operating
+
+on
+
+larger
+
+arrays
+
+and
+
+JIT
+
+compiling
+
+a
+
+larger
+
+function
+
+trace,
+
+due
+
+to
+
+the
+
+decreased
+
+effects
+
+of
+
+dispatch
+
+overhead.
+</div>
+<div class="fragment  fade-in-then-out" data-fragment-index="1">
+In
+
+our
+
+case
+
+the
+
+model
+
+functions
+
+we
+
+have
+
+been
+
+looking
+
+at
+
+so
+
+far
+
+are
+
+only
+
+components
+
+of
+
+the
+
+overall
+
+model
+
+we
+
+are
+
+interested
+
+in.
+</div>
+<div class="fragment  fade-in-then-out" data-fragment-index="2">
+A
+
+key
+
+task
+
+in
+
+most
+
+modelling
+
+problems
+
+is
+
+fitting
+
+the
+
+model
+
+parameters
+
+to
+
+data.
+</div>
+<div class="fragment  fade-in-then-out" data-fragment-index="3">
+The
+
+<code>solve_for_potassium_conductance</code>
+
+we
+
+defined
+
+earlier
+
+allows
+
+us
+
+to
+
+generate
+
+simulated
+
+conductance
+
+data
+
+using
+
+the
+
+model
+
+parameters
+
+from
+
+the
+
+paper.
+</div>
+<div class="fragment fade-in" data-fragment-index="4">
+We
+
+can
+
+plot
+
+the
+
+simulated
+
+conductances
+
+for
+
+the
+
+times
+
+and
+
+depolarizations
+
+from
+
+the
+
+experimental
+
+data
+</div>
+</div>
+<div class="fragment">
+<div id="55ea2a96" class="cell" data-execution_count="33">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/cell-33-output-1.png" width="942" height="466"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>We see that the simulated and observed conductances are similar as we would hope!</p>
+</div>
+</section>
+<section id="tracing-overall-model" class="slide level2 scrollable">
+<h2>Tracing overall model</h2>
+<p>The <code>solve_for_potassium_conductance</code> function evaluates the model for vectors of both times and depolarizations, and has a much larger traced computation</p>
+<div id="d68ff4fc" class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href=""></a>jax.make_jaxpr(solve_for_potassium_conductance)(</span>
+<span id="cb37-2"><a href=""></a>    data[<span class="st">"times"</span>], data[<span class="st">"depolarizations"</span>], parameters</span>
+<span id="cb37-3"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="33">
+<div class="ansi-escaped-output">
+<pre>{ <span class="ansi-blue-fg ansi-bold">lambda </span>; a<span class="ansi-magenta-fg">:f64[136]</span> b<span class="ansi-magenta-fg">:f64[136]</span> c<span class="ansi-magenta-fg">:f64[]</span> d<span class="ansi-magenta-fg">:f64[]</span> e<span class="ansi-magenta-fg">:f64[]</span> f<span class="ansi-magenta-fg">:f64[]</span> g<span class="ansi-magenta-fg">:f64[]</span> h<span class="ansi-magenta-fg">:f64[]</span>. <span class="ansi-blue-fg ansi-bold">let
+</span>    i<span class="ansi-magenta-fg">:f64[]</span> = add 0.0:f64[] e
+    j<span class="ansi-magenta-fg">:f64[]</span> = mul d i
+    k<span class="ansi-magenta-fg">:f64[]</span> = add 0.0:f64[] e
+    l<span class="ansi-magenta-fg">:f64[]</span> = div k f
+    m<span class="ansi-magenta-fg">:f64[]</span> = exp l
+    n<span class="ansi-magenta-fg">:f64[]</span> = sub m 1.0:f64[]
+    o<span class="ansi-magenta-fg">:f64[]</span> = div j n
+    p<span class="ansi-magenta-fg">:f64[]</span> = add 0.0:f64[] e
+    q<span class="ansi-magenta-fg">:f64[]</span> = mul d p
+    r<span class="ansi-magenta-fg">:f64[]</span> = add 0.0:f64[] e
+    s<span class="ansi-magenta-fg">:f64[]</span> = div r f
+    t<span class="ansi-magenta-fg">:f64[]</span> = exp s
+    u<span class="ansi-magenta-fg">:f64[]</span> = sub t 1.0:f64[]
+    v<span class="ansi-magenta-fg">:f64[]</span> = div q u
+    w<span class="ansi-magenta-fg">:f64[]</span> = div 0.0:f64[] h
+    x<span class="ansi-magenta-fg">:f64[]</span> = exp w
+    y<span class="ansi-magenta-fg">:f64[]</span> = mul g x
+    z<span class="ansi-magenta-fg">:f64[]</span> = add v y
+    ba<span class="ansi-magenta-fg">:f64[]</span> = div o z
+    bb<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] e
+    bc<span class="ansi-magenta-fg">:f64[136]</span> = add b bb
+    bd<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] d
+    be<span class="ansi-magenta-fg">:f64[136]</span> = mul bd bc
+    bf<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] e
+    bg<span class="ansi-magenta-fg">:f64[136]</span> = add b bf
+    bh<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] f
+    bi<span class="ansi-magenta-fg">:f64[136]</span> = div bg bh
+    bj<span class="ansi-magenta-fg">:f64[136]</span> = exp bi
+    bk<span class="ansi-magenta-fg">:f64[136]</span> = sub bj 1.0:f64[]
+    bl<span class="ansi-magenta-fg">:f64[136]</span> = div be bk
+    bm<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] e
+    bn<span class="ansi-magenta-fg">:f64[136]</span> = add b bm
+    bo<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] d
+    bp<span class="ansi-magenta-fg">:f64[136]</span> = mul bo bn
+    bq<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] e
+    br<span class="ansi-magenta-fg">:f64[136]</span> = add b bq
+    bs<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] f
+    bt<span class="ansi-magenta-fg">:f64[136]</span> = div br bs
+    bu<span class="ansi-magenta-fg">:f64[136]</span> = exp bt
+    bv<span class="ansi-magenta-fg">:f64[136]</span> = sub bu 1.0:f64[]
+    bw<span class="ansi-magenta-fg">:f64[136]</span> = div bp bv
+    bx<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] h
+    by<span class="ansi-magenta-fg">:f64[136]</span> = div b bx
+    bz<span class="ansi-magenta-fg">:f64[136]</span> = exp by
+    ca<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] g
+    cb<span class="ansi-magenta-fg">:f64[136]</span> = mul ca bz
+    cc<span class="ansi-magenta-fg">:f64[136]</span> = add bw cb
+    cd<span class="ansi-magenta-fg">:f64[136]</span> = div bl cc
+    ce<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] ba
+    cf<span class="ansi-magenta-fg">:f64[136]</span> = sub cd ce
+    cg<span class="ansi-magenta-fg">:f64[136]</span> = neg a
+    ch<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] e
+    ci<span class="ansi-magenta-fg">:f64[136]</span> = add b ch
+    cj<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] d
+    ck<span class="ansi-magenta-fg">:f64[136]</span> = mul cj ci
+    cl<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] e
+    cm<span class="ansi-magenta-fg">:f64[136]</span> = add b cl
+    cn<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] f
+    co<span class="ansi-magenta-fg">:f64[136]</span> = div cm cn
+    cp<span class="ansi-magenta-fg">:f64[136]</span> = exp co
+    cq<span class="ansi-magenta-fg">:f64[136]</span> = sub cp 1.0:f64[]
+    cr<span class="ansi-magenta-fg">:f64[136]</span> = div ck cq
+    cs<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] h
+    ct<span class="ansi-magenta-fg">:f64[136]</span> = div b cs
+    cu<span class="ansi-magenta-fg">:f64[136]</span> = exp ct
+    cv<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] g
+    cw<span class="ansi-magenta-fg">:f64[136]</span> = mul cv cu
+    cx<span class="ansi-magenta-fg">:f64[136]</span> = add cr cw
+    cy<span class="ansi-magenta-fg">:f64[136]</span> = div 1.0:f64[] cx
+    cz<span class="ansi-magenta-fg">:f64[136]</span> = div cg cy
+    da<span class="ansi-magenta-fg">:f64[136]</span> = exp cz
+    db<span class="ansi-magenta-fg">:f64[136]</span> = sub 1.0:f64[] da
+    dc<span class="ansi-magenta-fg">:f64[136]</span> = mul cf db
+    dd<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] ba
+    de<span class="ansi-magenta-fg">:f64[136]</span> = add dd dc
+    df<span class="ansi-magenta-fg">:f64[136]</span> = integer_pow[y=4] de
+    dg<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] c
+    dh<span class="ansi-magenta-fg">:f64[136]</span> = mul dg df
+  <span class="ansi-blue-fg ansi-bold">in </span>(dh,) }</pre>
+</div>
+</div>
+</div>
+</section>
+<section id="applying-jit-to-overall-model" class="slide level2">
+<h2>Applying <code>jit</code> to overall model</h2>
+<p>We can JIT compile this function</p>
+<div id="802d3f23" class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href=""></a>jitted_solve_for_potassium_conductance <span class="op">=</span> jax.jit(solve_for_potassium_conductance)</span>
+<span id="cb38-2"><a href=""></a><span class="cf">assert</span> np.allclose(</span>
+<span id="cb38-3"><a href=""></a>    jitted_solve_for_potassium_conductance(</span>
+<span id="cb38-4"><a href=""></a>        data[<span class="st">"times"</span>], data[<span class="st">"depolarizations"</span>], parameters</span>
+<span id="cb38-5"><a href=""></a>    ),</span>
+<span id="cb38-6"><a href=""></a>    solve_for_potassium_conductance(</span>
+<span id="cb38-7"><a href=""></a>        data[<span class="st">"times"</span>], data[<span class="st">"depolarizations"</span>], parameters</span>
+<span id="cb38-8"><a href=""></a>    ),</span>
+<span id="cb38-9"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p>Comparing performance we now see (JIT compiled) JAX is now at least matching NumPy’s performance:</p>
+<div id="56b8c157" class="cell" data-execution_count="36">
+<div class="cell-output cell-output-stdout">
+<pre><code>NumPy
+91.1 μs ± 2.54 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)
+Compiled JAX
+81.4 μs ± 2.56 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="fitting-model-parameters" class="slide level2">
+<h2>Fitting model parameters</h2>
+<p>While we have been using the model parameters provided in the paper, typically we would first need to fit the model parameters.</p>
+<div class="fragment">
+<p>In Hodgkin and Huxley’s case the parameters were fitted by matching hand-drawn curves to the data (<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4807457/">Daly et al.&nbsp;2015</a>)!</p>
+</div>
+<div class="fragment">
+<p>In reality as data is generally <em>noisy</em> and models may be <em>non-identifiable</em>, there will be a <em>distribution</em> of parameters consistent with the observed data and our prior assumptions about the model.</p>
+</div>
+</section>
+<section id="approximate-bayesian-computation" class="slide level2">
+<h2>Approximate Bayesian computation</h2>
+<p>One of the conceptually simplest approaches for finding this <a href="https://en.wikipedia.org/wiki/Posterior_probability">(posterior) distribution</a> on the parameters, is to</p>
+<ol type="1">
+<li class="fragment"><strong>simulate</strong> a large number of parameters that give model outputs <strong>consistent with our prior knowledge</strong>,</li>
+<li class="fragment">compute <strong>simulated observed outputs for each parameter</strong>, compare to the observed data and keep on the parameter values for which <strong>simulations and observations are close</strong>.</li>
+</ol>
+<div class="fragment">
+<p>This approach is sometimes called <a href="https://en.wikipedia.org/wiki/Approximate_Bayesian_computation"><em>approximate Bayesian computation</em></a> (ABC).</p>
+</div>
+</section>
+<section id="prior-model" class="slide level2">
+<h2>Prior model</h2>
+<p>For our purposes we will use a simple prior model in which the parameters are constrained to be positive and with appropriate scales, and to be a-priori independent with log-normal marginals.</p>
+<div id="629269a7" class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href=""></a>prior_log_normal_locations <span class="op">=</span> {</span>
+<span id="cb40-2"><a href=""></a>    <span class="st">"k_alpha_1"</span>: <span class="op">-</span><span class="dv">3</span>,</span>
+<span id="cb40-3"><a href=""></a>    <span class="st">"k_alpha_2"</span>: <span class="dv">2</span>,</span>
+<span id="cb40-4"><a href=""></a>    <span class="st">"k_alpha_3"</span>: <span class="dv">2</span>,</span>
+<span id="cb40-5"><a href=""></a>    <span class="st">"k_beta_1"</span>: <span class="op">-</span><span class="dv">3</span>,</span>
+<span id="cb40-6"><a href=""></a>    <span class="st">"k_beta_2"</span>: <span class="dv">2</span>,</span>
+<span id="cb40-7"><a href=""></a>    <span class="st">"g_bar_k"</span>: <span class="dv">2</span>,</span>
+<span id="cb40-8"><a href=""></a>    <span class="st">"sigma"</span>: <span class="dv">0</span>,</span>
+<span id="cb40-9"><a href=""></a>}</span>
+<span id="cb40-10"><a href=""></a></span>
+<span id="cb40-11"><a href=""></a>dim_parameters <span class="op">=</span> <span class="bu">len</span>(prior_log_normal_locations)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="prior-model-implementation" class="slide level2">
+<h2>Prior model implementation</h2>
+<aside class="notes">
+<p>Given a unconstrained real-valued vector with elements sampled independently from a standard normal distribution, a prior sample of the positive valued parameters can then be generated by offseting and exponentiating these standard normal variates, corresponding to assuming a log-normal prior distribution on the parameters.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<p>Importantly defining the function to generate parameters in terms of a vector in an unconstrained space will later simplify optimizing the parameters without having to consider constraints.</p>
+<div id="0fbc401a" class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href=""></a><span class="kw">def</span> generate_parameters(u):</span>
+<span id="cb41-2"><a href=""></a>    xp <span class="op">=</span> array_api_compat.array_namespace(u)</span>
+<span id="cb41-3"><a href=""></a>    values <span class="op">=</span> xp.exp(u <span class="op">+</span> xp.array(<span class="bu">list</span>(prior_log_normal_locations.values())))</span>
+<span id="cb41-4"><a href=""></a>    <span class="cf">return</span> <span class="bu">dict</span>(<span class="bu">zip</span>(prior_log_normal_locations.keys(), values))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="generative-model" class="slide level2">
+<h2>Generative model</h2>
+<p>Given the function for generating parameters, we can now write a function to generate simulated conductance time series data given a vector of (unconstrained and normalized) parameter values.</p>
+<div id="8d2981f8" class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href=""></a><span class="kw">def</span> generate_conductances(u, data):</span>
+<span id="cb42-2"><a href=""></a>    parameters <span class="op">=</span> generate_parameters(u)</span>
+<span id="cb42-3"><a href=""></a>    <span class="cf">return</span> solve_for_potassium_conductance(</span>
+<span id="cb42-4"><a href=""></a>        data[<span class="st">"times"</span>], data[<span class="st">"depolarizations"</span>], parameters</span>
+<span id="cb42-5"><a href=""></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="simulating-from-model" class="slide level2 scrollable">
+<h2>Simulating from model</h2>
+<p>We can then randomly generate parameters and plot the corresponding simulated outputs</p>
+<div id="21ff2f96" class="cell" data-execution_count="40">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/cell-40-output-1.png" width="751" height="754"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="vectorized-simulation-jax.vmap" class="slide level2">
+<h2>Vectorized simulation: <code>jax.vmap</code></h2>
+<div class="incremental-stack r-stack top-align">
+<div class="fragment fade-out" data-fragment-index="1">
+Simulating
+
+data
+
+for
+
+each
+
+parameter
+
+sequentially
+
+is
+
+relatively
+
+inefficient.
+</div>
+<div class="fragment  fade-in-then-out" data-fragment-index="1">
+Helpfully
+
+JAX
+
+provides
+
+a
+
+batching
+
+/
+
+vectorization
+
+transformation
+
+<code>jax.vmap</code>
+
+which
+
+allows
+
+us
+
+to
+
+evaluate
+
+a
+
+function
+
+for
+
+a
+
+batch
+
+of
+
+inputs
+
+simultaneously.
+</div>
+<div class="fragment  fade-in-then-out" data-fragment-index="2">
+While
+
+we
+
+can
+
+sometimes
+
+achieve
+
+this
+
+using
+
+NumPy
+
+broadcasting
+
+semantics,
+
+<code>vmap</code>
+
+avoids
+
+having
+
+to
+
+manually
+
+adjust
+
+code
+
+and
+
+correctly
+
+remember
+
+broadcasting
+
+rules.
+</div>
+<div class="fragment  fade-in-then-out" data-fragment-index="3">
+The
+
+<code>jax.vmap</code>
+
+transformation
+
+takes
+
+optional
+
+arguments
+
+specifying
+
+the
+
+argument
+
+axes
+
+over
+
+which
+
+to
+
+vectorize.
+</div>
+<div class="fragment fade-in" data-fragment-index="4">
+Here
+
+we
+
+vectorize
+
+only
+
+over
+
+the
+
+first
+
+axes
+
+of
+
+the
+
+first
+
+argument
+
+<code>u</code>
+
+to
+
+<code>generate_conductances</code>
+
+-
+
+notice
+
+also
+
+that
+
+we
+
+can
+
+compose
+
+<code>jax.vmap</code>
+
+with
+
+<code>jax.jit</code>
+.
+</div>
+</div>
+<div class="fragment">
+<div id="463c7208" class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href=""></a>vmapped_generate_conductances <span class="op">=</span> jax.jit(</span>
+<span id="cb43-2"><a href=""></a>    jax.vmap(generate_conductances, in_axes<span class="op">=</span>(<span class="dv">0</span>, <span class="va">None</span>))</span>
+<span id="cb43-3"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="fragment">
+<p>We can now evaluate <code>vmapped_generate_conductances</code> on batches of the <code>u</code> input:</p>
+<div id="38d93e71" class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href=""></a>u_batch <span class="op">=</span> rng.standard_normal((<span class="dv">1000</span>, dim_parameters))</span>
+<span id="cb44-2"><a href=""></a>vmapped_generate_conductances(u_batch, data).shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="41">
+<pre><code>(1000, 136)</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="performance-gaining-from-batching" class="slide level2">
+<h2>Performance gaining from batching</h2>
+<p>Importantly, as this is implemented by transforming the traced computation to use vectorized / batched variants of operations, it gives a significant performance improvement over mapping sequentially over a batch:</p>
+<div id="43464876" class="cell" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href=""></a><span class="op">%%</span>timeit</span>
+<span id="cb46-2"><a href=""></a><span class="cf">for</span> u <span class="kw">in</span> u_batch:</span>
+<span id="cb46-3"><a href=""></a>    generate_conductances(u, data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment" data-execution_count="43">
+<div class="cell-output cell-output-stdout">
+<pre><code>105 ms ± 4.91 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)</code></pre>
+</div>
+</div>
+<div class="fragment">
+<div id="8230c4ec" class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href=""></a><span class="op">%%</span>timeit</span>
+<span id="cb48-2"><a href=""></a>vmapped_generate_conductances(u_batch, data).block_until_ready()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment" data-execution_count="44">
+<div class="cell-output cell-output-stdout">
+<pre><code>859 μs ± 53.8 μs per loop (mean ± std. dev. of 7 runs, 1,000 loops each)</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="simple-abc" class="slide level2">
+<h2>Simple ABC</h2>
+<div class="incremental-stack r-stack top-align">
+<div class="fragment fade-out" data-fragment-index="1">
+Using
+
+the
+
+vmapped
+
+function
+
+we
+
+can
+
+now
+
+generate
+
+simulated
+
+outputs
+
+for
+
+a
+
+large
+
+batch
+
+of
+
+prior
+
+parameter
+
+samples.
+</div>
+<div class="fragment fade-in" data-fragment-index="1">
+We
+
+then
+
+compute
+
+the
+
+index
+
+of
+
+the
+
+prior
+
+sample
+
+generating
+
+simulated
+
+outputs
+
+closest
+
+(in
+
+Euclidean
+
+distance)
+
+to
+
+the
+
+observed
+
+data.
+</div>
+</div>
+<div class="fragment">
+<div id="688eb499" class="cell" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href=""></a>u_prior_samples <span class="op">=</span> rng.standard_normal((<span class="dv">100000</span>, dim_parameters))</span>
+<span id="cb50-2"><a href=""></a>generated_conductances <span class="op">=</span> vmapped_generate_conductances(u_prior_samples, data)</span>
+<span id="cb50-3"><a href=""></a>index_of_closest <span class="op">=</span> (</span>
+<span id="cb50-4"><a href=""></a>    ((generated_conductances <span class="op">-</span> data[<span class="st">"conductances"</span>]) <span class="op">**</span> <span class="dv">2</span>).<span class="bu">sum</span>(<span class="op">-</span><span class="dv">1</span>).argmin()</span>
+<span id="cb50-5"><a href=""></a>)</span>
+<span id="cb50-6"><a href=""></a>display(generate_parameters(u_prior_samples[index_of_closest]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'k_alpha_1': np.float64(0.01087083261109017),
+ 'k_alpha_2': np.float64(1.9857834602880655),
+ 'k_alpha_3': np.float64(3.896441088114956),
+ 'k_beta_1': np.float64(0.14876831470095073),
+ 'k_beta_2': np.float64(52.94196826971615),
+ 'g_bar_k': np.float64(22.170279829607466),
+ 'sigma': np.float64(1.0295007589912917)}</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="comparing-simulations-to-data" class="slide level2">
+<h2>Comparing simulations to data</h2>
+<p>We can then plot the closest found simulated conductance time series (dotted lines) against the observed conductance time series data (circular markers)</p>
+<div id="9d69b51c" class="cell" data-execution_count="46">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/cell-46-output-1.png" width="943" height="466"></p>
+</figure>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>While here we selected only the parameter values given the smallest distances between simulations and data, if we instead selected the parameter values with a distance between the simulated outputs and data less than some threshold, we would instead get a <em>distributional</em> estimate of the information we have about the parameters given the data.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="gradient-based-inference-jax.grad" class="slide level2">
+<h2>Gradient-based inference: <code>jax.grad</code></h2>
+<div class="incremental-stack r-stack top-align">
+<div class="fragment fade-out" data-fragment-index="1">
+While
+
+ABC
+
+is
+
+conceptually
+
+simple,
+
+it
+
+becomes
+
+expensive
+
+to
+
+find
+
+even
+
+one
+
+set
+
+of
+
+parameter
+
+values
+
+giving
+
+simulated
+
+data
+
+‘close’
+
+to
+
+the
+
+observations
+
+as
+
+the
+
+parameter
+
+and
+
+observation
+
+dimension
+
+increase.
+</div>
+<div class="fragment  fade-in-then-out" data-fragment-index="1">
+Typically
+
+a
+
+more
+
+efficient
+
+approach
+
+is
+
+to
+
+use
+
+a
+
+gradient-based
+
+optimizer
+
+to
+
+minimize
+
+distance
+
+between
+
+simulated
+
+and
+
+observed
+
+data
+
+with
+
+respect
+
+to
+
+the
+
+parameters.
+</div>
+<div class="fragment  fade-in-then-out" data-fragment-index="2">
+Assuming
+
+the
+
+observations
+
+are
+
+subject
+
+to
+
+Gaussian
+
+noise,
+
+we
+
+can
+
+define
+
+the
+
+objective
+
+to
+
+minimise
+
+as
+
+the
+
+negative
+
+logarithm
+
+of
+
+the
+
+posterior
+
+density
+
+on
+
+the
+
+parameters
+
+given
+
+the
+
+observed
+
+data
+
+under
+
+the
+
+model.
+</div>
+<div class="fragment  fade-in-then-out" data-fragment-index="3">
+A
+
+minima
+
+of
+
+this
+
+objective
+
+function
+
+then
+
+corresponds
+
+to
+
+a
+
+<a href="https://en.wikipedia.org/wiki/Maximum_a_posteriori_estimation">maximum a posteriori (MAP) estimate</a>
+
+of
+
+the
+
+model
+
+parameters.
+</div>
+<div class="fragment fade-in" data-fragment-index="4">
+We
+
+can
+
+define
+
+a
+
+function
+
+to
+
+evaluate
+
+the
+
+negative
+
+log
+
+posterior
+
+density
+
+as
+
+follows
+</div>
+</div>
+<div class="fragment">
+<div id="43d012ec" class="cell" data-execution_count="47">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href=""></a><span class="kw">def</span> normal_negative_log_density(x, mu<span class="op">=</span><span class="dv">0</span>, sigma<span class="op">=</span><span class="dv">1</span>):</span>
+<span id="cb52-2"><a href=""></a>    xp <span class="op">=</span> array_api_compat.array_namespace(x)</span>
+<span id="cb52-3"><a href=""></a>    <span class="cf">return</span> (((x <span class="op">-</span> mu) <span class="op">/</span> sigma) <span class="op">**</span> <span class="dv">2</span>).<span class="bu">sum</span>() <span class="op">/</span> <span class="dv">2</span> <span class="op">+</span> x.shape[<span class="op">-</span><span class="dv">1</span>] <span class="op">*</span> xp.log(sigma)</span>
+<span id="cb52-4"><a href=""></a></span>
+<span id="cb52-5"><a href=""></a><span class="at">@jax.jit</span></span>
+<span id="cb52-6"><a href=""></a><span class="kw">def</span> negative_log_posterior_density(u, data):</span>
+<span id="cb52-7"><a href=""></a>    parameters <span class="op">=</span> generate_parameters(u)</span>
+<span id="cb52-8"><a href=""></a>    conductances <span class="op">=</span> solve_for_potassium_conductance(</span>
+<span id="cb52-9"><a href=""></a>        data[<span class="st">"times"</span>], data[<span class="st">"depolarizations"</span>], parameters</span>
+<span id="cb52-10"><a href=""></a>    )</span>
+<span id="cb52-11"><a href=""></a>    <span class="cf">return</span> normal_negative_log_density(u) <span class="op">+</span> normal_negative_log_density(</span>
+<span id="cb52-12"><a href=""></a>        conductances, data[<span class="st">"conductances"</span>], parameters[<span class="st">"sigma"</span>]</span>
+<span id="cb52-13"><a href=""></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="automatic-differentiation-with-jax" class="slide level2">
+<h2>Automatic differentiation with JAX</h2>
+<p>We can then use the <code>jax.value_and_grad</code> transformation to compute a function which evaluates both the value of the function and its gradient, using reverse mode <a href="https://en.wikipedia.org/wiki/Automatic_differentiation">automatic differentiation</a></p>
+<div id="d34f189c" class="cell" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href=""></a>value_and_grad_negative_log_posterior_density <span class="op">=</span> jax.jit(</span>
+<span id="cb53-2"><a href=""></a>    jax.value_and_grad(negative_log_posterior_density)</span>
+<span id="cb53-3"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p>This can be composed with the <code>jax.jit</code> transformation to compile the gradient function.</p>
+</div>
+</section>
+<section id="evaluating-value-and-gradient" class="slide level2">
+<h2>Evaluating value and gradient</h2>
+<p>We can evaluate the transformed function at a test input to check that it correctly gives the same value as the original (primal) function</p>
+<div id="025eb0ae" class="cell" data-execution_count="49">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href=""></a>u <span class="op">=</span> rng.standard_normal(dim_parameters)</span>
+<span id="cb54-2"><a href=""></a>value, gradient <span class="op">=</span> value_and_grad_negative_log_posterior_density(u, data)</span>
+<span id="cb54-3"><a href=""></a><span class="cf">assert</span> np.allclose(value, negative_log_posterior_density(u, data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="validing-gradient" class="slide level2">
+<h2>Validing gradient</h2>
+<p>We can also check that the gradient returned is consistent with a finite differences approximation</p>
+<div id="57199fb6" class="cell" data-execution_count="50">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href=""></a><span class="kw">def</span> numerical_grad(f, h<span class="op">=</span><span class="fl">1e-8</span>):</span>
+<span id="cb55-2"><a href=""></a>    <span class="kw">def</span> grad_f(u, <span class="op">*</span>args):</span>
+<span id="cb55-3"><a href=""></a>        xp <span class="op">=</span> array_api_compat.array_namespace(u)</span>
+<span id="cb55-4"><a href=""></a>        <span class="cf">return</span> xp.array(</span>
+<span id="cb55-5"><a href=""></a>            [</span>
+<span id="cb55-6"><a href=""></a>                (f(u <span class="op">+</span> h <span class="op">*</span> e_i, <span class="op">*</span>args) <span class="op">-</span> f(u <span class="op">-</span> h <span class="op">*</span> e_i, <span class="op">*</span>args)) <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> h)</span>
+<span id="cb55-7"><a href=""></a>                <span class="cf">for</span> e_i <span class="kw">in</span> xp.identity(u.shape[<span class="dv">0</span>])</span>
+<span id="cb55-8"><a href=""></a>            ]</span>
+<span id="cb55-9"><a href=""></a>        )</span>
+<span id="cb55-10"><a href=""></a>    <span class="cf">return</span> grad_f</span>
+<span id="cb55-11"><a href=""></a></span>
+<span id="cb55-12"><a href=""></a><span class="cf">assert</span> np.allclose(</span>
+<span id="cb55-13"><a href=""></a>    numerical_grad(negative_log_posterior_density)(u, data), gradient</span>
+<span id="cb55-14"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="cost-of-automatic-differentiation" class="slide level2">
+<h2>Cost of automatic differentiation</h2>
+<p>Importantly reverse mode differentiation allows us to evaluate <strong>both the value and gradient</strong> of a scalar function with respect to all inputs at operation cost that is <strong>a small constant multiple of the operation cost of evaluating the function itself</strong>:</p>
+<div class="fragment">
+<div id="68ec7ad1" class="cell" data-execution_count="51">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href=""></a><span class="op">%</span>timeit negative_log_posterior_density(u, data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment" data-execution_count="51">
+<div class="cell-output cell-output-stdout">
+<pre><code>45.2 μs ± 1.28 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div id="b486c92a" class="cell" data-execution_count="52">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href=""></a><span class="op">%</span>timeit value_and_grad_negative_log_posterior_density(u, data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment" data-execution_count="52">
+<div class="cell-output cell-output-stdout">
+<pre><code>167 μs ± 3.74 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="optimization-with-jax" class="slide level2">
+<h2>Optimization with JAX</h2>
+<div class="incremental-stack r-stack top-align">
+<div class="fragment fade-out" data-fragment-index="1">
+JAX
+
+also
+
+provides
+
+some
+
+example
+
+implementations
+
+of
+
+optimization
+
+algorithms
+
+that
+
+can
+
+be
+
+used
+
+with
+
+its
+
+automatic
+
+differentiation
+
+support.
+</div>
+<div class="fragment  fade-in-then-out" data-fragment-index="1">
+The
+
+below
+
+helper
+
+function
+
+uses
+
+the
+
+<a href="https://en.wikipedia.org/wiki/Stochastic_gradient_descent#Adam">adaptive moments (Adam) optimizer</a>
+
+to
+
+iteratively
+
+minimize
+
+an
+
+objective
+
+function
+
+from
+
+an
+
+initial
+
+set
+
+of
+
+parameter
+
+values
+
+over
+
+a
+
+specified
+
+number
+
+of
+
+steps.
+</div>
+<div class="fragment  fade-in-then-out" data-fragment-index="2">
+Internally
+
+the
+
+function
+
+uses
+
+the
+
+<code>jax.grad</code>
+
+transformation
+
+to
+
+construct
+
+a
+
+function
+
+computing
+
+the
+
+gradient
+
+of
+
+the
+
+objective.
+</div>
+<div class="fragment  fade-in-then-out" data-fragment-index="3">
+To
+
+enable
+
+the
+
+function
+
+to
+
+be
+
+JIT
+
+compiled
+
+efficiently,
+
+<a href="https://jax.readthedocs.io/en/latest/_autosummary/jax.lax.fori_loop.html">a structured control primitive <code>jax.lax.fori_loop</code></a>
+
+from
+
+the
+
+<code>jax.lax</code>
+
+interface
+
+is
+
+used
+
+for
+
+the
+
+optimization
+
+loop.
+</div>
+<div class="fragment  fade-in-then-out" data-fragment-index="4">
+This
+
+avoids
+
+unrolling
+
+all
+
+loops
+
+iterations
+
+in
+
+the
+
+traced
+
+computation
+
+and
+
+a
+
+resulting
+
+very
+
+long
+
+compilation
+
+time.
+</div>
+<div class="fragment fade-in" data-fragment-index="5">
+We
+
+also
+
+mark
+
+the
+
+<code>objective</code>
+
+argument
+
+as
+
+static
+
+to
+
+allow
+
+JAX
+
+to
+
+trace
+
+its
+
+computation
+
+when
+
+JIT
+
+compiling.
+</div>
+</div>
+<div id="2f44b4f8" class="cell" data-execution_count="53">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href=""></a><span class="im">from</span> jax.example_libraries <span class="im">import</span> optimizers</span>
+<span id="cb60-2"><a href=""></a><span class="im">from</span> functools <span class="im">import</span> partial</span>
+<span id="cb60-3"><a href=""></a></span>
+<span id="cb60-4"><a href=""></a><span class="at">@partial</span>(jax.jit, static_argnums<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb60-5"><a href=""></a><span class="kw">def</span> minimize_with_adam(objective, initial_parameters, n_step, step_size<span class="op">=</span><span class="fl">1e-2</span>):</span>
+<span id="cb60-6"><a href=""></a>    initialize, update, get_parameters <span class="op">=</span> optimizers.adam(step_size)</span>
+<span id="cb60-7"><a href=""></a>    grad_objective <span class="op">=</span> jax.grad(objective)</span>
+<span id="cb60-8"><a href=""></a></span>
+<span id="cb60-9"><a href=""></a>    <span class="kw">def</span> optimization_step(step, state):</span>
+<span id="cb60-10"><a href=""></a>        grads <span class="op">=</span> grad_objective(get_parameters(state))</span>
+<span id="cb60-11"><a href=""></a>        <span class="cf">return</span> update(step, grads, state)</span>
+<span id="cb60-12"><a href=""></a></span>
+<span id="cb60-13"><a href=""></a>    initial_state <span class="op">=</span> initialize(initial_parameters)</span>
+<span id="cb60-14"><a href=""></a>    final_state <span class="op">=</span> jax.lax.fori_loop(<span class="dv">0</span>, n_step, optimization_step, initial_state)</span>
+<span id="cb60-15"><a href=""></a>    <span class="cf">return</span> get_parameters(final_state)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="computing-map-estimate" class="slide level2">
+<h2>Computing MAP estimate</h2>
+<p>Using the <code>minimize_with_adam</code> helper function, we can compute a MAP estimate of the (unconstrained) parameter vector and the corresponding simulated conductance time series.</p>
+<div id="2e0311d2" class="cell" data-execution_count="54">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href=""></a>map_u <span class="op">=</span> minimize_with_adam(</span>
+<span id="cb61-2"><a href=""></a>    partial(negative_log_posterior_density, data<span class="op">=</span>data),</span>
+<span id="cb61-3"><a href=""></a>    rng.standard_normal(dim_parameters),</span>
+<span id="cb61-4"><a href=""></a>    <span class="dv">10000</span>,</span>
+<span id="cb61-5"><a href=""></a>)</span>
+<span id="cb61-6"><a href=""></a>map_conductances <span class="op">=</span> generate_conductances(map_u, data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="visualising-map-estimate-simulations" class="slide level2">
+<h2>Visualising MAP estimate simulations</h2>
+<div id="121237f2" class="cell" data-execution_count="55">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/cell-55-output-1.png" width="943" height="466"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="markov-chain-monte-carlo" class="slide level2">
+<h2>Markov chain Monte Carlo</h2>
+<p>While minimizing the negative log posterior density gives us a point estimate of the parameters, it does not give us any distributional information - that is what is our uncertainty about the parameter values after observing data.</p>
+<div class="fragment">
+<p>An alternative is to use a <a href="https://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo">Markov chain Monte Carlo (MCMC) method</a> to compute approximate samples from the posterior distribution on the model parameters given data.</p>
+</div>
+<div class="fragment">
+<p>As a final illustration, we use the package <a href="https://github.com/matt-graham/mici">Mici</a> to generate approximate samples from the posterior distribution for our Hodgkin-Huxley example, using a gradient-based MCMC method, <a href="https://en.wikipedia.org/wiki/Hamiltonian_Monte_Carlo">Hamiltonian Monte Carlo (HMC)</a>.</p>
+</div>
+</section>
+<section id="hamiltonian-monte-carlo-with-mici" class="slide level2">
+<h2>Hamiltonian Monte Carlo with Mici</h2>
+<div class="incremental-stack r-stack top-align">
+<div class="fragment fade-out" data-fragment-index="1">
+Mici
+
+provides
+
+a
+
+<a href="https://matt-graham.github.io/mici/mici.interface.html">high-level functional interface</a>
+
+as
+
+well
+
+as
+
+a
+
+more
+
+customisable
+
+object
+
+oriented
+
+interface.
+</div>
+<div class="fragment  fade-in-then-out" data-fragment-index="1">
+It
+
+supports
+
+multiple
+
+numerical
+
+backends
+
+including
+
+JAX
+
+and
+
+Autograd.
+</div>
+<div class="fragment fade-in" data-fragment-index="2">
+Here
+
+we
+
+use
+
+the
+
+functional
+
+interface
+
+and
+
+in
+
+particular
+
+the
+
+<a href="https://matt-graham.github.io/mici/mici.html#mici.sample_hmc_chains"><code>mici.sample_hmc_chains</code> function</a>
+.
+</div>
+</div>
+<aside class="notes">
+<p>A key argument we need to pass to this function is a function defining the negative log density of the target distribution; Mici supports multiple numerical backends including JAX, and by passing <code>backend="jax"</code> to the function we indicate that the function can be JIT compiled and the required derivatives computed using JAX’s automatic differentiation support.</p>
+<p>Here we additionally specify to sample four chains, each with 1000 adaptive warm-up iterations (in which the step size and metric of the HMC proposals are automatically tuned) and 1000 main iterations. On each main chain iteration we trace (record) the parameter values corresponding to the current chain state.</p>
+<p>If running on a free-threading enabled build of Python, the chains will be sampled in parallel with one chain per thread, otherwise sequentially.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<div id="83acb330" class="cell" data-execution_count="57">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href=""></a><span class="im">import</span> mici</span>
+<span id="cb62-2"><a href=""></a></span>
+<span id="cb62-3"><a href=""></a>n_chain <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb62-4"><a href=""></a>final_states, traces, stats <span class="op">=</span> mici.sample_hmc_chains(</span>
+<span id="cb62-5"><a href=""></a>    neg_log_dens<span class="op">=</span>partial(negative_log_posterior_density, data<span class="op">=</span>data),</span>
+<span id="cb62-6"><a href=""></a>    backend<span class="op">=</span><span class="st">"jax"</span>, n_warm_up_iter<span class="op">=</span><span class="dv">1000</span>, n_main_iter<span class="op">=</span><span class="dv">1000</span>, seed<span class="op">=</span>rng,</span>
+<span id="cb62-7"><a href=""></a>    init_states<span class="op">=</span>rng.standard_normal((n_chain, dim_parameters)),</span>
+<span id="cb62-8"><a href=""></a>    trace_funcs<span class="op">=</span>[<span class="kw">lambda</span> state: generate_parameters(state.pos)],</span>
+<span id="cb62-9"><a href=""></a>    adapters<span class="op">=</span>[</span>
+<span id="cb62-10"><a href=""></a>        mici.adapters.DualAveragingStepSizeAdapter(),</span>
+<span id="cb62-11"><a href=""></a>        mici.adapters.OnlineCovarianceMetricAdapter(),</span>
+<span id="cb62-12"><a href=""></a>    ],</span>
+<span id="cb62-13"><a href=""></a>    n_worker<span class="op">=</span>n_chain <span class="cf">if</span> free_threading_enabled <span class="cf">else</span> <span class="dv">1</span>,</span>
+<span id="cb62-14"><a href=""></a>    use_thread_pool<span class="op">=</span>free_threading_enabled,</span>
+<span id="cb62-15"><a href=""></a>    monitor_stats<span class="op">=</span>[<span class="st">"accept_stat"</span>, <span class="st">"step_size"</span>, <span class="st">"n_step"</span>],</span>
+<span id="cb62-16"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+</section>
+<section id="hamiltonian-monte-carlo-with-mici-output" class="slide level2 output-location-slide"><h2>Hamiltonian Monte Carlo with Mici</h2><div class="cell output-location-slide" data-execution_count="57">
+<div class="cell-output cell-output-display">
+
+        <div style="line-height: 24px; width: 100%; display: flex;
+                    flex-flow: row wrap; align-items: center;
+                    position: relative; margin: 0px;">
+          <label style="flex-shrink: 0;
+                        font-size: var(--jp-code-font-size, 13px);
+                        font-family: var(--jp-code-font-family, monospace);">
+            Sampling&nbsp;stage:&nbsp;
+          </label>
+        
+          <div style="position: relative; flex-grow: 1; align-self: stretch;
+                      margin: 1px; padding: 0px; text-align: center;
+                      height: initial; background-color: #4caf50;
+                      color: white; border-radius: 5px;
+                      border: 1px solid white; font-size: 90%;">
+            Initial fast adaptive [00:34]
+          </div>
+        
+          <div style="position: relative; flex-grow: 1; align-self: stretch;
+                      margin: 1px; padding: 0px; text-align: center;
+                      height: initial; background-color: #4caf50;
+                      color: white; border-radius: 5px;
+                      border: 1px solid white; font-size: 90%;">
+            Slow adaptive (1/5) [00:17]
+          </div>
+        
+          <div style="position: relative; flex-grow: 1; align-self: stretch;
+                      margin: 1px; padding: 0px; text-align: center;
+                      height: initial; background-color: #4caf50;
+                      color: white; border-radius: 5px;
+                      border: 1px solid white; font-size: 90%;">
+            Slow adaptive (2/5) [00:02]
+          </div>
+        
+          <div style="position: relative; flex-grow: 1; align-self: stretch;
+                      margin: 1px; padding: 0px; text-align: center;
+                      height: initial; background-color: #4caf50;
+                      color: white; border-radius: 5px;
+                      border: 1px solid white; font-size: 90%;">
+            Slow adaptive (3/5) [00:04]
+          </div>
+        
+          <div style="position: relative; flex-grow: 1; align-self: stretch;
+                      margin: 1px; padding: 0px; text-align: center;
+                      height: initial; background-color: #4caf50;
+                      color: white; border-radius: 5px;
+                      border: 1px solid white; font-size: 90%;">
+            Slow adaptive (4/5) [00:08]
+          </div>
+        
+          <div style="position: relative; flex-grow: 1; align-self: stretch;
+                      margin: 1px; padding: 0px; text-align: center;
+                      height: initial; background-color: #4caf50;
+                      color: white; border-radius: 5px;
+                      border: 1px solid white; font-size: 90%;">
+            Slow adaptive (5/5) [00:13]
+          </div>
+        
+          <div style="position: relative; flex-grow: 1; align-self: stretch;
+                      margin: 1px; padding: 0px; text-align: center;
+                      height: initial; background-color: #4caf50;
+                      color: white; border-radius: 5px;
+                      border: 1px solid white; font-size: 90%;">
+            Final fast adaptive [00:01]
+          </div>
+        
+          <div style="position: relative; flex-grow: 1; align-self: stretch;
+                      margin: 1px; padding: 0px; text-align: center;
+                      height: initial; background-color: #4caf50;
+                      color: white; border-radius: 5px;
+                      border: 1px solid white; font-size: 90%;">
+            Main non-adaptive [00:27]
+          </div>
+        </div>
+</div>
+<div class="cell-output cell-output-display">
+
+        <div style="line-height: 28px; width: 100%; display: flex;
+                    flex-flow: row wrap; align-items: center;
+                    position: relative; margin: 0px;">
+          <label style="margin-right: 8px; flex-shrink: 0;
+                        font-size: var(--jp-code-font-size, 13px);
+                        font-family: var(--jp-code-font-family, monospace);">
+            Chain&nbsp;1/4:&nbsp;100%
+          </label>
+          <div role="progressbar" aria-valuenow="1.0" aria-valuemin="0" aria-valuemax="1" style="position: relative; flex-grow: 1; align-self: stretch;
+                      margin-top: 4px; margin-bottom: 4px;  height: initial;
+                      background-color: #eee;">
+            <div style="background-color: var(--jp-success-color1, #4caf50); position: absolute;
+                        bottom: 0; left: 0; width: 100%;
+                        height: 100%;"></div>
+          </div>
+          <div style="margin-left: 8px; flex-shrink: 0;
+                      font-family: var(--jp-code-font-family, monospace);
+                      font-size: var(--jp-code-font-size, 13px);">
+            1000/1000 [00:07&lt;00:00, 136.03it/s, accept_stat=0.892, step_size=0.280, n_step=12.8]
+          </div>
+        </div>
+        
+</div>
+<div class="cell-output cell-output-display">
+
+        <div style="line-height: 28px; width: 100%; display: flex;
+                    flex-flow: row wrap; align-items: center;
+                    position: relative; margin: 0px;">
+          <label style="margin-right: 8px; flex-shrink: 0;
+                        font-size: var(--jp-code-font-size, 13px);
+                        font-family: var(--jp-code-font-family, monospace);">
+            Chain&nbsp;2/4:&nbsp;100%
+          </label>
+          <div role="progressbar" aria-valuenow="1.0" aria-valuemin="0" aria-valuemax="1" style="position: relative; flex-grow: 1; align-self: stretch;
+                      margin-top: 4px; margin-bottom: 4px;  height: initial;
+                      background-color: #eee;">
+            <div style="background-color: var(--jp-success-color1, #4caf50); position: absolute;
+                        bottom: 0; left: 0; width: 100%;
+                        height: 100%;"></div>
+          </div>
+          <div style="margin-left: 8px; flex-shrink: 0;
+                      font-family: var(--jp-code-font-family, monospace);
+                      font-size: var(--jp-code-font-size, 13px);">
+            1000/1000 [00:07&lt;00:00, 139.83it/s, accept_stat=0.895, step_size=0.280, n_step=13.2]
+          </div>
+        </div>
+        
+</div>
+<div class="cell-output cell-output-display">
+
+        <div style="line-height: 28px; width: 100%; display: flex;
+                    flex-flow: row wrap; align-items: center;
+                    position: relative; margin: 0px;">
+          <label style="margin-right: 8px; flex-shrink: 0;
+                        font-size: var(--jp-code-font-size, 13px);
+                        font-family: var(--jp-code-font-family, monospace);">
+            Chain&nbsp;3/4:&nbsp;100%
+          </label>
+          <div role="progressbar" aria-valuenow="1.0" aria-valuemin="0" aria-valuemax="1" style="position: relative; flex-grow: 1; align-self: stretch;
+                      margin-top: 4px; margin-bottom: 4px;  height: initial;
+                      background-color: #eee;">
+            <div style="background-color: var(--jp-success-color1, #4caf50); position: absolute;
+                        bottom: 0; left: 0; width: 100%;
+                        height: 100%;"></div>
+          </div>
+          <div style="margin-left: 8px; flex-shrink: 0;
+                      font-family: var(--jp-code-font-family, monospace);
+                      font-size: var(--jp-code-font-size, 13px);">
+            1000/1000 [00:06&lt;00:00, 151.08it/s, accept_stat=0.908, step_size=0.280, n_step=13.1]
+          </div>
+        </div>
+        
+</div>
+<div class="cell-output cell-output-display">
+
+        <div style="line-height: 28px; width: 100%; display: flex;
+                    flex-flow: row wrap; align-items: center;
+                    position: relative; margin: 0px;">
+          <label style="margin-right: 8px; flex-shrink: 0;
+                        font-size: var(--jp-code-font-size, 13px);
+                        font-family: var(--jp-code-font-family, monospace);">
+            Chain&nbsp;4/4:&nbsp;100%
+          </label>
+          <div role="progressbar" aria-valuenow="1.0" aria-valuemin="0" aria-valuemax="1" style="position: relative; flex-grow: 1; align-self: stretch;
+                      margin-top: 4px; margin-bottom: 4px;  height: initial;
+                      background-color: #eee;">
+            <div style="background-color: var(--jp-success-color1, #4caf50); position: absolute;
+                        bottom: 0; left: 0; width: 100%;
+                        height: 100%;"></div>
+          </div>
+          <div style="margin-left: 8px; flex-shrink: 0;
+                      font-family: var(--jp-code-font-family, monospace);
+                      font-size: var(--jp-code-font-size, 13px);">
+            1000/1000 [00:06&lt;00:00, 149.40it/s, accept_stat=0.901, step_size=0.280, n_step=12.9]
+          </div>
+        </div>
+        
+</div>
+</div></section><section id="computing-summaries-using-arviz" class="slide level2">
+<h2>Computing summaries using ArviZ</h2>
+<p>We can compute summary statistics and convergence diagnostics on the parameter values traced while sampling the chains using the <a href="https://python.arviz.org/en/stable/">ArviZ package</a></p>
+<div class="smaller">
+<div id="616787bd" class="cell" data-execution_count="58">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href=""></a><span class="im">import</span> arviz</span>
+<span id="cb63-2"><a href=""></a></span>
+<span id="cb63-3"><a href=""></a>arviz.summary(traces)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="57">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">mean</th>
+<th data-quarto-table-cell-role="th">sd</th>
+<th data-quarto-table-cell-role="th">hdi_3%</th>
+<th data-quarto-table-cell-role="th">hdi_97%</th>
+<th data-quarto-table-cell-role="th">mcse_mean</th>
+<th data-quarto-table-cell-role="th">mcse_sd</th>
+<th data-quarto-table-cell-role="th">ess_bulk</th>
+<th data-quarto-table-cell-role="th">ess_tail</th>
+<th data-quarto-table-cell-role="th">r_hat</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">k_alpha_1</td>
+<td>0.009</td>
+<td>0.000</td>
+<td>0.009</td>
+<td>0.010</td>
+<td>0.000</td>
+<td>0.000</td>
+<td>2270.0</td>
+<td>2468.0</td>
+<td>1.00</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">k_alpha_2</td>
+<td>0.757</td>
+<td>0.372</td>
+<td>0.154</td>
+<td>1.446</td>
+<td>0.010</td>
+<td>0.008</td>
+<td>1334.0</td>
+<td>1181.0</td>
+<td>1.00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">k_alpha_3</td>
+<td>3.543</td>
+<td>0.291</td>
+<td>2.981</td>
+<td>4.082</td>
+<td>0.006</td>
+<td>0.005</td>
+<td>2584.0</td>
+<td>2344.0</td>
+<td>1.00</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">k_beta_1</td>
+<td>0.107</td>
+<td>0.003</td>
+<td>0.101</td>
+<td>0.113</td>
+<td>0.000</td>
+<td>0.000</td>
+<td>1920.0</td>
+<td>2110.0</td>
+<td>1.00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">k_beta_2</td>
+<td>376.052</td>
+<td>175.845</td>
+<td>160.660</td>
+<td>683.282</td>
+<td>7.417</td>
+<td>14.586</td>
+<td>779.0</td>
+<td>634.0</td>
+<td>1.01</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">g_bar_k</td>
+<td>27.512</td>
+<td>0.977</td>
+<td>25.534</td>
+<td>29.226</td>
+<td>0.034</td>
+<td>0.022</td>
+<td>820.0</td>
+<td>939.0</td>
+<td>1.01</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">sigma</td>
+<td>0.349</td>
+<td>0.022</td>
+<td>0.308</td>
+<td>0.389</td>
+<td>0.000</td>
+<td>0.000</td>
+<td>4016.0</td>
+<td>2807.0</td>
+<td>1.00</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="visualizing-posterior-using-corner" class="slide level2 scrollable">
+<h2>Visualizing posterior using <code>corner</code></h2>
+<p>We can also visualise the estimated posterior distribution on the parameters as a pair plot using <a href="https://corner.readthedocs.io/en/latest/">corner.py</a>, overlaying the MAP parameters as an orange marker</p>
+<div id="b8f5c9e5" class="cell" data-execution_count="59">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/cell-59-output-1.png" width="838" height="831"></p>
+</figure>
+</div>
+</div>
+</div>
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="index_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="index_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="index_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="index_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="index_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="index_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="index_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="index_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+       // Parallax background image
+       parallaxBackgroundImage: 'images/arc-banner.svg', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.15,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const onCopySuccess = function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
+      });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+        const config = {
+          allowHTML: true,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start',
+        };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>
