@@ -375,7 +375,156 @@
 <h1>▶️ <em>Demo</em>: simulation and inference with JAX</h1>
 <p>We will now demonstrate some of JAX and the Array API’s key features in an applied example.</p>
 <div class="fragment">
-<p>All the code shown here can be run from the accompanying Jupyter notebook.</p>
+<p>All the code shown here can be run from the accompanying Jupyter notebook at <a href="https://github.com/matt-graham/jax-sci-comp-demo" class="uri">https://github.com/matt-graham/jax-sci-comp-demo</a></p>
+</div>
+</section>
+<section id="environment-set-up" class="slide level2">
+<h2>Environment set up</h2>
+<div id="b5b27ba1" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb4" data-code-line-numbers="1-5|7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="im">import</span> array_api_compat</span>
+<span id="cb4-2"><a href=""></a><span class="im">import</span> jax</span>
+<span id="cb4-3"><a href=""></a><span class="im">import</span> jax.numpy <span class="im">as</span> jnp</span>
+<span id="cb4-4"><a href=""></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb4-5"><a href=""></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-6"><a href=""></a></span>
+<span id="cb4-7"><a href=""></a>jax.config.update(<span class="st">"jax_enable_x64"</span>, <span class="va">True</span>)</span>
+<span id="cb4-8"><a href=""></a>plt.rcParams.update({<span class="st">"font.size"</span>: <span class="dv">12</span>})</span>
+<span id="cb4-9"><a href=""></a><span class="op">%</span>config InlineBackend.figure_format<span class="op">=</span><span class="st">"retina"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="incremental-stack r-stack top-align">
+<div class="fragment fade-out" data-fragment-index="1">
+We
+
+will
+
+leverage
+
+NumPy
+
+and
+
+JAX’s
+
+Array
+
+API
+
+support
+
+to
+
+write
+
+functions
+
+which
+
+can
+
+be
+
+run
+
+with
+
+either
+
+backend.
+</div>
+<div class="fragment  fade-in-then-out" data-fragment-index="1">
+One
+
+important
+
+thing
+
+to
+
+note
+
+is
+
+that
+
+JAX
+
+defaults
+
+to
+
+using
+
+single-precision
+
+data
+
+types
+
+for
+
+many
+
+operations
+
+as
+
+this
+
+often
+
+gives
+
+better
+
+performance
+
+on
+
+devices
+
+such
+
+as
+
+GPUs.
+</div>
+<div class="fragment fade-in" data-fragment-index="2">
+The
+
+<code>jax_enable_x64</code>
+
+configuration
+
+option
+
+can
+
+be
+
+used
+
+to
+
+use
+
+double-precision
+
+types
+
+by
+
+default,
+
+more
+
+closely
+
+matching
+
+NumPy’s
+
+behaviour.
+</div>
 </div>
 </section>
 <section id="hodgkin-huxley-model" class="slide level2">
@@ -459,10 +608,10 @@ C_m \frac{\mathrm{d}V_m}{\mathrm{d}t} = \sum_{n\in\lbrace\text{K, Na, L}\rbrace}
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-<div id="f5b203a5" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="kw">def</span> solve_for_potassium_conductance(t, v, parameters):</span>
-<span id="cb4-2"><a href=""></a>    n <span class="op">=</span> solve_for_potassium_channel_subunit_activation(t, v, parameters)</span>
-<span id="cb4-3"><a href=""></a>    <span class="cf">return</span> parameters[<span class="st">"g_bar_k"</span>] <span class="op">*</span> n<span class="op">**</span><span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="163ac76d" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="kw">def</span> solve_for_potassium_conductance(t, v, parameters):</span>
+<span id="cb5-2"><a href=""></a>    n <span class="op">=</span> solve_for_potassium_channel_subunit_activation(t, v, parameters)</span>
+<span id="cb5-3"><a href=""></a>    <span class="cf">return</span> parameters[<span class="st">"g_bar_k"</span>] <span class="op">*</span> n<span class="op">**</span><span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="potassium-channel-subunit-activation" class="slide level2">
@@ -475,12 +624,12 @@ C_m \frac{\mathrm{d}V_m}{\mathrm{d}t} = \sum_{n\in\lbrace\text{K, Na, L}\rbrace}
   n(t, v, \theta) = n(0, v, \theta) + \left(n_\infty(v, \theta) - n(0, v, \theta)\right) \left(1 - \mathrm{e}^{-t / \tau(v, \theta)} \right).
 \]</span></p>
 </div>
-<div id="9bd1458d" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="kw">def</span> solve_for_potassium_channel_subunit_activation(t, v, parameters):</span>
-<span id="cb5-2"><a href=""></a>    xp <span class="op">=</span> array_api_compat.array_namespace(t, v)</span>
-<span id="cb5-3"><a href=""></a>    n_0 <span class="op">=</span> n_infty(xp.array(<span class="dv">0</span>), parameters)  <span class="co"># Start from equilibrium at V_rest</span></span>
-<span id="cb5-4"><a href=""></a>    <span class="cf">return</span> n_0 <span class="op">+</span> (n_infty(v, parameters) <span class="op">-</span> n_0) <span class="op">*</span> (</span>
-<span id="cb5-5"><a href=""></a>        <span class="dv">1</span> <span class="op">-</span> xp.exp(<span class="op">-</span>t <span class="op">/</span> tau(v, parameters)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="bb1fb4cc" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="kw">def</span> solve_for_potassium_channel_subunit_activation(t, v, parameters):</span>
+<span id="cb6-2"><a href=""></a>    xp <span class="op">=</span> array_api_compat.array_namespace(t, v)</span>
+<span id="cb6-3"><a href=""></a>    n_0 <span class="op">=</span> n_infty(xp.array(<span class="dv">0</span>), parameters)  <span class="co"># Start from equilibrium at V_rest</span></span>
+<span id="cb6-4"><a href=""></a>    <span class="cf">return</span> n_0 <span class="op">+</span> (n_infty(v, parameters) <span class="op">-</span> n_0) <span class="op">*</span> (</span>
+<span id="cb6-5"><a href=""></a>        <span class="dv">1</span> <span class="op">-</span> xp.exp(<span class="op">-</span>t <span class="op">/</span> tau(v, parameters)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="time-constant-and-equilibrium-value" class="slide level2">
@@ -490,13 +639,13 @@ C_m \frac{\mathrm{d}V_m}{\mathrm{d}t} = \sum_{n\in\lbrace\text{K, Na, L}\rbrace}
   \tau(v, \theta) = \frac{1}{\alpha(v, \theta) + \beta(v, \theta)},\quad
   n_\infty(v, \theta) = \frac{\alpha(v, \theta)}{\alpha(v, \theta) + \beta(v, \theta)}.
 \]</span></p>
-<div id="d9135496" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="kw">def</span> n_infty(v, parameters):</span>
-<span id="cb6-2"><a href=""></a>    <span class="cf">return</span> alpha(v, parameters) <span class="op">/</span> (alpha(v, parameters) <span class="op">+</span> beta(v, parameters))</span>
-<span id="cb6-3"><a href=""></a></span>
-<span id="cb6-4"><a href=""></a></span>
-<span id="cb6-5"><a href=""></a><span class="kw">def</span> tau(v, parameters):</span>
-<span id="cb6-6"><a href=""></a>    <span class="cf">return</span> <span class="dv">1</span> <span class="op">/</span> (alpha(v, parameters) <span class="op">+</span> beta(v, parameters))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="7fd54d25" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="kw">def</span> n_infty(v, parameters):</span>
+<span id="cb7-2"><a href=""></a>    <span class="cf">return</span> alpha(v, parameters) <span class="op">/</span> (alpha(v, parameters) <span class="op">+</span> beta(v, parameters))</span>
+<span id="cb7-3"><a href=""></a></span>
+<span id="cb7-4"><a href=""></a></span>
+<span id="cb7-5"><a href=""></a><span class="kw">def</span> tau(v, parameters):</span>
+<span id="cb7-6"><a href=""></a>    <span class="cf">return</span> <span class="dv">1</span> <span class="op">/</span> (alpha(v, parameters) <span class="op">+</span> beta(v, parameters))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="rate-constants" class="slide level2">
@@ -507,19 +656,19 @@ C_m \frac{\mathrm{d}V_m}{\mathrm{d}t} = \sum_{n\in\lbrace\text{K, Na, L}\rbrace}
   \quad
   \beta(v, \theta) = k_{\beta, 1} \exp(v / k_{\beta, 2}).
 \]</span></p>
-<div id="cdfe29f5" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="kw">def</span> alpha(v, parameters):</span>
-<span id="cb7-2"><a href=""></a>    xp <span class="op">=</span> array_api_compat.array_namespace(v)</span>
-<span id="cb7-3"><a href=""></a>    <span class="cf">return</span> (</span>
-<span id="cb7-4"><a href=""></a>        parameters[<span class="st">"k_alpha_1"</span>]</span>
-<span id="cb7-5"><a href=""></a>        <span class="op">*</span> (v <span class="op">+</span> parameters[<span class="st">"k_alpha_2"</span>])</span>
-<span id="cb7-6"><a href=""></a>        <span class="op">/</span> (xp.exp((v <span class="op">+</span> parameters[<span class="st">"k_alpha_2"</span>]) <span class="op">/</span> parameters[<span class="st">"k_alpha_3"</span>]) <span class="op">-</span> <span class="dv">1</span>)</span>
-<span id="cb7-7"><a href=""></a>    )</span>
-<span id="cb7-8"><a href=""></a></span>
-<span id="cb7-9"><a href=""></a></span>
-<span id="cb7-10"><a href=""></a><span class="kw">def</span> beta(v, parameters):</span>
-<span id="cb7-11"><a href=""></a>    xp <span class="op">=</span> array_api_compat.array_namespace(v)</span>
-<span id="cb7-12"><a href=""></a>    <span class="cf">return</span> parameters[<span class="st">"k_beta_1"</span>] <span class="op">*</span> xp.exp(v <span class="op">/</span> parameters[<span class="st">"k_beta_2"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="97ae4967" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="kw">def</span> alpha(v, parameters):</span>
+<span id="cb8-2"><a href=""></a>    xp <span class="op">=</span> array_api_compat.array_namespace(v)</span>
+<span id="cb8-3"><a href=""></a>    <span class="cf">return</span> (</span>
+<span id="cb8-4"><a href=""></a>        parameters[<span class="st">"k_alpha_1"</span>]</span>
+<span id="cb8-5"><a href=""></a>        <span class="op">*</span> (v <span class="op">+</span> parameters[<span class="st">"k_alpha_2"</span>])</span>
+<span id="cb8-6"><a href=""></a>        <span class="op">/</span> (xp.exp((v <span class="op">+</span> parameters[<span class="st">"k_alpha_2"</span>]) <span class="op">/</span> parameters[<span class="st">"k_alpha_3"</span>]) <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb8-7"><a href=""></a>    )</span>
+<span id="cb8-8"><a href=""></a></span>
+<span id="cb8-9"><a href=""></a></span>
+<span id="cb8-10"><a href=""></a><span class="kw">def</span> beta(v, parameters):</span>
+<span id="cb8-11"><a href=""></a>    xp <span class="op">=</span> array_api_compat.array_namespace(v)</span>
+<span id="cb8-12"><a href=""></a>    <span class="cf">return</span> parameters[<span class="st">"k_beta_1"</span>] <span class="op">*</span> xp.exp(v <span class="op">/</span> parameters[<span class="st">"k_beta_2"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="overall-mathematical-model" class="slide level2">
@@ -541,8 +690,8 @@ C_m \frac{\mathrm{d}V_m}{\mathrm{d}t} = \sum_{n\in\lbrace\text{K, Na, L}\rbrace}
 <p>In Hodgkin and Huxley’s experiments, the potassium conductances were measured at regular time intervals for a series of applied depolarizations.</p>
 <div class="fragment">
 <p>Below we load a digitization of the original potassium conductance time series experimental data for different polarizations analysed by Hodgkin and Huxley (1952).</p>
-<div id="89a51165" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a>data <span class="op">=</span> <span class="bu">dict</span>(np.load(<span class="st">"hodgkin-huxley-potassium-data.npz"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="9c1ee034" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a>data <span class="op">=</span> <span class="bu">dict</span>(np.load(<span class="st">"hodgkin-huxley-potassium-data.npz"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="footer">
 <p>Digitized data taken from <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4807457/">Daly et al.&nbsp;2015</a>.</p>
@@ -552,7 +701,7 @@ C_m \frac{\mathrm{d}V_m}{\mathrm{d}t} = \sum_{n\in\lbrace\text{K, Na, L}\rbrace}
 <section id="visualizing-the-data" class="slide level2">
 <h2>Visualizing the data</h2>
 <p>We also define a helper function to let us visualize this data as a group of time series.</p>
-<div id="98cbf308" class="cell" data-execution_count="9">
+<div id="e0dcc65a" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -565,33 +714,33 @@ C_m \frac{\mathrm{d}V_m}{\mathrm{d}t} = \sum_{n\in\lbrace\text{K, Na, L}\rbrace}
 <section id="fixing-the-parameter-values" class="slide level2">
 <h2>Fixing the parameter values</h2>
 <p>We will start off by using fixed parameter values, taking those fitted by Hodgkin and Huxley to experimental data in their 1952 paper.</p>
-<div id="9380d3d8" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a>parameters <span class="op">=</span> {</span>
-<span id="cb9-2"><a href=""></a>    <span class="st">"g_bar_k"</span>: <span class="fl">35.0</span>,</span>
-<span id="cb9-3"><a href=""></a>    <span class="st">"k_alpha_1"</span>: <span class="fl">0.01</span>,</span>
-<span id="cb9-4"><a href=""></a>    <span class="st">"k_alpha_2"</span>: <span class="fl">10.0</span>,</span>
-<span id="cb9-5"><a href=""></a>    <span class="st">"k_alpha_3"</span>: <span class="fl">10.0</span>,</span>
-<span id="cb9-6"><a href=""></a>    <span class="st">"k_beta_1"</span>: <span class="fl">0.125</span>,</span>
-<span id="cb9-7"><a href=""></a>    <span class="st">"k_beta_2"</span>: <span class="fl">80.0</span>,</span>
-<span id="cb9-8"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="91336088" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a>parameters <span class="op">=</span> {</span>
+<span id="cb10-2"><a href=""></a>    <span class="st">"g_bar_k"</span>: <span class="fl">35.0</span>,</span>
+<span id="cb10-3"><a href=""></a>    <span class="st">"k_alpha_1"</span>: <span class="fl">0.01</span>,</span>
+<span id="cb10-4"><a href=""></a>    <span class="st">"k_alpha_2"</span>: <span class="fl">10.0</span>,</span>
+<span id="cb10-5"><a href=""></a>    <span class="st">"k_alpha_3"</span>: <span class="fl">10.0</span>,</span>
+<span id="cb10-6"><a href=""></a>    <span class="st">"k_beta_1"</span>: <span class="fl">0.125</span>,</span>
+<span id="cb10-7"><a href=""></a>    <span class="st">"k_beta_2"</span>: <span class="fl">80.0</span>,</span>
+<span id="cb10-8"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="creating-arrays-in-numpy-and-jax" class="slide level2">
 <h2>Creating arrays in NumPy and JAX</h2>
 <p>First we create a NumPy array of linearly spaced depolarizations to evaluate the model functions at.</p>
-<div id="1d8d7ed4" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a>depolarizations_numpy <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">200</span>, <span class="dv">200</span>, <span class="dv">200</span>)</span>
-<span id="cb10-2"><a href=""></a><span class="bu">type</span>(depolarizations_numpy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<div id="46b99214" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a>depolarizations_numpy <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">200</span>, <span class="dv">200</span>, <span class="dv">200</span>)</span>
+<span id="cb11-2"><a href=""></a><span class="bu">type</span>(depolarizations_numpy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="73">
 <pre><code>numpy.ndarray</code></pre>
 </div>
 </div>
 <div class="fragment">
 <p>To create a corresponding JAX array we can straightforwardly use the JAX NumPy API we imported earlier as <code>jnp</code>.</p>
-<div id="25d5903c" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href=""></a>depolarizations_jax <span class="op">=</span> jnp.linspace(<span class="op">-</span><span class="dv">200</span>, <span class="dv">200</span>, <span class="dv">200</span>)</span>
-<span id="cb12-2"><a href=""></a><span class="bu">type</span>(depolarizations_jax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div id="2f590d13" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href=""></a>depolarizations_jax <span class="op">=</span> jnp.linspace(<span class="op">-</span><span class="dv">200</span>, <span class="dv">200</span>, <span class="dv">200</span>)</span>
+<span id="cb13-2"><a href=""></a><span class="bu">type</span>(depolarizations_jax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="74">
 <pre><code>jaxlib._jax.ArrayImpl</code></pre>
 </div>
 </div>
@@ -600,19 +749,19 @@ C_m \frac{\mathrm{d}V_m}{\mathrm{d}t} = \sum_{n\in\lbrace\text{K, Na, L}\rbrace}
 <section id="calling-with-numpy-and-jax-arrays" class="slide level2">
 <h2>Calling with NumPy and JAX arrays</h2>
 <p>As expected, calling model functions on the NumPy array produces a NumPy array as output:</p>
-<div id="7b125c95" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href=""></a>beta_numpy <span class="op">=</span> beta(depolarizations_numpy, parameters)</span>
-<span id="cb14-2"><a href=""></a><span class="bu">type</span>(beta_numpy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
+<div id="4156178c" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href=""></a>beta_numpy <span class="op">=</span> beta(depolarizations_numpy, parameters)</span>
+<span id="cb15-2"><a href=""></a><span class="bu">type</span>(beta_numpy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="75">
 <pre><code>numpy.ndarray</code></pre>
 </div>
 </div>
 <div class="fragment">
 <p>and calling on a JAX array produces a JAX array as output:</p>
-<div id="99455235" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href=""></a>beta_jax <span class="op">=</span> beta(depolarizations_jax, parameters)</span>
-<span id="cb16-2"><a href=""></a><span class="bu">type</span>(beta_jax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="13">
+<div id="6dfc637b" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href=""></a>beta_jax <span class="op">=</span> beta(depolarizations_jax, parameters)</span>
+<span id="cb17-2"><a href=""></a><span class="bu">type</span>(beta_jax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="76">
 <pre><code>jaxlib._jax.ArrayImpl</code></pre>
 </div>
 </div>
@@ -621,12 +770,12 @@ C_m \frac{\mathrm{d}V_m}{\mathrm{d}t} = \sum_{n\in\lbrace\text{K, Na, L}\rbrace}
 <section id="equivalence-of-implementations" class="slide level2 nostretch">
 <h2>Equivalence of implementations</h2>
 <p>The two output arrays are equal modulo floating point error differences:</p>
-<div id="283ef5f1" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href=""></a><span class="cf">assert</span> np.allclose(beta_numpy, beta_jax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="e68971ef" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href=""></a><span class="cf">assert</span> np.allclose(beta_numpy, beta_jax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p>We can also visualize the equivalence of the function outputs</p>
-<div id="2814b84f" class="cell" data-execution_count="16">
+<div id="453833af" class="cell" data-execution_count="16">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -646,38 +795,38 @@ C_m \frac{\mathrm{d}V_m}{\mathrm{d}t} = \sum_{n\in\lbrace\text{K, Na, L}\rbrace}
 <p><a href="https://jax.readthedocs.io/en/latest/async_dispatch.html#async-dispatch">JAX dispatches operations <em>asynchronously</em></a>, only evaluating operations when the output is needed by a downstream operation or inspected by user.</p>
 <div class="fragment">
 <p>To ensure a fair comparison we define a helper function which calls a function and then (optionally) blocks until any asynchronously executed operations are completed:</p>
-<div id="08dd69bc" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href=""></a><span class="kw">def</span> call_and_block(function, block, <span class="op">*</span>args):</span>
-<span id="cb19-2"><a href=""></a>    <span class="cf">return</span> function(<span class="op">*</span>args).block_until_ready() <span class="cf">if</span> block <span class="cf">else</span> function(<span class="op">*</span>args)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="4398b38a" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href=""></a><span class="kw">def</span> call_and_block(function, block, <span class="op">*</span>args):</span>
+<span id="cb20-2"><a href=""></a>    <span class="cf">return</span> function(<span class="op">*</span>args).block_until_ready() <span class="cf">if</span> block <span class="cf">else</span> function(<span class="op">*</span>args)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
 <section id="timing-function-calls-with-timeit" class="slide level2">
 <h2>Timing function calls with <code>timeit</code></h2>
 <p>Now we time calling each of the functions with the <a href="https://ipython.readthedocs.io/en/stable/interactive/magics.html#magic-timeit"><code>timeit</code> magic</a> for both NumPy and JAX arrays and record the results</p>
-<div id="96f46f35" class="cell" data-execution_count="18">
+<div id="3c265bfa" class="cell" data-execution_count="18">
 <div class="cell-output cell-output-stdout">
 <pre><code>--------------------------------------------------------------------------------
 numpy
 --------------------------------------------------------------------------------
-alpha: 11.9 μs ± 235 ns per loop (mean ± std. dev. of 7 runs, 100,000 loops each)
-beta: 7.2 μs ± 211 ns per loop (mean ± std. dev. of 7 runs, 100,000 loops each)
-tau: 21.3 μs ± 855 ns per loop (mean ± std. dev. of 7 runs, 10,000 loops each)
-n_infty: 30.9 μs ± 1.09 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)
+alpha: 11.5 μs ± 245 ns per loop (mean ± std. dev. of 7 runs, 100,000 loops each)
+beta: 6.91 μs ± 174 ns per loop (mean ± std. dev. of 7 runs, 100,000 loops each)
+tau: 20.6 μs ± 554 ns per loop (mean ± std. dev. of 7 runs, 10,000 loops each)
+n_infty: 31 μs ± 1.66 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)
 --------------------------------------------------------------------------------
 jax
 --------------------------------------------------------------------------------
-alpha: 107 μs ± 6.04 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)
-beta: 48.4 μs ± 3.41 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)
-tau: 188 μs ± 6.51 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)
-n_infty: 301 μs ± 9.99 μs per loop (mean ± std. dev. of 7 runs, 1,000 loops each)</code></pre>
+alpha: 94.6 μs ± 3.59 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)
+beta: 42 μs ± 2.51 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)
+tau: 166 μs ± 4.33 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)
+n_infty: 269 μs ± 12.9 μs per loop (mean ± std. dev. of 7 runs, 1,000 loops each)</code></pre>
 </div>
 </div>
 </section>
 <section id="visualising-timing-results" class="slide level2">
 <h2>Visualising timing results</h2>
 <p>We can see that when evaluating on JAX arrays the functions are consistently and significantly slower! This can be seen even more clearly by plotting the timing results</p>
-<div id="0be3558b" class="cell" data-execution_count="20">
+<div id="63278b78" class="cell" data-execution_count="20">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -747,7 +896,7 @@ n_infty: 301 μs ± 9.99 μs per loop (mean ± std. dev. of 7 runs, 1,000 loops 
 <section id="inspecting-a-jaxpr-with-make_jaxpr" class="slide level2">
 <h2>Inspecting a jaxpr with <code>make_jaxpr</code></h2>
 <p>Consider the <code>beta</code> function defined earlier:</p>
-<div id="27a9df51" class="cell" data-execution_count="21">
+<div id="0a7bdba2" class="cell" data-execution_count="21">
 <div class="cell-output cell-output-stdout">
 <pre><code>def beta(v, parameters):
     xp = array_api_compat.array_namespace(v)
@@ -760,9 +909,9 @@ n_infty: 301 μs ± 9.99 μs per loop (mean ± std. dev. of 7 runs, 1,000 loops 
 </div>
 <div class="fragment">
 <p>Applying to <code>beta</code> and calling with the example arguments:</p>
-<div id="9334ede3" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href=""></a>jax.make_jaxpr(beta)(depolarizations_jax, parameters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="21">
+<div id="202bc096" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href=""></a>jax.make_jaxpr(beta)(depolarizations_jax, parameters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="84">
 <div class="ansi-escaped-output">
 <pre>{ <span class="ansi-blue-fg ansi-bold">lambda </span>; a<span class="ansi-magenta-fg">:f64[200]</span> b<span class="ansi-magenta-fg">:f64[]</span> c<span class="ansi-magenta-fg">:f64[]</span> d<span class="ansi-magenta-fg">:f64[]</span> e<span class="ansi-magenta-fg">:f64[]</span> f<span class="ansi-magenta-fg">:f64[]</span> g<span class="ansi-magenta-fg">:f64[]</span>. <span class="ansi-blue-fg ansi-bold">let
 </span>    h<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] g
@@ -781,12 +930,12 @@ n_infty: 301 μs ± 9.99 μs per loop (mean ± std. dev. of 7 runs, 1,000 loops 
 <p>Internally JAX traces functions with <em>abstract</em> values. For most transformations the abstraction is at the level of the shape and datatype of arguments, but not their values.</p>
 <div class="fragment">
 <p>We can use the <code>jax.ShapedDtypeStruct</code> to create an abstract array with just <code>shape</code> and <code>dtype</code> attributes (plus some additional attributes for JAX bookkeeping such as device layout and sharding).</p>
-<div id="7abf7044" class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href=""></a>abstract_depolarizations <span class="op">=</span> jax.ShapeDtypeStruct(</span>
-<span id="cb23-2"><a href=""></a>    depolarizations_jax.shape, depolarizations_jax.dtype</span>
-<span id="cb23-3"><a href=""></a>)</span>
-<span id="cb23-4"><a href=""></a>abstract_depolarizations</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="22">
+<div id="88deccc1" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href=""></a>abstract_depolarizations <span class="op">=</span> jax.ShapeDtypeStruct(</span>
+<span id="cb24-2"><a href=""></a>    depolarizations_jax.shape, depolarizations_jax.dtype</span>
+<span id="cb24-3"><a href=""></a>)</span>
+<span id="cb24-4"><a href=""></a>abstract_depolarizations</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="85">
 <pre><code>ShapeDtypeStruct(shape=(200,), dtype=float64)</code></pre>
 </div>
 </div>
@@ -795,9 +944,9 @@ n_infty: 301 μs ± 9.99 μs per loop (mean ± std. dev. of 7 runs, 1,000 loops 
 <section id="tracing-with-abstract-values" class="slide level2">
 <h2>Tracing with abstract values</h2>
 <p>If we now call the <code>jax.make_jaxpr</code> transformed function with this abstract argument we get exactly the same result as before</p>
-<div id="1aa09998" class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href=""></a>jax.make_jaxpr(beta)(abstract_depolarizations, parameters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="23">
+<div id="320de772" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href=""></a>jax.make_jaxpr(beta)(abstract_depolarizations, parameters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="86">
 <div class="ansi-escaped-output">
 <pre>{ <span class="ansi-blue-fg ansi-bold">lambda </span>; a<span class="ansi-magenta-fg">:f64[200]</span> b<span class="ansi-magenta-fg">:f64[]</span> c<span class="ansi-magenta-fg">:f64[]</span> d<span class="ansi-magenta-fg">:f64[]</span> e<span class="ansi-magenta-fg">:f64[]</span> f<span class="ansi-magenta-fg">:f64[]</span> g<span class="ansi-magenta-fg">:f64[]</span>. <span class="ansi-blue-fg ansi-bold">let
 </span>    h<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] g
@@ -815,7 +964,7 @@ n_infty: 301 μs ± 9.99 μs per loop (mean ± std. dev. of 7 runs, 1,000 loops 
 <p>Importantly any control flow in the in traced function is transparent to the tracing.</p>
 <p>Consider the <code>n_infty</code> function which calls <code>alpha</code> and <code>beta</code></p>
 <div class="fragment">
-<div id="a8cc8a1e" class="cell" data-execution_count="25">
+<div id="c451716d" class="cell" data-execution_count="25">
 <div class="cell-output cell-output-stdout">
 <pre><code>def n_infty(v, parameters):
     return alpha(v, parameters) / (alpha(v, parameters) + beta(v, parameters))
@@ -825,9 +974,9 @@ n_infty: 301 μs ± 9.99 μs per loop (mean ± std. dev. of 7 runs, 1,000 loops 
 </div>
 <div class="fragment">
 <p>The jaxpr for this function corresponds to tracing through the full computation including nested calls.</p>
-<div id="a79dace9" class="cell" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href=""></a>jax.make_jaxpr(n_infty)(depolarizations_jax, parameters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="25">
+<div id="2246008c" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href=""></a>jax.make_jaxpr(n_infty)(depolarizations_jax, parameters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="88">
 <div class="ansi-escaped-output">
 <pre>{ <span class="ansi-blue-fg ansi-bold">lambda </span>; a<span class="ansi-magenta-fg">:f64[200]</span> b<span class="ansi-magenta-fg">:f64[]</span> c<span class="ansi-magenta-fg">:f64[]</span> d<span class="ansi-magenta-fg">:f64[]</span> e<span class="ansi-magenta-fg">:f64[]</span> f<span class="ansi-magenta-fg">:f64[]</span> g<span class="ansi-magenta-fg">:f64[]</span>. <span class="ansi-blue-fg ansi-bold">let
 </span>    h<span class="ansi-magenta-fg">:f64[]</span> = convert_element_type[new_dtype=float64 weak_type=False] d
@@ -868,10 +1017,10 @@ n_infty: 301 μs ± 9.99 μs per loop (mean ± std. dev. of 7 runs, 1,000 loops 
 <section id="just-in-time-compilation-with-jax.jit" class="slide level2">
 <h2>Just-in-time compilation with <code>jax.jit</code></h2>
 <p>One of the key JAX transformations is the <code>jax.jit</code> function which allows functions to be JIT compiled with XLA for execution on a particular device (CPU, GPU or TPU).</p>
-<div id="b4423bcf" class="cell" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href=""></a>jitted_beta <span class="op">=</span> jax.jit(beta)</span>
-<span id="cb28-2"><a href=""></a>jax.make_jaxpr(jitted_beta)(abstract_depolarizations, parameters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="26">
+<div id="ebbc024c" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href=""></a>jitted_beta <span class="op">=</span> jax.jit(beta)</span>
+<span id="cb29-2"><a href=""></a>jax.make_jaxpr(jitted_beta)(abstract_depolarizations, parameters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="89">
 <div class="ansi-escaped-output">
 <pre>{ <span class="ansi-blue-fg ansi-bold">lambda </span>; a<span class="ansi-magenta-fg">:f64[200]</span> b<span class="ansi-magenta-fg">:f64[]</span> c<span class="ansi-magenta-fg">:f64[]</span> d<span class="ansi-magenta-fg">:f64[]</span> e<span class="ansi-magenta-fg">:f64[]</span> f<span class="ansi-magenta-fg">:f64[]</span> g<span class="ansi-magenta-fg">:f64[]</span>. <span class="ansi-blue-fg ansi-bold">let
 </span>    h<span class="ansi-magenta-fg">:f64[200]</span> = jit[
@@ -892,24 +1041,24 @@ n_infty: 301 μs ± 9.99 μs per loop (mean ± std. dev. of 7 runs, 1,000 loops 
 <section id="behaviour-after-jitting" class="slide level2">
 <h2>Behaviour after jitting</h2>
 <p>The jitted and original functions give equivalent outputs to within floating point error</p>
-<div id="eb021745" class="cell" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href=""></a><span class="cf">assert</span> np.allclose(</span>
-<span id="cb29-2"><a href=""></a>    jitted_beta(depolarizations_jax, parameters),</span>
-<span id="cb29-3"><a href=""></a>    beta(depolarizations_jax, parameters)</span>
-<span id="cb29-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="210d832d" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href=""></a><span class="cf">assert</span> np.allclose(</span>
+<span id="cb30-2"><a href=""></a>    jitted_beta(depolarizations_jax, parameters),</span>
+<span id="cb30-3"><a href=""></a>    beta(depolarizations_jax, parameters)</span>
+<span id="cb30-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p>The jitted function however is significantly faster</p>
-<div id="58a2dd29" class="cell" data-execution_count="29">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href=""></a><span class="bu">print</span>(<span class="st">"Without jit"</span>)</span>
-<span id="cb30-2"><a href=""></a><span class="op">%</span>timeit beta(depolarizations_jax, parameters).block_until_ready()</span>
-<span id="cb30-3"><a href=""></a><span class="bu">print</span>(<span class="st">"With jit"</span>)</span>
-<span id="cb30-4"><a href=""></a><span class="op">%</span>timeit jitted_beta(depolarizations_jax, parameters).block_until_ready()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="73ba2ec1" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href=""></a><span class="bu">print</span>(<span class="st">"Without jit"</span>)</span>
+<span id="cb31-2"><a href=""></a><span class="op">%</span>timeit beta(depolarizations_jax, parameters).block_until_ready()</span>
+<span id="cb31-3"><a href=""></a><span class="bu">print</span>(<span class="st">"With jit"</span>)</span>
+<span id="cb31-4"><a href=""></a><span class="op">%</span>timeit jitted_beta(depolarizations_jax, parameters).block_until_ready()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Without jit
-43.5 μs ± 2.43 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)
+41.6 μs ± 1.48 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)
 With jit
-15.7 μs ± 249 ns per loop (mean ± std. dev. of 7 runs, 100,000 loops each)</code></pre>
+14.6 μs ± 220 ns per loop (mean ± std. dev. of 7 runs, 100,000 loops each)</code></pre>
 </div>
 </div>
 </div>
@@ -935,9 +1084,9 @@ With jit
 
 <h3 id="lowering">Lowering</h3>
 <p>Lowering a function on (potentially abstract) arguments allows us to view the StableHLO representation.</p>
-<div id="7077164a" class="cell" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href=""></a>lowered_beta <span class="op">=</span> jax.jit(beta).lower(abstract_depolarizations, parameters)</span>
-<span id="cb32-2"><a href=""></a><span class="bu">print</span>(lowered_beta.as_text())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="202bc585" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href=""></a>lowered_beta <span class="op">=</span> jax.jit(beta).lower(abstract_depolarizations, parameters)</span>
+<span id="cb33-2"><a href=""></a><span class="bu">print</span>(lowered_beta.as_text())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>module @jit_beta attributes {mhlo.num_partitions = 1 : i32, mhlo.num_replicas = 1 : i32} {
   func.func public @main(%arg0: tensor&lt;200xf64&gt;, %arg1: tensor&lt;f64&gt;, %arg2: tensor&lt;f64&gt;) -&gt; (tensor&lt;200xf64&gt; {jax.result_info = "result"}) {
@@ -972,22 +1121,22 @@ With jit
 <p>Importantly however this compiled function is specific to the argument shapes and datatypes and cannot be further transformed.</p>
 </div>
 </div>
-<div id="712c55c8" class="cell" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href=""></a>compiled_beta <span class="op">=</span> lowered_beta.<span class="bu">compile</span>()</span>
-<span id="cb34-2"><a href=""></a>display(compiled_beta.cost_analysis())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="e24d3f46" class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href=""></a>compiled_beta <span class="op">=</span> lowered_beta.<span class="bu">compile</span>()</span>
+<span id="cb35-2"><a href=""></a>display(compiled_beta.cost_analysis())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment" data-execution_count="31">
 <div class="cell-output cell-output-display">
-<pre><code>{'bytes accessed0{}': 1600.0,
- 'flops': 400.0,
+<pre><code>{'bytes accessed': 3216.0,
+ 'utilization1{}': 1.0,
  'bytes accessed2{}': 8.0,
+ 'bytes accessed1{}': 8.0,
+ 'bytes accessedout{}': 1600.0,
  'transcendentals': 200.0,
  'utilization0{}': 1.0,
- 'utilization1{}': 1.0,
- 'bytes accessed': 3216.0,
- 'bytes accessedout{}': 1600.0,
- 'utilization2{}': 1.0,
- 'bytes accessed1{}': 8.0}</code></pre>
+ 'bytes accessed0{}': 1600.0,
+ 'flops': 400.0,
+ 'utilization2{}': 1.0}</code></pre>
 </div>
 </div>
 </section>
@@ -995,12 +1144,12 @@ With jit
 
 <h3 id="repeating-performance-comparison">Repeating performance comparison</h3>
 <p>We now time jitted versions of each of the functions.</p>
-<div id="fcb0f2e6" class="cell" data-execution_count="32">
+<div id="519555eb" class="cell" data-execution_count="32">
 <div class="cell-output cell-output-stdout">
-<pre><code>alpha: 28 μs ± 1.32 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)
-beta: 17.7 μs ± 332 ns per loop (mean ± std. dev. of 7 runs, 100,000 loops each)
-tau: 60.4 μs ± 1.41 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)
-n_infty: 61.2 μs ± 915 ns per loop (mean ± std. dev. of 7 runs, 10,000 loops each)</code></pre>
+<pre><code>alpha: 25.9 μs ± 1.41 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)
+beta: 16.4 μs ± 315 ns per loop (mean ± std. dev. of 7 runs, 100,000 loops each)
+tau: 53 μs ± 1.33 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)
+n_infty: 53.9 μs ± 1.26 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -1230,7 +1379,7 @@ data
 </div>
 </div>
 <div class="fragment">
-<div id="55ea2a96" class="cell" data-execution_count="33">
+<div id="c18418f4" class="cell" data-execution_count="33">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1247,11 +1396,11 @@ data
 <section id="tracing-overall-model" class="slide level2 scrollable">
 <h2>Tracing overall model</h2>
 <p>The <code>solve_for_potassium_conductance</code> function evaluates the model for vectors of both times and depolarizations, and has a much larger traced computation</p>
-<div id="d68ff4fc" class="cell" data-execution_count="34">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href=""></a>jax.make_jaxpr(solve_for_potassium_conductance)(</span>
-<span id="cb37-2"><a href=""></a>    data[<span class="st">"times"</span>], data[<span class="st">"depolarizations"</span>], parameters</span>
-<span id="cb37-3"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="33">
+<div id="7a766d6e" class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href=""></a>jax.make_jaxpr(solve_for_potassium_conductance)(</span>
+<span id="cb38-2"><a href=""></a>    data[<span class="st">"times"</span>], data[<span class="st">"depolarizations"</span>], parameters</span>
+<span id="cb38-3"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="96">
 <div class="ansi-escaped-output">
 <pre>{ <span class="ansi-blue-fg ansi-bold">lambda </span>; a<span class="ansi-magenta-fg">:f64[136]</span> b<span class="ansi-magenta-fg">:f64[136]</span> c<span class="ansi-magenta-fg">:f64[]</span> d<span class="ansi-magenta-fg">:f64[]</span> e<span class="ansi-magenta-fg">:f64[]</span> f<span class="ansi-magenta-fg">:f64[]</span> g<span class="ansi-magenta-fg">:f64[]</span> h<span class="ansi-magenta-fg">:f64[]</span>. <span class="ansi-blue-fg ansi-bold">let
 </span>    i<span class="ansi-magenta-fg">:f64[]</span> = add 0.0:f64[] e
@@ -1340,25 +1489,25 @@ data
 <section id="applying-jit-to-overall-model" class="slide level2">
 <h2>Applying <code>jit</code> to overall model</h2>
 <p>We can JIT compile this function</p>
-<div id="802d3f23" class="cell" data-execution_count="35">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href=""></a>jitted_solve_for_potassium_conductance <span class="op">=</span> jax.jit(solve_for_potassium_conductance)</span>
-<span id="cb38-2"><a href=""></a><span class="cf">assert</span> np.allclose(</span>
-<span id="cb38-3"><a href=""></a>    jitted_solve_for_potassium_conductance(</span>
-<span id="cb38-4"><a href=""></a>        data[<span class="st">"times"</span>], data[<span class="st">"depolarizations"</span>], parameters</span>
-<span id="cb38-5"><a href=""></a>    ),</span>
-<span id="cb38-6"><a href=""></a>    solve_for_potassium_conductance(</span>
-<span id="cb38-7"><a href=""></a>        data[<span class="st">"times"</span>], data[<span class="st">"depolarizations"</span>], parameters</span>
-<span id="cb38-8"><a href=""></a>    ),</span>
-<span id="cb38-9"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="ad608dcc" class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href=""></a>jitted_solve_for_potassium_conductance <span class="op">=</span> jax.jit(solve_for_potassium_conductance)</span>
+<span id="cb39-2"><a href=""></a><span class="cf">assert</span> np.allclose(</span>
+<span id="cb39-3"><a href=""></a>    jitted_solve_for_potassium_conductance(</span>
+<span id="cb39-4"><a href=""></a>        data[<span class="st">"times"</span>], data[<span class="st">"depolarizations"</span>], parameters</span>
+<span id="cb39-5"><a href=""></a>    ),</span>
+<span id="cb39-6"><a href=""></a>    solve_for_potassium_conductance(</span>
+<span id="cb39-7"><a href=""></a>        data[<span class="st">"times"</span>], data[<span class="st">"depolarizations"</span>], parameters</span>
+<span id="cb39-8"><a href=""></a>    ),</span>
+<span id="cb39-9"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p>Comparing performance we now see (JIT compiled) JAX is now at least matching NumPy’s performance:</p>
-<div id="56b8c157" class="cell" data-execution_count="36">
+<div id="4484dd3a" class="cell" data-execution_count="36">
 <div class="cell-output cell-output-stdout">
 <pre><code>NumPy
-91.1 μs ± 2.54 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)
+87.9 μs ± 3.88 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)
 Compiled JAX
-81.4 μs ± 2.56 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)</code></pre>
+74.8 μs ± 1.47 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)</code></pre>
 </div>
 </div>
 </div>
@@ -1387,18 +1536,18 @@ Compiled JAX
 <section id="prior-model" class="slide level2">
 <h2>Prior model</h2>
 <p>For our purposes we will use a simple prior model in which the parameters are constrained to be positive and with appropriate scales, and to be a-priori independent with log-normal marginals.</p>
-<div id="629269a7" class="cell" data-execution_count="37">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href=""></a>prior_log_normal_locations <span class="op">=</span> {</span>
-<span id="cb40-2"><a href=""></a>    <span class="st">"k_alpha_1"</span>: <span class="op">-</span><span class="dv">3</span>,</span>
-<span id="cb40-3"><a href=""></a>    <span class="st">"k_alpha_2"</span>: <span class="dv">2</span>,</span>
-<span id="cb40-4"><a href=""></a>    <span class="st">"k_alpha_3"</span>: <span class="dv">2</span>,</span>
-<span id="cb40-5"><a href=""></a>    <span class="st">"k_beta_1"</span>: <span class="op">-</span><span class="dv">3</span>,</span>
-<span id="cb40-6"><a href=""></a>    <span class="st">"k_beta_2"</span>: <span class="dv">2</span>,</span>
-<span id="cb40-7"><a href=""></a>    <span class="st">"g_bar_k"</span>: <span class="dv">2</span>,</span>
-<span id="cb40-8"><a href=""></a>    <span class="st">"sigma"</span>: <span class="dv">0</span>,</span>
-<span id="cb40-9"><a href=""></a>}</span>
-<span id="cb40-10"><a href=""></a></span>
-<span id="cb40-11"><a href=""></a>dim_parameters <span class="op">=</span> <span class="bu">len</span>(prior_log_normal_locations)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="8596df32" class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href=""></a>prior_log_normal_locations <span class="op">=</span> {</span>
+<span id="cb41-2"><a href=""></a>    <span class="st">"k_alpha_1"</span>: <span class="op">-</span><span class="dv">3</span>,</span>
+<span id="cb41-3"><a href=""></a>    <span class="st">"k_alpha_2"</span>: <span class="dv">2</span>,</span>
+<span id="cb41-4"><a href=""></a>    <span class="st">"k_alpha_3"</span>: <span class="dv">2</span>,</span>
+<span id="cb41-5"><a href=""></a>    <span class="st">"k_beta_1"</span>: <span class="op">-</span><span class="dv">3</span>,</span>
+<span id="cb41-6"><a href=""></a>    <span class="st">"k_beta_2"</span>: <span class="dv">2</span>,</span>
+<span id="cb41-7"><a href=""></a>    <span class="st">"g_bar_k"</span>: <span class="dv">2</span>,</span>
+<span id="cb41-8"><a href=""></a>    <span class="st">"sigma"</span>: <span class="dv">0</span>,</span>
+<span id="cb41-9"><a href=""></a>}</span>
+<span id="cb41-10"><a href=""></a></span>
+<span id="cb41-11"><a href=""></a>dim_parameters <span class="op">=</span> <span class="bu">len</span>(prior_log_normal_locations)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="prior-model-implementation" class="slide level2">
@@ -1417,28 +1566,28 @@ Compiled JAX
           display:block!important;
       }</style></aside>
 <p>Importantly defining the function to generate parameters in terms of a vector in an unconstrained space will later simplify optimizing the parameters without having to consider constraints.</p>
-<div id="0fbc401a" class="cell" data-execution_count="38">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href=""></a><span class="kw">def</span> generate_parameters(u):</span>
-<span id="cb41-2"><a href=""></a>    xp <span class="op">=</span> array_api_compat.array_namespace(u)</span>
-<span id="cb41-3"><a href=""></a>    values <span class="op">=</span> xp.exp(u <span class="op">+</span> xp.array(<span class="bu">list</span>(prior_log_normal_locations.values())))</span>
-<span id="cb41-4"><a href=""></a>    <span class="cf">return</span> <span class="bu">dict</span>(<span class="bu">zip</span>(prior_log_normal_locations.keys(), values))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="90a12e78" class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href=""></a><span class="kw">def</span> generate_parameters(u):</span>
+<span id="cb42-2"><a href=""></a>    xp <span class="op">=</span> array_api_compat.array_namespace(u)</span>
+<span id="cb42-3"><a href=""></a>    values <span class="op">=</span> xp.exp(u <span class="op">+</span> xp.array(<span class="bu">list</span>(prior_log_normal_locations.values())))</span>
+<span id="cb42-4"><a href=""></a>    <span class="cf">return</span> <span class="bu">dict</span>(<span class="bu">zip</span>(prior_log_normal_locations.keys(), values))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="generative-model" class="slide level2">
 <h2>Generative model</h2>
 <p>Given the function for generating parameters, we can now write a function to generate simulated conductance time series data given a vector of (unconstrained and normalized) parameter values.</p>
-<div id="8d2981f8" class="cell" data-execution_count="39">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href=""></a><span class="kw">def</span> generate_conductances(u, data):</span>
-<span id="cb42-2"><a href=""></a>    parameters <span class="op">=</span> generate_parameters(u)</span>
-<span id="cb42-3"><a href=""></a>    <span class="cf">return</span> solve_for_potassium_conductance(</span>
-<span id="cb42-4"><a href=""></a>        data[<span class="st">"times"</span>], data[<span class="st">"depolarizations"</span>], parameters</span>
-<span id="cb42-5"><a href=""></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="ea145080" class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href=""></a><span class="kw">def</span> generate_conductances(u, data):</span>
+<span id="cb43-2"><a href=""></a>    parameters <span class="op">=</span> generate_parameters(u)</span>
+<span id="cb43-3"><a href=""></a>    <span class="cf">return</span> solve_for_potassium_conductance(</span>
+<span id="cb43-4"><a href=""></a>        data[<span class="st">"times"</span>], data[<span class="st">"depolarizations"</span>], parameters</span>
+<span id="cb43-5"><a href=""></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="simulating-from-model" class="slide level2 scrollable">
 <h2>Simulating from model</h2>
 <p>We can then randomly generate parameters and plot the corresponding simulated outputs</p>
-<div id="21ff2f96" class="cell" data-execution_count="40">
+<div id="faa2dded" class="cell" data-execution_count="40">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1643,18 +1792,18 @@ with
 </div>
 </div>
 <div class="fragment">
-<div id="463c7208" class="cell" data-execution_count="41">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href=""></a>vmapped_generate_conductances <span class="op">=</span> jax.jit(</span>
-<span id="cb43-2"><a href=""></a>    jax.vmap(generate_conductances, in_axes<span class="op">=</span>(<span class="dv">0</span>, <span class="va">None</span>))</span>
-<span id="cb43-3"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="3074322b" class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href=""></a>vmapped_generate_conductances <span class="op">=</span> jax.jit(</span>
+<span id="cb44-2"><a href=""></a>    jax.vmap(generate_conductances, in_axes<span class="op">=</span>(<span class="dv">0</span>, <span class="va">None</span>))</span>
+<span id="cb44-3"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment">
 <p>We can now evaluate <code>vmapped_generate_conductances</code> on batches of the <code>u</code> input:</p>
-<div id="38d93e71" class="cell" data-execution_count="42">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href=""></a>u_batch <span class="op">=</span> rng.standard_normal((<span class="dv">1000</span>, dim_parameters))</span>
-<span id="cb44-2"><a href=""></a>vmapped_generate_conductances(u_batch, data).shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="41">
+<div id="4103884c" class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href=""></a>u_batch <span class="op">=</span> rng.standard_normal((<span class="dv">1000</span>, dim_parameters))</span>
+<span id="cb45-2"><a href=""></a>vmapped_generate_conductances(u_batch, data).shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="104">
 <pre><code>(1000, 136)</code></pre>
 </div>
 </div>
@@ -1663,24 +1812,24 @@ with
 <section id="performance-gaining-from-batching" class="slide level2">
 <h2>Performance gaining from batching</h2>
 <p>Importantly, as this is implemented by transforming the traced computation to use vectorized / batched variants of operations, it gives a significant performance improvement over mapping sequentially over a batch:</p>
-<div id="43464876" class="cell" data-execution_count="43">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href=""></a><span class="op">%%</span>timeit</span>
-<span id="cb46-2"><a href=""></a><span class="cf">for</span> u <span class="kw">in</span> u_batch:</span>
-<span id="cb46-3"><a href=""></a>    generate_conductances(u, data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="bd2e9124" class="cell" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href=""></a><span class="op">%%</span>timeit</span>
+<span id="cb47-2"><a href=""></a><span class="cf">for</span> u <span class="kw">in</span> u_batch:</span>
+<span id="cb47-3"><a href=""></a>    generate_conductances(u, data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment" data-execution_count="43">
 <div class="cell-output cell-output-stdout">
-<pre><code>105 ms ± 4.91 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)</code></pre>
+<pre><code>96.2 ms ± 1.39 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)</code></pre>
 </div>
 </div>
 <div class="fragment">
-<div id="8230c4ec" class="cell" data-execution_count="44">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href=""></a><span class="op">%%</span>timeit</span>
-<span id="cb48-2"><a href=""></a>vmapped_generate_conductances(u_batch, data).block_until_ready()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="c81c0d6f" class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href=""></a><span class="op">%%</span>timeit</span>
+<span id="cb49-2"><a href=""></a>vmapped_generate_conductances(u_batch, data).block_until_ready()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment" data-execution_count="44">
 <div class="cell-output cell-output-stdout">
-<pre><code>859 μs ± 53.8 μs per loop (mean ± std. dev. of 7 runs, 1,000 loops each)</code></pre>
+<pre><code>595 μs ± 37.6 μs per loop (mean ± std. dev. of 7 runs, 1,000 loops each)</code></pre>
 </div>
 </div>
 </div>
@@ -1768,13 +1917,13 @@ data.
 </div>
 </div>
 <div class="fragment">
-<div id="688eb499" class="cell" data-execution_count="45">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href=""></a>u_prior_samples <span class="op">=</span> rng.standard_normal((<span class="dv">100000</span>, dim_parameters))</span>
-<span id="cb50-2"><a href=""></a>generated_conductances <span class="op">=</span> vmapped_generate_conductances(u_prior_samples, data)</span>
-<span id="cb50-3"><a href=""></a>index_of_closest <span class="op">=</span> (</span>
-<span id="cb50-4"><a href=""></a>    ((generated_conductances <span class="op">-</span> data[<span class="st">"conductances"</span>]) <span class="op">**</span> <span class="dv">2</span>).<span class="bu">sum</span>(<span class="op">-</span><span class="dv">1</span>).argmin()</span>
-<span id="cb50-5"><a href=""></a>)</span>
-<span id="cb50-6"><a href=""></a>display(generate_parameters(u_prior_samples[index_of_closest]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="e97b259a" class="cell" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href=""></a>u_prior_samples <span class="op">=</span> rng.standard_normal((<span class="dv">100000</span>, dim_parameters))</span>
+<span id="cb51-2"><a href=""></a>generated_conductances <span class="op">=</span> vmapped_generate_conductances(u_prior_samples, data)</span>
+<span id="cb51-3"><a href=""></a>index_of_closest <span class="op">=</span> (</span>
+<span id="cb51-4"><a href=""></a>    ((generated_conductances <span class="op">-</span> data[<span class="st">"conductances"</span>]) <span class="op">**</span> <span class="dv">2</span>).<span class="bu">sum</span>(<span class="op">-</span><span class="dv">1</span>).argmin()</span>
+<span id="cb51-5"><a href=""></a>)</span>
+<span id="cb51-6"><a href=""></a>display(generate_parameters(u_prior_samples[index_of_closest]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>{'k_alpha_1': np.float64(0.01087083261109017),
  'k_alpha_2': np.float64(1.9857834602880655),
@@ -1790,7 +1939,7 @@ data.
 <section id="comparing-simulations-to-data" class="slide level2">
 <h2>Comparing simulations to data</h2>
 <p>We can then plot the closest found simulated conductance time series (dotted lines) against the observed conductance time series data (circular markers)</p>
-<div id="9d69b51c" class="cell" data-execution_count="46">
+<div id="cf003929" class="cell" data-execution_count="46">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -2055,30 +2204,30 @@ follows
 </div>
 </div>
 <div class="fragment">
-<div id="43d012ec" class="cell" data-execution_count="47">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href=""></a><span class="kw">def</span> normal_negative_log_density(x, mu<span class="op">=</span><span class="dv">0</span>, sigma<span class="op">=</span><span class="dv">1</span>):</span>
-<span id="cb52-2"><a href=""></a>    xp <span class="op">=</span> array_api_compat.array_namespace(x)</span>
-<span id="cb52-3"><a href=""></a>    <span class="cf">return</span> (((x <span class="op">-</span> mu) <span class="op">/</span> sigma) <span class="op">**</span> <span class="dv">2</span>).<span class="bu">sum</span>() <span class="op">/</span> <span class="dv">2</span> <span class="op">+</span> x.shape[<span class="op">-</span><span class="dv">1</span>] <span class="op">*</span> xp.log(sigma)</span>
-<span id="cb52-4"><a href=""></a></span>
-<span id="cb52-5"><a href=""></a><span class="at">@jax.jit</span></span>
-<span id="cb52-6"><a href=""></a><span class="kw">def</span> negative_log_posterior_density(u, data):</span>
-<span id="cb52-7"><a href=""></a>    parameters <span class="op">=</span> generate_parameters(u)</span>
-<span id="cb52-8"><a href=""></a>    conductances <span class="op">=</span> solve_for_potassium_conductance(</span>
-<span id="cb52-9"><a href=""></a>        data[<span class="st">"times"</span>], data[<span class="st">"depolarizations"</span>], parameters</span>
-<span id="cb52-10"><a href=""></a>    )</span>
-<span id="cb52-11"><a href=""></a>    <span class="cf">return</span> normal_negative_log_density(u) <span class="op">+</span> normal_negative_log_density(</span>
-<span id="cb52-12"><a href=""></a>        conductances, data[<span class="st">"conductances"</span>], parameters[<span class="st">"sigma"</span>]</span>
-<span id="cb52-13"><a href=""></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="2c9c0060" class="cell" data-execution_count="47">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href=""></a><span class="kw">def</span> normal_negative_log_density(x, mu<span class="op">=</span><span class="dv">0</span>, sigma<span class="op">=</span><span class="dv">1</span>):</span>
+<span id="cb53-2"><a href=""></a>    xp <span class="op">=</span> array_api_compat.array_namespace(x)</span>
+<span id="cb53-3"><a href=""></a>    <span class="cf">return</span> (((x <span class="op">-</span> mu) <span class="op">/</span> sigma) <span class="op">**</span> <span class="dv">2</span>).<span class="bu">sum</span>() <span class="op">/</span> <span class="dv">2</span> <span class="op">+</span> x.shape[<span class="op">-</span><span class="dv">1</span>] <span class="op">*</span> xp.log(sigma)</span>
+<span id="cb53-4"><a href=""></a></span>
+<span id="cb53-5"><a href=""></a><span class="at">@jax.jit</span></span>
+<span id="cb53-6"><a href=""></a><span class="kw">def</span> negative_log_posterior_density(u, data):</span>
+<span id="cb53-7"><a href=""></a>    parameters <span class="op">=</span> generate_parameters(u)</span>
+<span id="cb53-8"><a href=""></a>    conductances <span class="op">=</span> solve_for_potassium_conductance(</span>
+<span id="cb53-9"><a href=""></a>        data[<span class="st">"times"</span>], data[<span class="st">"depolarizations"</span>], parameters</span>
+<span id="cb53-10"><a href=""></a>    )</span>
+<span id="cb53-11"><a href=""></a>    <span class="cf">return</span> normal_negative_log_density(u) <span class="op">+</span> normal_negative_log_density(</span>
+<span id="cb53-12"><a href=""></a>        conductances, data[<span class="st">"conductances"</span>], parameters[<span class="st">"sigma"</span>]</span>
+<span id="cb53-13"><a href=""></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
 <section id="automatic-differentiation-with-jax" class="slide level2">
 <h2>Automatic differentiation with JAX</h2>
 <p>We can then use the <code>jax.value_and_grad</code> transformation to compute a function which evaluates both the value of the function and its gradient, using reverse mode <a href="https://en.wikipedia.org/wiki/Automatic_differentiation">automatic differentiation</a></p>
-<div id="d34f189c" class="cell" data-execution_count="48">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href=""></a>value_and_grad_negative_log_posterior_density <span class="op">=</span> jax.jit(</span>
-<span id="cb53-2"><a href=""></a>    jax.value_and_grad(negative_log_posterior_density)</span>
-<span id="cb53-3"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="393dfc9c" class="cell" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href=""></a>value_and_grad_negative_log_posterior_density <span class="op">=</span> jax.jit(</span>
+<span id="cb54-2"><a href=""></a>    jax.value_and_grad(negative_log_posterior_density)</span>
+<span id="cb54-3"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p>This can be composed with the <code>jax.jit</code> transformation to compile the gradient function.</p>
@@ -2087,52 +2236,52 @@ follows
 <section id="evaluating-value-and-gradient" class="slide level2">
 <h2>Evaluating value and gradient</h2>
 <p>We can evaluate the transformed function at a test input to check that it correctly gives the same value as the original (primal) function</p>
-<div id="025eb0ae" class="cell" data-execution_count="49">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href=""></a>u <span class="op">=</span> rng.standard_normal(dim_parameters)</span>
-<span id="cb54-2"><a href=""></a>value, gradient <span class="op">=</span> value_and_grad_negative_log_posterior_density(u, data)</span>
-<span id="cb54-3"><a href=""></a><span class="cf">assert</span> np.allclose(value, negative_log_posterior_density(u, data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="da222579" class="cell" data-execution_count="49">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href=""></a>u <span class="op">=</span> rng.standard_normal(dim_parameters)</span>
+<span id="cb55-2"><a href=""></a>value, gradient <span class="op">=</span> value_and_grad_negative_log_posterior_density(u, data)</span>
+<span id="cb55-3"><a href=""></a><span class="cf">assert</span> np.allclose(value, negative_log_posterior_density(u, data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="validating-gradient" class="slide level2">
 <h2>Validating gradient</h2>
 <p>We can also check that the gradient returned is consistent with a finite differences approximation</p>
-<div id="57199fb6" class="cell" data-execution_count="50">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href=""></a><span class="kw">def</span> numerical_grad(f, h<span class="op">=</span><span class="fl">1e-8</span>):</span>
-<span id="cb55-2"><a href=""></a>    <span class="kw">def</span> grad_f(u, <span class="op">*</span>args):</span>
-<span id="cb55-3"><a href=""></a>        xp <span class="op">=</span> array_api_compat.array_namespace(u)</span>
-<span id="cb55-4"><a href=""></a>        <span class="cf">return</span> xp.array(</span>
-<span id="cb55-5"><a href=""></a>            [</span>
-<span id="cb55-6"><a href=""></a>                (f(u <span class="op">+</span> h <span class="op">*</span> e_i, <span class="op">*</span>args) <span class="op">-</span> f(u <span class="op">-</span> h <span class="op">*</span> e_i, <span class="op">*</span>args)) <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> h)</span>
-<span id="cb55-7"><a href=""></a>                <span class="cf">for</span> e_i <span class="kw">in</span> xp.identity(u.shape[<span class="dv">0</span>])</span>
-<span id="cb55-8"><a href=""></a>            ]</span>
-<span id="cb55-9"><a href=""></a>        )</span>
-<span id="cb55-10"><a href=""></a>    <span class="cf">return</span> grad_f</span>
-<span id="cb55-11"><a href=""></a></span>
-<span id="cb55-12"><a href=""></a><span class="cf">assert</span> np.allclose(</span>
-<span id="cb55-13"><a href=""></a>    numerical_grad(negative_log_posterior_density)(u, data), gradient</span>
-<span id="cb55-14"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="ed6e92b3" class="cell" data-execution_count="50">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href=""></a><span class="kw">def</span> numerical_grad(f, h<span class="op">=</span><span class="fl">1e-8</span>):</span>
+<span id="cb56-2"><a href=""></a>    <span class="kw">def</span> grad_f(u, <span class="op">*</span>args):</span>
+<span id="cb56-3"><a href=""></a>        xp <span class="op">=</span> array_api_compat.array_namespace(u)</span>
+<span id="cb56-4"><a href=""></a>        <span class="cf">return</span> xp.array(</span>
+<span id="cb56-5"><a href=""></a>            [</span>
+<span id="cb56-6"><a href=""></a>                (f(u <span class="op">+</span> h <span class="op">*</span> e_i, <span class="op">*</span>args) <span class="op">-</span> f(u <span class="op">-</span> h <span class="op">*</span> e_i, <span class="op">*</span>args)) <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> h)</span>
+<span id="cb56-7"><a href=""></a>                <span class="cf">for</span> e_i <span class="kw">in</span> xp.identity(u.shape[<span class="dv">0</span>])</span>
+<span id="cb56-8"><a href=""></a>            ]</span>
+<span id="cb56-9"><a href=""></a>        )</span>
+<span id="cb56-10"><a href=""></a>    <span class="cf">return</span> grad_f</span>
+<span id="cb56-11"><a href=""></a></span>
+<span id="cb56-12"><a href=""></a><span class="cf">assert</span> np.allclose(</span>
+<span id="cb56-13"><a href=""></a>    numerical_grad(negative_log_posterior_density)(u, data), gradient</span>
+<span id="cb56-14"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="cost-of-automatic-differentiation" class="slide level2">
 <h2>Cost of automatic differentiation</h2>
 <p>Importantly reverse mode differentiation allows us to evaluate <strong>both the value and gradient</strong> of a scalar function with respect to all inputs at operation cost that is <strong>a small constant multiple of the operation cost of evaluating the function itself</strong>:</p>
 <div class="fragment">
-<div id="68ec7ad1" class="cell" data-execution_count="51">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href=""></a><span class="op">%</span>timeit negative_log_posterior_density(u, data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fe342592" class="cell" data-execution_count="51">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href=""></a><span class="op">%</span>timeit negative_log_posterior_density(u, data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment" data-execution_count="51">
 <div class="cell-output cell-output-stdout">
-<pre><code>45.2 μs ± 1.28 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)</code></pre>
+<pre><code>30.1 μs ± 2.61 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)</code></pre>
 </div>
 </div>
 </div>
 <div class="fragment">
-<div id="b486c92a" class="cell" data-execution_count="52">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href=""></a><span class="op">%</span>timeit value_and_grad_negative_log_posterior_density(u, data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="4fedb1c2" class="cell" data-execution_count="52">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href=""></a><span class="op">%</span>timeit value_and_grad_negative_log_posterior_density(u, data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment" data-execution_count="52">
 <div class="cell-output cell-output-stdout">
-<pre><code>167 μs ± 3.74 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)</code></pre>
+<pre><code>144 μs ± 6.68 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)</code></pre>
 </div>
 </div>
 </div>
@@ -2379,39 +2528,39 @@ JIT
 compiling.
 </div>
 </div>
-<div id="2f44b4f8" class="cell" data-execution_count="53">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href=""></a><span class="im">from</span> jax.example_libraries <span class="im">import</span> optimizers</span>
-<span id="cb60-2"><a href=""></a><span class="im">from</span> functools <span class="im">import</span> partial</span>
-<span id="cb60-3"><a href=""></a></span>
-<span id="cb60-4"><a href=""></a><span class="at">@partial</span>(jax.jit, static_argnums<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb60-5"><a href=""></a><span class="kw">def</span> minimize_with_adam(objective, initial_parameters, n_step, step_size<span class="op">=</span><span class="fl">1e-2</span>):</span>
-<span id="cb60-6"><a href=""></a>    initialize, update, get_parameters <span class="op">=</span> optimizers.adam(step_size)</span>
-<span id="cb60-7"><a href=""></a>    grad_objective <span class="op">=</span> jax.grad(objective)</span>
-<span id="cb60-8"><a href=""></a></span>
-<span id="cb60-9"><a href=""></a>    <span class="kw">def</span> optimization_step(step, state):</span>
-<span id="cb60-10"><a href=""></a>        grads <span class="op">=</span> grad_objective(get_parameters(state))</span>
-<span id="cb60-11"><a href=""></a>        <span class="cf">return</span> update(step, grads, state)</span>
-<span id="cb60-12"><a href=""></a></span>
-<span id="cb60-13"><a href=""></a>    initial_state <span class="op">=</span> initialize(initial_parameters)</span>
-<span id="cb60-14"><a href=""></a>    final_state <span class="op">=</span> jax.lax.fori_loop(<span class="dv">0</span>, n_step, optimization_step, initial_state)</span>
-<span id="cb60-15"><a href=""></a>    <span class="cf">return</span> get_parameters(final_state)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="e6306612" class="cell" data-execution_count="53">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href=""></a><span class="im">from</span> jax.example_libraries <span class="im">import</span> optimizers</span>
+<span id="cb61-2"><a href=""></a><span class="im">from</span> functools <span class="im">import</span> partial</span>
+<span id="cb61-3"><a href=""></a></span>
+<span id="cb61-4"><a href=""></a><span class="at">@partial</span>(jax.jit, static_argnums<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb61-5"><a href=""></a><span class="kw">def</span> minimize_with_adam(objective, initial_parameters, n_step, step_size<span class="op">=</span><span class="fl">1e-2</span>):</span>
+<span id="cb61-6"><a href=""></a>    initialize, update, get_parameters <span class="op">=</span> optimizers.adam(step_size)</span>
+<span id="cb61-7"><a href=""></a>    grad_objective <span class="op">=</span> jax.grad(objective)</span>
+<span id="cb61-8"><a href=""></a></span>
+<span id="cb61-9"><a href=""></a>    <span class="kw">def</span> optimization_step(step, state):</span>
+<span id="cb61-10"><a href=""></a>        grads <span class="op">=</span> grad_objective(get_parameters(state))</span>
+<span id="cb61-11"><a href=""></a>        <span class="cf">return</span> update(step, grads, state)</span>
+<span id="cb61-12"><a href=""></a></span>
+<span id="cb61-13"><a href=""></a>    initial_state <span class="op">=</span> initialize(initial_parameters)</span>
+<span id="cb61-14"><a href=""></a>    final_state <span class="op">=</span> jax.lax.fori_loop(<span class="dv">0</span>, n_step, optimization_step, initial_state)</span>
+<span id="cb61-15"><a href=""></a>    <span class="cf">return</span> get_parameters(final_state)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="computing-map-estimate" class="slide level2">
 <h2>Computing MAP estimate</h2>
 <p>Using the <code>minimize_with_adam</code> helper function, we can compute a MAP estimate of the (unconstrained) parameter vector and the corresponding simulated conductance time series.</p>
-<div id="2e0311d2" class="cell" data-execution_count="54">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href=""></a>map_u <span class="op">=</span> minimize_with_adam(</span>
-<span id="cb61-2"><a href=""></a>    partial(negative_log_posterior_density, data<span class="op">=</span>data),</span>
-<span id="cb61-3"><a href=""></a>    rng.standard_normal(dim_parameters),</span>
-<span id="cb61-4"><a href=""></a>    <span class="dv">10000</span>,</span>
-<span id="cb61-5"><a href=""></a>)</span>
-<span id="cb61-6"><a href=""></a>map_conductances <span class="op">=</span> generate_conductances(map_u, data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="a77ac7c1" class="cell" data-execution_count="54">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href=""></a>map_u <span class="op">=</span> minimize_with_adam(</span>
+<span id="cb62-2"><a href=""></a>    partial(negative_log_posterior_density, data<span class="op">=</span>data),</span>
+<span id="cb62-3"><a href=""></a>    rng.standard_normal(dim_parameters),</span>
+<span id="cb62-4"><a href=""></a>    <span class="dv">10000</span>,</span>
+<span id="cb62-5"><a href=""></a>)</span>
+<span id="cb62-6"><a href=""></a>map_conductances <span class="op">=</span> generate_conductances(map_u, data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="visualising-map-estimate-simulations" class="slide level2">
 <h2>Visualising MAP estimate simulations</h2>
-<div id="121237f2" class="cell" data-execution_count="55">
+<div id="8a17263e" class="cell" data-execution_count="55">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -2520,23 +2669,23 @@ the
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-<div id="83acb330" class="cell" data-execution_count="57">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href=""></a><span class="im">import</span> mici</span>
-<span id="cb62-2"><a href=""></a></span>
-<span id="cb62-3"><a href=""></a>n_chain <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb62-4"><a href=""></a>final_states, traces, stats <span class="op">=</span> mici.sample_hmc_chains(</span>
-<span id="cb62-5"><a href=""></a>    neg_log_dens<span class="op">=</span>partial(negative_log_posterior_density, data<span class="op">=</span>data),</span>
-<span id="cb62-6"><a href=""></a>    backend<span class="op">=</span><span class="st">"jax"</span>, n_warm_up_iter<span class="op">=</span><span class="dv">1000</span>, n_main_iter<span class="op">=</span><span class="dv">1000</span>, seed<span class="op">=</span>rng,</span>
-<span id="cb62-7"><a href=""></a>    init_states<span class="op">=</span>rng.standard_normal((n_chain, dim_parameters)),</span>
-<span id="cb62-8"><a href=""></a>    trace_funcs<span class="op">=</span>[<span class="kw">lambda</span> state: generate_parameters(state.pos)],</span>
-<span id="cb62-9"><a href=""></a>    adapters<span class="op">=</span>[</span>
-<span id="cb62-10"><a href=""></a>        mici.adapters.DualAveragingStepSizeAdapter(),</span>
-<span id="cb62-11"><a href=""></a>        mici.adapters.OnlineCovarianceMetricAdapter(),</span>
-<span id="cb62-12"><a href=""></a>    ],</span>
-<span id="cb62-13"><a href=""></a>    n_worker<span class="op">=</span>n_chain <span class="cf">if</span> free_threading_enabled <span class="cf">else</span> <span class="dv">1</span>,</span>
-<span id="cb62-14"><a href=""></a>    use_thread_pool<span class="op">=</span>free_threading_enabled,</span>
-<span id="cb62-15"><a href=""></a>    monitor_stats<span class="op">=</span>[<span class="st">"accept_stat"</span>, <span class="st">"step_size"</span>, <span class="st">"n_step"</span>],</span>
-<span id="cb62-16"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="3c625b98" class="cell" data-execution_count="57">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href=""></a><span class="im">import</span> mici</span>
+<span id="cb63-2"><a href=""></a></span>
+<span id="cb63-3"><a href=""></a>n_chain <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb63-4"><a href=""></a>final_states, traces, stats <span class="op">=</span> mici.sample_hmc_chains(</span>
+<span id="cb63-5"><a href=""></a>    neg_log_dens<span class="op">=</span>partial(negative_log_posterior_density, data<span class="op">=</span>data),</span>
+<span id="cb63-6"><a href=""></a>    backend<span class="op">=</span><span class="st">"jax"</span>, n_warm_up_iter<span class="op">=</span><span class="dv">1000</span>, n_main_iter<span class="op">=</span><span class="dv">1000</span>, seed<span class="op">=</span>rng,</span>
+<span id="cb63-7"><a href=""></a>    init_states<span class="op">=</span>rng.standard_normal((n_chain, dim_parameters)),</span>
+<span id="cb63-8"><a href=""></a>    trace_funcs<span class="op">=</span>[<span class="kw">lambda</span> state: generate_parameters(state.pos)],</span>
+<span id="cb63-9"><a href=""></a>    adapters<span class="op">=</span>[</span>
+<span id="cb63-10"><a href=""></a>        mici.adapters.DualAveragingStepSizeAdapter(),</span>
+<span id="cb63-11"><a href=""></a>        mici.adapters.OnlineCovarianceMetricAdapter(),</span>
+<span id="cb63-12"><a href=""></a>    ],</span>
+<span id="cb63-13"><a href=""></a>    n_worker<span class="op">=</span>n_chain <span class="cf">if</span> free_threading_enabled <span class="cf">else</span> <span class="dv">1</span>,</span>
+<span id="cb63-14"><a href=""></a>    use_thread_pool<span class="op">=</span>free_threading_enabled,</span>
+<span id="cb63-15"><a href=""></a>    monitor_stats<span class="op">=</span>[<span class="st">"accept_stat"</span>, <span class="st">"step_size"</span>, <span class="st">"n_step"</span>],</span>
+<span id="cb63-16"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 </section>
@@ -2557,7 +2706,7 @@ the
                       height: initial; background-color: #4caf50;
                       color: white; border-radius: 5px;
                       border: 1px solid white; font-size: 90%;">
-            Initial fast adaptive [00:34]
+            Initial fast adaptive [00:30]
           </div>
         
           <div style="position: relative; flex-grow: 1; align-self: stretch;
@@ -2565,7 +2714,7 @@ the
                       height: initial; background-color: #4caf50;
                       color: white; border-radius: 5px;
                       border: 1px solid white; font-size: 90%;">
-            Slow adaptive (1/5) [00:17]
+            Slow adaptive (1/5) [00:14]
           </div>
         
           <div style="position: relative; flex-grow: 1; align-self: stretch;
@@ -2573,7 +2722,7 @@ the
                       height: initial; background-color: #4caf50;
                       color: white; border-radius: 5px;
                       border: 1px solid white; font-size: 90%;">
-            Slow adaptive (2/5) [00:02]
+            Slow adaptive (2/5) [00:01]
           </div>
         
           <div style="position: relative; flex-grow: 1; align-self: stretch;
@@ -2581,7 +2730,7 @@ the
                       height: initial; background-color: #4caf50;
                       color: white; border-radius: 5px;
                       border: 1px solid white; font-size: 90%;">
-            Slow adaptive (3/5) [00:04]
+            Slow adaptive (3/5) [00:03]
           </div>
         
           <div style="position: relative; flex-grow: 1; align-self: stretch;
@@ -2589,7 +2738,7 @@ the
                       height: initial; background-color: #4caf50;
                       color: white; border-radius: 5px;
                       border: 1px solid white; font-size: 90%;">
-            Slow adaptive (4/5) [00:08]
+            Slow adaptive (4/5) [00:05]
           </div>
         
           <div style="position: relative; flex-grow: 1; align-self: stretch;
@@ -2597,7 +2746,7 @@ the
                       height: initial; background-color: #4caf50;
                       color: white; border-radius: 5px;
                       border: 1px solid white; font-size: 90%;">
-            Slow adaptive (5/5) [00:13]
+            Slow adaptive (5/5) [00:10]
           </div>
         
           <div style="position: relative; flex-grow: 1; align-self: stretch;
@@ -2613,7 +2762,7 @@ the
                       height: initial; background-color: #4caf50;
                       color: white; border-radius: 5px;
                       border: 1px solid white; font-size: 90%;">
-            Main non-adaptive [00:27]
+            Main non-adaptive [00:25]
           </div>
         </div>
 </div>
@@ -2637,7 +2786,7 @@ the
           <div style="margin-left: 8px; flex-shrink: 0;
                       font-family: var(--jp-code-font-family, monospace);
                       font-size: var(--jp-code-font-size, 13px);">
-            1000/1000 [00:07&lt;00:00, 136.03it/s, accept_stat=0.892, step_size=0.280, n_step=12.8]
+            1000/1000 [00:06&lt;00:00, 160.60it/s, accept_stat=0.892, step_size=0.280, n_step=12.8]
           </div>
         </div>
         
@@ -2662,7 +2811,7 @@ the
           <div style="margin-left: 8px; flex-shrink: 0;
                       font-family: var(--jp-code-font-family, monospace);
                       font-size: var(--jp-code-font-size, 13px);">
-            1000/1000 [00:07&lt;00:00, 139.83it/s, accept_stat=0.895, step_size=0.280, n_step=13.2]
+            1000/1000 [00:06&lt;00:00, 152.20it/s, accept_stat=0.895, step_size=0.280, n_step=13.2]
           </div>
         </div>
         
@@ -2687,7 +2836,7 @@ the
           <div style="margin-left: 8px; flex-shrink: 0;
                       font-family: var(--jp-code-font-family, monospace);
                       font-size: var(--jp-code-font-size, 13px);">
-            1000/1000 [00:06&lt;00:00, 151.08it/s, accept_stat=0.908, step_size=0.280, n_step=13.1]
+            1000/1000 [00:06&lt;00:00, 150.26it/s, accept_stat=0.908, step_size=0.280, n_step=13.1]
           </div>
         </div>
         
@@ -2712,7 +2861,7 @@ the
           <div style="margin-left: 8px; flex-shrink: 0;
                       font-family: var(--jp-code-font-family, monospace);
                       font-size: var(--jp-code-font-size, 13px);">
-            1000/1000 [00:06&lt;00:00, 149.40it/s, accept_stat=0.901, step_size=0.280, n_step=12.9]
+            1000/1000 [00:06&lt;00:00, 153.40it/s, accept_stat=0.901, step_size=0.280, n_step=12.9]
           </div>
         </div>
         
@@ -2721,11 +2870,11 @@ the
 <h2>Computing summaries using ArviZ</h2>
 <p>We can compute summary statistics and convergence diagnostics on the parameter values traced while sampling the chains using the <a href="https://python.arviz.org/en/stable/">ArviZ package</a></p>
 <div class="smaller">
-<div id="616787bd" class="cell" data-execution_count="58">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href=""></a><span class="im">import</span> arviz</span>
-<span id="cb63-2"><a href=""></a></span>
-<span id="cb63-3"><a href=""></a>arviz.summary(traces)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="57">
+<div id="a5c2a22e" class="cell" data-execution_count="58">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href=""></a><span class="im">import</span> arviz</span>
+<span id="cb64-2"><a href=""></a></span>
+<span id="cb64-3"><a href=""></a>arviz.summary(traces)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="120">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -2852,7 +3001,7 @@ the
 <section id="visualizing-posterior-using-corner" class="slide level2 scrollable">
 <h2>Visualizing posterior using <code>corner</code></h2>
 <p>We can also visualise the estimated posterior distribution on the parameters as a pair plot using <a href="https://corner.readthedocs.io/en/latest/">corner.py</a>, overlaying the MAP parameters as an orange marker</p>
-<div id="b8f5c9e5" class="cell" data-execution_count="59">
+<div id="77768b9b" class="cell" data-execution_count="59">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
