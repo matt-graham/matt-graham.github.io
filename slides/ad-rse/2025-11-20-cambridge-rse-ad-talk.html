@@ -1,0 +1,2998 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="2025-11-20-cambridge-rse-ad-talk_files/libs/clipboard/clipboard.min.js"></script>
+<script src="2025-11-20-cambridge-rse-ad-talk_files/libs/quarto-html/tabby.min.js"></script>
+<script src="2025-11-20-cambridge-rse-ad-talk_files/libs/quarto-html/popper.min.js"></script>
+<script src="2025-11-20-cambridge-rse-ad-talk_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="2025-11-20-cambridge-rse-ad-talk_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="2025-11-20-cambridge-rse-ad-talk_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="2025-11-20-cambridge-rse-ad-talk_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.6.42">
+
+  <meta name="author" content="Matt Graham">
+  <title>Automatic differentiation</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="2025-11-20-cambridge-rse-ad-talk_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="2025-11-20-cambridge-rse-ad-talk_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="2025-11-20-cambridge-rse-ad-talk_files/libs/revealjs/dist/theme/quarto-45dc37aacd0d0e8854d94325ac9e54e7.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="2025-11-20-cambridge-rse-ad-talk_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="2025-11-20-cambridge-rse-ad-talk_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="2025-11-20-cambridge-rse-ad-talk_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="2025-11-20-cambridge-rse-ad-talk_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="2025-11-20-cambridge-rse-ad-talk_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="2025-11-20-cambridge-rse-ad-talk_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <meta name="mermaid-theme" content="neutral">
+  <script src="2025-11-20-cambridge-rse-ad-talk_files/libs/quarto-diagram/mermaid.min.js"></script>
+  <script src="2025-11-20-cambridge-rse-ad-talk_files/libs/quarto-diagram/mermaid-init.js"></script>
+  <link href="2025-11-20-cambridge-rse-ad-talk_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="center">
+    <h1 class="title">Automatic differentiation</h1>
+      <p class="subtitle">A research software engineer’s eye view</p>
+        <figure>
+      <img src="images/horizontal-comp-graph-neg-log-dens.svg" width="80%">
+      </figure>
+        <p class="author">
+      Matt Graham
+              <a href="https://matt-graham.github.io">&lt;matt-graham.github.io&gt;</a>
+          </p>
+        <p class="job-title" style="color: #555; font-size: 80%;">
+      Principal Research Data Scientist
+    </p>
+        <p class="institute" style="color: #999; font-size: 80%;">UCL Centre for Advanced Research Computing (ARC)</p>
+    </section>
+<section id="my-path-to-becoming-an-rse" class="slide level2">
+<h2>👣 My path to becoming an RSE</h2>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">timeline
+    2008-2012: MEng in Engineering
+    2012-2013: MRes in Neuroinformatics
+    2013-2017: PhD in Informatics @ Edinburgh
+    2017-2020: Research fellow @ NUS
+    2020-2021: Research associate @ Newcastle
+    2021-2022: Research software developer @ UCL
+    2022-: Research data scientist @ UCL
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<div class="incremental-stack r-stack top-align">
+<div class="fragment fade-out" data-fragment-index="1">
+Undergraduate
+
+in
+
+information
+
+and
+
+computer
+
+engineering.
+</div>
+<div class="fragment  fade-in-then-out" data-fragment-index="1">
+MRes
+
++
+
+PhD
+
+in
+
+Doctoral
+
+Training
+
+Centre
+
+in
+
+Neuroinformatics
+
+and
+
+Computational
+
+Neuroscience,
+
+with
+
+thesis
+
+on
+
+<em>Auxiliary variable Markov chain Monte Carlo methods</em>
+.
+</div>
+<div class="fragment  fade-in-then-out" data-fragment-index="2">
+Postdoctoral
+
+positions
+
+in
+
+computational
+
+statistics
+
+groups
+
+at
+
+National
+
+University
+
+of
+
+Singapore
+
+and
+
+Newcastle
+
+University.
+</div>
+<div class="fragment  fade-in-then-out" data-fragment-index="3">
+Joined
+
+UCL
+
+as
+
+a
+
+research
+
+software
+
+developer
+
+in
+
+April
+
+2021.
+</div>
+<div class="fragment fade-in" data-fragment-index="4">
+Research
+
+data
+
+scientist
+
+at
+
+UCL
+
+ARC
+
+since
+
+April
+
+2022.
+</div>
+</div>
+</section>
+<section id="why-automatic-differentiation" class="slide level2">
+<h2>❓ Why automatic differentiation?</h2>
+<div class="columns">
+<div class="column" style="width:13%;">
+<p><img data-src="images/stan-logo.svg" style="width:90.0%"></p>
+</div><div class="column fragment" data-fragment-index="1" style="width:23%;">
+<p><img data-src="images/theano-logo.svg"> <span style="font-size: 125%;">Autograd</span></p>
+</div><div class="column fragment" data-fragment-index="3" style="width:23%;">
+<p><img data-src="images/jax-logo.svg"></p>
+</div><div class="column fragment" data-fragment-index="4" style="width:18%;">
+<p><img data-src="images/s2fft-logo.svg"></p>
+</div><div class="column fragment" data-fragment-index="5" style="width:13%;">
+<p><img data-src="images/enzyme-logo.svg"></p>
+</div></div>
+<div class="incremental-stack r-stack top-align">
+<div class="fragment fade-out" data-fragment-index="1">
+First
+
+started
+
+using
+
+automatic
+
+differentiation
+
+during
+
+PhD
+
+in
+
+context
+
+of
+
+gradient-based
+
+Bayesian
+
+inference
+
+methods.
+</div>
+<div class="fragment  fade-in-then-out" data-fragment-index="1">
+Initially
+
+used
+
+Theano
+
+and
+
+later
+
+made
+
+some
+
+small
+
+contributions
+
+to
+
+project
+
+(my
+
+first
+
+open-source
+
+development
+
+experience!).
+</div>
+<div class="fragment  fade-in-then-out" data-fragment-index="2">
+Started
+
+building
+
+a
+
+Python
+
+software
+
+package
+
+Mici
+
+using
+
+(HIPS)
+
+Autograd
+
+towards
+
+end
+
+of
+
+PhD
+
+in
+
+2016.
+</div>
+<div class="fragment  fade-in-then-out" data-fragment-index="3">
+Began
+
+using
+
+JAX
+
+extensively
+
+for
+
+research
+
+projects
+
+during
+
+postdoctoral
+
+positions
+
+after
+
+its
+
+release
+
+in
+
+2018.
+</div>
+<div class="fragment  fade-in-then-out" data-fragment-index="4">
+Subsequently
+
+since
+
+joining
+
+ARC
+
+have
+
+contributed
+
+to
+
+a
+
+JAX
+
+based
+
+package
+
+for
+
+spherical
+
+harmonics
+
+transforms
+
+(S2FFT).
+</div>
+<div class="fragment fade-in" data-fragment-index="5">
+Currently
+
+exploring
+
+various
+
+tools
+
+in
+
+Julia
+
+space
+
+particularly
+
+Enzyme
+
+for
+
+propagating
+
+derivatives
+
+through
+
+climate
+
+models.
+</div>
+</div>
+</section>
+<section id="what-is-automatic-differentiation" class="slide level2">
+<h2>🤔 What is automatic differentiation?</h2>
+<p>An approach for computing the derivatives of a function composed of <em>primitive operations</em> with known derivatives by algorithmically applying the rules of differentiation.</p>
+<div class="fragment">
+<p>Also known as <em>algorithmic differentiation</em>.</p>
+</div>
+<div class="fragment">
+<p>Distinct from but related to both <em>numerical differentiation</em> and <em>symbolic differentiation</em>.</p>
+</div>
+</section>
+<section id="history" class="slide level2">
+<h2>🕰️ History</h2>
+<p><em>Automatic differentiation</em> (AD) has a long history dating back to the 1960s.</p>
+<div class="fragment">
+<p>R.E. Wengert (1964). <em>A simple automatic derivative evaluation program</em>. CACM 7(8), pp.&nbsp;463–4.</p>
+<blockquote>
+<p>A procedure for automatic evaluation of total / partial derivatives of arbitrary algebraic functions is presented … The key to the method is the decomposition of the given function, by introduction of intermediate variables, into a series of elementary functional steps.</p>
+</blockquote>
+</div>
+<div class="fragment">
+<p>In machine learning <em>reverse-mode</em> AD historically known as <em>backpropagation</em>. <em>Adjoint method</em> also closely related.</p>
+</div>
+</section>
+<section id="advantages-of-ad" class="slide level2">
+<h2>✨ Advantages of AD</h2>
+<ul>
+<li class="fragment"><strong>Efficient</strong>: can evaluate the Jacobian of a function <span class="math inline">\(f : \mathbb{R}^N \to \mathbb{R}^M\)</span> at a computational cost which is <span class="math inline">\(\mathcal{O}\left(\min(M, N)\right)\)</span> times the cost of evaluating <span class="math inline">\(f\)</span>.<sup>1</sup></li>
+<li class="fragment"><strong>Expressive</strong>: applicable to any differentiable function which can be expressed algorithmically including use of control flow.</li>
+<li class="fragment"><strong>Exact</strong>: provides exact derivatives of a function (modulo usual errors from using floating-point arithmetic).</li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>A. Griewank (1988). <em>On Automatic Differentiation</em>. Technical Report ANL/MCS-P10-1088</p></li></ol></aside></section>
+<section id="notation" class="slide level2">
+<h2>📝 Notation</h2>
+<p>For a differentiable function <span class="math inline">\(f : \mathbb{R}^N \to \mathbb{R}^M\)</span></p>
+<ul>
+<li class="fragment"><span class="math inline">\(f_m : \mathbb{R}^N \to \mathbb{R}\)</span> is the <em>component function</em> giving the value of the <span class="math inline">\(m\)</span>th output of <span class="math inline">\(f\)</span>,</li>
+<li class="fragment"><span class="math inline">\(\partial_n f : \mathbb{R}^N \to \mathbb{R}^M\)</span> is the derivative of <span class="math inline">\(f\)</span> with respect to <span class="math inline">\(n\)</span>th dimension in argument,</li>
+<li class="fragment"><span class="math inline">\(\partial f : \mathbb{R}^N \to \mathbb{R}^{M\times N}\)</span> is the function computing the <em>Jacobian</em> (matrix of partial derivatives) of <span class="math inline">\(f\)</span>.</li>
+</ul>
+</section>
+
+<section id="numerical-differentiation" class="slide level2">
+<h2>🔢 Numerical differentiation</h2>
+<p>Finite difference methods based on limit definitions of (partial) derivatives.</p>
+<div class="fragment">
+<p>For example for a differentiable function <span class="math inline">\(f : \mathbb{R}^N \to \mathbb{R}^M\)</span> if <span class="math inline">\(\mathbf{e}_n\)</span> is the length <span class="math inline">\(N\)</span> vector with 1 at the <span class="math inline">\(n\)</span>th entry and zeros elsewhere then for a small positive <span class="math inline">\(h\)</span></p>
+<p><span class="math display">\[
+  \partial_n\, f(x) \approx \frac{f(x+h\mathbf{e}_n)-f(x)}{h}
+\]</span></p>
+<p>(first order forward finite difference formula).</p>
+</div>
+</section>
+<section id="numerical-differentiation-1" class="slide level2">
+<h2>🔢 Numerical differentiation</h2>
+<p>To approximate the full <span class="math inline">\(M\times N\)</span> Jacobian matrix <span class="math inline">\(\partial f\)</span> need to compute finite differences for each of <span class="math inline">\(\mathbf{e}_1 \dots \mathbf{e}_N\)</span> <span class="math inline">\(\implies\)</span><br>
+cost <span class="math inline">\(\mathcal{O}(N)\)</span> evaluations of <span class="math inline">\(f\)</span>.</p>
+<div class="fragment">
+<p>Particularly burdensome for calculating the gradient of scalar functions of a large number of variables (<span class="math inline">\(M=1\)</span>, <span class="math inline">\(N \gg 1\)</span>).</p>
+</div>
+<div class="fragment">
+<p>For small <span class="math inline">\(h\)</span> can become numerically unstable.</p>
+</div>
+</section>
+<section id="finite-difference-numerical-error" class="slide level2">
+<h2>⚠️ Finite difference numerical error</h2>
+
+<img data-src="2025-11-20-cambridge-rse-ad-talk_files/figure-revealjs/cell-2-output-1.png" class="r-stretch"></section>
+<section id="ℹ-aside-complex-step-method" class="slide level2">
+<h2>ℹ️ <em>Aside</em>: Complex step method</h2>
+<p>For <em>analytic</em> <span class="math inline">\(f : \mathbb{R}^N \to \mathbb{R}^M\)</span>, expanding as a Taylor series:</p>
+<p><span class="math display">\[
+  f(x + jh\mathbf{e}_n) = f(x) + jh \partial_n\,f(x) + \mathcal{O}(h^2)
+\]</span></p>
+<div class="fragment">
+<p>Taking the imaginary component of both sides and rearranging</p>
+<p><span class="math display">\[
+  \partial_n\,f(x) = \text{Im}\big(f(x + jh\mathbf{e}_n)\big) / h + \mathcal{O}(h^2)
+\]</span></p>
+</div>
+<div class="fragment">
+<p>Avoids floating point errors in computation of difference - <span class="math inline">\(\mathcal{O}(h^2)\)</span> accuracy even for very small <span class="math inline">\(h\)</span>.</p>
+</div>
+</section>
+<section id="symbolic-differentiation" class="slide level2">
+<h2>🔡 Symbolic differentiation</h2>
+<p>Implementations of rules of calculus in computer algebra systems (e.g.&nbsp;SymPy, Deriv in R, Symbolics.jl).</p>
+<div class="fragment">
+<p>Gives human-readable expressions as output but verbose for complicated compositions of functions and redundancy between partial derivatives.</p>
+</div>
+<div class="fragment">
+<p>AD instead exploits <em>modularity of functions</em>, computing derivatives in terms of intermediate values rather than expanding in terms of inputs.</p>
+</div>
+</section>
+
+<section id="jacobians" class="slide level2">
+<h2>🇯 Jacobians</h2>
+<p>For a function <span class="math inline">\(f : \mathbb{R}^N \to \mathbb{R}^M\)</span> the Jacobian <span class="math inline">\(\partial f(x)\)</span> at an input <span class="math inline">\(x \in \mathbb{R}^N\)</span> can be represented as a <span class="math inline">\(M \times N\)</span> matrix of partial derivatives</p>
+<div class="fragment">
+<p><span class="math display">\[ \partial f(x) = \begin{bmatrix}
+  \partial_1{f_1}(x) &amp; \dots &amp; \partial_N f(x) \\\\
+  \vdots &amp; \ddots &amp; \vdots \\\\
+  \partial_1 f_M(x) &amp; \dots &amp; \partial_N f_M(x)
+  \end{bmatrix}.
+\]</span></p>
+</div>
+<div class="fragment">
+<p>More generally the Jacobian is a linear map from the <em>domain</em> to the <em>codomain</em> of a function.</p>
+</div>
+</section>
+<section id="jacobian-vector-products" class="slide level2">
+<h2>🇻 Jacobian vector products</h2>
+<p>As the Jacobian <span class="math inline">\(\partial f(x)\)</span> is a linear map <span class="math inline">\(\mathbb{R}^N \to \mathbb{R}^M\)</span> we can apply it to a vector <span class="math inline">\(v \in \mathbb{R}^N\)</span>. We term this operation a <em>Jacobian vector product</em> (<code>JVP</code>)</p>
+<div class="fragment">
+<p><span class="math display">\[\texttt{JVP}(\,f)(x)(v) := \partial f(x) v\]</span></p>
+</div>
+<div class="fragment">
+<p>Operation cost of <span class="math inline">\(\texttt{JVP}(\,f)(x)(v)\)</span> = <span class="math inline">\(\mathcal{O}(1)\times \,\)</span> cost of <span class="math inline">\(f(x)\)</span>.</p>
+</div>
+</section>
+<section id="vector-jacobian-products" class="slide level2">
+<h2>🇻 Vector Jacobian products</h2>
+<p>The <em>transpose</em> of the Jacobian <span class="math inline">\(\partial f(x)^{\mathsf{T}}\)</span> is a linear map <span class="math inline">\(\mathbb{R}^M \to \mathbb{R}^N\)</span> can be applied to a vector <span class="math inline">\(v \in \mathbb{R}^M\)</span>. We term this a <em>vector Jacobian product</em> (<code>VJP</code>) (cf.&nbsp;adjoint operator)</p>
+<div class="fragment">
+<p><span class="math display">\[\texttt{VJP}(\,f)(x)(v) := \partial f(x)^{\mathsf{T}} v = \left( v^{\mathsf{T}} \partial f(x)\right)^{\mathsf{T}}\]</span></p>
+</div>
+<div class="fragment">
+<p>Operation cost of <span class="math inline">\(\texttt{VJP}(\,f)(x)(v)\)</span> = <span class="math inline">\(\mathcal{O}(1)\times \,\)</span> cost of <span class="math inline">\(f(x)\)</span>.</p>
+</div>
+</section>
+<section id="chain-rule" class="slide level2">
+<h2>⛓️ Chain rule</h2>
+<p>Chain rule for functions <span class="math inline">\(f : \mathcal{X} \to \mathcal{Y}\)</span> and <span class="math inline">\(g : \mathcal{Y} \to \mathcal{Z}\)</span></p>
+<div class="fragment">
+<p><span class="math display">\[\partial (\,f\circ g) = (\partial f \circ g) \, \partial g\]</span></p>
+</div>
+<div class="fragment">
+<p>or equivalently if <span class="math inline">\(y = g(x)\)</span> and <span class="math inline">\(z = f(y)\)</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[\frac{\partial z}{\partial x} = \frac{\partial z}{\partial y} \frac{\partial y}{\partial x} = \partial f(y) \partial g(x).\]</span></p>
+</div>
+</section>
+<section id="forward-mode-accumulation" class="slide level2">
+<h2>➡️ Forward-mode accumulation</h2>
+<div class="incremental-stack r-stack top-align">
+<div class="fragment fade-out" data-fragment-index="1">
+<span class="math display">\[\begin{align}
+  \texttt{JVP}(\,f\circ g)(x)(v)
+  &amp;\color{black}{{} = \partial (\,f\circ g)(x) \, v}
+  \\
+  &amp;\color{lightgray}{{} = \partial f \circ \underbrace{g(x)}_{y=g(x)} \, \partial g(x) \, v}
+  \\
+  &amp;\color{lightgray}{{} = \partial f(y) \, \partial g(x) v}
+  \\
+  &amp;\color{lightgray}{{} =\texttt{JVP}(\,f)(y)(\texttt{JVP}(g)(x)(v))}
+\end{align}\]</span>
+</div>
+<div class="fragment  fade-in-then-out" data-fragment-index="1">
+<span class="math display">\[\begin{align}
+  \texttt{JVP}(\,f\circ g)(x)(v)
+  &amp;\color{lightgray}{{} = \partial (\,f\circ g)(x) \, v}
+  \\
+  &amp;\color{black}{{} = \partial f \circ \underbrace{g(x)}_{y=g(x)} \, \partial g(x) \, v}
+  \\
+  &amp;\color{lightgray}{{} = \partial f(y) \, \partial g(x) v}
+  \\
+  &amp;\color{lightgray}{{} =\texttt{JVP}(\,f)(y)(\texttt{JVP}(g)(x)(v))}
+\end{align}\]</span>
+</div>
+<div class="fragment  fade-in-then-out" data-fragment-index="2">
+<span class="math display">\[\begin{align}
+  \texttt{JVP}(\,f\circ g)(x)(v)
+  &amp;\color{lightgray}{{} = \partial (\,f\circ g)(x) \, v}
+  \\
+  &amp;\color{lightgray}{{} = \partial f \circ \underbrace{g(x)}_{y=g(x)} \, \partial g(x) \, v}
+  \\
+  &amp;\color{black}{{} = \partial f(y) \, \partial g(x) v}
+  \\
+  &amp;\color{lightgray}{{} =\texttt{JVP}(\,f)(y)(\texttt{JVP}(g)(x)(v))}
+\end{align}\]</span>
+</div>
+<div class="fragment fade-in" data-fragment-index="3">
+<span class="math display">\[\begin{align}
+  \texttt{JVP}(\,f\circ g)(x)(v)
+  &amp;\color{lightgray}{{} = \partial (\,f\circ g)(x) \, v}
+  \\
+  &amp;\color{lightgray}{{} = \partial f \circ \underbrace{g(x)}_{y=g(x)} \, \partial g(x) \, v}
+  \\
+  &amp;\color{lightgray}{{} = \partial f(y) \, \partial g(x) v}
+  \\
+  &amp;\color{black}{{} =\texttt{JVP}(\,f)(y)(\texttt{JVP}(g)(x)(v))}
+\end{align}\]</span>
+</div>
+</div>
+<div class="fragment">
+<p>Can evaluate <span class="math inline">\(g(x)\)</span> at same time as <span class="math inline">\(\texttt{JVP}(g)(x)\)</span>.</p>
+</div>
+</section>
+<section id="reverse-mode-accumulation" class="slide level2">
+<h2>⬅️ Reverse-mode accumulation</h2>
+<div class="incremental-stack r-stack top-align">
+<div class="fragment fade-out" data-fragment-index="1">
+<span class="math display">\[\begin{align}
+  \texttt{VJP}(\,f\circ g)(x)(v)
+  &amp;\color{black}{{} = \partial (\,f\circ g)(x)^{\mathsf{T}} v}
+  \\
+  &amp;\color{lightgray}{{} = (\partial f \circ g(x) \partial g(x))^{\mathsf{T}} v}
+  \\
+  &amp;\color{lightgray}{{} = \partial g(x) ^{\mathsf{T}} (\partial f \circ \underbrace{g(x)}_{y=g(x)}) ^{\mathsf{T}} v}
+  \\
+  &amp;\color{lightgray}{{} = \partial g(x) ^{\mathsf{T}} \, \partial f(y) ^{\mathsf{T}} v}
+  \\
+  &amp;\color{lightgray}{{} =  \texttt{VJP}(g)(x)(\texttt{VJP}(\,f)(y)(v))}
+\end{align}\]</span>
+</div>
+<div class="fragment  fade-in-then-out" data-fragment-index="1">
+<span class="math display">\[\begin{align}
+  \texttt{VJP}(\,f\circ g)(x)(v)
+  &amp;\color{lightgray}{{} = \partial (\,f\circ g)(x)^{\mathsf{T}} v}
+  \\
+  &amp;\color{black}{{} = (\partial f \circ g(x) \partial g(x))^{\mathsf{T}} v}
+  \\
+  &amp;\color{lightgray}{{} = \partial g(x) ^{\mathsf{T}} (\partial f \circ \underbrace{g(x)}_{y=g(x)}) ^{\mathsf{T}} v}
+  \\
+  &amp;\color{lightgray}{{} = \partial g(x) ^{\mathsf{T}} \, \partial f(y) ^{\mathsf{T}} v}
+  \\
+  &amp;\color{lightgray}{{} =  \texttt{VJP}(g)(x)(\texttt{VJP}(\,f)(y)(v))}
+\end{align}\]</span>
+</div>
+<div class="fragment  fade-in-then-out" data-fragment-index="2">
+<span class="math display">\[\begin{align}
+  \texttt{VJP}(\,f\circ g)(x)(v)
+  &amp;\color{lightgray}{{} = \partial (\,f\circ g)(x)^{\mathsf{T}} v}
+  \\
+  &amp;\color{lightgray}{{} = (\partial f \circ g(x) \partial g(x))^{\mathsf{T}} v}
+  \\
+  &amp;\color{black}{{} = \partial g(x) ^{\mathsf{T}} (\partial f \circ \underbrace{g(x)}_{y=g(x)}) ^{\mathsf{T}} v}
+  \\
+  &amp;\color{lightgray}{{} = \partial g(x) ^{\mathsf{T}} \, \partial f(y) ^{\mathsf{T}} v}
+  \\
+  &amp;\color{lightgray}{{} =  \texttt{VJP}(g)(x)(\texttt{VJP}(\,f)(y)(v))}
+\end{align}\]</span>
+</div>
+<div class="fragment  fade-in-then-out" data-fragment-index="3">
+<span class="math display">\[\begin{align}
+  \texttt{VJP}(\,f\circ g)(x)(v)
+  &amp;\color{lightgray}{{} = \partial (\,f\circ g)(x)^{\mathsf{T}} v}
+  \\
+  &amp;\color{lightgray}{{} = (\partial f \circ g(x) \partial g(x))^{\mathsf{T}} v}
+  \\
+  &amp;\color{lightgray}{{} = \partial g(x) ^{\mathsf{T}} (\partial f \circ \underbrace{g(x)}_{y=g(x)}) ^{\mathsf{T}} v}
+  \\
+  &amp;\color{black}{{} = \partial g(x) ^{\mathsf{T}} \, \partial f(y) ^{\mathsf{T}} v}
+  \\
+  &amp;\color{lightgray}{{} =  \texttt{VJP}(g)(x)(\texttt{VJP}(\,f)(y)(v))}
+\end{align}\]</span>
+</div>
+<div class="fragment fade-in" data-fragment-index="4">
+<span class="math display">\[\begin{align}
+  \texttt{VJP}(\,f\circ g)(x)(v)
+  &amp;\color{lightgray}{{} = \partial (\,f\circ g)(x)^{\mathsf{T}} v}
+  \\
+  &amp;\color{lightgray}{{} = (\partial f \circ g(x) \partial g(x))^{\mathsf{T}} v}
+  \\
+  &amp;\color{lightgray}{{} = \partial g(x) ^{\mathsf{T}} (\partial f \circ \underbrace{g(x)}_{y=g(x)}) ^{\mathsf{T}} v}
+  \\
+  &amp;\color{lightgray}{{} = \partial g(x) ^{\mathsf{T}} \, \partial f(y) ^{\mathsf{T}} v}
+  \\
+  &amp;\color{black}{{} =  \texttt{VJP}(g)(x)(\texttt{VJP}(\,f)(y)(v))}
+\end{align}\]</span>
+</div>
+</div>
+<div class="fragment">
+<p>Need to evaluate <span class="math inline">\(g(x)\)</span> <em>before</em> evaluating <span class="math inline">\(\texttt{VJP}(g)(x)\)</span>.</p>
+</div>
+</section>
+<section id="forward--and-reverse-mode-ad" class="slide level2">
+<h2>🔁 Forward- and reverse-mode AD</h2>
+<p>Define function as an arbitrary composition of <em>primitives</em> which we can evaluate <code>JVP</code>s or <code>VJP</code>s for.</p>
+<div class="fragment">
+<p>By recursively applying the chain rule we can compute a <code>JVP</code> or <code>VJP</code> for the whole function.</p>
+</div>
+<div class="fragment">
+<p>In the case of reverse-mode accumulation using <code>VJP</code>s we must first compute and store all intermediate values in a <em>forward pass</em> before propagating the derivatives from the outputs to inputs in a <em>backwards pass</em>.</p>
+</div>
+</section>
+<section id="computing-gradients" class="slide level2">
+<h2>🔽 Computing gradients</h2>
+<p>For a scalar-valued function <span class="math inline">\(f : \mathbb{R}^N \to \mathbb{R}\)</span> we can express its gradient <span class="math inline">\(\nabla f: \mathbb{R}^N \to \mathbb{R}^N\)</span> as a <code>VJP</code></p>
+<div class="fragment">
+<p><span class="math display">\[\nabla f(x) = \partial f(x)^{\mathsf{T}} [1] = \texttt{VJP}(\,f)(x)([1]).\]</span></p>
+</div>
+<div class="fragment">
+<p>Using reverse-mode accumulation we can therefore compute <span class="math inline">\(\nabla f(x)\)</span> at similar cost to evaluating <span class="math inline">\(f(x)\)</span>.</p>
+</div>
+</section>
+<section id="normal-log-density-example" class="slide level2">
+<h2>🔔 Normal log density example</h2>
+<p>Consider computing the derivatives negative log density of a univariate normal distribution with mean <span class="math inline">\(m\)</span> and standard deviation <span class="math inline">\(s\)</span> at a point <span class="math inline">\(x\)</span></p>
+<div class="fragment">
+<p><span class="math display">\[ c = f(x, m, s) = \frac{1}{2}\left(\frac{x-m}{s}\right)^2 + \log (s) + \frac{1}{2}\log (2\pi) \]</span></p>
+</div>
+</section>
+<section id="symbolic-differentiation-sympy" class="slide level2">
+<h2>🔡 Symbolic differentiation: SymPy</h2>
+<div id="33ffc5a7" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="im">import</span> sympy</span>
+<span id="cb1-2"><a href=""></a></span>
+<span id="cb1-3"><a href=""></a>x, m, s <span class="op">=</span> sympy.symbols(<span class="st">'x m s'</span>)</span>
+<span id="cb1-4"><a href=""></a>c <span class="op">=</span> ((x <span class="op">-</span> m) <span class="op">/</span> s)<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> <span class="dv">2</span> <span class="op">+</span> sympy.log(s) <span class="op">+</span> sympy.log(<span class="dv">2</span> <span class="op">*</span> sympy.pi) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb1-5"><a href=""></a>sympy.simplify(</span>
+<span id="cb1-6"><a href=""></a>    sympy.Array([sympy.diff(c, x), sympy.diff(c, m), sympy.diff(c, s)])</span>
+<span id="cb1-7"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment" data-execution_count="2">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="14">
+<p><span class="math inline">\(\displaystyle \left[\begin{matrix}\frac{- m + x}{s^{2}} &amp; \frac{m - x}{s^{2}} &amp; \frac{s^{2} - \left(m - x\right)^{2}}{s^{3}}\end{matrix}\right]\)</span></p>
+</div>
+</div>
+<div class="fragment">
+<p>Each derivative is evaluated separately and no sharing of common subexpressions.</p>
+</div>
+</section>
+<section id="numerical-differentiation-numpy" class="slide level2">
+<h2>🔢 Numerical differentiation: NumPy</h2>
+<div id="d8235747" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-2"><a href=""></a></span>
+<span id="cb2-3"><a href=""></a><span class="kw">def</span> neg_log_dens(x, m, s):</span>
+<span id="cb2-4"><a href=""></a>    <span class="cf">return</span> ((x <span class="op">-</span> m) <span class="op">/</span> s)<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> <span class="dv">2</span> <span class="op">+</span> np.log(s) <span class="op">+</span> np.log(<span class="dv">2</span> <span class="op">*</span> np.pi) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb2-5"><a href=""></a></span>
+<span id="cb2-6"><a href=""></a>x, m, s, h <span class="op">=</span> <span class="fl">0.5</span>, <span class="fl">1.2</span>, <span class="fl">1.1</span>, <span class="fl">1e-8</span></span>
+<span id="cb2-7"><a href=""></a>c <span class="op">=</span> neg_log_dens(x, m, s)</span>
+<span id="cb2-8"><a href=""></a>(</span>
+<span id="cb2-9"><a href=""></a>    (neg_log_dens(x <span class="op">+</span> h, m, s) <span class="op">-</span> c) <span class="op">/</span> h, </span>
+<span id="cb2-10"><a href=""></a>    (neg_log_dens(x, m <span class="op">+</span> h, s) <span class="op">-</span> c) <span class="op">/</span> h, </span>
+<span id="cb2-11"><a href=""></a>    (neg_log_dens(x, m, s <span class="op">+</span> h) <span class="op">-</span> c) <span class="op">/</span> h</span>
+<span id="cb2-12"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>(np.float64(-0.5785123935453385),
+ np.float64(0.5785123935453385),
+ np.float64(0.5409466652395167))</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p>Four evaluations of function, <span class="math inline">\(\mathcal{O}(h)\)</span> approximate output.</p>
+</div>
+</section>
+<section id="ℹ-complex-step-numpy" class="slide level2">
+<h2>ℹ️ Complex step: NumPy</h2>
+<div id="082f1081" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-2"><a href=""></a></span>
+<span id="cb4-3"><a href=""></a><span class="kw">def</span> neg_log_dens(x, m, s):</span>
+<span id="cb4-4"><a href=""></a>    <span class="cf">return</span> ((x <span class="op">-</span> m) <span class="op">/</span> s)<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> <span class="dv">2</span> <span class="op">+</span> np.log(s) <span class="op">+</span> np.log(<span class="dv">2</span> <span class="op">*</span> np.pi) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb4-5"><a href=""></a></span>
+<span id="cb4-6"><a href=""></a>x, m, s, h <span class="op">=</span> <span class="fl">0.5</span>, <span class="fl">1.2</span>, <span class="fl">1.1</span>, <span class="fl">1e-16</span></span>
+<span id="cb4-7"><a href=""></a>(</span>
+<span id="cb4-8"><a href=""></a>    neg_log_dens(x <span class="op">+</span> <span class="ot">1j</span> <span class="op">*</span> h, m, s).imag <span class="op">/</span> h,</span>
+<span id="cb4-9"><a href=""></a>    neg_log_dens(x, m <span class="op">+</span> <span class="ot">1j</span> <span class="op">*</span> h, s).imag <span class="op">/</span> h,</span>
+<span id="cb4-10"><a href=""></a>    neg_log_dens(x, m, s <span class="op">+</span> <span class="ot">1j</span> <span class="op">*</span> h).imag <span class="op">/</span> h</span>
+<span id="cb4-11"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>(-0.5785123966942147, 0.5785123966942147, np.float64(0.5409466566491361))</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p>Three evaluations of function, <span class="math inline">\(\mathcal{O}(h^2)\)</span> approximate output.</p>
+</div>
+</section>
+<section id="automatic-differentiation-autograd" class="slide level2" style="font-size: 98%;">
+<h2>🇦 Automatic differentiation: Autograd</h2>
+<div id="c63ca401" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="im">import</span> autograd.numpy <span class="im">as</span> np</span>
+<span id="cb6-2"><a href=""></a><span class="im">from</span> autograd <span class="im">import</span> grad</span>
+<span id="cb6-3"><a href=""></a></span>
+<span id="cb6-4"><a href=""></a><span class="kw">def</span> neg_log_dens(x, m, s):</span>
+<span id="cb6-5"><a href=""></a>    <span class="cf">return</span> ((x <span class="op">-</span> m) <span class="op">/</span> s)<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> <span class="dv">2</span> <span class="op">+</span> np.log(s) <span class="op">+</span> np.log(<span class="dv">2</span> <span class="op">*</span> np.pi) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb6-6"><a href=""></a>    </span>
+<span id="cb6-7"><a href=""></a>x, m, s <span class="op">=</span> <span class="fl">0.5</span>, <span class="fl">1.2</span>, <span class="fl">1.1</span></span>
+<span id="cb6-8"><a href=""></a>grad(neg_log_dens, argnum<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>))(x, m, s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment" data-execution_count="5">
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>(array(-0.5785124), array(0.5785124), array(0.54094666))</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p>One forward and backward pass to evaluate all 3 derivatives and ‘exact’ output.</p>
+</div>
+</section>
+<section id="automatic-differentiation-jax" class="slide level2">
+<h2>🇯 Automatic differentiation: JAX</h2>
+<div id="b3a8ae06" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="im">import</span> jax.numpy <span class="im">as</span> np</span>
+<span id="cb8-2"><a href=""></a><span class="im">from</span> jax <span class="im">import</span> grad</span>
+<span id="cb8-3"><a href=""></a></span>
+<span id="cb8-4"><a href=""></a><span class="kw">def</span> neg_log_dens(x, m, s):</span>
+<span id="cb8-5"><a href=""></a>    <span class="cf">return</span> ((x <span class="op">-</span> m) <span class="op">/</span> s)<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> <span class="dv">2</span> <span class="op">+</span> np.log(s) <span class="op">+</span> np.log(<span class="dv">2</span> <span class="op">*</span> np.pi) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb8-6"><a href=""></a>    </span>
+<span id="cb8-7"><a href=""></a>x, m, s <span class="op">=</span> <span class="fl">0.5</span>, <span class="fl">1.2</span>, <span class="fl">1.1</span></span>
+<span id="cb8-8"><a href=""></a>grad(neg_log_dens, argnums<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>))(x, m, s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment" data-execution_count="6">
+<div class="cell-output cell-output-display" data-execution_count="18">
+<pre><code>(Array(-0.57851243, dtype=float32, weak_type=True),
+ Array(0.57851243, dtype=float32, weak_type=True),
+ Array(0.5409466, dtype=float32, weak_type=True))</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p>JAX automatic differentiation API very close to Autograd but also allows additional <em>functional transformations</em> such as just-in-time compilation and dispatching to accelerator devices.</p>
+</div>
+</section>
+<section id="automatic-differentiation-enzyme" class="slide level2">
+<h2>🇪 Automatic differentiation: Enzyme</h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href=""></a><span class="im">using</span> <span class="bu">Enzyme</span></span>
+<span id="cb10-2"><a href=""></a></span>
+<span id="cb10-3"><a href=""></a><span class="fu">neg_log_dens</span>(x, m, s) <span class="op">=</span> ((x <span class="op">-</span> m) <span class="op">/</span> s)<span class="op">^</span><span class="fl">2</span> <span class="op">/</span> <span class="fl">2</span> <span class="op">+</span> <span class="fu">log</span>(s) <span class="op">+</span> <span class="fu">log</span>(<span class="fl">2</span>π) <span class="op">/</span> <span class="fl">2</span></span>
+<span id="cb10-4"><a href=""></a>    </span>
+<span id="cb10-5"><a href=""></a>x, m, s <span class="op">=</span> <span class="fl">0.5</span>, <span class="fl">1.2</span>, <span class="fl">1.1</span></span>
+<span id="cb10-6"><a href=""></a><span class="fu">autodiff</span>(Reverse, neg_log_dens, Active, <span class="fu">Active</span>(x), <span class="fu">Active</span>(m), <span class="fu">Active</span>(s))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<pre><code>((-0.5785123966942148, 0.5785123966942148, 0.5409466566491361),)</code></pre>
+</div>
+<div class="fragment">
+<p>Enzyme performs automatic differentiation on statically analysable LLVM intermediate representation. It has Julia bindings but also supports other languages that can be compiled with LLVM including C++ and Fortran.</p>
+</div>
+</section>
+<section id="𖣂-computational-graphs" class="slide level2">
+<h2>𖣂 Computational graphs</h2>
+<p>Directed acyclic graph representation of function evaluation.</p>
+<div class="cell" data-fig-width="6" data-fig-height="3" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<svg width="576" height="288" viewbox="0.00 0.00 227.20 151.20" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(21.6 129.6)">
+<title>G</title>
+<!-- x -->
+<g id="node1" class="node">
+<title>x</title>
+<ellipse fill="none" stroke="DarkGreen" cx="21.5" cy="-86.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="21.5" y="-82.3" font-family="Courier,monospace" font-size="14.00">x</text>
+</g>
+<!-- xy_z -->
+<g id="node4" class="node">
+<title>xy_z</title>
+<polygon fill="none" stroke="#006eaf" points="119,-71.5 65,-71.5 65,-35.5 119,-35.5 119,-71.5"></polygon>
+<text text-anchor="middle" x="92" y="-49.3" font-family="Courier,monospace" font-size="14.00">func</text>
+</g>
+<!-- x&#45;&gt;xy_z -->
+<g id="edge1" class="edge">
+<title>x-&gt;xy_z</title>
+<path fill="none" stroke="black" d="M41.22,-77.48C45.77,-75.29 50.79,-72.87 55.84,-70.44"></path>
+<polygon fill="black" stroke="black" points="57.37,-73.59 64.86,-66.09 54.33,-67.28 57.37,-73.59"></polygon>
+</g>
+<!-- y -->
+<g id="node2" class="node">
+<title>y</title>
+<ellipse fill="none" stroke="DarkGreen" cx="21.5" cy="-21.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="21.5" y="-17.3" font-family="Courier,monospace" font-size="14.00">y</text>
+</g>
+<!-- y&#45;&gt;xy_z -->
+<g id="edge2" class="edge">
+<title>y-&gt;xy_z</title>
+<path fill="none" stroke="black" d="M41.22,-30.24C45.66,-32.32 50.54,-34.6 55.46,-36.9"></path>
+<polygon fill="black" stroke="black" points="54.32,-40.23 64.86,-41.29 57.28,-33.88 54.32,-40.23"></polygon>
+</g>
+<!-- z -->
+<g id="node3" class="node">
+<title>z</title>
+<ellipse fill="none" stroke="DarkGreen" cx="162.5" cy="-53.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="162.5" y="-49.3" font-family="Courier,monospace" font-size="14.00">z</text>
+</g>
+<!-- xy_z&#45;&gt;z -->
+<g id="edge3" class="edge">
+<title>xy_z-&gt;z</title>
+<path fill="none" stroke="black" d="M119.29,-53.5C122.95,-53.5 126.73,-53.5 130.47,-53.5"></path>
+<polygon fill="black" stroke="black" points="130.7,-57 140.7,-53.5 130.7,-50 130.7,-57"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>Node types: <em>variables</em> (circles) and <em>primitives</em> (rectangles).</p>
+</div>
+<div class="fragment">
+<p><em>Root variables</em>: Input argument(s) to function.</p>
+</div>
+<div class="fragment">
+<p><em>Leaf variables</em>: Value(s) returned by function.</p>
+</div>
+</section>
+<section id="forward-and-reverse-sensitivities" class="slide level2">
+<h2>🔁 Forward and reverse sensitivities</h2>
+<p>For a variable <code>v</code> then</p>
+<ul>
+<li class="fragment"><code>v̲</code> represents the derivative of <code>v</code> wrt an input variable,</li>
+<li class="fragment"><code>̄v</code> represents the derivative of an output variable wrt <code>v</code>,</li>
+</ul>
+<div class="fragment">
+<div class="columns">
+<div class="column fragment" style="width:28%;">
+<div class="cell" data-fig-width="2.9" data-fig-height="1.8" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<svg width="278" height="173" viewbox="0.00 0.00 227.20 151.20" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(21.6 129.6)">
+<title>G</title>
+<!-- x -->
+<g id="node1" class="node">
+<title>x</title>
+<ellipse fill="none" stroke="DarkGreen" cx="21.5" cy="-86.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="21.5" y="-82.3" font-family="Courier,monospace" font-size="14.00">x</text>
+</g>
+<!-- xy_z -->
+<g id="node4" class="node">
+<title>xy_z</title>
+<polygon fill="none" stroke="#006eaf" points="119,-71.5 65,-71.5 65,-35.5 119,-35.5 119,-71.5"></polygon>
+<text text-anchor="middle" x="92" y="-49.3" font-family="Courier,monospace" font-size="14.00">func</text>
+</g>
+<!-- x&#45;&gt;xy_z -->
+<g id="edge1" class="edge">
+<title>x-&gt;xy_z</title>
+<path fill="none" stroke="black" d="M41.22,-77.48C45.77,-75.29 50.79,-72.87 55.84,-70.44"></path>
+<polygon fill="black" stroke="black" points="57.37,-73.59 64.86,-66.09 54.33,-67.28 57.37,-73.59"></polygon>
+</g>
+<!-- y -->
+<g id="node2" class="node">
+<title>y</title>
+<ellipse fill="none" stroke="DarkGreen" cx="21.5" cy="-21.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="21.5" y="-17.3" font-family="Courier,monospace" font-size="14.00">y</text>
+</g>
+<!-- y&#45;&gt;xy_z -->
+<g id="edge2" class="edge">
+<title>y-&gt;xy_z</title>
+<path fill="none" stroke="black" d="M41.22,-30.24C45.66,-32.32 50.54,-34.6 55.46,-36.9"></path>
+<polygon fill="black" stroke="black" points="54.32,-40.23 64.86,-41.29 57.28,-33.88 54.32,-40.23"></polygon>
+</g>
+<!-- z -->
+<g id="node3" class="node">
+<title>z</title>
+<ellipse fill="none" stroke="DarkGreen" cx="162.5" cy="-53.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="162.5" y="-49.3" font-family="Courier,monospace" font-size="14.00">z</text>
+</g>
+<!-- xy_z&#45;&gt;z -->
+<g id="edge3" class="edge">
+<title>xy_z-&gt;z</title>
+<path fill="none" stroke="black" d="M119.29,-53.5C122.95,-53.5 126.73,-53.5 130.47,-53.5"></path>
+<polygon fill="black" stroke="black" points="130.7,-57 140.7,-53.5 130.7,-50 130.7,-57"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div><div class="column fragment" style="width:36%;">
+<div class="cell" data-fig-width="3.8" data-fig-height="1.8" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<svg width="365" height="173" viewbox="0.00 0.00 315.22 151.20" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(21.6 129.6)">
+<title>G</title>
+<!-- x -->
+<g id="node1" class="node">
+<title>x</title>
+<ellipse fill="none" stroke="DarkGreen" cx="21.5" cy="-86.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="start" x="17.3" y="-83.3" font-family="Courier,monospace" text-decoration="underline" font-size="14.00">x</text>
+</g>
+<!-- xy_z -->
+<g id="node4" class="node">
+<title>xy_z</title>
+<polygon fill="none" stroke="#006eaf" points="207.03,-71.5 64.99,-71.5 64.99,-35.5 207.03,-35.5 207.03,-71.5"></polygon>
+<text text-anchor="middle" x="136.01" y="-49.3" font-family="Courier,monospace" font-size="14.00">JVP(func)(x, y)</text>
+</g>
+<!-- x&#45;&gt;xy_z -->
+<g id="edge1" class="edge">
+<title>x-&gt;xy_z</title>
+<path fill="none" stroke="black" d="M42.36,-80.68C48.63,-78.83 55.97,-76.68 63.72,-74.41"></path>
+<polygon fill="black" stroke="black" points="64.73,-77.76 73.34,-71.59 62.76,-71.05 64.73,-77.76"></polygon>
+</g>
+<!-- y -->
+<g id="node2" class="node">
+<title>y</title>
+<ellipse fill="none" stroke="DarkGreen" cx="21.5" cy="-21.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="start" x="17.3" y="-18.3" font-family="Courier,monospace" text-decoration="underline" font-size="14.00">y</text>
+</g>
+<!-- y&#45;&gt;xy_z -->
+<g id="edge2" class="edge">
+<title>y-&gt;xy_z</title>
+<path fill="none" stroke="black" d="M42.36,-27.15C48.08,-28.78 54.69,-30.65 61.68,-32.64"></path>
+<polygon fill="black" stroke="black" points="60.84,-36.04 71.42,-35.41 62.76,-29.31 60.84,-36.04"></polygon>
+</g>
+<!-- z -->
+<g id="node3" class="node">
+<title>z</title>
+<ellipse fill="none" stroke="DarkGreen" cx="250.52" cy="-53.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="start" x="246.32" y="-50.3" font-family="Courier,monospace" text-decoration="underline" font-size="14.00">z</text>
+</g>
+<!-- xy_z&#45;&gt;z -->
+<g id="edge3" class="edge">
+<title>xy_z-&gt;z</title>
+<path fill="none" stroke="black" d="M207.31,-53.5C211.21,-53.5 215.03,-53.5 218.66,-53.5"></path>
+<polygon fill="black" stroke="black" points="218.94,-57 228.94,-53.5 218.94,-50 218.94,-57"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div><div class="column fragment" style="width:36%;">
+<div class="cell" data-fig-width="3.8" data-fig-height="1.8" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<svg width="365" height="173" viewbox="0.00 0.00 315.22 151.20" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(21.6 129.6)">
+<title>G</title>
+<!-- x -->
+<g id="node1" class="node">
+<title>x</title>
+<ellipse fill="none" stroke="DarkGreen" cx="21.5" cy="-86.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="start" x="17.3" y="-83.3" font-family="Courier,monospace" text-decoration="overline" font-size="14.00">x</text>
+</g>
+<!-- y -->
+<g id="node2" class="node">
+<title>y</title>
+<ellipse fill="none" stroke="DarkGreen" cx="21.5" cy="-21.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="start" x="17.3" y="-18.3" font-family="Courier,monospace" text-decoration="overline" font-size="14.00">m</text>
+</g>
+<!-- z -->
+<g id="node3" class="node">
+<title>z</title>
+<ellipse fill="none" stroke="DarkGreen" cx="250.52" cy="-53.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="start" x="246.32" y="-50.3" font-family="Courier,monospace" text-decoration="overline" font-size="14.00">z</text>
+</g>
+<!-- xy_z -->
+<g id="node4" class="node">
+<title>xy_z</title>
+<polygon fill="none" stroke="#006eaf" points="207.03,-71.5 64.99,-71.5 64.99,-35.5 207.03,-35.5 207.03,-71.5"></polygon>
+<text text-anchor="middle" x="136.01" y="-49.3" font-family="Courier,monospace" font-size="14.00">VJP(func)(x, y)</text>
+</g>
+<!-- z&#45;&gt;xy_z -->
+<g id="edge1" class="edge">
+<title>z-&gt;xy_z</title>
+<path fill="none" stroke="black" d="M228.88,-53.5C225.42,-53.5 221.64,-53.5 217.66,-53.5"></path>
+<polygon fill="black" stroke="black" points="217.42,-50 207.42,-53.5 217.42,-57 217.42,-50"></polygon>
+</g>
+<!-- xy_z&#45;&gt;x -->
+<g id="edge2" class="edge">
+<title>xy_z-&gt;x</title>
+<path fill="none" stroke="black" d="M73.49,-71.54C66.08,-73.72 58.8,-75.85 52.16,-77.8"></path>
+<polygon fill="black" stroke="black" points="50.93,-74.51 42.32,-80.69 52.9,-81.23 50.93,-74.51"></polygon>
+</g>
+<!-- xy_z&#45;&gt;y -->
+<g id="edge3" class="edge">
+<title>xy_z-&gt;y</title>
+<path fill="none" stroke="black" d="M71.52,-35.44C64.75,-33.52 58.12,-31.63 52.04,-29.9"></path>
+<polygon fill="black" stroke="black" points="52.96,-26.52 42.38,-27.16 51.04,-33.26 52.96,-26.52"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div></div>
+</div>
+<div class="fragment">
+<p>If the input variable is <code>v</code> then <code>v̲ = 1</code> and likewise if the output variable is <code>v</code> then <code>̄v = 1</code>.</p>
+</div>
+</section>
+<section id="normal-log-density-example-1" class="slide level2">
+<h2>🔔 Normal log density example</h2>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href=""></a><span class="kw">def</span> neg_log_dens(x, m, s):</span>
+<span id="cb12-2"><a href=""></a>    t0 <span class="op">=</span> x <span class="op">-</span> m</span>
+<span id="cb12-3"><a href=""></a>    t1 <span class="op">=</span> t0 <span class="op">/</span> s</span>
+<span id="cb12-4"><a href=""></a>    t2 <span class="op">=</span> log(s)</span>
+<span id="cb12-5"><a href=""></a>    t3 <span class="op">=</span> t1<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb12-6"><a href=""></a>    t4 <span class="op">=</span> t2 <span class="op">+</span> log(<span class="dv">2</span> <span class="op">*</span> pi) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb12-7"><a href=""></a>    t5 <span class="op">=</span> t3 <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb12-8"><a href=""></a>    c <span class="op">=</span> t4 <span class="op">+</span> t5</span>
+<span id="cb12-9"><a href=""></a>    <span class="cf">return</span> c</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<svg width="960" height="480" viewbox="0.00 0.00 934.05 242.70" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(21.6 221.1)">
+<title>G</title>
+<!-- x -->
+<g id="node1" class="node">
+<title>x</title>
+<ellipse fill="none" stroke="DarkGreen" cx="21.5" cy="-178" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="21.5" y="-173.8" font-family="Courier,monospace" font-size="14.00">x</text>
+</g>
+<!-- xm_t0 -->
+<g id="node13" class="node">
+<title>xm_t0</title>
+<polygon fill="none" stroke="#006eaf" points="148.32,-163 64.89,-163 64.89,-127 148.32,-127 148.32,-163"></polygon>
+<text text-anchor="middle" x="106.61" y="-140.8" font-family="Courier,monospace" font-size="14.00">subtract</text>
+</g>
+<!-- x&#45;&gt;xm_t0 -->
+<g id="edge1" class="edge">
+<title>x-&gt;xm_t0</title>
+<path fill="none" stroke="black" d="M41.77,-170.35C45.98,-168.68 50.62,-166.83 55.42,-164.93"></path>
+<polygon fill="black" stroke="black" points="56.78,-168.15 64.78,-161.21 54.2,-161.65 56.78,-168.15"></polygon>
+</g>
+<!-- m -->
+<g id="node2" class="node">
+<title>m</title>
+<ellipse fill="none" stroke="DarkGreen" cx="21.5" cy="-113" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="21.5" y="-108.8" font-family="Courier,monospace" font-size="14.00">m</text>
+</g>
+<!-- m&#45;&gt;xm_t0 -->
+<g id="edge2" class="edge">
+<title>m-&gt;xm_t0</title>
+<path fill="none" stroke="black" d="M41.77,-120.42C45.98,-122.04 50.62,-123.83 55.42,-125.68"></path>
+<polygon fill="black" stroke="black" points="54.19,-128.95 64.78,-129.28 56.71,-122.42 54.19,-128.95"></polygon>
+</g>
+<!-- s -->
+<g id="node3" class="node">
+<title>s</title>
+<ellipse fill="none" stroke="DarkGreen" cx="191.71" cy="-80" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="191.71" y="-75.8" font-family="Courier,monospace" font-size="14.00">s</text>
+</g>
+<!-- t0s_t1 -->
+<g id="node14" class="node">
+<title>t0s_t1</title>
+<polygon fill="none" stroke="#006eaf" points="301.82,-163 235.01,-163 235.01,-127 301.82,-127 301.82,-163"></polygon>
+<text text-anchor="middle" x="268.42" y="-140.8" font-family="Courier,monospace" font-size="14.00">divide</text>
+</g>
+<!-- s&#45;&gt;t0s_t1 -->
+<g id="edge4" class="edge">
+<title>s-&gt;t0s_t1</title>
+<path fill="none" stroke="black" d="M208.55,-93.78C217.36,-101.45 228.58,-111.21 238.87,-120.16"></path>
+<polygon fill="black" stroke="black" points="236.65,-122.87 246.49,-126.79 241.24,-117.59 236.65,-122.87"></polygon>
+</g>
+<!-- s_t2 -->
+<g id="node15" class="node">
+<title>s_t2</title>
+<polygon fill="none" stroke="#006eaf" points="295.42,-98 241.42,-98 241.42,-62 295.42,-62 295.42,-98"></polygon>
+<text text-anchor="middle" x="268.42" y="-75.8" font-family="Courier,monospace" font-size="14.00">log</text>
+</g>
+<!-- s&#45;&gt;s_t2 -->
+<g id="edge7" class="edge">
+<title>s-&gt;s_t2</title>
+<path fill="none" stroke="black" d="M213.52,-80C219.05,-80 225.19,-80 231.28,-80"></path>
+<polygon fill="black" stroke="black" points="231.39,-83.5 241.39,-80 231.39,-76.5 231.39,-83.5"></polygon>
+</g>
+<!-- t0 -->
+<g id="node4" class="node">
+<title>t0</title>
+<ellipse fill="none" stroke="DarkGreen" cx="191.71" cy="-145" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="191.71" y="-140.8" font-family="Courier,monospace" font-size="14.00">t0</text>
+</g>
+<!-- t0&#45;&gt;t0s_t1 -->
+<g id="edge5" class="edge">
+<title>t0-&gt;t0s_t1</title>
+<path fill="none" stroke="black" d="M213.52,-145C217.05,-145 220.83,-145 224.69,-145"></path>
+<polygon fill="black" stroke="black" points="224.97,-148.5 234.97,-145 224.97,-141.5 224.97,-148.5"></polygon>
+</g>
+<!-- t1 -->
+<g id="node5" class="node">
+<title>t1</title>
+<ellipse fill="none" stroke="DarkGreen" cx="377.83" cy="-145" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="377.83" y="-140.8" font-family="Courier,monospace" font-size="14.00">t1</text>
+</g>
+<!-- t1_t3 -->
+<g id="node16" class="node">
+<title>t1_t3</title>
+<polygon fill="none" stroke="#006eaf" points="520.65,-163 453.83,-163 453.83,-127 520.65,-127 520.65,-163"></polygon>
+<text text-anchor="middle" x="487.24" y="-140.8" font-family="Courier,monospace" font-size="14.00">square</text>
+</g>
+<!-- t1&#45;&gt;t1_t3 -->
+<g id="edge9" class="edge">
+<title>t1-&gt;t1_t3</title>
+<path fill="none" stroke="black" d="M399.54,-145C412.02,-145 428.38,-145 443.53,-145"></path>
+<polygon fill="black" stroke="black" points="443.76,-148.5 453.76,-145 443.76,-141.5 443.76,-148.5"></polygon>
+</g>
+<!-- t2 -->
+<g id="node6" class="node">
+<title>t2</title>
+<ellipse fill="none" stroke="DarkGreen" cx="377.83" cy="-80" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="377.83" y="-75.8" font-family="Courier,monospace" font-size="14.00">t2</text>
+</g>
+<!-- t2halflog2pi_t4 -->
+<g id="node17" class="node">
+<title>t2halflog2pi_t4</title>
+<polygon fill="none" stroke="#006eaf" points="514.24,-44 460.24,-44 460.24,-8 514.24,-8 514.24,-44"></polygon>
+<text text-anchor="middle" x="487.24" y="-21.8" font-family="Courier,monospace" font-size="14.00">add</text>
+</g>
+<!-- t2&#45;&gt;t2halflog2pi_t4 -->
+<g id="edge11" class="edge">
+<title>t2-&gt;t2halflog2pi_t4</title>
+<path fill="none" stroke="black" d="M397.54,-70.59C412.28,-63.18 433.25,-52.64 451.1,-43.67"></path>
+<polygon fill="black" stroke="black" points="452.74,-46.76 460.1,-39.14 449.59,-40.51 452.74,-46.76"></polygon>
+</g>
+<!-- t3 -->
+<g id="node7" class="node">
+<title>t3</title>
+<ellipse fill="none" stroke="DarkGreen" cx="569.44" cy="-145" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="569.44" y="-140.8" font-family="Courier,monospace" font-size="14.00">t3</text>
+</g>
+<!-- t3half_t5 -->
+<g id="node18" class="node">
+<title>t3half_t5</title>
+<polygon fill="none" stroke="#006eaf" points="685.06,-106 618.24,-106 618.24,-70 685.06,-70 685.06,-106"></polygon>
+<text text-anchor="middle" x="651.65" y="-83.8" font-family="Courier,monospace" font-size="14.00">divide</text>
+</g>
+<!-- t3&#45;&gt;t3half_t5 -->
+<g id="edge14" class="edge">
+<title>t3-&gt;t3half_t5</title>
+<path fill="none" stroke="black" d="M587.45,-132.91C596,-126.84 606.68,-119.25 616.8,-112.05"></path>
+<polygon fill="black" stroke="black" points="619,-114.78 625.12,-106.14 614.95,-109.08 619,-114.78"></polygon>
+</g>
+<!-- t4 -->
+<g id="node8" class="node">
+<title>t4</title>
+<ellipse fill="none" stroke="DarkGreen" cx="651.65" cy="-26" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="651.65" y="-21.8" font-family="Courier,monospace" font-size="14.00">t4</text>
+</g>
+<!-- t4t5_c -->
+<g id="node19" class="node">
+<title>t4t5_c</title>
+<polygon fill="none" stroke="#006eaf" points="825.85,-75 771.85,-75 771.85,-39 825.85,-39 825.85,-75"></polygon>
+<text text-anchor="middle" x="798.85" y="-52.8" font-family="Courier,monospace" font-size="14.00">add</text>
+</g>
+<!-- t4&#45;&gt;t4t5_c -->
+<g id="edge17" class="edge">
+<title>t4-&gt;t4t5_c</title>
+<path fill="none" stroke="black" d="M672.84,-30.31C695.81,-35.21 733.77,-43.32 761.85,-49.31"></path>
+<polygon fill="black" stroke="black" points="761.19,-52.75 771.7,-51.42 762.65,-45.91 761.19,-52.75"></polygon>
+</g>
+<!-- t5 -->
+<g id="node9" class="node">
+<title>t5</title>
+<ellipse fill="none" stroke="DarkGreen" cx="728.35" cy="-86" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="728.35" y="-81.8" font-family="Courier,monospace" font-size="14.00">t5</text>
+</g>
+<!-- t5&#45;&gt;t4t5_c -->
+<g id="edge18" class="edge">
+<title>t5-&gt;t4t5_c</title>
+<path fill="none" stroke="black" d="M748.43,-77.92C752.82,-76.06 757.63,-74.03 762.47,-71.98"></path>
+<polygon fill="black" stroke="black" points="763.86,-75.19 771.7,-68.07 761.13,-68.74 763.86,-75.19"></polygon>
+</g>
+<!-- c -->
+<g id="node10" class="node">
+<title>c</title>
+<ellipse fill="none" stroke="DarkGreen" cx="869.35" cy="-57" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="869.35" y="-52.8" font-family="Courier,monospace" font-size="14.00">c</text>
+</g>
+<!-- halflog2pi -->
+<g id="node11" class="node">
+<title>halflog2pi</title>
+<text text-anchor="middle" x="377.83" y="-13.8" font-family="Courier,monospace" font-size="14.00">log(2*pi)/2</text>
+</g>
+<!-- halflog2pi&#45;&gt;t2halflog2pi_t4 -->
+<g id="edge12" class="edge">
+<title>halflog2pi-&gt;t2halflog2pi_t4</title>
+<path fill="none" stroke="black" d="M432.22,-21.98C438.12,-22.42 444.03,-22.86 449.66,-23.28"></path>
+<polygon fill="black" stroke="black" points="449.83,-26.8 460.06,-24.05 450.35,-19.82 449.83,-26.8"></polygon>
+</g>
+<!-- two -->
+<g id="node12" class="node">
+<title>two</title>
+<text text-anchor="middle" x="569.44" y="-78.8" font-family="Courier,monospace" font-size="14.00">2</text>
+</g>
+<!-- two&#45;&gt;t3half_t5 -->
+<g id="edge15" class="edge">
+<title>two-&gt;t3half_t5</title>
+<path fill="none" stroke="black" d="M596.7,-84.64C600.34,-84.86 604.16,-85.1 608,-85.34"></path>
+<polygon fill="black" stroke="black" points="607.96,-88.85 618.16,-85.97 608.4,-81.86 607.96,-88.85"></polygon>
+</g>
+<!-- xm_t0&#45;&gt;t0 -->
+<g id="edge3" class="edge">
+<title>xm_t0-&gt;t0</title>
+<path fill="none" stroke="black" d="M148.67,-145C152.35,-145 156.04,-145 159.61,-145"></path>
+<polygon fill="black" stroke="black" points="159.89,-148.5 169.89,-145 159.89,-141.5 159.89,-148.5"></polygon>
+</g>
+<!-- t0s_t1&#45;&gt;t1 -->
+<g id="edge6" class="edge">
+<title>t0s_t1-&gt;t1</title>
+<path fill="none" stroke="black" d="M301.64,-145C315.73,-145 332.17,-145 346.08,-145"></path>
+<polygon fill="black" stroke="black" points="346.14,-148.5 356.14,-145 346.14,-141.5 346.14,-148.5"></polygon>
+</g>
+<!-- s_t2&#45;&gt;t2 -->
+<g id="edge8" class="edge">
+<title>s_t2-&gt;t2</title>
+<path fill="none" stroke="black" d="M295.42,-80C310.55,-80 329.73,-80 345.66,-80"></path>
+<polygon fill="black" stroke="black" points="346.09,-83.5 356.09,-80 346.09,-76.5 346.09,-83.5"></polygon>
+</g>
+<!-- t1_t3&#45;&gt;t3 -->
+<g id="edge10" class="edge">
+<title>t1_t3-&gt;t3</title>
+<path fill="none" stroke="black" d="M520.86,-145C526.36,-145 532.05,-145 537.5,-145"></path>
+<polygon fill="black" stroke="black" points="537.58,-148.5 547.58,-145 537.58,-141.5 537.58,-148.5"></polygon>
+</g>
+<!-- t2halflog2pi_t4&#45;&gt;t4 -->
+<g id="edge13" class="edge">
+<title>t2halflog2pi_t4-&gt;t4</title>
+<path fill="none" stroke="black" d="M514.33,-26C543.05,-26 589.17,-26 619.69,-26"></path>
+<polygon fill="black" stroke="black" points="619.78,-29.5 629.78,-26 619.78,-22.5 619.78,-29.5"></polygon>
+</g>
+<!-- t3half_t5&#45;&gt;t5 -->
+<g id="edge16" class="edge">
+<title>t3half_t5-&gt;t5</title>
+<path fill="none" stroke="black" d="M685.2,-87.13C688.93,-87.03 692.72,-86.93 696.43,-86.83"></path>
+<polygon fill="black" stroke="black" points="696.62,-90.32 706.52,-86.56 696.43,-83.33 696.62,-90.32"></polygon>
+</g>
+<!-- t4t5_c&#45;&gt;c -->
+<g id="edge19" class="edge">
+<title>t4t5_c-&gt;c</title>
+<path fill="none" stroke="black" d="M826.14,-57C829.8,-57 833.58,-57 837.32,-57"></path>
+<polygon fill="black" stroke="black" points="837.55,-60.5 847.55,-57 837.55,-53.5 837.55,-60.5"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="forward-mode-accumulation-1" class="slide level2">
+<h2>➡️ Forward-mode accumulation</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Primal evaluation</p>
+<div class="cell" data-fig-width="3" data-fig-height="6.5" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<svg width="288" height="624" viewbox="0.00 0.00 330.91 708.20" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(21.6 686.6)">
+<title>G</title>
+<!-- x -->
+<g id="node1" class="node">
+<title>x</title>
+<ellipse fill="none" stroke="DarkGreen" cx="21.5" cy="-643.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="21.5" y="-639.3" font-family="Courier,monospace" font-size="14.00">x</text>
+</g>
+<!-- xm_t0 -->
+<g id="node13" class="node">
+<title>xm_t0</title>
+<polygon fill="none" stroke="#006eaf" points="95.21,-600 11.79,-600 11.79,-564 95.21,-564 95.21,-600"></polygon>
+<text text-anchor="middle" x="53.5" y="-577.8" font-family="Courier,monospace" font-size="14.00">subtract</text>
+</g>
+<!-- x&#45;&gt;xm_t0 -->
+<g id="edge1" class="edge">
+<title>x-&gt;xm_t0</title>
+<path fill="none" stroke="black" d="M31.27,-624.32C33.85,-619.54 36.68,-614.28 39.43,-609.17"></path>
+<polygon fill="black" stroke="black" points="42.57,-610.71 44.22,-600.25 36.4,-607.4 42.57,-610.71"></polygon>
+</g>
+<!-- m -->
+<g id="node2" class="node">
+<title>m</title>
+<ellipse fill="none" stroke="DarkGreen" cx="86.5" cy="-643.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="86.5" y="-639.3" font-family="Courier,monospace" font-size="14.00">m</text>
+</g>
+<!-- m&#45;&gt;xm_t0 -->
+<g id="edge2" class="edge">
+<title>m-&gt;xm_t0</title>
+<path fill="none" stroke="black" d="M76.42,-624.32C73.77,-619.54 70.85,-614.28 68.01,-609.17"></path>
+<polygon fill="black" stroke="black" points="70.98,-607.3 63.07,-600.25 64.86,-610.69 70.98,-607.3"></polygon>
+</g>
+<!-- s -->
+<g id="node3" class="node">
+<title>s</title>
+<ellipse fill="none" stroke="DarkGreen" cx="126.5" cy="-520.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="126.5" y="-516.3" font-family="Courier,monospace" font-size="14.00">s</text>
+</g>
+<!-- t0s_t1 -->
+<g id="node14" class="node">
+<title>t0s_t1</title>
+<polygon fill="none" stroke="#006eaf" points="86.91,-477 20.09,-477 20.09,-441 86.91,-441 86.91,-477"></polygon>
+<text text-anchor="middle" x="53.5" y="-454.8" font-family="Courier,monospace" font-size="14.00">divide</text>
+</g>
+<!-- s&#45;&gt;t0s_t1 -->
+<g id="edge4" class="edge">
+<title>s-&gt;t0s_t1</title>
+<path fill="none" stroke="black" d="M110.3,-506.3C102.03,-499.55 91.72,-491.15 82.17,-483.36"></path>
+<polygon fill="black" stroke="black" points="84.34,-480.62 74.38,-477.02 79.92,-486.05 84.34,-480.62"></polygon>
+</g>
+<!-- s_t2 -->
+<g id="node15" class="node">
+<title>s_t2</title>
+<polygon fill="none" stroke="#006eaf" points="162.5,-477 108.5,-477 108.5,-441 162.5,-441 162.5,-477"></polygon>
+<text text-anchor="middle" x="135.5" y="-454.8" font-family="Courier,monospace" font-size="14.00">log</text>
+</g>
+<!-- s&#45;&gt;s_t2 -->
+<g id="edge7" class="edge">
+<title>s-&gt;s_t2</title>
+<path fill="none" stroke="black" d="M129.6,-499.02C130.17,-495.24 130.78,-491.23 131.37,-487.28"></path>
+<polygon fill="black" stroke="black" points="134.87,-487.56 132.91,-477.15 127.95,-486.52 134.87,-487.56"></polygon>
+</g>
+<!-- t0 -->
+<g id="node4" class="node">
+<title>t0</title>
+<ellipse fill="none" stroke="DarkGreen" cx="53.5" cy="-520.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="53.5" y="-516.3" font-family="Courier,monospace" font-size="14.00">t0</text>
+</g>
+<!-- t0&#45;&gt;t0s_t1 -->
+<g id="edge5" class="edge">
+<title>t0-&gt;t0s_t1</title>
+<path fill="none" stroke="black" d="M53.5,-498.69C53.5,-495.1 53.5,-491.31 53.5,-487.57"></path>
+<polygon fill="black" stroke="black" points="57,-487.35 53.5,-477.35 50,-487.35 57,-487.35"></polygon>
+</g>
+<!-- t1 -->
+<g id="node5" class="node">
+<title>t1</title>
+<ellipse fill="none" stroke="DarkGreen" cx="53.5" cy="-397.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="53.5" y="-393.3" font-family="Courier,monospace" font-size="14.00">t1</text>
+</g>
+<!-- t1_t3 -->
+<g id="node16" class="node">
+<title>t1_t3</title>
+<polygon fill="none" stroke="#006eaf" points="86.91,-354 20.09,-354 20.09,-318 86.91,-318 86.91,-354"></polygon>
+<text text-anchor="middle" x="53.5" y="-331.8" font-family="Courier,monospace" font-size="14.00">square</text>
+</g>
+<!-- t1&#45;&gt;t1_t3 -->
+<g id="edge9" class="edge">
+<title>t1-&gt;t1_t3</title>
+<path fill="none" stroke="black" d="M53.5,-375.69C53.5,-372.1 53.5,-368.31 53.5,-364.57"></path>
+<polygon fill="black" stroke="black" points="57,-364.35 53.5,-354.35 50,-364.35 57,-364.35"></polygon>
+</g>
+<!-- t2 -->
+<g id="node6" class="node">
+<title>t2</title>
+<ellipse fill="none" stroke="DarkGreen" cx="135.5" cy="-397.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="135.5" y="-393.3" font-family="Courier,monospace" font-size="14.00">t2</text>
+</g>
+<!-- t2halflog2pi_t4 -->
+<g id="node17" class="node">
+<title>t2halflog2pi_t4</title>
+<polygon fill="none" stroke="#006eaf" points="220.5,-354 166.5,-354 166.5,-318 220.5,-318 220.5,-354"></polygon>
+<text text-anchor="middle" x="193.5" y="-331.8" font-family="Courier,monospace" font-size="14.00">add</text>
+</g>
+<!-- t2&#45;&gt;t2halflog2pi_t4 -->
+<g id="edge11" class="edge">
+<title>t2-&gt;t2halflog2pi_t4</title>
+<path fill="none" stroke="black" d="M150.14,-381.49C155.92,-375.55 162.74,-368.56 169.22,-361.91"></path>
+<polygon fill="black" stroke="black" points="172.13,-363.93 176.61,-354.33 167.12,-359.05 172.13,-363.93"></polygon>
+</g>
+<!-- t3 -->
+<g id="node7" class="node">
+<title>t3</title>
+<ellipse fill="none" stroke="DarkGreen" cx="53.5" cy="-274.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="53.5" y="-270.3" font-family="Courier,monospace" font-size="14.00">t3</text>
+</g>
+<!-- t3half_t5 -->
+<g id="node18" class="node">
+<title>t3half_t5</title>
+<polygon fill="none" stroke="#006eaf" points="149.91,-227.5 83.09,-227.5 83.09,-191.5 149.91,-191.5 149.91,-227.5"></polygon>
+<text text-anchor="middle" x="116.5" y="-205.3" font-family="Courier,monospace" font-size="14.00">divide</text>
+</g>
+<!-- t3&#45;&gt;t3half_t5 -->
+<g id="edge14" class="edge">
+<title>t3-&gt;t3half_t5</title>
+<path fill="none" stroke="black" d="M68.43,-258.57C75.56,-251.44 84.28,-242.72 92.32,-234.68"></path>
+<polygon fill="black" stroke="black" points="94.86,-237.09 99.45,-227.55 89.91,-232.14 94.86,-237.09"></polygon>
+</g>
+<!-- t4 -->
+<g id="node8" class="node">
+<title>t4</title>
+<ellipse fill="none" stroke="DarkGreen" cx="193.5" cy="-209.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="193.5" y="-205.3" font-family="Courier,monospace" font-size="14.00">t4</text>
+</g>
+<!-- t4t5_c -->
+<g id="node19" class="node">
+<title>t4t5_c</title>
+<polygon fill="none" stroke="#006eaf" points="181.5,-101 127.5,-101 127.5,-65 181.5,-65 181.5,-101"></polygon>
+<text text-anchor="middle" x="154.5" y="-78.8" font-family="Courier,monospace" font-size="14.00">add</text>
+</g>
+<!-- t4&#45;&gt;t4t5_c -->
+<g id="edge17" class="edge">
+<title>t4-&gt;t4t5_c</title>
+<path fill="none" stroke="black" d="M187.32,-188.77C180.73,-167.75 170.27,-134.33 162.93,-110.9"></path>
+<polygon fill="black" stroke="black" points="166.23,-109.73 159.9,-101.23 159.55,-111.82 166.23,-109.73"></polygon>
+</g>
+<!-- t5 -->
+<g id="node9" class="node">
+<title>t5</title>
+<ellipse fill="none" stroke="DarkGreen" cx="126.5" cy="-144.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="126.5" y="-140.3" font-family="Courier,monospace" font-size="14.00">t5</text>
+</g>
+<!-- t5&#45;&gt;t4t5_c -->
+<g id="edge18" class="edge">
+<title>t5-&gt;t4t5_c</title>
+<path fill="none" stroke="black" d="M135.36,-124.67C137.45,-120.23 139.72,-115.4 141.94,-110.68"></path>
+<polygon fill="black" stroke="black" points="145.27,-111.83 146.36,-101.29 138.94,-108.85 145.27,-111.83"></polygon>
+</g>
+<!-- c -->
+<g id="node10" class="node">
+<title>c</title>
+<ellipse fill="none" stroke="DarkGreen" cx="154.5" cy="-21.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="154.5" y="-17.3" font-family="Courier,monospace" font-size="14.00">c</text>
+</g>
+<!-- halflog2pi -->
+<g id="node11" class="node">
+<title>halflog2pi</title>
+<text text-anchor="middle" x="233.5" y="-393.3" font-family="Courier,monospace" font-size="14.00">log(2*pi)/2</text>
+</g>
+<!-- halflog2pi&#45;&gt;t2halflog2pi_t4 -->
+<g id="edge12" class="edge">
+<title>halflog2pi-&gt;t2halflog2pi_t4</title>
+<path fill="none" stroke="black" d="M221.93,-379.29C218.48,-374.15 214.62,-368.41 210.88,-362.85"></path>
+<polygon fill="black" stroke="black" points="213.67,-360.72 205.18,-354.38 207.86,-364.63 213.67,-360.72"></polygon>
+</g>
+<!-- two -->
+<g id="node12" class="node">
+<title>two</title>
+<text text-anchor="middle" x="124.5" y="-270.3" font-family="Courier,monospace" font-size="14.00">2</text>
+</g>
+<!-- two&#45;&gt;t3half_t5 -->
+<g id="edge15" class="edge">
+<title>two-&gt;t3half_t5</title>
+<path fill="none" stroke="black" d="M122.31,-256.28C121.59,-250.59 120.77,-244.11 119.97,-237.84"></path>
+<polygon fill="black" stroke="black" points="123.42,-237.17 118.68,-227.69 116.47,-238.06 123.42,-237.17"></polygon>
+</g>
+<!-- xm_t0&#45;&gt;t0 -->
+<g id="edge3" class="edge">
+<title>xm_t0-&gt;t0</title>
+<path fill="none" stroke="black" d="M53.5,-563.79C53.5,-560.22 53.5,-556.35 53.5,-552.45"></path>
+<polygon fill="black" stroke="black" points="57,-552.26 53.5,-542.26 50,-552.26 57,-552.26"></polygon>
+</g>
+<!-- t0s_t1&#45;&gt;t1 -->
+<g id="edge6" class="edge">
+<title>t0s_t1-&gt;t1</title>
+<path fill="none" stroke="black" d="M53.5,-440.79C53.5,-437.22 53.5,-433.35 53.5,-429.45"></path>
+<polygon fill="black" stroke="black" points="57,-429.26 53.5,-419.26 50,-429.26 57,-429.26"></polygon>
+</g>
+<!-- s_t2&#45;&gt;t2 -->
+<g id="edge8" class="edge">
+<title>s_t2-&gt;t2</title>
+<path fill="none" stroke="black" d="M135.5,-440.79C135.5,-437.22 135.5,-433.35 135.5,-429.45"></path>
+<polygon fill="black" stroke="black" points="139,-429.26 135.5,-419.26 132,-429.26 139,-429.26"></polygon>
+</g>
+<!-- t1_t3&#45;&gt;t3 -->
+<g id="edge10" class="edge">
+<title>t1_t3-&gt;t3</title>
+<path fill="none" stroke="black" d="M53.5,-317.79C53.5,-314.22 53.5,-310.35 53.5,-306.45"></path>
+<polygon fill="black" stroke="black" points="57,-306.26 53.5,-296.26 50,-306.26 57,-306.26"></polygon>
+</g>
+<!-- t2halflog2pi_t4&#45;&gt;t4 -->
+<g id="edge13" class="edge">
+<title>t2halflog2pi_t4-&gt;t4</title>
+<path fill="none" stroke="black" d="M193.5,-317.95C193.5,-298.23 193.5,-265.37 193.5,-241.17"></path>
+<polygon fill="black" stroke="black" points="197,-241.07 193.5,-231.07 190,-241.07 197,-241.07"></polygon>
+</g>
+<!-- t3half_t5&#45;&gt;t5 -->
+<g id="edge16" class="edge">
+<title>t3half_t5-&gt;t5</title>
+<path fill="none" stroke="black" d="M119.23,-191.28C119.99,-186.49 120.84,-181.13 121.69,-175.82"></path>
+<polygon fill="black" stroke="black" points="125.16,-176.25 123.27,-165.82 118.25,-175.15 125.16,-176.25"></polygon>
+</g>
+<!-- t4t5_c&#45;&gt;c -->
+<g id="edge19" class="edge">
+<title>t4t5_c-&gt;c</title>
+<path fill="none" stroke="black" d="M154.5,-64.79C154.5,-61.22 154.5,-57.35 154.5,-53.45"></path>
+<polygon fill="black" stroke="black" points="158,-53.26 154.5,-43.26 151,-53.26 158,-53.26"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p>Forward-mode</p>
+<div class="cell" data-fig-width="4" data-fig-height="6.5" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<svg width="384" height="624" viewbox="0.00 0.00 433.23 708.20" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(21.6 686.6)">
+<title>G</title>
+<!-- x -->
+<g id="node1" class="node">
+<title>x</title>
+<ellipse fill="none" stroke="DarkGreen" cx="73.01" cy="-643.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="start" x="68.81" y="-640.3" font-family="Courier,monospace" text-decoration="underline" font-size="14.00">x</text>
+</g>
+<!-- xm_t0 -->
+<g id="node11" class="node">
+<title>xm_t0</title>
+<polygon fill="none" stroke="#006eaf" points="192.64,-600 17.38,-600 17.38,-564 192.64,-564 192.64,-600"></polygon>
+<text text-anchor="middle" x="105.01" y="-577.8" font-family="Courier,monospace" font-size="14.00">JVP(subtract)(x, m)</text>
+</g>
+<!-- x&#45;&gt;xm_t0 -->
+<g id="edge1" class="edge">
+<title>x-&gt;xm_t0</title>
+<path fill="none" stroke="black" d="M82.79,-624.32C85.36,-619.54 88.19,-614.28 90.94,-609.17"></path>
+<polygon fill="black" stroke="black" points="94.08,-610.71 95.73,-600.25 87.91,-607.4 94.08,-610.71"></polygon>
+</g>
+<!-- m -->
+<g id="node2" class="node">
+<title>m</title>
+<ellipse fill="none" stroke="DarkGreen" cx="138.01" cy="-643.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="start" x="133.81" y="-640.3" font-family="Courier,monospace" text-decoration="underline" font-size="14.00">m</text>
+</g>
+<!-- m&#45;&gt;xm_t0 -->
+<g id="edge2" class="edge">
+<title>m-&gt;xm_t0</title>
+<path fill="none" stroke="black" d="M127.93,-624.32C125.28,-619.54 122.36,-614.28 119.52,-609.17"></path>
+<polygon fill="black" stroke="black" points="122.49,-607.3 114.58,-600.25 116.37,-610.69 122.49,-607.3"></polygon>
+</g>
+<!-- s -->
+<g id="node3" class="node">
+<title>s</title>
+<ellipse fill="none" stroke="DarkGreen" cx="220.01" cy="-520.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="start" x="215.81" y="-517.3" font-family="Courier,monospace" text-decoration="underline" font-size="14.00">s</text>
+</g>
+<!-- t0s_t1 -->
+<g id="node12" class="node">
+<title>t0s_t1</title>
+<polygon fill="none" stroke="#006eaf" points="188.74,-477 21.29,-477 21.29,-441 188.74,-441 188.74,-477"></polygon>
+<text text-anchor="middle" x="105.01" y="-454.8" font-family="Courier,monospace" font-size="14.00">JVP(divide)(t0, s)</text>
+</g>
+<!-- s&#45;&gt;t0s_t1 -->
+<g id="edge4" class="edge">
+<title>s-&gt;t0s_t1</title>
+<path fill="none" stroke="black" d="M201.28,-509.81C186.62,-502.22 165.67,-491.38 147.05,-481.75"></path>
+<polygon fill="black" stroke="black" points="148.63,-478.63 138.14,-477.14 145.41,-484.85 148.63,-478.63"></polygon>
+</g>
+<!-- s_t2 -->
+<g id="node13" class="node">
+<title>s_t2</title>
+<polygon fill="none" stroke="#006eaf" points="325.43,-477 216.59,-477 216.59,-441 325.43,-441 325.43,-477"></polygon>
+<text text-anchor="middle" x="271.01" y="-454.8" font-family="Courier,monospace" font-size="14.00">JVP(log)(s)</text>
+</g>
+<!-- s&#45;&gt;s_t2 -->
+<g id="edge7" class="edge">
+<title>s-&gt;s_t2</title>
+<path fill="none" stroke="black" d="M233.68,-503.56C238.57,-497.84 244.22,-491.26 249.61,-484.97"></path>
+<polygon fill="black" stroke="black" points="252.38,-487.11 256.23,-477.24 247.07,-482.56 252.38,-487.11"></polygon>
+</g>
+<!-- t0 -->
+<g id="node4" class="node">
+<title>t0</title>
+<ellipse fill="none" stroke="DarkGreen" cx="105.01" cy="-520.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="start" x="96.61" y="-517.3" font-family="Courier,monospace" text-decoration="underline" font-size="14.00">t0</text>
+</g>
+<!-- t0&#45;&gt;t0s_t1 -->
+<g id="edge5" class="edge">
+<title>t0-&gt;t0s_t1</title>
+<path fill="none" stroke="black" d="M105.01,-498.69C105.01,-495.1 105.01,-491.31 105.01,-487.57"></path>
+<polygon fill="black" stroke="black" points="108.51,-487.35 105.01,-477.35 101.51,-487.35 108.51,-487.35"></polygon>
+</g>
+<!-- t1 -->
+<g id="node5" class="node">
+<title>t1</title>
+<ellipse fill="none" stroke="DarkGreen" cx="82.01" cy="-397.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="start" x="73.61" y="-394.3" font-family="Courier,monospace" text-decoration="underline" font-size="14.00">t1</text>
+</g>
+<!-- t1_t3 -->
+<g id="node14" class="node">
+<title>t1_t3</title>
+<polygon fill="none" stroke="#006eaf" points="142.03,-354 -0.01,-354 -0.01,-318 142.03,-318 142.03,-354"></polygon>
+<text text-anchor="middle" x="71.01" y="-331.8" font-family="Courier,monospace" font-size="14.00">JVP(square)(t1)</text>
+</g>
+<!-- t1&#45;&gt;t1_t3 -->
+<g id="edge9" class="edge">
+<title>t1-&gt;t1_t3</title>
+<path fill="none" stroke="black" d="M78.22,-376.02C77.52,-372.24 76.78,-368.23 76.05,-364.28"></path>
+<polygon fill="black" stroke="black" points="79.44,-363.35 74.18,-354.15 72.56,-364.62 79.44,-363.35"></polygon>
+</g>
+<!-- t2 -->
+<g id="node6" class="node">
+<title>t2</title>
+<ellipse fill="none" stroke="DarkGreen" cx="274.01" cy="-397.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="start" x="265.61" y="-394.3" font-family="Courier,monospace" text-decoration="underline" font-size="14.00">t2</text>
+</g>
+<!-- t2halflog2pi_t4 -->
+<g id="node15" class="node">
+<title>t2halflog2pi_t4</title>
+<polygon fill="none" stroke="#006eaf" points="390.04,-354 163.98,-354 163.98,-318 390.04,-318 390.04,-354"></polygon>
+<text text-anchor="middle" x="277.01" y="-331.8" font-family="Courier,monospace" font-size="14.00">JVP(add)(t2, log(2*pi)/2)</text>
+</g>
+<!-- t2&#45;&gt;t2halflog2pi_t4 -->
+<g id="edge11" class="edge">
+<title>t2-&gt;t2halflog2pi_t4</title>
+<path fill="none" stroke="black" d="M275.04,-376.02C275.23,-372.24 275.44,-368.23 275.63,-364.28"></path>
+<polygon fill="black" stroke="black" points="279.14,-364.32 276.15,-354.15 272.15,-363.96 279.14,-364.32"></polygon>
+</g>
+<!-- t3 -->
+<g id="node7" class="node">
+<title>t3</title>
+<ellipse fill="none" stroke="DarkGreen" cx="110.01" cy="-274.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="start" x="101.61" y="-271.3" font-family="Courier,monospace" text-decoration="underline" font-size="14.00">t3</text>
+</g>
+<!-- t3half_t5 -->
+<g id="node16" class="node">
+<title>t3half_t5</title>
+<polygon fill="none" stroke="#006eaf" points="213.74,-227.5 46.29,-227.5 46.29,-191.5 213.74,-191.5 213.74,-227.5"></polygon>
+<text text-anchor="middle" x="130.01" y="-205.3" font-family="Courier,monospace" font-size="14.00">JVP(divide)(t3, 2)</text>
+</g>
+<!-- t3&#45;&gt;t3half_t5 -->
+<g id="edge13" class="edge">
+<title>t3-&gt;t3half_t5</title>
+<path fill="none" stroke="black" d="M116.23,-253.91C117.89,-248.67 119.72,-242.92 121.48,-237.37"></path>
+<polygon fill="black" stroke="black" points="124.85,-238.32 124.54,-227.73 118.18,-236.2 124.85,-238.32"></polygon>
+</g>
+<!-- t4 -->
+<g id="node8" class="node">
+<title>t4</title>
+<ellipse fill="none" stroke="DarkGreen" cx="267.01" cy="-209.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="start" x="258.61" y="-206.3" font-family="Courier,monospace" text-decoration="underline" font-size="14.00">t4</text>
+</g>
+<!-- t4t5_c -->
+<g id="node17" class="node">
+<title>t4t5_c</title>
+<polygon fill="none" stroke="#006eaf" points="268.43,-101 117.59,-101 117.59,-65 268.43,-65 268.43,-101"></polygon>
+<text text-anchor="middle" x="193.01" y="-78.8" font-family="Courier,monospace" font-size="14.00">JVP(add)(t4, t5)</text>
+</g>
+<!-- t4&#45;&gt;t4t5_c -->
+<g id="edge15" class="edge">
+<title>t4-&gt;t4t5_c</title>
+<path fill="none" stroke="black" d="M256.41,-190.66C243.79,-169.44 222.63,-133.84 208.26,-109.66"></path>
+<polygon fill="black" stroke="black" points="211.24,-107.81 203.12,-101.01 205.22,-111.39 211.24,-107.81"></polygon>
+</g>
+<!-- t5 -->
+<g id="node9" class="node">
+<title>t5</title>
+<ellipse fill="none" stroke="DarkGreen" cx="165.01" cy="-144.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="start" x="156.61" y="-141.3" font-family="Courier,monospace" text-decoration="underline" font-size="14.00">t5</text>
+</g>
+<!-- t5&#45;&gt;t4t5_c -->
+<g id="edge16" class="edge">
+<title>t5-&gt;t4t5_c</title>
+<path fill="none" stroke="black" d="M173.87,-124.67C175.96,-120.23 178.23,-115.4 180.46,-110.68"></path>
+<polygon fill="black" stroke="black" points="183.78,-111.83 184.87,-101.29 177.45,-108.85 183.78,-111.83"></polygon>
+</g>
+<!-- c -->
+<g id="node10" class="node">
+<title>c</title>
+<ellipse fill="none" stroke="DarkGreen" cx="193.01" cy="-21.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="start" x="188.81" y="-18.3" font-family="Courier,monospace" text-decoration="underline" font-size="14.00">c</text>
+</g>
+<!-- xm_t0&#45;&gt;t0 -->
+<g id="edge3" class="edge">
+<title>xm_t0-&gt;t0</title>
+<path fill="none" stroke="black" d="M105.01,-563.79C105.01,-560.22 105.01,-556.35 105.01,-552.45"></path>
+<polygon fill="black" stroke="black" points="108.51,-552.26 105.01,-542.26 101.51,-552.26 108.51,-552.26"></polygon>
+</g>
+<!-- t0s_t1&#45;&gt;t1 -->
+<g id="edge6" class="edge">
+<title>t0s_t1-&gt;t1</title>
+<path fill="none" stroke="black" d="M98.36,-440.79C96.76,-436.66 95.01,-432.14 93.27,-427.64"></path>
+<polygon fill="black" stroke="black" points="96.41,-426.04 89.54,-417.97 89.88,-428.56 96.41,-426.04"></polygon>
+</g>
+<!-- s_t2&#45;&gt;t2 -->
+<g id="edge8" class="edge">
+<title>s_t2-&gt;t2</title>
+<path fill="none" stroke="black" d="M271.88,-440.79C272.06,-437.22 272.25,-433.35 272.45,-429.45"></path>
+<polygon fill="black" stroke="black" points="275.96,-429.42 272.96,-419.26 268.96,-429.07 275.96,-429.42"></polygon>
+</g>
+<!-- t1_t3&#45;&gt;t3 -->
+<g id="edge10" class="edge">
+<title>t1_t3-&gt;t3</title>
+<path fill="none" stroke="black" d="M82.29,-317.79C85.66,-312.65 89.42,-306.91 93.07,-301.35"></path>
+<polygon fill="black" stroke="black" points="96.07,-303.16 98.62,-292.88 90.21,-299.32 96.07,-303.16"></polygon>
+</g>
+<!-- t2halflog2pi_t4&#45;&gt;t4 -->
+<g id="edge12" class="edge">
+<title>t2halflog2pi_t4-&gt;t4</title>
+<path fill="none" stroke="black" d="M275.64,-317.95C274.06,-298.23 271.42,-265.37 269.47,-241.17"></path>
+<polygon fill="black" stroke="black" points="272.95,-240.75 268.66,-231.07 265.97,-241.31 272.95,-240.75"></polygon>
+</g>
+<!-- t3half_t5&#45;&gt;t5 -->
+<g id="edge14" class="edge">
+<title>t3half_t5-&gt;t5</title>
+<path fill="none" stroke="black" d="M139.57,-191.28C142.78,-185.51 146.44,-178.92 149.97,-172.57"></path>
+<polygon fill="black" stroke="black" points="153.17,-174.02 154.97,-163.57 147.05,-170.62 153.17,-174.02"></polygon>
+</g>
+<!-- t4t5_c&#45;&gt;c -->
+<g id="edge17" class="edge">
+<title>t4t5_c-&gt;c</title>
+<path fill="none" stroke="black" d="M193.01,-64.79C193.01,-61.22 193.01,-57.35 193.01,-53.45"></path>
+<polygon fill="black" stroke="black" points="196.51,-53.26 193.01,-43.26 189.51,-53.26 196.51,-53.26"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="reverse-mode-accumulation-1" class="slide level2">
+<h2>⬅️ Reverse-mode accumulation</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Primal evaluation</p>
+<div class="cell" data-fig-width="3" data-fig-height="6.5" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<svg width="288" height="624" viewbox="0.00 0.00 330.91 708.20" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(21.6 686.6)">
+<title>G</title>
+<!-- x -->
+<g id="node1" class="node">
+<title>x</title>
+<ellipse fill="none" stroke="DarkGreen" cx="21.5" cy="-643.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="21.5" y="-639.3" font-family="Courier,monospace" font-size="14.00">x</text>
+</g>
+<!-- xm_t0 -->
+<g id="node13" class="node">
+<title>xm_t0</title>
+<polygon fill="none" stroke="#006eaf" points="95.21,-600 11.79,-600 11.79,-564 95.21,-564 95.21,-600"></polygon>
+<text text-anchor="middle" x="53.5" y="-577.8" font-family="Courier,monospace" font-size="14.00">subtract</text>
+</g>
+<!-- x&#45;&gt;xm_t0 -->
+<g id="edge1" class="edge">
+<title>x-&gt;xm_t0</title>
+<path fill="none" stroke="black" d="M31.27,-624.32C33.85,-619.54 36.68,-614.28 39.43,-609.17"></path>
+<polygon fill="black" stroke="black" points="42.57,-610.71 44.22,-600.25 36.4,-607.4 42.57,-610.71"></polygon>
+</g>
+<!-- m -->
+<g id="node2" class="node">
+<title>m</title>
+<ellipse fill="none" stroke="DarkGreen" cx="86.5" cy="-643.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="86.5" y="-639.3" font-family="Courier,monospace" font-size="14.00">m</text>
+</g>
+<!-- m&#45;&gt;xm_t0 -->
+<g id="edge2" class="edge">
+<title>m-&gt;xm_t0</title>
+<path fill="none" stroke="black" d="M76.42,-624.32C73.77,-619.54 70.85,-614.28 68.01,-609.17"></path>
+<polygon fill="black" stroke="black" points="70.98,-607.3 63.07,-600.25 64.86,-610.69 70.98,-607.3"></polygon>
+</g>
+<!-- s -->
+<g id="node3" class="node">
+<title>s</title>
+<ellipse fill="none" stroke="DarkGreen" cx="126.5" cy="-520.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="126.5" y="-516.3" font-family="Courier,monospace" font-size="14.00">s</text>
+</g>
+<!-- t0s_t1 -->
+<g id="node14" class="node">
+<title>t0s_t1</title>
+<polygon fill="none" stroke="#006eaf" points="86.91,-477 20.09,-477 20.09,-441 86.91,-441 86.91,-477"></polygon>
+<text text-anchor="middle" x="53.5" y="-454.8" font-family="Courier,monospace" font-size="14.00">divide</text>
+</g>
+<!-- s&#45;&gt;t0s_t1 -->
+<g id="edge4" class="edge">
+<title>s-&gt;t0s_t1</title>
+<path fill="none" stroke="black" d="M110.3,-506.3C102.03,-499.55 91.72,-491.15 82.17,-483.36"></path>
+<polygon fill="black" stroke="black" points="84.34,-480.62 74.38,-477.02 79.92,-486.05 84.34,-480.62"></polygon>
+</g>
+<!-- s_t2 -->
+<g id="node15" class="node">
+<title>s_t2</title>
+<polygon fill="none" stroke="#006eaf" points="162.5,-477 108.5,-477 108.5,-441 162.5,-441 162.5,-477"></polygon>
+<text text-anchor="middle" x="135.5" y="-454.8" font-family="Courier,monospace" font-size="14.00">log</text>
+</g>
+<!-- s&#45;&gt;s_t2 -->
+<g id="edge7" class="edge">
+<title>s-&gt;s_t2</title>
+<path fill="none" stroke="black" d="M129.6,-499.02C130.17,-495.24 130.78,-491.23 131.37,-487.28"></path>
+<polygon fill="black" stroke="black" points="134.87,-487.56 132.91,-477.15 127.95,-486.52 134.87,-487.56"></polygon>
+</g>
+<!-- t0 -->
+<g id="node4" class="node">
+<title>t0</title>
+<ellipse fill="none" stroke="DarkGreen" cx="53.5" cy="-520.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="53.5" y="-516.3" font-family="Courier,monospace" font-size="14.00">t0</text>
+</g>
+<!-- t0&#45;&gt;t0s_t1 -->
+<g id="edge5" class="edge">
+<title>t0-&gt;t0s_t1</title>
+<path fill="none" stroke="black" d="M53.5,-498.69C53.5,-495.1 53.5,-491.31 53.5,-487.57"></path>
+<polygon fill="black" stroke="black" points="57,-487.35 53.5,-477.35 50,-487.35 57,-487.35"></polygon>
+</g>
+<!-- t1 -->
+<g id="node5" class="node">
+<title>t1</title>
+<ellipse fill="none" stroke="DarkGreen" cx="53.5" cy="-397.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="53.5" y="-393.3" font-family="Courier,monospace" font-size="14.00">t1</text>
+</g>
+<!-- t1_t3 -->
+<g id="node16" class="node">
+<title>t1_t3</title>
+<polygon fill="none" stroke="#006eaf" points="86.91,-354 20.09,-354 20.09,-318 86.91,-318 86.91,-354"></polygon>
+<text text-anchor="middle" x="53.5" y="-331.8" font-family="Courier,monospace" font-size="14.00">square</text>
+</g>
+<!-- t1&#45;&gt;t1_t3 -->
+<g id="edge9" class="edge">
+<title>t1-&gt;t1_t3</title>
+<path fill="none" stroke="black" d="M53.5,-375.69C53.5,-372.1 53.5,-368.31 53.5,-364.57"></path>
+<polygon fill="black" stroke="black" points="57,-364.35 53.5,-354.35 50,-364.35 57,-364.35"></polygon>
+</g>
+<!-- t2 -->
+<g id="node6" class="node">
+<title>t2</title>
+<ellipse fill="none" stroke="DarkGreen" cx="135.5" cy="-397.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="135.5" y="-393.3" font-family="Courier,monospace" font-size="14.00">t2</text>
+</g>
+<!-- t2halflog2pi_t4 -->
+<g id="node17" class="node">
+<title>t2halflog2pi_t4</title>
+<polygon fill="none" stroke="#006eaf" points="220.5,-354 166.5,-354 166.5,-318 220.5,-318 220.5,-354"></polygon>
+<text text-anchor="middle" x="193.5" y="-331.8" font-family="Courier,monospace" font-size="14.00">add</text>
+</g>
+<!-- t2&#45;&gt;t2halflog2pi_t4 -->
+<g id="edge11" class="edge">
+<title>t2-&gt;t2halflog2pi_t4</title>
+<path fill="none" stroke="black" d="M150.14,-381.49C155.92,-375.55 162.74,-368.56 169.22,-361.91"></path>
+<polygon fill="black" stroke="black" points="172.13,-363.93 176.61,-354.33 167.12,-359.05 172.13,-363.93"></polygon>
+</g>
+<!-- t3 -->
+<g id="node7" class="node">
+<title>t3</title>
+<ellipse fill="none" stroke="DarkGreen" cx="53.5" cy="-274.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="53.5" y="-270.3" font-family="Courier,monospace" font-size="14.00">t3</text>
+</g>
+<!-- t3half_t5 -->
+<g id="node18" class="node">
+<title>t3half_t5</title>
+<polygon fill="none" stroke="#006eaf" points="149.91,-227.5 83.09,-227.5 83.09,-191.5 149.91,-191.5 149.91,-227.5"></polygon>
+<text text-anchor="middle" x="116.5" y="-205.3" font-family="Courier,monospace" font-size="14.00">divide</text>
+</g>
+<!-- t3&#45;&gt;t3half_t5 -->
+<g id="edge14" class="edge">
+<title>t3-&gt;t3half_t5</title>
+<path fill="none" stroke="black" d="M68.43,-258.57C75.56,-251.44 84.28,-242.72 92.32,-234.68"></path>
+<polygon fill="black" stroke="black" points="94.86,-237.09 99.45,-227.55 89.91,-232.14 94.86,-237.09"></polygon>
+</g>
+<!-- t4 -->
+<g id="node8" class="node">
+<title>t4</title>
+<ellipse fill="none" stroke="DarkGreen" cx="193.5" cy="-209.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="193.5" y="-205.3" font-family="Courier,monospace" font-size="14.00">t4</text>
+</g>
+<!-- t4t5_c -->
+<g id="node19" class="node">
+<title>t4t5_c</title>
+<polygon fill="none" stroke="#006eaf" points="181.5,-101 127.5,-101 127.5,-65 181.5,-65 181.5,-101"></polygon>
+<text text-anchor="middle" x="154.5" y="-78.8" font-family="Courier,monospace" font-size="14.00">add</text>
+</g>
+<!-- t4&#45;&gt;t4t5_c -->
+<g id="edge17" class="edge">
+<title>t4-&gt;t4t5_c</title>
+<path fill="none" stroke="black" d="M187.32,-188.77C180.73,-167.75 170.27,-134.33 162.93,-110.9"></path>
+<polygon fill="black" stroke="black" points="166.23,-109.73 159.9,-101.23 159.55,-111.82 166.23,-109.73"></polygon>
+</g>
+<!-- t5 -->
+<g id="node9" class="node">
+<title>t5</title>
+<ellipse fill="none" stroke="DarkGreen" cx="126.5" cy="-144.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="126.5" y="-140.3" font-family="Courier,monospace" font-size="14.00">t5</text>
+</g>
+<!-- t5&#45;&gt;t4t5_c -->
+<g id="edge18" class="edge">
+<title>t5-&gt;t4t5_c</title>
+<path fill="none" stroke="black" d="M135.36,-124.67C137.45,-120.23 139.72,-115.4 141.94,-110.68"></path>
+<polygon fill="black" stroke="black" points="145.27,-111.83 146.36,-101.29 138.94,-108.85 145.27,-111.83"></polygon>
+</g>
+<!-- c -->
+<g id="node10" class="node">
+<title>c</title>
+<ellipse fill="none" stroke="DarkGreen" cx="154.5" cy="-21.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="middle" x="154.5" y="-17.3" font-family="Courier,monospace" font-size="14.00">c</text>
+</g>
+<!-- halflog2pi -->
+<g id="node11" class="node">
+<title>halflog2pi</title>
+<text text-anchor="middle" x="233.5" y="-393.3" font-family="Courier,monospace" font-size="14.00">log(2*pi)/2</text>
+</g>
+<!-- halflog2pi&#45;&gt;t2halflog2pi_t4 -->
+<g id="edge12" class="edge">
+<title>halflog2pi-&gt;t2halflog2pi_t4</title>
+<path fill="none" stroke="black" d="M221.93,-379.29C218.48,-374.15 214.62,-368.41 210.88,-362.85"></path>
+<polygon fill="black" stroke="black" points="213.67,-360.72 205.18,-354.38 207.86,-364.63 213.67,-360.72"></polygon>
+</g>
+<!-- two -->
+<g id="node12" class="node">
+<title>two</title>
+<text text-anchor="middle" x="124.5" y="-270.3" font-family="Courier,monospace" font-size="14.00">2</text>
+</g>
+<!-- two&#45;&gt;t3half_t5 -->
+<g id="edge15" class="edge">
+<title>two-&gt;t3half_t5</title>
+<path fill="none" stroke="black" d="M122.31,-256.28C121.59,-250.59 120.77,-244.11 119.97,-237.84"></path>
+<polygon fill="black" stroke="black" points="123.42,-237.17 118.68,-227.69 116.47,-238.06 123.42,-237.17"></polygon>
+</g>
+<!-- xm_t0&#45;&gt;t0 -->
+<g id="edge3" class="edge">
+<title>xm_t0-&gt;t0</title>
+<path fill="none" stroke="black" d="M53.5,-563.79C53.5,-560.22 53.5,-556.35 53.5,-552.45"></path>
+<polygon fill="black" stroke="black" points="57,-552.26 53.5,-542.26 50,-552.26 57,-552.26"></polygon>
+</g>
+<!-- t0s_t1&#45;&gt;t1 -->
+<g id="edge6" class="edge">
+<title>t0s_t1-&gt;t1</title>
+<path fill="none" stroke="black" d="M53.5,-440.79C53.5,-437.22 53.5,-433.35 53.5,-429.45"></path>
+<polygon fill="black" stroke="black" points="57,-429.26 53.5,-419.26 50,-429.26 57,-429.26"></polygon>
+</g>
+<!-- s_t2&#45;&gt;t2 -->
+<g id="edge8" class="edge">
+<title>s_t2-&gt;t2</title>
+<path fill="none" stroke="black" d="M135.5,-440.79C135.5,-437.22 135.5,-433.35 135.5,-429.45"></path>
+<polygon fill="black" stroke="black" points="139,-429.26 135.5,-419.26 132,-429.26 139,-429.26"></polygon>
+</g>
+<!-- t1_t3&#45;&gt;t3 -->
+<g id="edge10" class="edge">
+<title>t1_t3-&gt;t3</title>
+<path fill="none" stroke="black" d="M53.5,-317.79C53.5,-314.22 53.5,-310.35 53.5,-306.45"></path>
+<polygon fill="black" stroke="black" points="57,-306.26 53.5,-296.26 50,-306.26 57,-306.26"></polygon>
+</g>
+<!-- t2halflog2pi_t4&#45;&gt;t4 -->
+<g id="edge13" class="edge">
+<title>t2halflog2pi_t4-&gt;t4</title>
+<path fill="none" stroke="black" d="M193.5,-317.95C193.5,-298.23 193.5,-265.37 193.5,-241.17"></path>
+<polygon fill="black" stroke="black" points="197,-241.07 193.5,-231.07 190,-241.07 197,-241.07"></polygon>
+</g>
+<!-- t3half_t5&#45;&gt;t5 -->
+<g id="edge16" class="edge">
+<title>t3half_t5-&gt;t5</title>
+<path fill="none" stroke="black" d="M119.23,-191.28C119.99,-186.49 120.84,-181.13 121.69,-175.82"></path>
+<polygon fill="black" stroke="black" points="125.16,-176.25 123.27,-165.82 118.25,-175.15 125.16,-176.25"></polygon>
+</g>
+<!-- t4t5_c&#45;&gt;c -->
+<g id="edge19" class="edge">
+<title>t4t5_c-&gt;c</title>
+<path fill="none" stroke="black" d="M154.5,-64.79C154.5,-61.22 154.5,-57.35 154.5,-53.45"></path>
+<polygon fill="black" stroke="black" points="158,-53.26 154.5,-43.26 151,-53.26 158,-53.26"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p>Reverse-mode</p>
+<div class="cell" data-fig-width="4.5" data-fig-height="6.5" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<svg width="432" height="624" viewbox="0.00 0.00 459.03 701.20" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(21.6 679.6)">
+<title>G</title>
+<!-- x -->
+<g id="node1" class="node">
+<title>x</title>
+<ellipse fill="none" stroke="DarkGreen" cx="296.02" cy="-636.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="start" x="291.82" y="-633.3" font-family="Courier,monospace" text-decoration="overline" font-size="14.00">x</text>
+</g>
+<!-- m -->
+<g id="node2" class="node">
+<title>m</title>
+<ellipse fill="none" stroke="DarkGreen" cx="361.02" cy="-636.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="start" x="356.82" y="-633.3" font-family="Courier,monospace" text-decoration="overline" font-size="14.00">m</text>
+</g>
+<!-- s -->
+<g id="node3" class="node">
+<title>s</title>
+<ellipse fill="none" stroke="DarkGreen" cx="237.02" cy="-513.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="start" x="232.82" y="-510.3" font-family="Courier,monospace" text-decoration="overline" font-size="14.00">s</text>
+</g>
+<!-- t0 -->
+<g id="node4" class="node">
+<title>t0</title>
+<ellipse fill="none" stroke="DarkGreen" cx="328.02" cy="-513.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="start" x="319.62" y="-510.3" font-family="Courier,monospace" text-decoration="overline" font-size="14.00">t0</text>
+</g>
+<!-- xm_t0 -->
+<g id="node11" class="node">
+<title>xm_t0</title>
+<polygon fill="none" stroke="#006eaf" points="415.64,-593 240.39,-593 240.39,-557 415.64,-557 415.64,-593"></polygon>
+<text text-anchor="middle" x="328.02" y="-570.8" font-family="Courier,monospace" font-size="14.00">VJP(subtract)(x, m)</text>
+</g>
+<!-- t0&#45;&gt;xm_t0 -->
+<g id="edge1" class="edge">
+<title>t0-&gt;xm_t0</title>
+<path fill="none" stroke="black" d="M328.02,-535.31C328.02,-538.9 328.02,-542.69 328.02,-546.43"></path>
+<polygon fill="black" stroke="black" points="324.52,-546.65 328.02,-556.65 331.52,-546.65 324.52,-546.65"></polygon>
+</g>
+<!-- t1 -->
+<g id="node5" class="node">
+<title>t1</title>
+<ellipse fill="none" stroke="DarkGreen" cx="328.02" cy="-390.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="start" x="319.62" y="-387.3" font-family="Courier,monospace" text-decoration="overline" font-size="14.00">t1</text>
+</g>
+<!-- t0s_t1 -->
+<g id="node12" class="node">
+<title>t0s_t1</title>
+<polygon fill="none" stroke="#006eaf" points="411.74,-470 244.29,-470 244.29,-434 411.74,-434 411.74,-470"></polygon>
+<text text-anchor="middle" x="328.02" y="-447.8" font-family="Courier,monospace" font-size="14.00">VJP(divide)(t0, s)</text>
+</g>
+<!-- t1&#45;&gt;t0s_t1 -->
+<g id="edge4" class="edge">
+<title>t1-&gt;t0s_t1</title>
+<path fill="none" stroke="black" d="M328.02,-412.31C328.02,-415.9 328.02,-419.69 328.02,-423.43"></path>
+<polygon fill="black" stroke="black" points="324.52,-423.65 328.02,-433.65 331.52,-423.65 324.52,-423.65"></polygon>
+</g>
+<!-- t2 -->
+<g id="node6" class="node">
+<title>t2</title>
+<ellipse fill="none" stroke="DarkGreen" cx="163.02" cy="-267.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="start" x="154.62" y="-264.3" font-family="Courier,monospace" text-decoration="overline" font-size="14.00">t2</text>
+</g>
+<!-- s_t2 -->
+<g id="node13" class="node">
+<title>s_t2</title>
+<polygon fill="none" stroke="#006eaf" points="255.43,-408.5 146.6,-408.5 146.6,-372.5 255.43,-372.5 255.43,-408.5"></polygon>
+<text text-anchor="middle" x="201.02" y="-386.3" font-family="Courier,monospace" font-size="14.00">VJP(log)(s)</text>
+</g>
+<!-- t2&#45;&gt;s_t2 -->
+<g id="edge7" class="edge">
+<title>t2-&gt;s_t2</title>
+<path fill="none" stroke="black" d="M169.21,-288.21C175.55,-308.42 185.47,-339.99 192.54,-362.52"></path>
+<polygon fill="black" stroke="black" points="189.23,-363.66 195.57,-372.15 195.91,-361.56 189.23,-363.66"></polygon>
+</g>
+<!-- t3 -->
+<g id="node7" class="node">
+<title>t3</title>
+<ellipse fill="none" stroke="DarkGreen" cx="331.02" cy="-267.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="start" x="322.62" y="-264.3" font-family="Courier,monospace" text-decoration="overline" font-size="14.00">t3</text>
+</g>
+<!-- t1_t3 -->
+<g id="node14" class="node">
+<title>t1_t3</title>
+<polygon fill="none" stroke="#006eaf" points="401.04,-347 259,-347 259,-311 401.04,-311 401.04,-347"></polygon>
+<text text-anchor="middle" x="330.02" y="-324.8" font-family="Courier,monospace" font-size="14.00">VJP(square)(t1)</text>
+</g>
+<!-- t3&#45;&gt;t1_t3 -->
+<g id="edge9" class="edge">
+<title>t3-&gt;t1_t3</title>
+<path fill="none" stroke="black" d="M330.67,-289.31C330.61,-292.9 330.54,-296.69 330.48,-300.43"></path>
+<polygon fill="black" stroke="black" points="326.98,-300.59 330.31,-310.65 333.98,-300.71 326.98,-300.59"></polygon>
+</g>
+<!-- t4 -->
+<g id="node8" class="node">
+<title>t4</title>
+<ellipse fill="none" stroke="DarkGreen" cx="190.02" cy="-144.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="start" x="181.62" y="-141.3" font-family="Courier,monospace" text-decoration="overline" font-size="14.00">t4</text>
+</g>
+<!-- t2_t4 -->
+<g id="node15" class="node">
+<title>t2_t4</title>
+<polygon fill="none" stroke="#006eaf" points="226.05,-224 -0.02,-224 -0.02,-188 226.05,-188 226.05,-224"></polygon>
+<text text-anchor="middle" x="113.02" y="-201.8" font-family="Courier,monospace" font-size="14.00">VJP(add)(t2, log(2*pi)/2)</text>
+</g>
+<!-- t4&#45;&gt;t2_t4 -->
+<g id="edge11" class="edge">
+<title>t4-&gt;t2_t4</title>
+<path fill="none" stroke="black" d="M173.31,-158.41C164.51,-165.21 153.46,-173.75 143.22,-181.66"></path>
+<polygon fill="black" stroke="black" points="141.02,-178.94 135.25,-187.82 145.3,-184.48 141.02,-178.94"></polygon>
+</g>
+<!-- t5 -->
+<g id="node9" class="node">
+<title>t5</title>
+<ellipse fill="none" stroke="DarkGreen" cx="293.02" cy="-144.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="start" x="284.62" y="-141.3" font-family="Courier,monospace" text-decoration="overline" font-size="14.00">t5</text>
+</g>
+<!-- t3_t5 -->
+<g id="node16" class="node">
+<title>t3_t5</title>
+<polygon fill="none" stroke="#006eaf" points="415.74,-224 248.29,-224 248.29,-188 415.74,-188 415.74,-224"></polygon>
+<text text-anchor="middle" x="332.02" y="-201.8" font-family="Courier,monospace" font-size="14.00">VJP(divide)(t3, 2)</text>
+</g>
+<!-- t5&#45;&gt;t3_t5 -->
+<g id="edge13" class="edge">
+<title>t5-&gt;t3_t5</title>
+<path fill="none" stroke="black" d="M304.51,-163.03C307.87,-168.16 311.62,-173.87 315.23,-179.4"></path>
+<polygon fill="black" stroke="black" points="312.33,-181.36 320.74,-187.8 318.19,-177.52 312.33,-181.36"></polygon>
+</g>
+<!-- c -->
+<g id="node10" class="node">
+<title>c</title>
+<ellipse fill="none" stroke="DarkGreen" cx="222.02" cy="-21.5" rx="21.5" ry="21.5"></ellipse>
+<text text-anchor="start" x="217.82" y="-18.3" font-family="Courier,monospace" text-decoration="overline" font-size="14.00">c</text>
+</g>
+<!-- t4t5_c -->
+<g id="node17" class="node">
+<title>t4t5_c</title>
+<polygon fill="none" stroke="#006eaf" points="297.44,-101 146.59,-101 146.59,-65 297.44,-65 297.44,-101"></polygon>
+<text text-anchor="middle" x="222.02" y="-78.8" font-family="Courier,monospace" font-size="14.00">VJP(add)(t5, t4)</text>
+</g>
+<!-- c&#45;&gt;t4t5_c -->
+<g id="edge15" class="edge">
+<title>c-&gt;t4t5_c</title>
+<path fill="none" stroke="black" d="M222.02,-43.31C222.02,-46.9 222.02,-50.69 222.02,-54.43"></path>
+<polygon fill="black" stroke="black" points="218.52,-54.65 222.02,-64.65 225.52,-54.65 218.52,-54.65"></polygon>
+</g>
+<!-- xm_t0&#45;&gt;x -->
+<g id="edge2" class="edge">
+<title>xm_t0-&gt;x</title>
+<path fill="none" stroke="black" d="M318.76,-593.21C316.22,-597.93 313.41,-603.16 310.65,-608.3"></path>
+<polygon fill="black" stroke="black" points="307.46,-606.83 305.81,-617.29 313.63,-610.14 307.46,-606.83"></polygon>
+</g>
+<!-- xm_t0&#45;&gt;m -->
+<g id="edge3" class="edge">
+<title>xm_t0-&gt;m</title>
+<path fill="none" stroke="black" d="M337.56,-593.21C340.18,-597.93 343.08,-603.16 345.93,-608.3"></path>
+<polygon fill="black" stroke="black" points="343.01,-610.24 350.92,-617.29 349.13,-606.85 343.01,-610.24"></polygon>
+</g>
+<!-- t0s_t1&#45;&gt;s -->
+<g id="edge5" class="edge">
+<title>t0s_t1-&gt;s</title>
+<path fill="none" stroke="black" d="M301.7,-470.21C289.65,-478.09 275.41,-487.4 263.36,-495.28"></path>
+<polygon fill="black" stroke="black" points="261.1,-492.57 254.64,-500.97 264.93,-498.43 261.1,-492.57"></polygon>
+</g>
+<!-- t0s_t1&#45;&gt;t0 -->
+<g id="edge6" class="edge">
+<title>t0s_t1-&gt;t0</title>
+<path fill="none" stroke="black" d="M328.02,-470.21C328.02,-473.78 328.02,-477.65 328.02,-481.55"></path>
+<polygon fill="black" stroke="black" points="324.52,-481.74 328.02,-491.74 331.52,-481.74 324.52,-481.74"></polygon>
+</g>
+<!-- s_t2&#45;&gt;s -->
+<g id="edge8" class="edge">
+<title>s_t2-&gt;s</title>
+<path fill="none" stroke="black" d="M206.1,-408.58C211.84,-427.87 221.28,-459.62 228.23,-482.96"></path>
+<polygon fill="black" stroke="black" points="224.92,-484.11 231.12,-492.69 231.63,-482.11 224.92,-484.11"></polygon>
+</g>
+<!-- t1_t3&#45;&gt;t1 -->
+<g id="edge10" class="edge">
+<title>t1_t3-&gt;t1</title>
+<path fill="none" stroke="black" d="M329.44,-347.21C329.32,-350.78 329.19,-354.65 329.06,-358.55"></path>
+<polygon fill="black" stroke="black" points="325.55,-358.63 328.71,-368.74 332.55,-358.87 325.55,-358.63"></polygon>
+</g>
+<!-- t2_t4&#45;&gt;t2 -->
+<g id="edge12" class="edge">
+<title>t2_t4-&gt;t2</title>
+<path fill="none" stroke="black" d="M127.48,-224.21C132.24,-229.87 137.62,-236.28 142.73,-242.36"></path>
+<polygon fill="black" stroke="black" points="140.33,-244.95 149.45,-250.35 145.69,-240.44 140.33,-244.95"></polygon>
+</g>
+<!-- t3_t5&#45;&gt;t3 -->
+<g id="edge14" class="edge">
+<title>t3_t5-&gt;t3</title>
+<path fill="none" stroke="black" d="M331.73,-224.21C331.67,-227.78 331.6,-231.65 331.54,-235.55"></path>
+<polygon fill="black" stroke="black" points="328.03,-235.69 331.37,-245.74 335.03,-235.8 328.03,-235.69"></polygon>
+</g>
+<!-- t4t5_c&#45;&gt;t4 -->
+<g id="edge16" class="edge">
+<title>t4t5_c-&gt;t4</title>
+<path fill="none" stroke="black" d="M212.76,-101.21C210.22,-105.93 207.41,-111.16 204.65,-116.3"></path>
+<polygon fill="black" stroke="black" points="201.46,-114.83 199.81,-125.29 207.63,-118.14 201.46,-114.83"></polygon>
+</g>
+<!-- t4t5_c&#45;&gt;t5 -->
+<g id="edge17" class="edge">
+<title>t4t5_c-&gt;t5</title>
+<path fill="none" stroke="black" d="M242.55,-101.21C250.87,-108.18 260.53,-116.28 269.16,-123.51"></path>
+<polygon fill="black" stroke="black" points="267.12,-126.37 277.04,-130.11 271.62,-121 267.12,-126.37"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="higher-order-derivatives" class="slide level2">
+<h2>🔄 Higher-order derivatives</h2>
+<p>We can iteratively apply combinations of forward- and reverse-mode AD to compute higher-order derivatives.</p>
+<p>For example for <span class="math inline">\(f: \mathbb{R}^N \to \mathbb{R}\)</span>, Hessian vector product:</p>
+<div class="fragment">
+<p><span class="math display">\[\partial^2 f(x) v = \texttt{JVP}\big(x' \to \texttt{VJP}(f)(x')([1])\big)(x)(v).\]</span></p>
+</div>
+<div class="fragment">
+<p>More efficient alternatives exist based on propagating Taylor polynomials <em>(Bischof Corliss, &amp; Griewank, 1993)</em>.</p>
+</div>
+</section>
+<section id="forward-mode-vs.-reverse-mode" class="slide level2">
+<h2>🆚 Forward-mode vs.&nbsp;reverse-mode</h2>
+<p><strong>Forward-mode AD</strong></p>
+<div class="compressed-list">
+<ul>
+<li class="fragment">Generally implementationally simpler than reverse-mode.</li>
+<li class="fragment">Primal and derivatives computed together in one pass.</li>
+<li class="fragment">Often implemented using dual-numbers and overloading.</li>
+<li class="fragment">Less widely applicable (vector functions with few inputs).</li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>Reverse-mode AD</strong></p>
+<div class="compressed-list">
+<ul>
+<li class="fragment">Derivatives need to be propagated in separate reverse pass.</li>
+<li class="fragment">Requires structure for recording forward pass and reversing.</li>
+<li class="fragment">Memory requirements grow with computational graph size.</li>
+<li class="fragment">Rematerialization allows computation / memory trade-off.</li>
+<li class="fragment">More widely applicable (scalar functions with many inputs).</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="computational-frameworks" class="slide level2">
+<h2>🖥️ Computational frameworks</h2>
+<p>Increasing number of frameworks with AD functionality:</p>
+<div class="fragment">
+<p><strong>Python</strong></p>
+<div class="columns">
+<div class="column" style="width:23%;">
+<p><img data-src="images/pytensor-logo.svg"> <span style="font-size: 150%;">Autograd</span></p>
+</div><div class="column" style="width:25%;">
+<p><img data-src="images/tensorflow-logo.svg"></p>
+</div><div class="column" style="width:23%;">
+<p><img data-src="images/pytorch-logo.svg"> <img data-src="images/tinygrad-logo.svg"></p>
+</div><div class="column" style="width:26%;">
+<p><img data-src="images/jax-logo.svg"></p>
+</div></div>
+</div>
+<div class="fragment">
+<p><strong>Julia</strong></p>
+<div class="columns">
+<div class="column" style="width:35%;">
+<p><span style="font-size: 150%;">ForwardDiff.jl</span> <span style="font-size: 150%;">ReverseDiff.jl</span></p>
+</div><div class="column" style="width:35%;">
+<p><img data-src="images/zygote.png"></p>
+</div><div class="column" style="width:15%;">
+<p><img data-src="images/mooncake-logo.svg"></p>
+</div><div class="column" style="width:12%;">
+<p><img data-src="images/enzyme-logo.svg"></p>
+</div></div>
+</div>
+<div class="fragment">
+<p>How to choose which to use?</p>
+</div>
+</section>
+<section id="framework-tradeoffs" class="slide level2">
+<h2>⚖️ Framework tradeoffs</h2>
+<ul>
+<li class="fragment">💻 <strong>Generality</strong>: Machine learning specific versus general purpose scientific computing.</li>
+<li class="fragment">🤸‍♂️ <strong>Flexibility</strong>: ‘Walled gardens’ of primitives, support for mutation and dynamic control-flow.</li>
+<li class="fragment">🤗 <strong>User-friendliness</strong>: Ease of use of API, informativeness of error messages and documentation.</li>
+<li class="fragment">🛠️ <strong>Stability</strong>: How active is development and maintenance of package now and in longer term?</li>
+<li class="fragment">🚀 <strong>Performance</strong>: Interpreter and compiler overheads, support for accelerator devices.</li>
+</ul>
+</section>
+<section id="my-opinions-and-experiences" class="slide level2">
+<h2>🗣️ My opinions and experiences</h2>
+<ul>
+<li class="fragment"><em>PyTorch</em>: more general purpose than TensorFlow but still machine learning biased; easy to use if you like objected-oriented design and well documented.</li>
+<li class="fragment"><em>Autograd</em>: general purpose with familiar NumPy like interface; high interpreter overhead limits performance; some questions on long-term maintenance.</li>
+<li class="fragment"><em>JAX</em>: similar interface to Autograd but more performant due to JIT compilation; functional programming style divisive; great documentation and active development.</li>
+<li class="fragment"><em>Enzyme</em>: promise of being very general; highly performant when you can get it working; more complex API and occassionally cryptic error messages.</li>
+</ul>
+</section>
+<section id="final-thoughts" class="slide level2">
+<h2>🔚 Final thoughts</h2>
+<ul>
+<li class="fragment">When it can be used AD allows computing derivatives both <strong>more cheaply</strong> and <strong>accurately</strong> than finite differences.</li>
+<li class="fragment">Using AD with existing numerical models will in practice almost always require some level of <strong>reimplementation</strong>.</li>
+<li class="fragment">Different frameworks offer differing trade-offs between <strong>flexibility</strong>, <strong>performance</strong> and <strong>ease of use</strong>.</li>
+<li class="fragment">Important to consider <strong>stability</strong> and <strong>long-term maintenance</strong> of frameworks you are building on.</li>
+</ul>
+</section>
+<section id="references-and-further-reading" class="slide level2 smaller">
+<h2>📖 References and further reading</h2>
+<div class="compressed-list">
+<ul>
+<li><a href="https://jax.readthedocs.io/en/latest/autodidax.html">Autodidax: JAX core from scratch</a> and <a href="https://jax.readthedocs.io/en/latest/notebooks/autodiff_cookbook.html">JAX Autodiff cookbook</a></li>
+<li><a href="https://github.com/MikeInnes/diff-zoo">diff-zoo - Differentiation for Hackers</a></li>
+<li><a href="https://book.sciml.ai/">SciML book (chapters on forward and reverse AD)</a></li>
+</ul>
+</div>
+<div class="compressed-list">
+<ul>
+<li>Wengert (1964). A simple automatic derivative evaluation program. <a href="https://doi.org/10.1145/355586.364791">doi:10.1145/355586.364791</a></li>
+<li>Griewank (1988). On Automatic Differentiation. <a href="https://softlib.rice.edu/pub/CRPC-TRs/reports/CRPC-TR89003.pdf">Technical Report ANL/MCS-P10-1088</a></li>
+<li>Bischof, Corliss, and Griewank (1993). Structured second- and higher-order derivatives through univariate Taylor series. <a href="https://doi.org/10.1080/10556789308805543">doi:10.1080/10556789308805543</a></li>
+<li>Griewank and Walther (2008). Evaluating derivatives: Principles and techniques of algorithmic differentiation. <a href="https://doi.org/10.1137/1.9780898717761">doi:10.1137/1.9780898717761</a></li>
+<li>Griewank (2012). Who invented the reverse mode of differentiation? <a href="https://content.ems.press/assets/public/full-texts/books/251/chapters/online-pdf/978-3-98547-540-7-chapter-4949.pdf"><em>Documenta Mathematica</em>, pp.389-400.</a></li>
+<li>Baydin, Pearlmutter Radul and Siskind (2018). Automatic differentiation in machine learning: a survey. <a href="https://arxiv.org/abs/1502.05767">arXiv:1502.05767</a></li>
+<li>Margossian (2018). A review of automatic differentiation and its efficient implementation. <a href="https://arxiv.org/abs/1811.05031">arXiv:1811.05031</a></li>
+<li>Gebremedhin and Walther (2020). An introduction to algorithmic differentiation. <a href="https://doi.org/10.1002/widm.1334">doi:10.1002/widm.1334</a></li>
+<li>Blondel and Roulet (2024). The Elements of Differentiable Programming. <a href="https://arxiv.org/abs/2403.14606">arXiv:2403.14606</a></li>
+</ul>
+</div>
+</section>
+<section id="walled-gardens-vs.-fenced-fields" class="slide level2" data-visibility="uncounted">
+<h2>🧱 Walled gardens vs.&nbsp;fenced fields</h2>
+<p>Some quotes from a Julia Discourse <a href="https://discourse.julialang.org/t/what-lessons-could-julias-autodiff-ecosystem-learn-from-stans-tinygrad/103070">discussion on lessons Julia’s AD ecosystem can learn from other frameworks</a></p>
+<div class="incremental-stack r-stack top-align">
+<div class="fragment fade-out" data-fragment-index="1">
+<blockquote>
+<p>One of the issues that can come up when you try to be quite general is that you fail and then this failure is perceived as making the system unusable. This can be true even when the actual working features vastly exceed the ability of the next best thing.</p>
+<p>Part of the issue is hardly anyone is an expert on where the bug/failure boundary is, so people can prefer a strong fence that keeps them in a small pen that they at least know there are no land mines inside. Being able to go into a bigger field but having only a rough idea where the minefield is… not so desirable (<em>Daniel Lakeland</em>)</p>
+</blockquote>
+</div>
+<div class="fragment  fade-in-then-out" data-fragment-index="1">
+<blockquote>
+<p>Another alternative is to create a walled garden like JAX, in which the only things that are likely to work are compositions of <code>jax.*</code>. Don’t use Numpy, use <code>jax.numpy</code>. Don’t use Scipy, use <code>jax.scipy</code>. Use <code>jax.experimental.ode.odeint</code> to integrate your ODEs, and so forth. One basic issue with this approach is that it requires massive financial resources, ala Google, to re-implement so many popular numerical libraries (<em>Steven G. Johnson</em>)</p>
+</blockquote>
+</div>
+<div class="fragment fade-in" data-fragment-index="2">
+<blockquote>
+<p>A walled garden can’t sustain a herd of cattle, unless it’s massive, but just leaving them in a completely unenclosed space isn’t feasible either, unless you’re willing to constantly look out for wolves. That’s why we graze cattle on large fields surrounded by cheap fences. I’m still looking for the equivalent of the fenced field in Julia autodiff. I’m happy to make some promises (limits on while loops, runtime dispatch, or control flow), but others I won’t (<em>Parada Carleton</em>)</p>
+</blockquote>
+</div>
+</div>
+
+</section>
+
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="2025-11-20-cambridge-rse-ad-talk_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="2025-11-20-cambridge-rse-ad-talk_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="2025-11-20-cambridge-rse-ad-talk_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="2025-11-20-cambridge-rse-ad-talk_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="2025-11-20-cambridge-rse-ad-talk_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="2025-11-20-cambridge-rse-ad-talk_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="2025-11-20-cambridge-rse-ad-talk_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="2025-11-20-cambridge-rse-ad-talk_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="2025-11-20-cambridge-rse-ad-talk_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="2025-11-20-cambridge-rse-ad-talk_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="2025-11-20-cambridge-rse-ad-talk_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': true,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "none",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': false,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+       // Parallax background image
+       parallaxBackgroundImage: 'images/arc-banner-scaled.svg', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.15,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const onCopySuccess = function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
+      });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+        const config = {
+          allowHTML: true,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start',
+        };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>
