@@ -586,7 +586,7 @@ models.
 <section id="advantages-of-ad" class="slide level2">
 <h2>✨ Advantages of AD</h2>
 <ul>
-<li class="fragment"><strong>Efficient</strong>: can evaluate the Jacobian of a function <span class="math inline">\(f : \mathbb{R}^N \to \mathbb{R}^M\)</span> at a computational cost which is <span class="math inline">\(\mathcal{O}\left(\min(M, N)\right)\)</span> times the cost of evaluating <span class="math inline">\(f\)</span>.<sup>1</sup></li>
+<li class="fragment"><strong>Efficient</strong>: can evaluate the Jacobian of a function <span class="math inline">\(f : \mathbb{R}^N \to \mathbb{R}^M\)</span> at an operation cost which is <span class="math inline">\(\mathcal{O}\left(\min(M, N)\right)\)</span> times the cost of evaluating <span class="math inline">\(f\)</span>.<sup>1</sup></li>
 <li class="fragment"><strong>Expressive</strong>: applicable to any differentiable function which can be expressed algorithmically including use of control flow.</li>
 <li class="fragment"><strong>Exact</strong>: provides exact derivatives of a function (modulo usual errors from using floating-point arithmetic).</li>
 </ul>
@@ -654,21 +654,7 @@ cost <span class="math inline">\(\mathcal{O}(N)\)</span> evaluations of <span cl
 </div>
 </section>
 
-<section id="jacobians" class="slide level2">
-<h2>🇯 Jacobians</h2>
-<p>For a function <span class="math inline">\(f : \mathbb{R}^N \to \mathbb{R}^M\)</span> the Jacobian <span class="math inline">\(\partial f(x)\)</span> at an input <span class="math inline">\(x \in \mathbb{R}^N\)</span> can be represented as a <span class="math inline">\(M \times N\)</span> matrix of partial derivatives</p>
-<div class="fragment">
-<p><span class="math display">\[ \partial f(x) = \begin{bmatrix}
-  \partial_1{f_1}(x) &amp; \dots &amp; \partial_N f(x) \\\\
-  \vdots &amp; \ddots &amp; \vdots \\\\
-  \partial_1 f_M(x) &amp; \dots &amp; \partial_N f_M(x)
-  \end{bmatrix}.
-\]</span></p>
-</div>
-<div class="fragment">
-<p>More generally the Jacobian is a linear map from the <em>domain</em> to the <em>codomain</em> of a function.</p>
-</div>
-</section>
+
 <section id="jacobian-vector-products" class="slide level2">
 <h2>🇻 Jacobian vector products</h2>
 <p>As the Jacobian <span class="math inline">\(\partial f(x)\)</span> is a linear map <span class="math inline">\(\mathbb{R}^N \to \mathbb{R}^M\)</span> we can apply it to a vector <span class="math inline">\(v \in \mathbb{R}^N\)</span>. We term this operation a <em>Jacobian vector product</em> (<code>JVP</code>)</p>
@@ -865,7 +851,7 @@ cost <span class="math inline">\(\mathcal{O}(N)\)</span> evaluations of <span cl
 </section>
 <section id="symbolic-differentiation-sympy" class="slide level2">
 <h2>🔡 Symbolic differentiation: SymPy</h2>
-<div id="33ffc5a7" class="cell" data-execution_count="2">
+<div id="76049913" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="im">import</span> sympy</span>
 <span id="cb1-2"><a href=""></a></span>
 <span id="cb1-3"><a href=""></a>x, m, s <span class="op">=</span> sympy.symbols(<span class="st">'x m s'</span>)</span>
@@ -875,7 +861,7 @@ cost <span class="math inline">\(\mathcal{O}(N)\)</span> evaluations of <span cl
 <span id="cb1-7"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment" data-execution_count="2">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="14">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="2">
 <p><span class="math inline">\(\displaystyle \left[\begin{matrix}\frac{- m + x}{s^{2}} &amp; \frac{m - x}{s^{2}} &amp; \frac{s^{2} - \left(m - x\right)^{2}}{s^{3}}\end{matrix}\right]\)</span></p>
 </div>
 </div>
@@ -885,7 +871,7 @@ cost <span class="math inline">\(\mathcal{O}(N)\)</span> evaluations of <span cl
 </section>
 <section id="numerical-differentiation-numpy" class="slide level2">
 <h2>🔢 Numerical differentiation: NumPy</h2>
-<div id="d8235747" class="cell" data-execution_count="3">
+<div id="7591a39c" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-2"><a href=""></a></span>
 <span id="cb2-3"><a href=""></a><span class="kw">def</span> neg_log_dens(x, m, s):</span>
@@ -900,7 +886,7 @@ cost <span class="math inline">\(\mathcal{O}(N)\)</span> evaluations of <span cl
 <span id="cb2-12"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment" data-execution_count="3">
-<div class="cell-output cell-output-display" data-execution_count="15">
+<div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>(np.float64(-0.5785123935453385),
  np.float64(0.5785123935453385),
  np.float64(0.5409466652395167))</code></pre>
@@ -912,7 +898,7 @@ cost <span class="math inline">\(\mathcal{O}(N)\)</span> evaluations of <span cl
 </section>
 <section id="ℹ-complex-step-numpy" class="slide level2">
 <h2>ℹ️ Complex step: NumPy</h2>
-<div id="082f1081" class="cell" data-execution_count="4">
+<div id="3d46d561" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href=""></a></span>
 <span id="cb4-3"><a href=""></a><span class="kw">def</span> neg_log_dens(x, m, s):</span>
@@ -926,7 +912,7 @@ cost <span class="math inline">\(\mathcal{O}(N)\)</span> evaluations of <span cl
 <span id="cb4-11"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment" data-execution_count="4">
-<div class="cell-output cell-output-display" data-execution_count="16">
+<div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>(-0.5785123966942147, 0.5785123966942147, np.float64(0.5409466566491361))</code></pre>
 </div>
 </div>
@@ -936,7 +922,7 @@ cost <span class="math inline">\(\mathcal{O}(N)\)</span> evaluations of <span cl
 </section>
 <section id="automatic-differentiation-autograd" class="slide level2" style="font-size: 98%;">
 <h2>🇦 Automatic differentiation: Autograd</h2>
-<div id="c63ca401" class="cell" data-execution_count="5">
+<div id="ed8dc926" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="im">import</span> autograd.numpy <span class="im">as</span> np</span>
 <span id="cb6-2"><a href=""></a><span class="im">from</span> autograd <span class="im">import</span> grad</span>
 <span id="cb6-3"><a href=""></a></span>
@@ -947,7 +933,7 @@ cost <span class="math inline">\(\mathcal{O}(N)\)</span> evaluations of <span cl
 <span id="cb6-8"><a href=""></a>grad(neg_log_dens, argnum<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>))(x, m, s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment" data-execution_count="5">
-<div class="cell-output cell-output-display" data-execution_count="17">
+<div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>(array(-0.5785124), array(0.5785124), array(0.54094666))</code></pre>
 </div>
 </div>
@@ -957,7 +943,7 @@ cost <span class="math inline">\(\mathcal{O}(N)\)</span> evaluations of <span cl
 </section>
 <section id="automatic-differentiation-jax" class="slide level2">
 <h2>🇯 Automatic differentiation: JAX</h2>
-<div id="b3a8ae06" class="cell" data-execution_count="6">
+<div id="a356cd72" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="im">import</span> jax.numpy <span class="im">as</span> np</span>
 <span id="cb8-2"><a href=""></a><span class="im">from</span> jax <span class="im">import</span> grad</span>
 <span id="cb8-3"><a href=""></a></span>
@@ -968,7 +954,7 @@ cost <span class="math inline">\(\mathcal{O}(N)\)</span> evaluations of <span cl
 <span id="cb8-8"><a href=""></a>grad(neg_log_dens, argnums<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>))(x, m, s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment" data-execution_count="6">
-<div class="cell-output cell-output-display" data-execution_count="18">
+<div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>(Array(-0.57851243, dtype=float32, weak_type=True),
  Array(0.57851243, dtype=float32, weak_type=True),
  Array(0.5409466, dtype=float32, weak_type=True))</code></pre>
@@ -1512,12 +1498,12 @@ cost <span class="math inline">\(\mathcal{O}(N)\)</span> evaluations of <span cl
 <div class="columns">
 <div class="column" style="width:50%;">
 <p>Primal evaluation</p>
-<div class="cell" data-fig-width="3" data-fig-height="6.5" data-layout-align="default">
+<div class="cell" data-fig-width="3" data-fig-height="6" data-layout-align="default">
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<svg width="288" height="624" viewbox="0.00 0.00 330.91 708.20" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<svg width="288" height="576" viewbox="0.00 0.00 330.91 708.20" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(21.6 686.6)">
 <title>G</title>
 <!-- x -->
@@ -1755,12 +1741,12 @@ cost <span class="math inline">\(\mathcal{O}(N)\)</span> evaluations of <span cl
 </div>
 </div><div class="column" style="width:50%;">
 <p>Forward-mode</p>
-<div class="cell" data-fig-width="4" data-fig-height="6.5" data-layout-align="default">
+<div class="cell" data-fig-width="4" data-fig-height="6" data-layout-align="default">
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<svg width="384" height="624" viewbox="0.00 0.00 433.23 708.20" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<svg width="384" height="576" viewbox="0.00 0.00 433.23 708.20" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(21.6 686.6)">
 <title>G</title>
 <!-- x -->
@@ -1981,12 +1967,12 @@ cost <span class="math inline">\(\mathcal{O}(N)\)</span> evaluations of <span cl
 <div class="columns">
 <div class="column" style="width:50%;">
 <p>Primal evaluation</p>
-<div class="cell" data-fig-width="3" data-fig-height="6.5" data-layout-align="default">
+<div class="cell" data-fig-width="3" data-fig-height="6" data-layout-align="default">
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<svg width="288" height="624" viewbox="0.00 0.00 330.91 708.20" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<svg width="288" height="576" viewbox="0.00 0.00 330.91 708.20" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(21.6 686.6)">
 <title>G</title>
 <!-- x -->
@@ -2224,12 +2210,12 @@ cost <span class="math inline">\(\mathcal{O}(N)\)</span> evaluations of <span cl
 </div>
 </div><div class="column" style="width:50%;">
 <p>Reverse-mode</p>
-<div class="cell" data-fig-width="4.5" data-fig-height="6.5" data-layout-align="default">
+<div class="cell" data-fig-width="4.5" data-fig-height="6" data-layout-align="default">
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<svg width="432" height="624" viewbox="0.00 0.00 459.03 701.20" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<svg width="432" height="576" viewbox="0.00 0.00 459.03 701.20" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(21.6 679.6)">
 <title>G</title>
 <!-- x -->
@@ -2482,36 +2468,58 @@ cost <span class="math inline">\(\mathcal{O}(N)\)</span> evaluations of <span cl
 </section>
 <section id="computational-frameworks" class="slide level2">
 <h2>🖥️ Computational frameworks</h2>
-<p>Increasing number of frameworks with AD functionality:</p>
-<div class="fragment">
+<div class="incremental-stack r-stack top-align">
+<div class="fragment fade-out" data-fragment-index="1">
+Increasing
+
+number
+
+of
+
+frameworks
+
+with
+
+AD
+
+functionality:
+</div>
+<div class="fragment fade-in" data-fragment-index="1">
+How
+
+to
+
+choose
+
+which
+
+to
+
+use?
+</div>
+</div>
 <p><strong>Python</strong></p>
 <div class="columns">
-<div class="column" style="width:23%;">
+<div class="column" style="width:20%;">
 <p><img data-src="images/pytensor-logo.svg"> <span style="font-size: 150%;">Autograd</span></p>
-</div><div class="column" style="width:25%;">
+</div><div class="column" style="width:22%;">
 <p><img data-src="images/tensorflow-logo.svg"></p>
-</div><div class="column" style="width:23%;">
+</div><div class="column" style="width:20%;">
 <p><img data-src="images/pytorch-logo.svg"> <img data-src="images/tinygrad-logo.svg"></p>
-</div><div class="column" style="width:26%;">
+</div><div class="column" style="width:23%;">
 <p><img data-src="images/jax-logo.svg"></p>
 </div></div>
-</div>
-<div class="fragment">
 <p><strong>Julia</strong></p>
-<div class="columns">
-<div class="column" style="width:35%;">
+<div class="columns" style="margin-top: 0; padding-top: 0;">
+<div class="column" style="width:32%;">
 <p><span style="font-size: 150%;">ForwardDiff.jl</span> <span style="font-size: 150%;">ReverseDiff.jl</span></p>
-</div><div class="column" style="width:35%;">
+</div><div class="column" style="width:32%;">
 <p><img data-src="images/zygote.png"></p>
-</div><div class="column" style="width:15%;">
-<p><img data-src="images/mooncake-logo.svg"></p>
 </div><div class="column" style="width:12%;">
+<p><img data-src="images/mooncake-logo.svg"></p>
+</div><div class="column" style="width:9%;">
 <p><img data-src="images/enzyme-logo.svg"></p>
 </div></div>
-</div>
-<div class="fragment">
-<p>How to choose which to use?</p>
-</div>
 </section>
 <section id="framework-tradeoffs" class="slide level2">
 <h2>⚖️ Framework tradeoffs</h2>
@@ -2774,7 +2782,7 @@ cost <span class="math inline">\(\mathcal{O}(N)\)</span> evaluations of <span cl
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
-        width: 1050,
+        width: '100%',
 
         height: 700,
 
