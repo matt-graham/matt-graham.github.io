@@ -623,10 +623,18 @@ cost <span class="math inline">\(\mathcal{O}(N)\)</span> evaluations of <span cl
 <p>For small <span class="math inline">\(h\)</span> can become numerically unstable.</p>
 </div>
 </section>
-<section id="finite-difference-numerical-error" class="slide level2">
+<section id="finite-difference-numerical-error" class="slide level2 nostretch">
 <h2>⚠️ Finite difference numerical error</h2>
-
-<img data-src="2025-11-20-cambridge-rse-ad-talk_files/figure-revealjs/cell-2-output-1.png" class="r-stretch"></section>
+<div id="c3a750d1" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="2025-11-20-cambridge-rse-ad-talk_files/figure-revealjs/cell-2-output-1.png"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
 <section id="ℹ-aside-complex-step-method" class="slide level2">
 <h2>ℹ️ <em>Aside</em>: Complex step method</h2>
 <p>For <em>analytic</em> <span class="math inline">\(f : \mathbb{R}^N \to \mathbb{R}^M\)</span>, expanding as a Taylor series:</p>
@@ -851,7 +859,7 @@ cost <span class="math inline">\(\mathcal{O}(N)\)</span> evaluations of <span cl
 </section>
 <section id="symbolic-differentiation-sympy" class="slide level2">
 <h2>🔡 Symbolic differentiation: SymPy</h2>
-<div id="76049913" class="cell" data-execution_count="2">
+<div id="5e8591a9" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="im">import</span> sympy</span>
 <span id="cb1-2"><a href=""></a></span>
 <span id="cb1-3"><a href=""></a>x, m, s <span class="op">=</span> sympy.symbols(<span class="st">'x m s'</span>)</span>
@@ -861,7 +869,7 @@ cost <span class="math inline">\(\mathcal{O}(N)\)</span> evaluations of <span cl
 <span id="cb1-7"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment" data-execution_count="2">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="2">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="8">
 <p><span class="math inline">\(\displaystyle \left[\begin{matrix}\frac{- m + x}{s^{2}} &amp; \frac{m - x}{s^{2}} &amp; \frac{s^{2} - \left(m - x\right)^{2}}{s^{3}}\end{matrix}\right]\)</span></p>
 </div>
 </div>
@@ -871,7 +879,7 @@ cost <span class="math inline">\(\mathcal{O}(N)\)</span> evaluations of <span cl
 </section>
 <section id="numerical-differentiation-numpy" class="slide level2">
 <h2>🔢 Numerical differentiation: NumPy</h2>
-<div id="7591a39c" class="cell" data-execution_count="3">
+<div id="143dd9ad" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-2"><a href=""></a></span>
 <span id="cb2-3"><a href=""></a><span class="kw">def</span> neg_log_dens(x, m, s):</span>
@@ -886,7 +894,7 @@ cost <span class="math inline">\(\mathcal{O}(N)\)</span> evaluations of <span cl
 <span id="cb2-12"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment" data-execution_count="3">
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>(np.float64(-0.5785123935453385),
  np.float64(0.5785123935453385),
  np.float64(0.5409466652395167))</code></pre>
@@ -898,7 +906,7 @@ cost <span class="math inline">\(\mathcal{O}(N)\)</span> evaluations of <span cl
 </section>
 <section id="ℹ-complex-step-numpy" class="slide level2">
 <h2>ℹ️ Complex step: NumPy</h2>
-<div id="3d46d561" class="cell" data-execution_count="4">
+<div id="d0491a60" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href=""></a></span>
 <span id="cb4-3"><a href=""></a><span class="kw">def</span> neg_log_dens(x, m, s):</span>
@@ -912,7 +920,7 @@ cost <span class="math inline">\(\mathcal{O}(N)\)</span> evaluations of <span cl
 <span id="cb4-11"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment" data-execution_count="4">
-<div class="cell-output cell-output-display" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>(-0.5785123966942147, 0.5785123966942147, np.float64(0.5409466566491361))</code></pre>
 </div>
 </div>
@@ -922,7 +930,7 @@ cost <span class="math inline">\(\mathcal{O}(N)\)</span> evaluations of <span cl
 </section>
 <section id="automatic-differentiation-autograd" class="slide level2" style="font-size: 98%;">
 <h2>🇦 Automatic differentiation: Autograd</h2>
-<div id="ed8dc926" class="cell" data-execution_count="5">
+<div id="f6727302" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="im">import</span> autograd.numpy <span class="im">as</span> np</span>
 <span id="cb6-2"><a href=""></a><span class="im">from</span> autograd <span class="im">import</span> grad</span>
 <span id="cb6-3"><a href=""></a></span>
@@ -933,7 +941,7 @@ cost <span class="math inline">\(\mathcal{O}(N)\)</span> evaluations of <span cl
 <span id="cb6-8"><a href=""></a>grad(neg_log_dens, argnum<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>))(x, m, s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment" data-execution_count="5">
-<div class="cell-output cell-output-display" data-execution_count="5">
+<div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>(array(-0.5785124), array(0.5785124), array(0.54094666))</code></pre>
 </div>
 </div>
@@ -943,7 +951,7 @@ cost <span class="math inline">\(\mathcal{O}(N)\)</span> evaluations of <span cl
 </section>
 <section id="automatic-differentiation-jax" class="slide level2">
 <h2>🇯 Automatic differentiation: JAX</h2>
-<div id="a356cd72" class="cell" data-execution_count="6">
+<div id="5d039268" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="im">import</span> jax.numpy <span class="im">as</span> np</span>
 <span id="cb8-2"><a href=""></a><span class="im">from</span> jax <span class="im">import</span> grad</span>
 <span id="cb8-3"><a href=""></a></span>
@@ -954,7 +962,7 @@ cost <span class="math inline">\(\mathcal{O}(N)\)</span> evaluations of <span cl
 <span id="cb8-8"><a href=""></a>grad(neg_log_dens, argnums<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>))(x, m, s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment" data-execution_count="6">
-<div class="cell-output cell-output-display" data-execution_count="6">
+<div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>(Array(-0.57851243, dtype=float32, weak_type=True),
  Array(0.57851243, dtype=float32, weak_type=True),
  Array(0.5409466, dtype=float32, weak_type=True))</code></pre>
