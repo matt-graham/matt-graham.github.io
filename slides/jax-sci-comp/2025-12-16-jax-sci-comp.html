@@ -503,7 +503,7 @@ NumPy’s
 behaviour.
 </div>
 </div>
-<div id="9ae6ba4f" class="cell" data-execution_count="1">
+<div id="9ae6ba4f" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb4" data-code-line-numbers="1-3|5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="im">import</span> jax</span>
 <span id="cb4-2"><a href=""></a><span class="im">import</span> jax.numpy <span class="im">as</span> jnp</span>
 <span id="cb4-3"><a href=""></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -536,7 +536,7 @@ behaviour.
 <li class="fragment">Advect vorticity and tracer fields by computed velocity field.</li>
 </ol>
 <div class="fragment">
-<div id="9ce34e50" class="cell" data-execution_count="3">
+<div id="9ce34e50" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5" data-code-line-numbers="1-7|4|5-6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="kw">def</span> step(vorticity, tracer, kernels, mesh, time_step):</span>
 <span id="cb5-2"><a href=""></a>    <span class="co">"""Perform single time step update of vorticity and tracers."""</span></span>
 <span id="cb5-3"><a href=""></a>    xp <span class="op">=</span> vorticity.__array_namespace__()</span>
@@ -556,7 +556,7 @@ behaviour.
 <li class="fragment">Transform velocity to spatial domain using real-valued IFFT.</li>
 </ol>
 <div class="fragment">
-<div id="9294d169" class="cell" data-execution_count="4">
+<div id="9294d169" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6" data-code-line-numbers="1-6|4|5|6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="kw">def</span> velocity_from_vorticity(vorticity, velocity_kernel):</span>
 <span id="cb6-2"><a href=""></a>    <span class="co">"""Compute velocity vector field from vorticity scalar field."""</span></span>
 <span id="cb6-3"><a href=""></a>    xp <span class="op">=</span> vorticity.__array_namespace__()</span>
@@ -574,7 +574,7 @@ behaviour.
 <li class="fragment">Compute the new field values by interpolating the field at the originating points.</li>
 </ol>
 <div class="fragment">
-<div id="fe668da1" class="cell" data-execution_count="5">
+<div id="fe668da1" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7" data-code-line-numbers="1-8|1-3,7|8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="kw">def</span> advect_points(points, velocity, time_step):</span>
 <span id="cb7-2"><a href=""></a>    <span class="co">"""Advect points along velocity with Euler method."""</span></span>
 <span id="cb7-3"><a href=""></a>    <span class="cf">return</span> points <span class="op">+</span> time_step <span class="op">*</span> velocity</span>
@@ -590,7 +590,7 @@ behaviour.
 <section id="bfecc-advection" class="slide level2">
 <h2>🔁 BFECC advection</h2>
 <p>To improve accuracy of the first-order semi-Lagrangian advection scheme we embed it within a <em>back and forth error compensation and correction</em> (BFECC) scheme giving second-order accuracy.</p>
-<div id="c875dcfa" class="cell" data-execution_count="7">
+<div id="c875dcfa" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9" data-code-line-numbers="1-6|3|4|5-6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="kw">def</span> bfecc_advect(field, velocity, mesh, time_step):</span>
 <span id="cb9-2"><a href=""></a>    <span class="co">"""Use BFECC method to advect a given field a single step."""</span></span>
 <span id="cb9-3"><a href=""></a>    field_fw <span class="op">=</span> semi_lagrangian_advect(field, velocity, mesh, time_step)</span>
@@ -601,7 +601,7 @@ behaviour.
 </section>
 <section id="spatial-discretization" class="slide level2">
 <h2>🌐 Spatial discretization</h2>
-<div id="cb2a8adb" class="cell" data-execution_count="8">
+<div id="cb2a8adb" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a><span class="im">from</span> typing <span class="im">import</span> NamedTuple</span>
 <span id="cb10-2"><a href=""></a><span class="im">from</span> numpy.typing <span class="im">import</span> ArrayLike</span>
 <span id="cb10-3"><a href=""></a></span>
@@ -624,7 +624,7 @@ behaviour.
 </section>
 <section id="spectral-kernels" class="slide level2">
 <h2>🌽 Spectral kernels</h2>
-<div id="0a615236" class="cell" data-execution_count="9">
+<div id="0a615236" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a><span class="kw">class</span> Kernels(NamedTuple):</span>
 <span id="cb11-2"><a href=""></a>    <span class="co">"""Precomputed spectral kernels."""</span></span>
 <span id="cb11-3"><a href=""></a>    initialization: ArrayLike</span>
@@ -647,7 +647,7 @@ behaviour.
 <section id="generating-vorticity-fields" class="slide level2">
 <h2>🌀 Generating vorticity fields</h2>
 <p>To allow generating smooth vorticity fields we map a real-valued vector to complex spectral coefficients, multiply by kernel corresponding to exponential squared covariance function and then transform to grid space.</p>
-<div id="48dc7156" class="cell" data-execution_count="11">
+<div id="48dc7156" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb12" data-code-line-numbers="1-5|4|5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href=""></a><span class="kw">def</span> generate_vorticity_field(u: ArrayLike, kernel: ArrayLike):</span>
 <span id="cb12-2"><a href=""></a>    <span class="co">"""Generate vorticity field from real-valued standard normal random vector."""</span></span>
 <span id="cb12-3"><a href=""></a>    xp <span class="op">=</span> u.__array_namespace__()</span>
@@ -658,24 +658,24 @@ behaviour.
 <section id="creating-arrays-in-numpy-and-jax" class="slide level2">
 <h2>🔢 Creating arrays in NumPy and JAX</h2>
 <p>First we create NumPy arrays specifying spatial mesh dimensions.</p>
-<div id="8f22dcb0" class="cell" data-execution_count="12">
+<div id="8f22dcb0" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href=""></a>mesh_shape_numpy <span class="op">=</span> np.array((<span class="dv">64</span>, <span class="dv">64</span>))</span>
 <span id="cb13-2"><a href=""></a>domain_size_numpy <span class="op">=</span> np.array((<span class="fl">8.</span>, <span class="fl">8.</span>))</span>
 <span id="cb13-3"><a href=""></a><span class="bu">type</span>(mesh_shape_numpy), <span class="bu">type</span>(domain_size_numpy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="12">
+<div class="cell fragment" data-execution_count="13">
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>(numpy.ndarray, numpy.ndarray)</code></pre>
 </div>
 </div>
 <div class="fragment">
 <p>To create corresponding JAX arrays we can straightforwardly use the JAX NumPy API we imported earlier as <code>jnp</code>.</p>
-<div id="29ef7e05" class="cell" data-execution_count="13">
+<div id="29ef7e05" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href=""></a>mesh_shape_jax <span class="op">=</span> jnp.array((<span class="dv">64</span>, <span class="dv">64</span>))</span>
 <span id="cb15-2"><a href=""></a>domain_size_jax <span class="op">=</span> jnp.array((<span class="fl">8.</span>, <span class="fl">8.</span>))</span>
 <span id="cb15-3"><a href=""></a><span class="bu">type</span>(mesh_shape_jax), <span class="bu">type</span>(domain_size_jax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="13">
+<div class="cell fragment" data-execution_count="14">
 <div class="cell-output cell-output-display" data-execution_count="13">
 <pre><code>(jaxlib._jax.ArrayImpl, jaxlib._jax.ArrayImpl)</code></pre>
 </div>
@@ -685,13 +685,13 @@ behaviour.
 <section id="calling-with-numpy-jax-arrays" class="slide level2">
 <h2>🔢 Calling with NumPy &amp; JAX arrays</h2>
 <p>Calling model functions on the NumPy array produces data structures containing NumPy arrays as output:</p>
-<div id="d6c7d8ac" class="cell" data-execution_count="15">
+<div id="d6c7d8ac" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href=""></a>mesh_numpy <span class="op">=</span> generate_mesh(mesh_shape_numpy, domain_size_numpy)</span>
 <span id="cb17-2"><a href=""></a>print_namedtuple_details(mesh_numpy)</span>
 <span id="cb17-3"><a href=""></a>kernels_numpy <span class="op">=</span> generate_kernels(mesh_numpy)</span>
 <span id="cb17-4"><a href=""></a>print_namedtuple_details(kernels_numpy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="15">
+<div class="cell fragment" data-execution_count="16">
 <div class="cell-output cell-output-stdout">
 <pre><code>Mesh:
     shape: ndarray
@@ -706,13 +706,13 @@ Kernels:
 <section id="calling-with-numpy-jax-arrays-1" class="slide level2">
 <h2>🔢 Calling with NumPy &amp; JAX arrays</h2>
 <p>Calling on JAX arrays produces data structures containing JAX array as output:</p>
-<div id="42fbd0cf" class="cell" data-execution_count="16">
+<div id="42fbd0cf" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href=""></a>mesh_jax <span class="op">=</span> generate_mesh(mesh_shape_jax, domain_size_jax)</span>
 <span id="cb19-2"><a href=""></a>print_namedtuple_details(mesh_jax)</span>
 <span id="cb19-3"><a href=""></a>kernels_jax <span class="op">=</span> generate_kernels(mesh_jax)</span>
 <span id="cb19-4"><a href=""></a>print_namedtuple_details(kernels_jax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="16">
+<div class="cell fragment" data-execution_count="17">
 <div class="cell-output cell-output-stdout">
 <pre><code>Mesh:
     shape: ArrayImpl
@@ -727,7 +727,7 @@ Kernels:
 <section id="generating-fields" class="slide level2">
 <h2>✨ Generating fields</h2>
 <p>Likewise we can generate initial vorticity and velocity fields with <code>generate_vorticity_field</code> and <code>velocity_from_vorticity</code> using either Numpy or JAX depending on array argument types:</p>
-<div id="1e0f67f8" class="cell" data-execution_count="17">
+<div id="1e0f67f8" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href=""></a>seed <span class="op">=</span> <span class="dv">1234</span></span>
 <span id="cb21-2"><a href=""></a>rng <span class="op">=</span> np.random.default_rng(seed)</span>
 <span id="cb21-3"><a href=""></a>u <span class="op">=</span> rng.standard_normal(size<span class="op">=</span>mesh_numpy.shape[<span class="dv">0</span>] <span class="op">*</span> mesh_numpy.shape[<span class="dv">1</span>])</span>
@@ -740,16 +740,16 @@ Kernels:
 <section id="equivalence-of-implementations" class="slide level2">
 <h2>🟰 Equivalence of implementations</h2>
 <p>The output arrays are numerically equivalent:</p>
-<div id="9051503c" class="cell" data-execution_count="18">
+<div id="9051503c" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href=""></a><span class="cf">assert</span> np.allclose(vorticity_numpy, vorticity_jax)</span>
 <span id="cb22-2"><a href=""></a><span class="cf">assert</span> np.allclose(velocity_numpy, velocity_jax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="18">
+<div class="cell fragment" data-execution_count="19">
 
 </div>
 <div class="fragment">
 <p>We can also visualize the equivalence of the function outputs</p>
-<div id="f4b1439e" class="cell" data-execution_count="19">
+<div id="f4b1439e" class="cell" data-execution_count="20">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -774,7 +774,7 @@ Kernels:
 <section id="timing-function-calls-with-timeit" class="slide level2">
 <h2>⏱️ Timing function calls with <code>timeit</code></h2>
 <p>Now we time calling each of the functions with the <a href="https://ipython.readthedocs.io/en/stable/interactive/magics.html#magic-timeit"><code>timeit</code> magic</a> for both NumPy and JAX arrays and record the results</p>
-<div id="1802559c" class="cell" data-execution_count="20">
+<div id="1802559c" class="cell" data-execution_count="21">
 <div class="cell-output cell-output-stdout">
 <pre><code>--------------------------------------------------------------------------------
 velocity_from_vorticity
@@ -797,7 +797,7 @@ jax: 60.4 ms ± 1.19 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)</c
 <section id="visualizing-timing-results" class="slide level2">
 <h2>👁️ Visualizing timing results</h2>
 <p>We can see that when evaluating on JAX arrays the functions are consistently and significantly slower! This can be seen even more clearly by plotting the timing results</p>
-<div id="8ff4e9e8" class="cell" data-execution_count="22">
+<div id="8ff4e9e8" class="cell" data-execution_count="23">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -867,7 +867,7 @@ jax: 60.4 ms ± 1.19 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)</c
 <section id="inspecting-a-jaxpr-with-make_jaxpr" class="slide level2">
 <h2>👀 Inspecting a jaxpr with <code>make_jaxpr</code></h2>
 <p>Consider the <code>advect_points</code> function defined earlier:</p>
-<div id="24e0ee73" class="cell" data-execution_count="23">
+<div id="24e0ee73" class="cell" data-execution_count="24">
 <div class="cell-output cell-output-stdout">
 <pre><code>def advect_points(points, velocity, time_step):
     """Advect points along velocity with Euler method."""
@@ -880,7 +880,7 @@ jax: 60.4 ms ± 1.19 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)</c
 </div>
 <div class="fragment">
 <p>Applying to <code>advect_points</code> and calling with example arguments:</p>
-<div id="9c6918ec" class="cell" data-execution_count="24">
+<div id="9c6918ec" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href=""></a>time_step <span class="op">=</span> <span class="fl">1.</span></span>
 <span id="cb25-2"><a href=""></a>jax.make_jaxpr(advect_points)(mesh_jax.coordinates, velocity_jax, time_step)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="24">
@@ -900,7 +900,7 @@ jax: 60.4 ms ± 1.19 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)</c
 <p>Internally JAX traces functions with <em>abstract</em> values. For most transformations the abstraction is at the level of the shape and datatype of arguments, but not their values.</p>
 <div class="fragment">
 <p>We can use the <code>jax.ShapedDtypeStruct</code> to create an abstract array with just <code>shape</code> and <code>dtype</code> attributes (plus some additional attributes for JAX bookkeeping such as device layout and sharding).</p>
-<div id="c6ced742" class="cell" data-execution_count="25">
+<div id="c6ced742" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href=""></a>abstract_coordinates <span class="op">=</span> jax.ShapeDtypeStruct(</span>
 <span id="cb26-2"><a href=""></a>    mesh_jax.coordinates.shape, mesh_jax.coordinates.dtype</span>
 <span id="cb26-3"><a href=""></a>)</span>
@@ -913,10 +913,10 @@ jax: 60.4 ms ± 1.19 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)</c
 <section id="tracing-with-abstract-values" class="slide level2">
 <h2>🔠 Tracing with abstract values</h2>
 <p>If we now call the <code>jax.make_jaxpr</code> transformed function with these abstract arguments we get exactly the same result as before</p>
-<div id="94062189" class="cell" data-execution_count="26">
+<div id="94062189" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href=""></a>jax.make_jaxpr(advect_points)(abstract_coordinates, abstract_velocity, time_step)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="26">
+<div class="cell fragment" data-execution_count="27">
 <div class="cell-output cell-output-display" data-execution_count="26">
 <div class="ansi-escaped-output">
 <pre>{ <span class="ansi-blue-fg ansi-bold">lambda </span>; a<span class="ansi-magenta-fg">:f64[2,64,64]</span> b<span class="ansi-magenta-fg">:f64[2,64,64]</span> c<span class="ansi-magenta-fg">:f64[]</span>. <span class="ansi-blue-fg ansi-bold">let
@@ -978,7 +978,7 @@ calls
 </div>
 </div>
 <div class="fragment">
-<div id="d0cb71cd" class="cell" data-execution_count="27">
+<div id="d0cb71cd" class="cell" data-execution_count="28">
 <div class="cell-output cell-output-stdout">
 <pre><code>def semi_lagrangian_advect(field, velocity, mesh, time_step):
     """Use semi-Lagrangian method to advect a given field a single step."""
@@ -994,7 +994,7 @@ calls
 </section>
 <section id="control-flow-and-tracing-1" class="slide level2 scrollable">
 <h2>🔀 Control flow and tracing</h2>
-<div id="7430cfca" class="cell" data-execution_count="28">
+<div id="7430cfca" class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href=""></a>jax.make_jaxpr(semi_lagrangian_advect)(</span>
 <span id="cb29-2"><a href=""></a>    vorticity_jax, velocity_jax, mesh_jax, time_step</span>
 <span id="cb29-3"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1273,13 +1273,13 @@ let _where = { <span class="ansi-blue-fg ansi-bold">lambda </span>; c<span class
 <h2>🖥️ Just-in-time compilation: <code>jax.jit</code></h2>
 <p>One of the key JAX transformations is the <code>jax.jit</code> function which allows functions to be JIT compiled with XLA for execution on a particular device (CPU, GPU or TPU).</p>
 <div class="fragment">
-<div id="cb9543ac" class="cell" data-execution_count="29">
+<div id="cb9543ac" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href=""></a>jitted_advect_points <span class="op">=</span> jax.jit(advect_points)</span>
 <span id="cb30-2"><a href=""></a>jax.make_jaxpr(jitted_advect_points)(</span>
 <span id="cb30-3"><a href=""></a>    abstract_coordinates, abstract_velocity, time_step</span>
 <span id="cb30-4"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="29">
+<div class="cell fragment" data-execution_count="30">
 <div class="cell-output cell-output-display" data-execution_count="29">
 <div class="ansi-escaped-output">
 <pre>{ <span class="ansi-blue-fg ansi-bold">lambda </span>; a<span class="ansi-magenta-fg">:f64[2,64,64]</span> b<span class="ansi-magenta-fg">:f64[2,64,64]</span> c<span class="ansi-magenta-fg">:f64[]</span>. <span class="ansi-blue-fg ansi-bold">let
@@ -1300,7 +1300,7 @@ let _where = { <span class="ansi-blue-fg ansi-bold">lambda </span>; c<span class
 <section id="behaviour-after-jitting" class="slide level2">
 <h2>🚀 Behaviour after jitting</h2>
 <p>The jitted and original functions give equivalent outputs to within floating point error</p>
-<div id="1b86ac7b" class="cell" data-execution_count="30">
+<div id="1b86ac7b" class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href=""></a><span class="cf">assert</span> np.allclose(</span>
 <span id="cb31-2"><a href=""></a>    jitted_advect_points(mesh_jax.coordinates, velocity_jax, time_step),</span>
 <span id="cb31-3"><a href=""></a>    advect_points(mesh_jax.coordinates, velocity_jax, time_step)</span>
@@ -1308,7 +1308,7 @@ let _where = { <span class="ansi-blue-fg ansi-bold">lambda </span>; c<span class
 </div>
 <div class="fragment">
 <p>The jitted function however is faster</p>
-<div id="8b4c247e" class="cell" data-execution_count="31">
+<div id="8b4c247e" class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href=""></a><span class="bu">print</span>(<span class="st">"Without jit"</span>)</span>
 <span id="cb32-2"><a href=""></a><span class="op">%</span>timeit advect_points(mesh_jax.coordinates, velocity_jax, time_step).block_until_ready()</span>
 <span id="cb32-3"><a href=""></a><span class="bu">print</span>(<span class="st">"With jit"</span>)</span>
@@ -1342,13 +1342,13 @@ With jit
 <section id="lowering" class="slide level2">
 <h2>⬇️ Lowering</h2>
 <p>Lowering a function on (potentially abstract) arguments allows us to view the StableHLO representation.</p>
-<div id="e2270384" class="cell" data-execution_count="32">
+<div id="e2270384" class="cell" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href=""></a>lowered_advect_points <span class="op">=</span> jax.jit(advect_points).lower(</span>
 <span id="cb34-2"><a href=""></a>    abstract_coordinates, abstract_velocity, time_step</span>
 <span id="cb34-3"><a href=""></a>)</span>
 <span id="cb34-4"><a href=""></a><span class="bu">print</span>(lowered_advect_points.as_text())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="32">
+<div class="cell fragment" data-execution_count="33">
 <div class="cell-output cell-output-stdout">
 <pre><code>module @jit_advect_points attributes {mhlo.num_partitions = 1 : i32, mhlo.num_replicas = 1 : i32} {
   func.func public @main(%arg0: tensor&lt;2x64x64xf64&gt;, %arg1: tensor&lt;2x64x64xf64&gt;, %arg2: tensor&lt;f64&gt;) -&gt; (tensor&lt;2x64x64xf64&gt; {jax.result_info = "result"}) {
@@ -1379,11 +1379,11 @@ With jit
 <p>The compiled function is specific to the argument shapes and datatypes and cannot be further transformed.</p>
 </div>
 </div>
-<div id="c57e96f0" class="cell" data-execution_count="33">
+<div id="c57e96f0" class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href=""></a>compiled_advect_points <span class="op">=</span> lowered_advect_points.<span class="bu">compile</span>()</span>
 <span id="cb36-2"><a href=""></a>display(compiled_advect_points.cost_analysis())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="33">
+<div class="cell fragment" data-execution_count="34">
 <div class="cell-output cell-output-display">
 <pre><code>{'utilization2{}': 1.0,
  'bytes accessed2{}': 8.0,
@@ -1400,7 +1400,7 @@ With jit
 <section id="comparing-performance-again" class="slide level2">
 <h2>📊 Comparing performance again</h2>
 <p>We now time jitted versions of each of the functions.</p>
-<div id="0d808c6f" class="cell" data-execution_count="34">
+<div id="0d808c6f" class="cell" data-execution_count="35">
 <div class="cell-output cell-output-stdout">
 <pre><code>velocity_from_vorticity: 152 μs ± 17.4 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)
 bfecc_advect: 488 μs ± 31.5 μs per loop (mean ± std. dev. of 7 runs, 1,000 loops each)
@@ -1555,7 +1555,7 @@ function.
 </div>
 </div>
 <div class="fragment">
-<div id="6f2e122d" class="cell" data-execution_count="35">
+<div id="6f2e122d" class="cell" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href=""></a><span class="kw">def</span> integrate(vorticity, tracer, kernels, mesh, time_step, n_step):</span>
 <span id="cb39-2"><a href=""></a>    <span class="co">"""Integrate fields forward in time a specified number of steps."""</span></span>
 <span id="cb39-3"><a href=""></a>    <span class="cf">for</span> s <span class="kw">in</span> <span class="bu">range</span>(n_step):</span>
@@ -1567,12 +1567,12 @@ function.
 <section id="initializing-tracer-fields" class="slide level2">
 <h2>▶️ Initializing tracer fields</h2>
 <p>We define helper functions to create a vertically banded initial tracer field and visualize the fields.</p>
-<div id="788ece6c" class="cell" data-execution_count="37">
+<div id="788ece6c" class="cell" data-execution_count="38">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href=""></a>tracer_jax <span class="op">=</span> generate_initial_tracer(mesh_jax)</span>
 <span id="cb40-2"><a href=""></a>tracer_numpy <span class="op">=</span> generate_initial_tracer(mesh_numpy)</span>
 <span id="cb40-3"><a href=""></a>_ <span class="op">=</span> plot_fields(mesh_jax, kernels_jax, vorticity_jax, tracer_jax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="37">
+<div class="cell fragment" data-execution_count="38">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1585,14 +1585,14 @@ function.
 <section id="integrating-fields-forward" class="slide level2">
 <h2>➡️ Integrating fields forward</h2>
 <p>Using the <code>integrate</code> function we can then simulate forward:</p>
-<div id="5f4acc75" class="cell" data-execution_count="38">
+<div id="5f4acc75" class="cell" data-execution_count="39">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href=""></a>n_step <span class="op">=</span> <span class="dv">10</span></span>
 <span id="cb41-2"><a href=""></a>final_vorticity_jax, final_tracer_jax <span class="op">=</span> integrate(</span>
 <span id="cb41-3"><a href=""></a>    vorticity_jax, tracer_jax, kernels_jax, mesh_jax, time_step, n_step</span>
 <span id="cb41-4"><a href=""></a>)</span>
 <span id="cb41-5"><a href=""></a>_ <span class="op">=</span> plot_fields(mesh_jax, kernels_jax, final_vorticity_jax, final_tracer_jax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="38">
+<div class="cell fragment" data-execution_count="39">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1718,12 +1718,12 @@ value.
 </div>
 </div>
 <div class="fragment">
-<div id="43d040df" class="cell" data-execution_count="39">
+<div id="43d040df" class="cell" data-execution_count="40">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href=""></a>jax.make_jaxpr(integrate)(</span>
 <span id="cb42-2"><a href=""></a>    vorticity_jax, tracer_jax, kernels_jax, mesh_jax, time_step, n_step</span>
 <span id="cb42-3"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="39">
+<div class="cell fragment" data-execution_count="40">
 <div class="cell-output cell-output-error">
 <div class="ansi-escaped-output">
 <pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
@@ -1764,12 +1764,12 @@ See https://docs.jax.dev/en/latest/errors.html#jax.errors.TracerIntegerConversio
 </div>
 <div class="fragment">
 <p>For example applying to the <code>n_step</code> argument in <code>integrate</code>:</p>
-<div id="a3f1586e" class="cell" data-execution_count="40">
+<div id="a3f1586e" class="cell" data-execution_count="41">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href=""></a>jax.make_jaxpr(integrate, static_argnums<span class="op">=</span><span class="dv">5</span>)(</span>
 <span id="cb43-2"><a href=""></a>    vorticity_jax, tracer_jax, kernels_jax, mesh_jax, time_step, n_step</span>
 <span id="cb43-3"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="40">
+<div class="cell fragment" data-execution_count="41">
 <div class="cell-output cell-output-display" data-execution_count="40">
 <div class="ansi-escaped-output">
 <pre>let fft = { <span class="ansi-blue-fg ansi-bold">lambda </span>; a<span class="ansi-magenta-fg">:f64[64,64]</span>. <span class="ansi-blue-fg ansi-bold">let
@@ -16454,7 +16454,7 @@ loop.
 </div>
 </div>
 <div class="fragment">
-<div id="856edf01" class="cell" data-execution_count="41">
+<div id="856edf01" class="cell" data-execution_count="42">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href=""></a><span class="kw">def</span> integrate_fori_loop(vorticity, tracer, kernels, mesh, time_step, n_step):</span>
 <span id="cb44-2"><a href=""></a>    </span>
 <span id="cb44-3"><a href=""></a>    <span class="kw">def</span> loop_step(i, vorticity_tracer):</span>
@@ -16470,7 +16470,7 @@ loop.
 <section id="applying-jit-to-integration" class="slide level2">
 <h2>➡️ Applying <code>jit</code> to integration</h2>
 <p>We can now JIT compile this <code>integrate_fori_loop</code> function</p>
-<div id="9023ed0f" class="cell" data-execution_count="42">
+<div id="9023ed0f" class="cell" data-execution_count="43">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href=""></a>jitted_integrate <span class="op">=</span> jax.jit(integrate_fori_loop, static_argnames<span class="op">=</span><span class="st">"n_step"</span>)</span>
 <span id="cb45-2"><a href=""></a><span class="cf">assert</span> np.allclose(</span>
 <span id="cb45-3"><a href=""></a>    jitted_integrate(</span>
@@ -16485,14 +16485,14 @@ loop.
 <section id="performance-of-jitted_integrate" class="slide level2">
 <h2>📊 Performance of <code>jitted_integrate</code></h2>
 <p>Comparing performance we now see (JIT compiled) JAX is now exceeding NumPy’s performance by a reasonable margin:</p>
-<div id="9ec03b39" class="cell" data-execution_count="43">
+<div id="9ec03b39" class="cell" data-execution_count="44">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href=""></a>initial_tracer_numpy <span class="op">=</span> generate_initial_tracer(mesh_numpy)</span>
 <span id="cb46-2"><a href=""></a><span class="bu">print</span>(<span class="st">"NumPy"</span>)</span>
 <span id="cb46-3"><a href=""></a><span class="op">%</span>timeit integrate(vorticity_numpy, tracer_numpy, kernels_numpy, mesh_numpy, time_step, n_step)</span>
 <span id="cb46-4"><a href=""></a><span class="bu">print</span>(<span class="st">"Jitted JAX"</span>)</span>
 <span id="cb46-5"><a href=""></a><span class="op">%</span>timeit jax.block_until_ready(jitted_integrate(vorticity_jax, tracer_jax, kernels_jax, mesh_jax, time_step, n_step))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="43">
+<div class="cell fragment" data-execution_count="44">
 <div class="cell-output cell-output-stdout">
 <pre><code>NumPy
 21.6 ms ± 598 μs per loop (mean ± std. dev. of 7 runs, 10 loops each)
@@ -16506,7 +16506,7 @@ Jitted JAX
 <p>As well as <code>lax.fori_loop</code> JAX provides other loop primitives such as <code>lax.scan</code> for <em>sequence to sequence</em> mapping.</p>
 <div class="fragment">
 <p>In our case we can use <code>lax.scan</code> to define a variant of <code>integrate</code> which outputs sequences of simulated fields.</p>
-<div id="d92a8638" class="cell" data-execution_count="44">
+<div id="d92a8638" class="cell" data-execution_count="45">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href=""></a><span class="at">@jax.jit</span>(static_argnames<span class="op">=</span>(<span class="st">"n_step"</span>,))</span>
 <span id="cb48-2"><a href=""></a><span class="kw">def</span> integrate_scan(vorticity, tracer, kernels, mesh, time_step, n_step):</span>
 <span id="cb48-3"><a href=""></a></span>
@@ -16523,7 +16523,7 @@ Jitted JAX
 </section>
 <section id="putting-it-all-together" class="slide level2">
 <h2>🙌 Putting it all together</h2>
-<div id="f03a2e2a" class="cell" data-execution_count="45">
+<div id="f03a2e2a" class="cell" data-execution_count="46">
 <div class="sourceCode cell-code" id="cb49" data-code-line-numbers="1-3|4-5|6-8|9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href=""></a>time_step, total_time <span class="op">=</span> <span class="fl">1.</span>, <span class="fl">100.</span></span>
 <span id="cb49-2"><a href=""></a>mesh <span class="op">=</span> generate_mesh(jnp.array((<span class="dv">64</span>, <span class="dv">64</span>)), jnp.array((<span class="fl">8.</span>, <span class="fl">8.</span>)))</span>
 <span id="cb49-3"><a href=""></a>kernels <span class="op">=</span> generate_kernels(mesh)</span>
@@ -16534,7 +16534,7 @@ Jitted JAX
 <span id="cb49-8"><a href=""></a>)</span>
 <span id="cb49-9"><a href=""></a>animate_fields(mesh, kernels, vorticity, tracer, vorticity_seq, tracer_seq)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="45">
+<div class="cell fragment" data-execution_count="46">
 <div class="cell-output cell-output-display" data-execution_count="45">
 <video width="800" height="400" controls="" autoplay="" loop="">
   <source type="video/mp4" src="data:video/mp4;base64,AAAAIGZ0eXBNNFYgAAACAE00ViBpc29taXNvMmF2YzEAAAAIZnJlZQAMQOhtZGF0AAACrwYF//+r
@@ -30853,7 +30853,7 @@ vorticity:
 </div>
 </div>
 <div class="fragment">
-<div id="20b33b42" class="cell" data-execution_count="46">
+<div id="20b33b42" class="cell" data-execution_count="47">
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href=""></a><span class="at">@jax.jit</span>(static_argnames<span class="op">=</span>(<span class="st">"time_step"</span>, <span class="st">"total_time"</span>))</span>
 <span id="cb50-2"><a href=""></a><span class="kw">def</span> objective(</span>
 <span id="cb50-3"><a href=""></a>    u, initial_tracer, target_tracer, kernels, mesh, time_step, total_time</span>
@@ -30870,7 +30870,7 @@ vorticity:
 <section id="target-tracer-field" class="slide level2">
 <h2>🎯 Target tracer field</h2>
 <p>We use a target final tracer field loaded from an image.</p>
-<div id="6522c3c6" class="cell" data-execution_count="47">
+<div id="6522c3c6" class="cell" data-execution_count="48">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -30883,7 +30883,7 @@ vorticity:
 <section id="automatic-differentiation-with-jax" class="slide level2">
 <h2>🇩 Automatic differentiation with JAX</h2>
 <p>We can then use the <code>jax.value_and_grad</code> transformation to compute a function which evaluates both the value of the function and its gradient, using reverse mode <a href="https://en.wikipedia.org/wiki/Automatic_differentiation">automatic differentiation</a></p>
-<div id="26d057c4" class="cell" data-execution_count="48">
+<div id="26d057c4" class="cell" data-execution_count="49">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href=""></a>value_and_grad_objective <span class="op">=</span> jax.jit(</span>
 <span id="cb51-2"><a href=""></a>    jax.value_and_grad(objective), static_argnames<span class="op">=</span>(<span class="st">"time_step"</span>, <span class="st">"total_time"</span>)</span>
 <span id="cb51-3"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -30895,7 +30895,7 @@ vorticity:
 <section id="evaluating-value-and-gradient" class="slide level2">
 <h2>🖥️ Evaluating value and gradient</h2>
 <p>We can evaluate the transformed function at a test input to check that it correctly gives the same value as the original (primal) function</p>
-<div id="803278b3" class="cell" data-execution_count="49">
+<div id="803278b3" class="cell" data-execution_count="50">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href=""></a>u <span class="op">=</span> rng.standard_normal(mesh.shape[<span class="dv">0</span>] <span class="op">*</span> mesh.shape[<span class="dv">1</span>])</span>
 <span id="cb52-2"><a href=""></a>objective_kwargs <span class="op">=</span> {</span>
 <span id="cb52-3"><a href=""></a>    <span class="st">"initial_tracer"</span>: initial_tracer,</span>
@@ -30931,10 +30931,10 @@ vorticity:
 <h2>💵 Cost of automatic differentiation</h2>
 <p>Importantly reverse mode differentiation allows us to evaluate <strong>both the value and gradient</strong> of a scalar function with respect to all inputs at operation cost that is <strong>a small constant multiple of the operation cost of evaluating the function itself</strong>:</p>
 <div class="fragment">
-<div id="b465445b" class="cell" data-execution_count="50">
+<div id="b465445b" class="cell" data-execution_count="51">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href=""></a><span class="op">%</span>time jax.block_until_ready(objective(u, <span class="op">**</span>objective_kwargs))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="50">
+<div class="cell fragment" data-execution_count="51">
 <div class="cell-output cell-output-stdout">
 <pre><code>CPU times: user 214 ms, sys: 22.8 ms, total: 237 ms
 Wall time: 104 ms</code></pre>
@@ -30945,10 +30945,10 @@ Wall time: 104 ms</code></pre>
 </div>
 </div>
 <div class="fragment">
-<div id="b0b488d1" class="cell" data-execution_count="51">
+<div id="b0b488d1" class="cell" data-execution_count="52">
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href=""></a><span class="op">%</span>time jax.block_until_ready(value_and_grad_objective(u, <span class="op">**</span>objective_kwargs))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="51">
+<div class="cell fragment" data-execution_count="52">
 <div class="cell-output cell-output-stdout">
 <pre><code>CPU times: user 556 ms, sys: 506 ms, total: 1.06 s
 Wall time: 363 ms</code></pre>
@@ -31047,7 +31047,7 @@ of
 steps.
 </div>
 </div>
-<div id="46fbe4aa" class="cell" data-execution_count="52">
+<div id="46fbe4aa" class="cell" data-execution_count="53">
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href=""></a><span class="im">from</span> jax.example_libraries <span class="im">import</span> optimizers</span>
 <span id="cb60-2"><a href=""></a></span>
 <span id="cb60-3"><a href=""></a><span class="kw">def</span> optimize(initial_u, objective_kwargs, n_steps<span class="op">=</span><span class="dv">100</span>, step_size<span class="op">=</span><span class="fl">5e-2</span>):</span>
@@ -31067,7 +31067,7 @@ steps.
 <section id="optimizing-initial-vorticity" class="slide level2">
 <h2>⚡ Optimizing initial vorticity</h2>
 <p>Using the <code>optimize</code> helper function, we can minimize the objective function to find an initial vorticity which flows the tracer field to be close to the target.</p>
-<div id="3fa228fa" class="cell" data-execution_count="53">
+<div id="3fa228fa" class="cell" data-execution_count="54">
 <div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href=""></a>u_init <span class="op">=</span> jnp.zeros(mesh.shape[<span class="dv">0</span>] <span class="op">*</span> mesh.shape[<span class="dv">1</span>])</span>
 <span id="cb61-2"><a href=""></a>u_opt <span class="op">=</span> optimize(u_init, objective_kwargs, <span class="dv">200</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -31279,7 +31279,7 @@ Iter 200: obj = 192.1</code></pre>
 <h2>🎞️ Visualizing optimized simulation</h2>
 <p>We can then simulate trajectories of the fields from the optimized initial vorticity and animate:</p>
 <div class="fragment">
-<div id="2bfdf17e" class="cell" data-execution_count="54">
+<div id="2bfdf17e" class="cell" data-execution_count="55">
 <div class="cell-output cell-output-display" data-execution_count="54">
 <video width="1000" height="500" controls="" autoplay="" loop="">
   <source type="video/mp4" src="data:video/mp4;base64,AAAAIGZ0eXBNNFYgAAACAE00ViBpc29taXNvMmF2YzEAAAAIZnJlZQAO5wltZGF0AAACrwYF//+r
@@ -48447,6 +48447,11 @@ bAAAAAAAAAAAAAAAAC1pbHN0AAAAJal0b28AAAAdZGF0YQAAAAEAAAAATGF2ZjYwLjE2LjEwMA==
 </div>
 </div>
 </div>
+</section>
+<section id="scaling-resolution-on-a-gpu" class="slide level2">
+<h2>📈 Scaling resolution on a GPU</h2>
+<p>Optimized simulation at 256×256 resolution run on GPU (NVIDIA Tesla T4)</p>
+<p><video data-src="images/optimized-fluid-simulation-256x256.mp4" controls=""><a href="images/optimized-fluid-simulation-256x256.mp4">Video</a></video></p>
 </section>
 <section id="summary" class="slide level2">
 <h2>📌 Summary</h2>
