@@ -199,7 +199,7 @@
 
 <section id="title-slide" class="center">
     <h1 class="title">Accelerated and differentiable <br> scientific computing with JAX</h1>
-      <p class="subtitle" style="color: #555;">FOSDEM 2026 HPC, Big Data &amp; Data Science devroom</p>
+      <p class="subtitle" style="color: #555; margin-bottom: 1rem;">FOSDEM 2026 HPC, Big Data &amp; Data Science devroom</p>
            <video width="400" height="400" autoplay="" loop="">
       <source src="images/jax-fosdem.mp4" type="video/mp4">
      </video>
@@ -966,8 +966,8 @@ jitted_f(x)=Array(42., dtype=float32)</code></pre>
 <div>
 <pre class="mermaid mermaid-js">graph LR
   function["Python &lt;br&gt;function"] --&gt; tracer(["Tracer"]) --&gt; original_jaxpr["Function&lt;br&gt;Jaxpr"] --&gt; ad_interpreter(["AD&lt;br&gt;interpreter"]) --&gt; derivative_jaxpr["Derivative&lt;br&gt;Jaxpr"] --&gt; eval_interpreter(["Evaluation&lt;br&gt;interpreter"]) --&gt; derivative_function["Derivative&lt;br&gt;function"]
-  classDef data font-size:150%;
-  classDef transforms font-size:150%,fill:#333,color:#eee;
+  classDef data font-size:130%;
+  classDef transforms font-size:130%,fill:#333,color:#eee;
   class function,original_jaxpr,derivative_jaxpr,derivative_function data;
   class tracer,ad_interpreter,eval_interpreter transforms;
 </pre>
@@ -1189,7 +1189,7 @@ jitted_f(x)=Array(42., dtype=float32)</code></pre>
         // specified using percentage units.
         width: 1050,
 
-        height: 750,
+        height: 720,
 
         // Factor of the display size that should remain empty around the content
         margin: 0.15,
