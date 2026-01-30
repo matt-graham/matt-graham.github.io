@@ -206,20 +206,17 @@
         <p class="author">Matt Graham <a href="https://matt-graham.github.io">&lt;matt-graham.github.io&gt;</a></p>
         <p class="institute" style="font-size: 80%; color: #999;">UCL Centre for Advanced Research Computing</p>
     </section>
-<section id="what-is-jax" class="slide level2">
+<section id="what-is-jax" class="slide level2 nostretch">
 <h2>🤔 What is JAX?</h2>
-
-<img data-src="https://upload.wikimedia.org/wikipedia/commons/8/86/Google_JAX_logo.svg" class="quarto-figure quarto-figure-center r-stretch" style="width:25.0%" alt="JAX logo"><blockquote>
-<p>JAX is a Python library for accelerator-oriented array computation and program transformation, designed for <strong>high-performance numerical computing</strong> and large-scale machine learning.</p>
-</blockquote>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://upload.wikimedia.org/wikipedia/commons/8/86/Google_JAX_logo.svg" class="quarto-figure quarto-figure-center" style="width:30.0%" alt="JAX logo"></p>
+</figure>
+</div>
+<p>JAX is a Python library for <strong>high-performance numerical computing</strong> and large scale machine learning.</p>
 <div class="incremental-stack r-stack top-align">
 <div class="fragment fade-out" data-fragment-index="1">
-&nbsp;
-</div>
-<div class="fragment  fade-in-then-out" data-fragment-index="1">
-JAX
-
-started
+Started
 
 as
 
@@ -253,7 +250,7 @@ and
 
 XLA.
 </div>
-<div class="fragment  fade-in-then-out" data-fragment-index="2">
+<div class="fragment  fade-in-then-out" data-fragment-index="1">
 Early
 
 version
@@ -272,11 +269,9 @@ a
 
 <a href="https://mlsys.org/Conferences/2019/doc/2018/146.pdf">SysML 2018 paper</a>
 
-<em>Compiling machine learning programs via high-level tracing</em>
-.
-</div>
-<div class="fragment  fade-in-then-out" data-fragment-index="3">
-Initial
+with
+
+initial
 
 (Apache-2.0)
 
@@ -284,19 +279,13 @@ open-source
 
 release
 
-on
-
-GitHub
-
-was
-
 in
 
 October
 
 2018.
 </div>
-<div class="fragment fade-in" data-fragment-index="4">
+<div class="fragment fade-in" data-fragment-index="2">
 Since
 
 then
@@ -328,9 +317,6 @@ downstream
 ecosystem.
 </div>
 </div>
-<div class="footer">
-<p>Source: https://docs.jax.dev</p>
-</div>
 </section>
 <section id="key-features" class="slide level2">
 <h2>✨ Key features</h2>
@@ -342,28 +328,7 @@ ecosystem.
 </ul>
 </div>
 </section>
-<section id="my-jax-experience" class="slide level2">
-<h2>👤 My JAX experience</h2>
-<p>My main experience with JAX is from developing downstream Python packages building on its functionality.</p>
-<div class="fragment">
-<div class="columns">
-<div class="column fragment" style="text-align: center;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="https://raw.githubusercontent.com/matt-graham/mici/refs/heads/main/images/mici-logo-square.svg" class="quarto-figure quarto-figure-center" style="width:43.0%" alt="Mici logo"></p>
-</figure>
-</div>
-<p><a href="https://github.com/matt-graham/mici">Markov chain Monte Carlo methods for differentiable generative models</a></p>
-</div><div class="column fragment" style="text-align: center;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="https://raw.githubusercontent.com/astro-informatics/s2fft/refs/heads/main/docs/assets/sax_logo.png" class="quarto-figure quarto-figure-center" style="width:50.0%" alt="S2FFT logo"></p>
-</figure>
-</div>
-<p><a href="https://github.com/astro-informatics/s2fft">s2fft: Differentiable and accelerated spherical transforms</a></p>
-</div></div>
-</div>
-</section>
+
 <section id="api-and-architecture" class="slide level2">
 <h2>🏗️ API and architecture</h2>
 <p>JAX’s interface and technology stack consists of</p>
@@ -371,8 +336,9 @@ ecosystem.
 <ul>
 <li><span class="fragment" data-fragment-index="1">• <code>jax</code> package’s public API,</span></li>
 <li><span class="fragment" data-fragment-index="2">• <code>jax</code> package internals and support libraries,</span></li>
-<li><span class="fragment" data-fragment-index="3">• OpenXLA components used for compilation,</span></li>
-<li><span class="fragment" data-fragment-index="4">• multiple supported device backends.</span></li>
+<li><span class="fragment" data-fragment-index="3">• OpenXLA components used for compilation.</span> <!--
+- [• multiple supported device backends.]{.fragment fragment-index="4"}
+--></li>
 </ul>
 </div>
 <div class="r-stack">
@@ -553,13 +519,19 @@ block-beta
 </div>
 </div>
 </div>
-<div class="fragment" style="width: 100%" data-fragment-index="4">
-<div class="cell" data-reveal="true" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<pre class="mermaid mermaid-js">%%{init: {'themeVariables': { 'fontSize': '50px'}}}%%
+<!--
+:::{.fragment style="width: 100%" fragment-index="4"}
+
+::::::{.cell reveal=true layout-align="default"}
+
+:::::{.cell-output-display}
+
+::::{}
+`<figure class=''>`{=html}
+
+:::{}
+
+<pre class="mermaid mermaid-js">%%{init: {&#39;themeVariables&#39;: { &#39;fontSize&#39;: &#39;50px&#39;}}}%%
 block-beta
   columns 6
   jax
@@ -567,23 +539,23 @@ block-beta
     columns 1
     block:1
       columns 5
-      jax_numpy["jax.numpy"]
-      jax_scipy["jax.scipy"]
-      jax_nn["jax.nn"]
-      jax_random["jax.random"]
-      jax_image["jax.image"]
+      jax_numpy[&quot;jax.numpy&quot;]
+      jax_scipy[&quot;jax.scipy&quot;]
+      jax_nn[&quot;jax.nn&quot;]
+      jax_random[&quot;jax.random&quot;]
+      jax_image[&quot;jax.image&quot;]
     end
-    jax_lax["jax.lax"]:1
+    jax_lax[&quot;jax.lax&quot;]:1
   end
   block:extension_api:2
     columns 3
-    jax_extend["jax.extend"]
-    jax_ffi["jax.ffi"]
-    jax_dlpack["jax.dlpack"]
+    jax_extend[&quot;jax.extend&quot;]
+    jax_ffi[&quot;jax.ffi&quot;]
+    jax_dlpack[&quot;jax.dlpack&quot;]
   end
   block:internals:6
     columns 4
-    jax_src["jax._src"]
+    jax_src[&quot;jax._src&quot;]
     jaxlib
     jax_cuda_plugin
     jax_rocm_plugin
@@ -591,7 +563,7 @@ block-beta
   block:openxla:6
     columns 3
     StableHLO
-    OpenXLA["XLA compilers"]
+    OpenXLA[&quot;XLA compilers&quot;]
     PJRT 
   end
   block:devices:6
@@ -606,12 +578,13 @@ block-beta
   class StableHLO,OpenXLA,PJRT nonfocused
   class CPU,TPU,GPU focused
 </pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</div>
+:::
+`</figure>`{=html}
+::::
+:::::
+::::::
+:::
+-->
 </div>
 <aside class="notes">
 <p>The JAX public API consists of</p>
@@ -648,23 +621,31 @@ block-beta
 </section>
 <section id="array-api-standard" class="slide level2">
 <h2>🔢 Array API standard</h2>
-<p>One of main entrypoints to JAX is via <code>jax.numpy</code> module which provides a reimplementation of NumPy API.</p>
-<div id="6a9bc0bc" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" data-code-line-numbers="1|3-5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="im">import</span> jax.numpy <span class="im">as</span> jnp</span>
-<span id="cb1-2"><a href=""></a></span>
-<span id="cb1-3"><a href=""></a><span class="kw">def</span> log_sum_exp(x):</span>
-<span id="cb1-4"><a href=""></a>    max_x <span class="op">=</span> jnp.<span class="bu">max</span>(x)</span>
-<span id="cb1-5"><a href=""></a>    <span class="cf">return</span> max_x <span class="op">+</span> jnp.log(jnp.<span class="bu">sum</span>(jnp.exp(x <span class="op">-</span> max_x)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="fragment">
+<!--
+
+One of main entrypoints to JAX is via `jax.numpy` module which provides a reimplementation of NumPy API.
+
+::: {#8a95c577 .cell execution_count=1}
+``` {.python .cell-code code-line-numbers="1|3-5"}
+import jax.numpy as jnp
+
+def log_sum_exp(x):
+    max_x = jnp.max(x)
+    return max_x + jnp.log(jnp.sum(jnp.exp(x - max_x)))
+```
+:::
+
+
+. . .
+
+-->
 <p>JAX v0.4.32+ and NumPy v2.0+ support the <a href="https://data-apis.org/array-api">Array API standard</a> allowing writing code which works across array backends.</p>
-</div>
 <div class="fragment">
-<div id="c44871e8" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-code-line-numbers="1,2|3,4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="kw">def</span> log_sum_exp(x):</span>
-<span id="cb2-2"><a href=""></a>    xp <span class="op">=</span> x.__array_namespace__()</span>
-<span id="cb2-3"><a href=""></a>    max_x <span class="op">=</span> xp.<span class="bu">max</span>(x)</span>
-<span id="cb2-4"><a href=""></a>    <span class="cf">return</span> max_x <span class="op">+</span> xp.log(xp.<span class="bu">sum</span>(xp.exp(x <span class="op">-</span> max_x)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="da57b3b6" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" data-code-line-numbers="1,2|3,4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="kw">def</span> log_sum_exp(x):</span>
+<span id="cb1-2"><a href=""></a>    xp <span class="op">=</span> x.__array_namespace__()</span>
+<span id="cb1-3"><a href=""></a>    max_x <span class="op">=</span> xp.<span class="bu">max</span>(x)</span>
+<span id="cb1-4"><a href=""></a>    <span class="cf">return</span> max_x <span class="op">+</span> xp.log(xp.<span class="bu">sum</span>(xp.exp(x <span class="op">-</span> max_x)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </section>
@@ -826,7 +807,7 @@ MLIR
 
 dialect.
 </div>
-<div class="fragment  fade-in-then-out" data-fragment-index="3">
+<div class="fragment fade-in" data-fragment-index="3">
 XLA
 
 then
@@ -862,92 +843,66 @@ new
 Python
 
 function.
-</div>
-<div class="fragment fade-in" data-fragment-index="4">
-The
 
-wrapped
-
-executable
-
-is
-
-<em>cached</em>
-
-under
-
-a
-
-key
-
-depending
-
-on
-
-argument
-
-shapes
-
-and
-
-types,
-
-called
-
-and
-
-its
-
-outputs
-
-returned.
+<!--
+The wrapped executable is _cached_ under a key depending on argument shapes and types, called and its outputs returned.
+-->
 </div>
 </div>
 <div class="fragment">
-<div id="2a949d60" class="cell columns column-output-location" data-execution_count="5">
+<div id="aced3097" class="cell columns column-output-location" data-execution_count="4">
 <div class="column">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" data-code-line-numbers="1-2|3-4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a>f <span class="op">=</span> <span class="kw">lambda</span> x: <span class="dv">2</span> <span class="op">*</span> x.<span class="bu">sum</span>()</span>
-<span id="cb3-2"><a href=""></a>jitted_f <span class="op">=</span> jax.jit(f)</span>
-<span id="cb3-3"><a href=""></a>x <span class="op">=</span> jax.numpy.arange(<span class="fl">7.</span>)</span>
-<span id="cb3-4"><a href=""></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>f(x)<span class="op">=</span><span class="sc">}</span><span class="ch">\n</span><span class="sc">{</span>jitted_f(x)<span class="op">=</span><span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-code-line-numbers="1-2|3-4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a>f <span class="op">=</span> <span class="kw">lambda</span> x: <span class="dv">2</span> <span class="op">*</span> x.<span class="bu">sum</span>()</span>
+<span id="cb2-2"><a href=""></a>jitted_f <span class="op">=</span> jax.jit(f)</span>
+<span id="cb2-3"><a href=""></a>x <span class="op">=</span> jax.numpy.arange(<span class="fl">7.</span>)</span>
+<span id="cb2-4"><a href=""></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>f(x)<span class="op">=</span><span class="sc">}</span><span class="ch">\n</span><span class="sc">{</span>jitted_f(x)<span class="op">=</span><span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column fragment">
 <div class="cell-output cell-output-stdout">
 <pre><code>f(x)=Array(42., dtype=float32)
 jitted_f(x)=Array(42., dtype=float32)</code></pre>
 </div>
 </div></div>
-</div>
-<div class="fragment">
-<p>JAX also provides an interface to perform stages individually</p>
-<div id="eafce7d6" class="cell columns column-output-location" data-execution_count="6">
-<div class="column">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" data-code-line-numbers="1-3|4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a>traced_f <span class="op">=</span> jitted_f.trace(x)</span>
-<span id="cb5-2"><a href=""></a>lowered_f <span class="op">=</span> traced_f.lower()</span>
-<span id="cb5-3"><a href=""></a>compiled_f <span class="op">=</span> lowered_f.<span class="bu">compile</span>()</span>
-<span id="cb5-4"><a href=""></a>traced_f.jaxpr, compiled_f(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div><div class="column fragment">
-<div class="cell-output cell-output-display" data-execution_count="5">
-<div class="ansi-escaped-output">
+<!--
+. . .
+
+JAX also provides an interface to perform stages individually
+
+::: {#29e8bc6b .cell output-location='column-fragment' execution_count=5}
+``` {.python .cell-code code-line-numbers="1-3|4"}
+traced_f = jitted_f.trace(x)
+lowered_f = traced_f.lower()
+compiled_f = lowered_f.compile()
+traced_f.jaxpr, compiled_f(x)
+```
+
+::: {.cell-output .cell-output-display execution_count=5}
+
+::: {.ansi-escaped-output}
+```{=html}
 <pre>({ <span class="ansi-blue-fg ansi-bold">lambda </span>; a<span class="ansi-magenta-fg">:f32[7]</span>. <span class="ansi-blue-fg ansi-bold">let
 </span>    b<span class="ansi-magenta-fg">:f32[]</span> = reduce_sum[axes=(0,) out_sharding=None] a
     c<span class="ansi-magenta-fg">:f32[]</span> = mul 2.0:f32[] b
   <span class="ansi-blue-fg ansi-bold">in </span>(c,) },
  Array(42., dtype=float32))</pre>
-</div>
-</div>
-</div></div>
+```
+:::
+
+:::
+:::
+
+
+-->
 </div>
 </section>
 <section id="automatic-differentiation-ad" class="slide level2">
 <h2>🇩 Automatic differentiation (AD)</h2>
 <p>JAX also provides transformations for automatically computing derivatives of a function.</p>
 <div class="fragment">
-<div id="fbf9f24b" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" data-code-line-numbers="1|2|3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a>grad_log_sum_exp <span class="op">=</span> jax.grad(log_sum_exp)</span>
-<span id="cb6-2"><a href=""></a>hessian_log_sum_exp <span class="op">=</span> jax.hessian(log_sum_exp)</span>
-<span id="cb6-3"><a href=""></a>grad_log_sum_exp(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="c8208d47" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" data-code-line-numbers="1|2|3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a>grad_log_sum_exp <span class="op">=</span> jax.grad(log_sum_exp)</span>
+<span id="cb4-2"><a href=""></a>grad_log_sum_exp(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="cell fragment" data-execution_count="7">
+<div class="cell fragment" data-execution_count="6">
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>Array([0.0015683 , 0.00426308, 0.01158826, 0.03150015, 0.0856263 ,
        0.23275642, 0.6326975 ], dtype=float32)</code></pre>
@@ -981,8 +936,7 @@ jitted_f(x)=Array(42., dtype=float32)</code></pre>
 <section id="sharp-edges" class="slide level2">
 <h2>🔪 Sharp edges</h2>
 <ul>
-<li class="fragment">Default datatypes and promotion rules tailored for accelerator use - <code>jax_enable_x64</code> configuration option gives more NumPy like behaviour.</li>
-<li class="fragment">Functional programming style - transformed functions should be pure with no side effects.</li>
+<li class="fragment">Default datatypes and promotion rules tailored for accelerator use - <code>jax_enable_x64</code> configuration option gives more NumPy like behaviour. <!-- - Functional programming style - transformed functions should be pure with no side effects. --></li>
 <li class="fragment">JAX arrays are immutable - indexed updates via <code>at</code> methods, e.g.&nbsp;<code>array = array.at[indices].set(values)</code>.</li>
 <li class="fragment">JIT compilation requires traced control flow depends only shapes and datatypes of non-static array arguments <em>and</em> that all intermediate and output arrays have static shapes.</li>
 </ul>
@@ -992,8 +946,9 @@ jitted_f(x)=Array(42., dtype=float32)</code></pre>
 <ul>
 <li class="fragment">If you are already familiar with NumPy, JAX offers an accessible and intuitive route to exploiting (multi-vendor) GPU acceleration and automatic differentiation.</li>
 <li class="fragment">Writing numerical code using Array API gives support across NumPy, JAX and other array libraries with minimal effort.</li>
-<li class="fragment">Requirement to be able to trace functions to apply (some) JAX transforms puts some constraints on use of control flow.</li>
-<li class="fragment">JAX’s functional programming style and structured control primitives can take a bit of getting used to!</li>
+<li class="fragment">Requirement to be able to trace functions to apply (some) JAX transforms puts some constraints on use of control flow. <!--
+- JAX's functional programming style and structured control primitives can take a bit of getting used to!
+--></li>
 </ul>
 </section>
 <section id="thank-you-for-listening" class="slide level2" data-visibility="uncounted">
