@@ -210,10 +210,10 @@
 <h2>🤔 What is JAX?</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="https://upload.wikimedia.org/wikipedia/commons/8/86/Google_JAX_logo.svg" class="quarto-figure quarto-figure-center" style="width:30.0%" alt="JAX logo"></p>
+<p><img data-src="images/jax-logo.svg" class="quarto-figure quarto-figure-center" style="width:30.0%" alt="JAX logo"></p>
 </figure>
 </div>
-<p>JAX is a Python library for <strong>high-performance numerical computing</strong> and large scale machine learning.</p>
+<p>JAX is a Python library for large scale machine learning and <strong>high-performance numerical computing</strong>.</p>
 <div class="incremental-stack r-stack top-align">
 <div class="fragment fade-out" data-fragment-index="1">
 Started
@@ -327,6 +327,26 @@ ecosystem.
 <li class="fragment">🚀 <strong>Acceleration</strong>: Allows easily executing the same code on CPUs and accelerator devices such as GPUs and TPUs.</li>
 </ul>
 </div>
+</section>
+<section id="my-jax-experience" class="slide level2">
+<h2>👤 My JAX experience</h2>
+<p>My main experience with JAX is from developing downstream Python packages building on its functionality.</p>
+<div class="columns">
+<div class="column" style="text-align: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/mici-logo-square.svg" class="quarto-figure quarto-figure-center" style="width:43.0%" alt="Mici logo"></p>
+</figure>
+</div>
+<p><a href="https://github.com/matt-graham/mici">Markov chain Monte Carlo methods for differentiable generative models</a></p>
+</div><div class="column" style="text-align: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/s2fft-logo.png" class="quarto-figure quarto-figure-center" style="width:50.0%" alt="S2FFT logo"></p>
+</figure>
+</div>
+<p><a href="https://github.com/astro-informatics/s2fft">s2fft: Differentiable and accelerated spherical transforms</a></p>
+</div></div>
 </section>
 <section id="api-and-architecture" class="slide level2">
 <h2>🏗️ API and architecture</h2>
@@ -554,7 +574,7 @@ block-beta
 <h2>🔢 Array API standard</h2>
 <p>JAX v0.4.32+ and NumPy v2.0+ support the <a href="https://data-apis.org/array-api">Array API standard</a> allowing writing code which works across array backends.</p>
 <div class="fragment">
-<div id="215eb2c9" class="cell" data-execution_count="1">
+<div id="215eb2c9" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" data-code-line-numbers="1,2|3,4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="kw">def</span> log_sum_exp(x):</span>
 <span id="cb1-2"><a href=""></a>    xp <span class="op">=</span> x.__array_namespace__()</span>
 <span id="cb1-3"><a href=""></a>    max_x <span class="op">=</span> xp.<span class="bu">max</span>(x)</span>
@@ -759,7 +779,7 @@ function.
 </div>
 </div>
 <div class="fragment">
-<div id="5398c80b" class="cell columns column-output-location" data-execution_count="3">
+<div id="5398c80b" class="cell columns column-output-location" data-execution_count="4">
 <div class="column">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-code-line-numbers="1-2|3-4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a>f <span class="op">=</span> <span class="kw">lambda</span> x: <span class="dv">2</span> <span class="op">*</span> x.<span class="bu">sum</span>()</span>
 <span id="cb2-2"><a href=""></a>jitted_f <span class="op">=</span> jax.jit(f)</span>
@@ -777,11 +797,11 @@ jitted_f(x)=Array(42., dtype=float32)</code></pre>
 <h2>🇩 Automatic differentiation (AD)</h2>
 <p>JAX also provides transformations for automatically computing derivatives of a function.</p>
 <div class="fragment">
-<div id="3b0030cb" class="cell" data-execution_count="4">
+<div id="3b0030cb" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" data-code-line-numbers="1|2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a>grad_log_sum_exp <span class="op">=</span> jax.grad(log_sum_exp)</span>
 <span id="cb4-2"><a href=""></a>grad_log_sum_exp(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="cell fragment" data-execution_count="4">
+<div class="cell fragment" data-execution_count="5">
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>Array([0.0015683 , 0.00426308, 0.01158826, 0.03150015, 0.0856263 ,
        0.23275642, 0.6326975 ], dtype=float32)</code></pre>
